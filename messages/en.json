@@ -1,0 +1,136 @@
+{
+  "Header": {
+    "home": "Home",
+    "program": "Program",
+    "tracks": "Tracks",
+    "success_stories": "Success Stories",
+    "gallery": "Gallery",
+    "faq": "FAQ",
+    "register_now": "Register Now",
+    "login": "Log In"
+  },
+  "HeroSection": {
+    "title_start": "Launch your career with the",
+    "brand_name": "Khareej Qader",
+    "description": "A practical training program designed for university students, helping you acquire real skills, carry out tasks under the supervision of trainers, and obtain a certificate that qualifies you for the job market.",
+    "register_button": "Register Now",
+    "learn_more": "Learn more about the program",
+    "graduate_connect": "Graduate Connect",
+    "industry_mentors": "Industry Mentors"
+  },
+  "About": {
+    "title": "Learn about Khareej Qader Program",
+    "subtitle": "The most comprehensive specialized training program in the region to support your career ambition.",
+    "description": "We are here to move you from university seats to the field of the labor market with confidence and professionalism.",
+    "play_video": "Watch the introductory video"
+  },
+  "HowItWorks": {
+    "title": "How does Khareej Qader Program work?",
+    "subtitle": "Simple steps that lead you to your professional goal and make you able to compete.",
+    "step1_title": "Registration and Selection",
+    "step1_desc": "Apply via the website and we will review your application and choose the most suitable according to the criteria.",
+    "step2_title": "Personal Interview",
+    "step2_desc": "An appointment will be set for a personal interview to assess your skills and passion to join.",
+    "step3_title": "Practical Training",
+    "step3_desc": "Your intensive training journey will begin with expert trainers and real practical applications.",
+    "step4_title": "Graduation and Launch",
+    "step4_desc": "You will receive an accredited certificate and start your career journey with confidence in the labor market."
+  },
+  "Features": {
+    "title": "Why is Khareej Qader the perfect choice for you?",
+    "subtitle": "We provide you with an integrated environment that guarantees your professional and technical excellence.",
+    "f1_title": "Expert and Practitioner Trainers",
+    "f1_desc": "Trainers with extensive experience in the Gulf and global labor market.",
+    "f2_title": "Advanced Training Curricula",
+    "f2_desc": "Training content that keeps pace with the latest technical and global requirements.",
+    "f3_title": "Professionally Certified Certificates",
+    "f3_desc": "A certificate that enhances your CV and greatly supports your employment opportunities.",
+    "f4_title": "Interactive Training Environment",
+    "f4_desc": "Direct interaction and practical applications on real projects on the ground.",
+    "f5_title": "Wide Professional Networking Opportunities",
+    "f5_desc": "A strong network of relationships with major companies and leading institutions.",
+    "f6_title": "Professional Support and Continuous Follow-up",
+    "f6_desc": "Post-graduation follow-up to help you get the best opportunities."
+  },
+  "Tracks": {
+    "title": "Explore Training Tracks",
+    "subtitle": "Choose the path that suits your passion and start your journey now.",
+    "track1": "Web Development",
+    "track1_desc": "Learn to build modern websites and applications using the latest technologies such as React and Node.js from start to professional.",
+    "track1_duration": "12 Weeks",
+    "track2": "UI/UX Design",
+    "track2_desc": "Design professional user experiences and attractive, easy-to-use interfaces by learning the basics of visual research and prototyping.",
+    "track2_duration": "10 Weeks",
+    "track3": "Digital Marketing",
+    "track3_desc": "Learn campaign management, performance analysis, and achieving effective marketing results using advanced analysis tools and social platforms.",
+    "track3_duration": "8 Weeks",
+    "weeks": "Weeks",
+    "register": "Register for Track",
+    "prev_label": "Previous track",
+    "next_label": "Next track",
+    "aria_label_template": "Go to slide [index]"
+  },
+  "Testimonials": {
+    "title": "Real Success Stories from our Students",
+    "subtitle": "We are proud of what our graduates have achieved in their careers.",
+    "quote1": "I learned how to think as a designer, not just how to use tools. The methodology followed completely changed my perspective on user experience.",
+    "name1": "Sarah Ahmed",
+    "role1": "Interior Design",
+    "badge1": "Got first Freelance opportunity"
+  },
+  "News": {
+    "smallSubtitle": "News in Khareej Qader",
+    "title": "Latest News and Opportunities",
+    "subtitle": "Stay informed about everything new in the program and professional opportunities.",
+    "read_more": "Read more",
+    "view_all": "View all news",
+    "news1_title": "Launch of the New AI Track",
+    "news1_date": "March 24, 2024",
+    "news1_desc": "Join now to learn the fundamentals of AI and how to apply them in the modern job market.",
+    "news2_title": "Start of Phase Two Practical Training",
+    "news2_date": "March 18, 2024",
+    "news2_desc": "We announce the start of live practical training sessions with elite technical experts.",
+    "news3_title": "Registration Open for the New Cohort",
+    "news3_date": "March 12, 2024",
+    "news3_desc": "The opportunity is now available to join the Khareej Qader program. Start your professional journey."
+  },
+  "Gallery": {
+    "title": "Moments from Khareej Qader",
+    "subtitle": "Special moments from training, workshops, and graduation ceremonies.",
+    "image_title": "Technical Workshop",
+    "prev_label": "Previous Page",
+    "next_label": "Next Page",
+    "aria_label_template": "Go to page [index]"
+  },
+  "FAQ": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Answers to the most common questions you may have about the program",
+    "q1": "How can I join the program?",
+    "a1": "You can apply by clicking on the 'Register Now' button and filling in the required data.",
+    "q2": "What are the admission criteria?",
+    "a2": "We look for passion, seriousness, and commitment to attending accredited training hours.",
+    "q3": "Is the program for graduates only?",
+    "a3": "The program is specifically for final-year students and fresh graduates."
+  },
+  "CTA": {
+    "title": "Ready to start your journey?",
+    "subtitle": "Register now to be part of the next batch and change your professional future.",
+    "button": "Register Now"
+  },
+  "Footer": {
+    "description": "Khareej Qader - Your real gateway to the Gulf and global labor market. We qualify you to be the first choice for companies.",
+    "quick_links": "Quick Links",
+    "contact_us": "Contact Us",
+    "rights": "All rights reserved © 2024 for Khareej Qader Program"
+  },
+  "HeroStats": {
+    "students": "Students",
+    "graduates": "Graduates",
+    "projects": "Projects",
+    "trainers": "Trainers",
+    "students_count": "500+",
+    "graduates_count": "100+",
+    "projects_count": "50+",
+    "trainers_count": "10+"
+  }
+}
