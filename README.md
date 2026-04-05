@@ -1,36 +1,100 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Kharij Qader (خريج قادر) - تفاصيل وبيئة المشروع
 
-## Getting Started
+## 📌 نبذة عن المشروع
+مشروع "خريج قادر" هو منصة تعليمية تهدف إلى سد الفجوة بين الحياة الأكاديمية وسوق العمل. توفر المنصة مسارات تدريبية متخصصة (مثل تطوير الويب، التصميم، التسويق)، بإشراف خبراء من الصناعة، وتتضمن مشاريع عملية تؤهل الخريجين للحصول على شهادات معتمدة.
 
-First, run the development server:
+تشتمل هذه الواجهة (Frontend) للمشروع على واجهات مبنية باستخدام **Next.js (App Router)** تعكس تصميمين (عربي وإنجليزي حسب الـ Wireframes).
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## 🏗️ الهيكل المعماري للمشروع (Project Structure)
+تم تقسيم المشروع بناءً على منهجية **Component-Driven Architecture** لتسهيل الصيانة وإعادة الاستخدام وفصل المنطق (Logic) عن واجهة العرض (UI):
+
+```text
+khareej-qader/
+├── public/                 # الصور، الأيقونات (SVGs)، والخطوط المحلية إن وجدت
+├── app/
+│   ├── [locale]/           # لدعم تعدد اللغات (العربية RTL والإنجليزية LTR) (إن لزم)
+│   │   ├── layout.tsx      # التخطيط الأساسي (Header, Footer, Providers)
+│   │   └── page.tsx        # الصفحة الرئيسية (Landing Page Wrapper)
+├── components/
+│   ├── layout/             # مكونات التخطيط الثابتة الأساسية
+│   │   ├── Header.tsx      # شريط التنقل العلوي (النافبار)
+│   │   └── Footer.tsx      # التذييل
+│   ├── ui/                 # مكونات تفاعلية وأساسية مُولّدة بواسطة (Shadcn UI)
+│   │   ├── button.tsx      # أزرار النظام بأشكالها (Shadcn Component)
+│   │   ├── card.tsx        # حاويات البطاقات (Shadcn Component)
+│   │   ├── badge.tsx       # علامات صغيرة (Shadcn Component)
+│   │   └── SectionTitle.tsx# مكون مخصص لعنوان القسمووصفه
+│   ├── sections/           # أقسام الصفحة الرئيسية (كبيرة الحجم ومستقلة)
+│   │   ├── HeroSection.tsx
+│   │   ├── StatsSection.tsx
+│   │   ├── VideoSection.tsx
+│   │   ├── FeaturesSection.tsx
+│   │   ├── tracks/                      # Specialized Tracking feature
+│   │   │   ├── index.tsx                # Orchestrator
+│   │   │   ├── use-track-slider.ts      # Logic Hook
+│   │   │   └── ... (atomic components)
+│   │   └── HowItWorksSection.tsx
+├── lib/
+│   └── utils.ts            # دوال مساعدة (مثل دمج كلاسات Tailwind عبر clsx و tailwind-merge)
+└── styles/
+    └── globals.css         # إعدادات TailwindCSS والمتغيرات العامة
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🎨 المنهجيات والتقنيات المتبعة (Methodologies & Tech Stack)
+بصفتي Senior Frontend Engineer، تم اعتماد أحدث وأفضل المعايير لتطوير هذا المشروع:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. **إطار العمل واللغة:** Next.js (App Router) مع TypeScript لضمان التنميط القوي (Strict Typing) وتجنب أخطاء وقت التشغيل.
+2. **التصميم والتنسيق:** TailwindCSS. يوفر سرعة في بناء واجهات متجاوبة (Mobile-First) ويتيح دعم الـ RTL بسهولة (باستخدام خصائص `start` و `end` بدلاً من `left` و `right`، مثل `ms-4` أو `ps-6`).
+3. **مكتبة المكونات الأساسية (UI Components):** **Shadcn UI**. سيتم بناء كل عناصر الـ UI (الأزرار، البطاقات، والعلامات) باستخدام مكتبة القوالب Shadcn UI، مما يوفر وقت التطوير مع ضمان مرونة عالية وتوافقية (Accessibility)، وتخصيصها بسهولة عبر Tailwind لتلائم الهوية البصرية.
+4. **تعدد اللغات (i18n):** بناءً على التصميم (توجد نسخة عربية ونسخة إنجليزية)، سيراعى هيكل التطبيق وقابليته للتوسع لدعم الـ (Localization) وتغيير اتجاه الصفحة.
+5. **تجزئة الأقسام (Section Composability):** تجنب تكدس الكود في صفحة `page.tsx`، بل يتم تحويلها إلى مجرد مجمع (Wrapper) يستدعي المكونات النظيفة من مجلد `sections`.
+5. **قابلية الصيانة (Maintainability):** بناء واجهة سهلة التعديل؛ إذا أردنا تغيير تصميم الأزرار، نغير في ملف `Button.tsx` فقط وسينعكس ذلك على النظام كله.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🧩 المكونات المكررة (Reusable Components)
+من خلال تحليل التصميمين (الـ Body الإنجليزي والـ Wireframe العربي)، تم استخراج المكونات التالية ليتم برمجتها مرة واحدة واستخدامها مراراً:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **الأزرار (Button Component):** سيتم توليده باستخدام `shadcn/ui` وتعديل متغيراته (Variants) بأحجام وألوان متعددة. (Primary للزر الأساسي مثل "سجل الآن"، و Outline / Ghost لأزرار مثل "تعرف على البرنامج" أو "تسجيل الدخول").
+- **عناوين الأقسام (SectionHeader Component):** يتكون من عنوان رئيسي بخط عريض، وربما وصف تحته، يمكن التحكم بمحاذاته (مكرر في أقسام: المميزات، المسارات،، كيف يعمل البرنامج).
+- **بطاقة المسار (TrackCard Component):** تتضمن مساحة علوية (Placeholder) للصورة العرضية، علامات للمدة (10 Weeks)، عنوان المسار (ويب، تصميم، تسويق)، النص الوصفي، وزر (Enroll Now).
+- **بطاقة الميزة (FeatureCard Component):** تتكون من أيقونة + عنوان + نص صغير (تُستخدم في قسم Why Choose Kharij Qader).
+- **عنصر الإحصائية (StatItem / StatCard Component):** يعرض الرقم المميز (مثل +50 أو 500+) مع عنوان نصي وصورة/أيقونة خفيفة، ويستخدم إما كعناصر عائمة بجوار تصميم الـ Hero أو كشريط إحصائيات مستقل (Grid).
+- **مكون الخطوات (StepItem Component):** دائرة بها رقم (1, 2, 3) أو أيقونة، مع أسهم متقطعة منحنية للربط بين الخطوات ضمن قسم (How To Get Started).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 📋 خطة بناء الصفحة ورسم خريطة الأقسام (Page Breakdown Plan)
+لبرمجة هذه الصفحة بانسيابية واحترافية، سيتم العمل بقسم تلو الآخر وربطهم في `page.tsx` كالتالي:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. **`Navbar` (شريط التنقل):**
+   - الشعار (Logo)، الروابط (Home, Tracks, Gallery...)، وأزرار الدخول والتسجيل.
+2. **`HeroSection` (واجهة الانطلاق):**
+   - العناوين الرئيسية، النصوص التحفيزية ("Empower Your Future").
+   - أزرار الدعوة للعمل (Calls to Action).
+   - قسم الصورة الإيضاحية اليمنى مع الـ Floating Stats Cards.
+3. **`StatsSection` (الإحصائيات):**
+   - (كما في التصميم العربي) شريط يعرض مؤشرات النجاح (+10 مسارات، +50 مشروع، الخ) بتنسيق شبكي متجاوب.
+4. **`VideoSection` (فيديو تعريفي):**
+   - تصميم شاشة لابتوب وبداخله مُشغّل فيديو للتعريف بالبرنامج.
+5. **`FeaturesSection` (قسم المميزات):**
+   - العناوين مع استدعاء `FeatureCard` ثلاث مرات (Expert Mentors, Flexible Learning, Industry Certified).
+6. **`TracksSection` (المسارات المتخصصة):**
+   - شبكة (Grid) تعرض `TrackCard` لكل تخصص تدريبي.
+7. **`HowItWorksSection` (آلية العمل / كيف تبدأ):**
+   - شرح الخطوات (تسجيل، تعلم، احصل على شهادة) متصلة بأسهم توضيحية.
+8. **`Footer` (تذييل الموقع):**
+   - (بالرغم من عدم ظهوره كاملاً) سيكون هناك تذييل يحتوي على الحقوق والروابط الإضافية.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 💡 ملاحظات للمطور (How to use this Repo & AI Agent)
+- هذا الملف (`README.md`) هو **المصدر الأساسي للحقيقة (Source of Truth)**.
+- **توفير التوكنز (Saving Tokens):** عندما تريد مني (كـ Assistant / Senior Frontend) بناء جزء جديد من الموقع، لا حاجة لإعادة شرح الفكرة؛ فقط قل لي: *"ابنِ قسم الـ HeroSection والمكونات المرتبطة به بناءً على الـ README"* وسأفهم السياق، التقنيات، والمكونات من هنا مباشرةً.
+- سأقوم دائماً بوضع كل مكون في مساره الصحيح الموصوف في قسم "Project Structure" وبنفس المنهجيات المذكورة.
+#   K h a r e e j - Q a d e r  
+ 
