@@ -27,6 +27,8 @@ export const metadata: Metadata = {
   description: "برنامج تدريبي يهدف إلى تأهيل الخريجين لسوق العمل",
 };
 
+import { ScrollToTopButton } from "@/components/ui/ScrollToTopButton";
+
 export default async function RootLayout({
   children,
   params,
@@ -52,6 +54,7 @@ export default async function RootLayout({
         <NextIntlClientProvider messages={messages}>
           <Header />
           <main className="flex-1">{children}</main>
+          <ScrollToTopButton />
         </NextIntlClientProvider>
       </body>
     </html>
