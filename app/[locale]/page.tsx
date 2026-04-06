@@ -1,15 +1,15 @@
 "use client";
 
-import { HeroSection } from "@/components/sections/HeroSection";
-import { AboutSection } from "@/components/sections/AboutSection";
-import { HowItWorks } from "@/components/sections/HowItWorksSection";
-import { WhyChooseUs } from "@/components/sections/WhyChooseUs";
-import { TracksSection } from "@/components/sections/tracks";
-import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
-import { NewsSection } from "@/components/sections/news";
-import { GallerySection } from "@/components/sections/GallerySection";
-import { FAQSection } from "@/components/sections/FAQSection";
-import { CTASection } from "@/components/sections/CTASection";
+import { HeroSection } from "@/components/sections/Hero";
+import { AboutSection } from "@/components/sections/About";
+import { HowItWorks } from "@/components/sections/HowItWorks";
+import { WhyChooseUsSection } from "@/components/sections/WhyChooseUs";
+import { TracksSection } from "@/components/sections/Tracks";
+import { TestimonialsSection } from "@/components/sections/Testimonials";
+import { NewsSection } from "@/components/sections/News";
+import { GallerySection } from "@/components/sections/Gallery";
+import { FAQSection } from "@/components/sections/FAQ";
+import { CTASection } from "@/components/sections/CTA";
 import { Footer } from "@/components/layout/Footer";
 
 export default function Home() {
@@ -25,7 +25,7 @@ export default function Home() {
       <HowItWorks />
 
       {/* 4. Features Section */}
-      <WhyChooseUs />
+      <WhyChooseUsSection />
 
       {/* 5. Training Tracks */}
       <TracksSection />
