@@ -12,8 +12,9 @@ export function VideoPlayer({ playLabel }: VideoPlayerProps) {
   const { handlePlay, isPlaying } = useVideoPlayer();
 
   return (
-    <div className="relative mx-auto mt-10 md:mt-20 max-w-7xl group overflow-visible">
-      <div className="relative w-full aspect-16/10 md:aspect-[1.6/1] lg:aspect-16/10">
+    <div className="relative mx-auto -mt-10 md:-mt-14 xl:mt-20 max-w-7xl group overflow-visible">
+      <div className="relative w-full aspect-16/10 
+      md:aspect-video xl:aspect-16/10">
         <Image
           src="/images/laptop.png"
           alt="Program Overview Laptop"

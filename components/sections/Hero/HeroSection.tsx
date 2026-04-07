@@ -12,7 +12,7 @@ export function HeroSection() {
   const { ref, controls, variants } = useScrollAnimation({ delay: 0.1 });
 
   return (
-    <motion.section 
+    <motion.section
       ref={ref}
       initial="hidden"
       animate={controls}

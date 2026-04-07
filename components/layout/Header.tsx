@@ -30,7 +30,8 @@ export function Header() {
         backdrop-blur supports-backdrop-filter:bg-white/60 
         xl:h-[100px]">
             <div className="container mx-auto flex items-center justify-between 
-            px-4 md:px-6 xl:px-20 pt-3.5 pb-2.5">
+            px-4 md:px-10 lg:px-10 xl:px-20 pt-3.5 pb-2.5">
+
                 {/* Logo Section */}
                 <div className="flex items-center">
                     <Link href="/" onClick={closeMenu}>
@@ -42,13 +43,13 @@ export function Header() {
                             priority
                             className="object-contain 
                             h-12 md:h-14 lg:h-16 xl:h-[77px] 
-                            w-auto"
+                            w-auto xl:w-[120px]"
                         />
                     </Link>
                 </div>
 
                 {/* Desktop Navigation */}
-                <nav className="hidden lg:flex items-center gap-[30px]">
+                <nav className="hidden lg:flex items-center gap-4 xl:gap-[30px]">
                     {navLinks.map((link) => (
                         <Link
                             key={link.key}
@@ -64,12 +65,12 @@ export function Header() {
                 </nav>
 
                 {/* Actions Section */}
-                <div className="flex items-center gap-2.5">
+                <div className="">
                     <div className="hidden lg:flex items-center gap-2.5">
                         <Button
                             className="bg-brand-primary hover:bg-brand-primary/90
                             text-lg text-white font-semibold shadow-sm transition-colors
-                            w-36 h-14"
+                            w-28 xl:w-36 h-14"
                         >
                             {t("register_now")}
                         </Button>
@@ -77,7 +78,7 @@ export function Header() {
                             variant="outline"
                             className="text-[#0F172A] border-[#CBD5E1] font-medium
                              hover:bg-white transition-colors text-lg
-                             w-40 h-14"
+                             w-32 xl:w-40 h-14"
                         >
                             {t("login")}
                         </Button>
@@ -129,7 +130,7 @@ export function Header() {
                             <Button
                                 onClick={closeMenu}
                                 className="bg-brand-primary hover:bg-brand-dark
-                                text-lg text-white font-bold shadow-md h-[60px] 
+                                text-lg text-white font-bold shadow-md h-[55px] 
                                 w-full sm:w-[200px] rounded-xl transition-all"
                             >
                                 {t("register_now")}
@@ -139,7 +140,7 @@ export function Header() {
                                 variant="outline"
                                 className="border-2 border-brand-primary
                                  text-brand-primary hover:text-brand-dark
-                                 hover:bg-brand-surface text-lg h-[60px] 
+                                 hover:bg-brand-surface text-lg h-[55px] 
                                  w-full sm:w-[270px] rounded-xl font-bold transition-all"
                             >
                                 {t("login")}
