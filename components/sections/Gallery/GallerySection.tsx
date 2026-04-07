@@ -25,8 +25,8 @@ export function GallerySection() {
    const { ref, controls, variants } = useScrollAnimation({ once: false, amount: 0.15, delay: 0.2 });
 
    return (
-      <motion.section 
-         id="gallery" 
+      <motion.section
+         id="gallery"
          ref={ref}
          initial="hidden"
          animate={controls}
@@ -48,7 +48,8 @@ export function GallerySection() {
                   <CarouselContent>
                      {chunkedPages.map((pageGroup, pageIndex) => (
                         <CarouselItem key={pageIndex} className="w-full basis-full">
-                           <div className={`grid ${COLS_TO_CLASS[cols] ?? "grid-cols-4"} gap-4 md:gap-6`}>
+                           <div className={`grid ${COLS_TO_CLASS[cols] ?? "grid-cols-4"} 
+                           gap-4 md:gap-6 p-5`}>
                               {pageGroup.map((item) => (
                                  <GalleryCard key={item.id} item={item} />
                               ))}
