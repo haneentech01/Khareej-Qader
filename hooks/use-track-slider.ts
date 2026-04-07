@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
+import { PanInfo } from "framer-motion";
 
 interface SliderMetrics {
   cardsToShow: number;
@@ -48,11 +49,20 @@ export function useTrackSlider(totalTracks: number, isRTL: boolean) {
     const calculatedCardWidth = (containerWidth - (visibleItems - 1) * currentGap) / visibleItems;
     const calculatedMaxIndex = Math.max(0, totalTracks - visibleItems);
 
-    setMetrics({
-      cardsToShow: visibleItems,
-      cardWidth: calculatedCardWidth,
-      gap: currentGap,
-      maxIndexValue: calculatedMaxIndex
+    setMetrics(() => {
+      const nextMetrics = {
+        cardsToShow: visibleItems,
+        cardWidth: calculatedCardWidth,
+        gap: currentGap,
+        maxIndexValue: calculatedMaxIndex
+      };
+
+      // Correct currentIndex synchronously if it's now out of bounds
+      setCurrentIndex((prevIndex) => 
+        prevIndex > nextMetrics.maxIndexValue ? nextMetrics.maxIndexValue : prevIndex
+      );
+
+      return nextMetrics;
     });
   }, [totalTracks]);
 
@@ -63,12 +73,7 @@ export function useTrackSlider(totalTracks: number, isRTL: boolean) {
     return () => window.removeEventListener("resize", updateMetrics);
   }, [updateMetrics]);
 
-  // Ensure index bounds are respected during layout changes
-  useEffect(() => {
-    if (currentIndex > metrics.maxIndexValue) {
-      setCurrentIndex(metrics.maxIndexValue);
-    }
-  }, [metrics.maxIndexValue, currentIndex]);
+
 
   const handleNext = useCallback(() => {
     setCurrentIndex((prev) => (prev < metrics.maxIndexValue ? prev + 1 : prev));
@@ -82,7 +87,7 @@ export function useTrackSlider(totalTracks: number, isRTL: boolean) {
     setCurrentIndex(index);
   }, []);
 
-  const handleDragEnd = useCallback((_: any, info: any) => {
+  const handleDragEnd = useCallback((_: unknown, info: PanInfo) => {
     const threshold = 50;
     // Invert swipe logic for RTL to keep direction intuitive
     const dragOffset = isRTL ? -info.offset.x : info.offset.x;

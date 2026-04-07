@@ -16,14 +16,13 @@ export function useHeader(navLinks: readonly NavLink[]) {
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
   const closeMenu = () => setIsMenuOpen(false);
 
-  useEffect(() => {
-    const isPageLink = navLinks.some(
-      (link) => !link.href.startsWith("#") && link.href === pathname,
-    );
-    if (isPageLink) {
-      setActiveSection(pathname);
-    }
-  }, [pathname, navLinks]);
+  // Synchronize state during render for page links to avoid cascading renders in useEffect
+  const isPageLink = navLinks.some(
+    (link) => !link.href.startsWith("#") && link.href === pathname,
+  );
+  if (isPageLink && activeSection !== pathname) {
+    setActiveSection(pathname);
+  }
 
   useEffect(() => {
     const handleScroll = () => {

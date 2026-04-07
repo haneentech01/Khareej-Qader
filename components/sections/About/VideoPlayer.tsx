@@ -9,7 +9,7 @@ interface VideoPlayerProps {
 }
 
 export function VideoPlayer({ playLabel }: VideoPlayerProps) {
-  const { handlePlay, isPlaying } = useVideoPlayer();
+  const { handlePlay } = useVideoPlayer();
 
   return (
     <div className="relative mx-auto -mt-10 md:-mt-14 xl:mt-20 max-w-7xl group overflow-visible">

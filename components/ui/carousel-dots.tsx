@@ -4,7 +4,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import { useCarousel } from "./carousel";
 import { cn } from "@/lib/utils";
 
-interface CarouselDotsProps extends React.HTMLAttributes<HTMLDivElement> {}
+type CarouselDotsProps = React.HTMLAttributes<HTMLDivElement>;
 
 /**
  * CarouselDots
@@ -34,8 +34,13 @@ export function CarouselDots({ className, ...props }: CarouselDotsProps) {
   useEffect(() => {
     if (!api) return;
 
-    onInit(api);
-    onSelect(api);
+    // Defer initial synchronization to the next tick to avoid synchronous setState warning
+    // as Embla API values are an external system state available only after mount.
+    Promise.resolve().then(() => {
+      onInit(api);
+      onSelect(api);
+    });
+
     api.on("reInit", onInit).on("reInit", onSelect).on("select", onSelect);
 
     return () => {
