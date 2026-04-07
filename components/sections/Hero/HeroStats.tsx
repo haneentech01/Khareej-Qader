@@ -12,21 +12,24 @@ export function HeroStats({ stats }: HeroStatsComponentProps) {
       shadow-[0_16px_35px_#0F172A0F] border border-gray-50 
       relative z-20">
         <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 
-        gap-x-0 md:gap-x-0 gap-y-12 sm:gap-y-16 xl:gap-0">
+        gap-x-0 md:gap-x-0 gap-y-12 
+        sm:gap-y-16 xl:gap-0">
           {stats.map((stat, index) => (
-            <div key={stat.key} className="relative flex items-center justify-center 
+            <div key={stat.key} className="relative flex items-center 
+            justify-center 
             lg:justify-around group">
-              <div className="flex items-center gap-4 lg:gap-9 transition-transform
-               duration-300 hover:scale-102">
+              <div className="flex items-center gap-4 lg:gap-9 
+              transition-transform
+              duration-300 hover:scale-102">
                 <div className="shrink-0 transition-all duration-300 group-hover:scale-110">
                   <Image src={stat.images} alt={stat.key}
                     width={65} height={65}
-                    className="w-9 h-9 md:w-[65px] md:h-[65px] object-contain"
+                    className="w-9 h-9 md:w-[55px] md:h-[55px] object-contain"
                   />
                 </div>
 
                 <div className="flex flex-col items-center lg:items-start">
-                  <span className="text-2xl md:text-5xl lg:text-[60px] font-bold 
+                  <span className="text-2xl md:text-4xl lg:text-5xl font-bold 
                   text-black leading-none mb-1">
                     {stat.count}
                   </span>

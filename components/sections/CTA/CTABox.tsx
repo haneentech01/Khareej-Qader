@@ -47,13 +47,13 @@ export function CTABox({ title, subtitle, buttonText }: CtaData) {
       <div className="relative z-10 lg:max-w-2xl">
         <motion.h2
           variants={itemVariants}
-          className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-black mb-6 leading-[1.1]"
+          className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-black mb-6 leading-[1.1]"
         >
           {title}
         </motion.h2>
         <motion.p
           variants={itemVariants}
-          className="text-brand-muted text-xl md:text-2xl font-medium max-w-xl mx-auto lg:mx-0 leading-relaxed"
+          className="text-brand-muted text-lg md:text-xl font-medium max-w-xl mx-auto lg:mx-0 leading-relaxed"
         >
           {subtitle}
         </motion.p>

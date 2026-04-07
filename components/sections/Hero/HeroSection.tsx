@@ -21,22 +21,23 @@ export function HeroSection() {
       bg-[url('/images/heroSectionBGMobilePic.png')]
       md:bg-[url('/images/heroSectionBGTablet.png')] 
       lg:bg-[url('/images/heroSectionBG.png')] 
-      pt-8 pb-36 md:pt-16 md:pb-60 xl:pt-24 xl:pb-60 
+      pt-8 pb-36 
+      md:pt-16 md:pb-60 
       bg-cover bg-center overflow-visible"
     >
       <div className="container mx-auto px-5 md:px-10">
         <div className="max-w-[900px]">
           {/* Text Content */}
           <div className="flex flex-col justify-center space-y-6">
-            <h1 className="text-4xl font-bold tracking-tight 
-            md:text-6xl lg:text-[70px] text-balance
-            leading-[55px] md:leading-[90px] lg:leading-[100px]">
+            <h1 className="text-3xl font-bold tracking-tight 
+            md:text-5xl lg:text-6xl text-balance
+            leading-[55px] md:leading-[90px] lg:leading-[80px]">
               {heroData.titleStart} <br className="hidden sm:block" />
               <span className="text-brand-primary">{heroData.brandName}</span>
             </h1>
 
-            <p className="md:w-96 lg:w-full max-w-[610px] text-lg text-brand-muted 
-            md:text-xl xl:text-2xl leading-relaxed">
+            <p className="md:w-96 lg:w-full max-w-[610px] text-brand-muted 
+            md:text-lg xl:text-xl leading-relaxed">
               {heroData.description}
             </p>
 

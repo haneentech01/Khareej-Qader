@@ -12,20 +12,23 @@ interface TrackCardProps extends TrackItem {
 /**
  * TrackCard: A pure presentation component for a single training track.
  */
-export const TrackCard = ({ 
-  name, 
-  desc, 
-  time, 
-  img, 
-  registerText 
+export const TrackCard = ({
+  name,
+  desc,
+  time,
+  img,
+  registerText
 }: TrackCardProps) => {
   return (
     <div className="h-full">
       <div className="bg-white rounded-[22px] 
-        overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.04)] border border-slate-50 
-        transition-all duration-300 hover:shadow-[0_20px_60px_rgba(0,0,0,0.08)]
-        hover:-translate-y-2 group/card p-8 flex flex-col items-start text-start
-        h-full lg:min-h-[580px] w-full mx-auto">
+        overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.04)] 
+        border border-slate-50 
+        transition-all duration-300 
+        hover:shadow-[0_20px_60px_rgba(0,0,0,0.08)]
+        hover:-translate-y-2 group/card p-8 
+        flex flex-col items-start text-start
+        h-full w-full mx-auto">
 
         {/* Track Image Wrapper */}
         <div className="w-full relative h-[210px] shrink-0 

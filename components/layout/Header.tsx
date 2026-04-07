@@ -27,10 +27,9 @@ export function Header() {
     return (
         <header className="sticky top-0 z-50 w-full border-b
         border-[#CBD5E1] bg-white 
-        backdrop-blur supports-backdrop-filter:bg-white/60 
-        xl:h-[100px]">
+        backdrop-blur supports-backdrop-filter:bg-white/60 ">
             <div className="container mx-auto flex items-center justify-between 
-            px-4 md:px-10 lg:px-10 xl:px-20 pt-3.5 pb-2.5">
+            px-4 md:px-10 lg:px-10 xl:px-20">
 
                 {/* Logo Section */}
                 <div className="flex items-center">
@@ -38,12 +37,11 @@ export function Header() {
                         <Image
                             src="/images/logo.png"
                             alt="Kharij Qader Logo"
-                            width={120}
-                            height={77}
+                            width={100}
+                            height={60}
                             priority
                             className="object-contain 
-                            h-12 md:h-14 lg:h-16 xl:h-[77px] 
-                            w-auto xl:w-[120px]"
+                            w-16 md:w-24 xl:w-[90px]"
                         />
                     </Link>
                 </div>
@@ -70,15 +68,15 @@ export function Header() {
                         <Button
                             className="bg-brand-primary hover:bg-brand-primary/90
                             text-lg text-white font-semibold shadow-sm transition-colors
-                            w-28 xl:w-36 h-14"
+                            w-16 lg:w-28 h-12"
                         >
                             {t("register_now")}
                         </Button>
                         <Button
                             variant="outline"
                             className="text-[#0F172A] border-[#CBD5E1] font-medium
-                             hover:bg-white transition-colors text-lg
-                             w-32 xl:w-40 h-14"
+                             hover:bg-slate-50 transition-colors text-lg
+                             w-20 lg:w-40 h-12"
                         >
                             {t("login")}
                         </Button>

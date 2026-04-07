@@ -26,8 +26,8 @@ export function TracksSection() {
   const { ref, controls, variants } = useScrollAnimation({ once: false, amount: 0.15, delay: 0.2 });
 
   return (
-    <motion.section 
-      id="tracks" 
+    <motion.section
+      id="tracks"
       ref={ref}
       initial="hidden"
       animate={controls}
@@ -37,7 +37,7 @@ export function TracksSection() {
       <div className="container mx-auto px-4 md:px-6">
         <SectionHeader namespace="Tracks" />
 
-        <div className="relative group mt-12 px-2 md:px-0 max-w-[1400px] mx-auto">
+        <div className="relative group -mt-10 px-2 md:px-0 max-w-[1400px] mx-auto">
           <Carousel
             opts={{
               direction: isRTL ? "rtl" : "ltr",
@@ -51,7 +51,6 @@ export function TracksSection() {
               {trackData.tracks.map((track, index) => (
                 <CarouselItem
                   key={`${track.name}-${index}`}
-                  // Apply corresponding padding so width calculation bounds perfectly
                   className={`md:basis-1/2 xl:basis-1/3 py-4 ${isRTL ? "pl-0 pr-6" : "pr-0 pl-6"}`}
                 >
                   <TrackCard
