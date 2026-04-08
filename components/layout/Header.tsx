@@ -41,7 +41,7 @@ export function Header() {
                             height={60}
                             priority
                             className="object-contain 
-                            w-16 md:w-24 xl:w-[90px]"
+                            w-16 md:w-24 xl:w-[95px]"
                         />
                     </Link>
                 </div>

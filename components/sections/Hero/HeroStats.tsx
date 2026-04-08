@@ -7,7 +7,7 @@ interface HeroStatsComponentProps {
 
 export function HeroStats({ stats }: HeroStatsComponentProps) {
   return (
-    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
       <div className="bg-white px-0 py-10 md:py-12 lg:py-14 rounded-[40px] 
       shadow-[0_16px_35px_#0F172A0F] border border-gray-50 
       relative z-20">
@@ -24,16 +24,16 @@ export function HeroStats({ stats }: HeroStatsComponentProps) {
                 <div className="shrink-0 transition-all duration-300 group-hover:scale-110">
                   <Image src={stat.images} alt={stat.key}
                     width={65} height={65}
-                    className="w-9 h-9 md:w-[55px] md:h-[55px] object-contain"
+                    className="w-9 h-9 md:w-[45px] md:h-[45px] object-contain"
                   />
                 </div>
 
                 <div className="flex flex-col items-center lg:items-start">
-                  <span className="text-2xl md:text-4xl lg:text-5xl font-bold 
+                  <span className="text-xl md:text-3xl lg:text-4xl font-bold 
                   text-black leading-none mb-1">
                     {stat.count}
                   </span>
-                  <span className="text-brand-muted text-sm md:text-xl 
+                  <span className="text-brand-muted text-sm md:text-lg 
                   font-medium whitespace-nowrap">
                     {stat.label}
                   </span>
@@ -42,10 +42,10 @@ export function HeroStats({ stats }: HeroStatsComponentProps) {
 
               {/* Responsive dividers */}
               {index % 4 !== 0 && (
-                <div className="hidden xl:block absolute right-0 h-28 w-px bg-[#C7C7C7]" />
+                <div className="hidden xl:block absolute right-0 h-24 w-px bg-[#C7C7C7]" />
               )}
               {index % 3 !== 0 && (
-                <div className="hidden lg:block xl:hidden absolute right-0 h-28 w-px bg-[#C7C7C7]" />
+                <div className="hidden lg:block xl:hidden absolute right-0 h-24 w-px bg-[#C7C7C7]" />
               )}
               {index % 2 !== 0 && (
                 <div className="block lg:hidden absolute right-0 h-20 w-px bg-[#C7C7C7]" />
