@@ -17,7 +17,7 @@ export function AboutSection() {
       animate={controls}
       variants={variants}
       id="program"
-      className="bg-white pt-48 pb-0 md:pt-56 lg:pt-64 xl:pt-60 relative overflow-hidden"
+      className="bg-white pt-48 pb-0 md:pt-56 lg:pt-60 xl:pt-40 relative overflow-hidden"
     >
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         {/* Consistent Section Heading */}
