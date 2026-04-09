@@ -18,7 +18,7 @@ export function RegisterForm() {
       transition={{ duration: 0.5 }}
       className="bg-white rounded-[10px] 
       shadow-[0_20px_40px_0x_#0000000D] 
-      p-8 md:py-8 px-11"
+      py-8 md:py-8 px-4 lg:px-11"
     >
       <div className="text-center mb-8">
         <h1 className="text-3xl font-bold text-black mb-2">

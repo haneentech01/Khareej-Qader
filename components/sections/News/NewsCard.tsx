@@ -10,7 +10,7 @@ interface NewsCardProps {
 export const NewsCard = React.memo(({ item, readMoreLabel }: NewsCardProps) => {
   return (
     <div
-      className="group border-r-4 border-r-brand-base
+      className="group border-s-4 border-s-brand-base
       flex flex-col md:flex-row md:items-center justify-between 
       p-8 md:p-10 bg-white rounded-2xl
       shadow-[0_5px_20px_rgba(0,0,0,0.02)]

@@ -18,7 +18,8 @@ khareej-qader/
 │   │   ├── layout.tsx      # التخطيط الأساسي (Root Providers)
 │   │   ├── (main)/         # مجموعة مسارات الصفحات الرئيسية (مع Header)
 │   │   │   ├── layout.tsx
-│   │   │   └── page.tsx    # الصفحة الرئيسية
+│   │   │   ├── page.tsx    # الصفحة الرئيسية
+│   │   │   └── news/       # News & Opportunities Page
 │   │   └── (auth)/         # مجموعة مسارات صفحات التوثيق (بدون Header)
 │   │       ├── layout.tsx
 │   │       ├── login/      # صفحة تسجيل الدخول
