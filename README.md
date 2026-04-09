@@ -1,8 +1,3 @@
-تمام — هذا **README كامل + منسق 100% + Production / GitHub Ready**
-انسخه كما هو بدون تعديل 👇
-
----
-
 ````md
 # 🚀 Kharij Qader (خريج قادر)
 
