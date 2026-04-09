@@ -156,5 +156,14 @@
     "graduates_count": "100+",
     "projects_count": "50+",
     "trainers_count": "10+"
+  },
+  "NewsPage": {
+    "breadcrumb_home": "Home",
+    "breadcrumb_news": "News and Opportunities",
+    "search_placeholder": "Search for news...",
+    "page_title": "Latest News and Opportunities",
+    "page_subtitle": "Stay informed about the latest developments and educational and professional opportunities available at Areisto Academy.",
+    "pagination_prev": "Previous",
+    "pagination_next": "Next"
   }
 }

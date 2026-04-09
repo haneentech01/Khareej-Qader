@@ -165,5 +165,14 @@
     "benefit2": "تدريب عملي",
     "benefit3": "مشاريع حقيقية",
     "benefit4": "إشراف مباشر"
+  },
+  "NewsPage": {
+    "breadcrumb_home": "الرئيسية",
+    "breadcrumb_news": "الأخبار والفرص",
+    "search_placeholder": "ابحث عن الخبر...",
+    "page_title": "أحدث الأخبار والفرص",
+    "page_subtitle": "ابق على اطلاع دائم بآخر المستجدات والفرص التعليمية والمهنية المتاحة في أكاديمية أريستو.",
+    "pagination_prev": "السابق",
+    "pagination_next": "التالي"
   }
 }

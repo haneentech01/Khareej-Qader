@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { CheckCircle2 } from "lucide-react";
 import { motion } from "framer-motion";
+import { Link } from "@/i18n/routing";
 
 export function AuthIllustration() {
   const t = useTranslations("Auth");
@@ -21,13 +22,15 @@ export function AuthIllustration() {
       <div className="w-full max-w-xl">
         {/* Logo */}
         <div className="flex justify-end">
-          <Image
-            src="/images/logo.png"
-            alt="Areisto Academy"
-            width={120}
-            height={60}
-            className="object-contain"
-          />
+          <Link href="/">
+            <Image
+              src="/images/logo.png"
+              alt="Areisto Academy"
+              width={120}
+              height={60}
+              className="object-contain"
+            />
+          </Link>
         </div>
 
         {/* Main Illustration */}
