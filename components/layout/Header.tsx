@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
@@ -30,7 +30,6 @@ export function Header() {
         backdrop-blur supports-backdrop-filter:bg-white/60 ">
             <div className="container mx-auto flex items-center justify-between 
             px-4 md:px-10 lg:px-10 xl:px-20">
-
                 {/* Logo Section */}
                 <div className="flex items-center">
                     <Link href="/" onClick={closeMenu}>
@@ -65,21 +64,25 @@ export function Header() {
                 {/* Actions Section */}
                 <div className="">
                     <div className="hidden lg:flex items-center gap-2.5">
-                        <Button
-                            className="bg-brand-primary hover:bg-brand-primary/90
-                            text-lg text-white font-semibold shadow-sm transition-colors
-                            w-16 lg:w-28 h-12"
-                        >
-                            {t("register_now")}
-                        </Button>
-                        <Button
-                            variant="outline"
-                            className="text-[#0F172A] border-[#CBD5E1] font-medium
-                             hover:bg-slate-50 transition-colors text-lg
-                             w-20 lg:w-40 h-12"
-                        >
-                            {t("login")}
-                        </Button>
+                        <Link href="/register">
+                            <Button
+                                className="bg-brand-primary hover:bg-brand-primary/90
+                                text-lg text-white font-semibold shadow-sm transition-colors
+                                w-16 lg:w-28 h-12"
+                            >
+                                {t("register_now")}
+                            </Button>
+                        </Link>
+                        <Link href="/login">
+                            <Button
+                                variant="outline"
+                                className="text-[#0F172A] border-[#CBD5E1] font-medium
+                                 hover:bg-slate-50 transition-colors text-lg
+                                 w-20 lg:w-40 h-12"
+                            >
+                                {t("login")}
+                            </Button>
+                        </Link>
 
                     </div>
 
@@ -125,24 +128,26 @@ export function Header() {
 
                         <div className="flex flex-col sm:flex-row items-center 
                         justify-center gap-4 mt-4 pt-8 border-t border-[#CBD5E1]">
-                            <Button
-                                onClick={closeMenu}
-                                className="bg-brand-primary hover:bg-brand-dark
-                                text-lg text-white font-bold shadow-md h-[55px] 
-                                w-full sm:w-[200px] rounded-xl transition-all"
-                            >
-                                {t("register_now")}
-                            </Button>
-                            <Button
-                                onClick={closeMenu}
-                                variant="outline"
-                                className="border-2 border-brand-primary
-                                 text-brand-primary hover:text-brand-dark
-                                 hover:bg-brand-surface text-lg h-[55px] 
-                                 w-full sm:w-[270px] rounded-xl font-bold transition-all"
-                            >
-                                {t("login")}
-                            </Button>
+                            <Link href="/register" onClick={closeMenu} className="w-full sm:w-[200px]">
+                                <Button
+                                    className="bg-brand-primary hover:bg-brand-dark
+                                    text-lg text-white font-bold shadow-md h-[55px] 
+                                    w-full rounded-xl transition-all"
+                                >
+                                    {t("register_now")}
+                                </Button>
+                            </Link>
+                            <Link href="/login" onClick={closeMenu} className="w-full sm:w-[270px]">
+                                <Button
+                                    variant="outline"
+                                    className="border-2 border-brand-primary
+                                     text-brand-primary hover:text-brand-dark
+                                     hover:bg-brand-surface text-lg h-[55px] 
+                                     w-full rounded-xl font-bold transition-all"
+                                >
+                                    {t("login")}
+                                </Button>
+                            </Link>
                         </div>
                     </nav>
                 </div>

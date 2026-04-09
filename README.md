@@ -14,10 +14,21 @@
 khareej-qader/
 ├── public/                 # الصور، الأيقونات (SVGs)، والخطوط المحلية إن وجدت
 ├── app/
-│   ├── [locale]/           # لدعم تعدد اللغات (العربية RTL والإنجليزية LTR) (إن لزم)
-│   │   ├── layout.tsx      # التخطيط الأساسي (Header, Footer, Providers)
-│   │   └── page.tsx        # الصفحة الرئيسية (Landing Page Wrapper)
+│   ├── [locale]/           # لدعم تعدد اللغات (العربية RTL والإنجليزية LTR)
+│   │   ├── layout.tsx      # التخطيط الأساسي (Root Providers)
+│   │   ├── (main)/         # مجموعة مسارات الصفحات الرئيسية (مع Header)
+│   │   │   ├── layout.tsx
+│   │   │   └── page.tsx    # الصفحة الرئيسية
+│   │   └── (auth)/         # مجموعة مسارات صفحات التوثيق (بدون Header)
+│   │       ├── layout.tsx
+│   │       ├── login/      # صفحة تسجيل الدخول
+│   │       └── register/   # صفحة إنشاء حساب
 ├── components/
+│   ├── auth/               # مكونات خاصة بصفحات التوثيق (مدعومة بصور وتصاميم حديثة)
+│   │   ├── AuthLayout.tsx
+│   │   ├── AuthIllustration.tsx
+│   │   ├── LoginForm.tsx
+│   │   └── RegisterForm.tsx
 │   ├── layout/             # مكونات التخطيط الثابتة الأساسية
 │   │   ├── Header.tsx      # شريط التنقل العلوي (النافبار)
 │   │   └── Footer.tsx      # التذييل

@@ -141,5 +141,29 @@
     "subscribe_btn": "اشتراك",
     "contact_us": "تواصل معنا",
     "rights": "2026 Areisto Academy.© جميع الحقوق محفوظة"
+  },
+  "Auth": {
+    "login_title": "تسجيل الدخول",
+    "register_title": "سجل الآن",
+    "subtitle": "ابدأ رحلتك المهنية مع برنامج خريج قادر",
+    "full_name": "الإسم كامل",
+    "email": "البريد الإلكتروني",
+    "phone": "رقم الهاتف",
+    "gender": "الجنس",
+    "university": "إسم الجامعة",
+    "major": "التخصص الجامعي",
+    "training_path": "المسار التدريبي",
+    "cv_label": "إرفاق السيرة الذاتية",
+    "cv_hint": "اسحب الملف أو ارفع للضغط",
+    "username": "اسم المستخدم",
+    "login_btn": "تسجيل الدخول",
+    "register_btn": "سجل الآن",
+    "has_account": "لديك حساب بالفعل؟",
+    "no_account": "ليس لديك حساب ؟",
+    "create_account": "إنشاء حساب",
+    "benefit1": "شهادة معتمدة",
+    "benefit2": "تدريب عملي",
+    "benefit3": "مشاريع حقيقية",
+    "benefit4": "إشراف مباشر"
   }
 }

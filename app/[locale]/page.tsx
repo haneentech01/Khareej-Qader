@@ -11,14 +11,18 @@ import { GallerySection } from "@/components/sections/Gallery";
 import { FAQSection } from "@/components/sections/FAQ";
 import { CTASection } from "@/components/sections/CTA";
 import { Footer } from "@/components/layout/Footer";
+import { Header } from "@/components/layout/Header";
 
 export default function Home() {
   return (
     <main className="flex flex-col min-h-screen bg-white">
-      {/* 1. Hero & Stats */}
+      {/* 1. Header */}
+      <Header />
+
+      {/* 2. Hero & Stats */}
       <HeroSection />
 
-      {/* 2. About & Video */}
+      {/* 3. About & Video */}
       <AboutSection />
 
       {/* 3. Process Section */}
