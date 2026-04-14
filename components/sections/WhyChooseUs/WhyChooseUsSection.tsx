@@ -33,7 +33,7 @@ export function WhyChooseUsSection() {
                     whileInView="visible"
                     viewport={{ once: true, amount: 0.1 }}
                     className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 
-        gap-y-16 md:gap-x-12 md:gap-y-20 xl:gap-14 mt-16 md:mt-24"
+                    gap-y-16 md:gap-x-12 md:gap-y-20 xl:gap-14 mt-16 md:mt-24"
                 >
                     {features.map((feat, index) => (
                         <FeatureCard key={index} feature={feat} />

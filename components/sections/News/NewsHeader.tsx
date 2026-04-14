@@ -9,22 +9,20 @@ interface NewsHeaderProps {
   viewAllLabel: string;
 }
 
-export const NewsHeader = ({ subtitle, viewAllLabel }: NewsHeaderProps) => {
-  const locale = useLocale();
-  const isRTL = locale === "ar";
-
-  const headerVariants: Variants = {
-    hidden: { opacity: 0, x: isRTL ? 50 : -50 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        duration: 0.8,
-        ease: "easeOut",
-      },
+const headerVariants: Variants = {
+  hidden: { opacity: 0, x: 0, y: 20 }, // Simplified to be more standard
+  visible: {
+    opacity: 1,
+    x: 0,
+    y: 0,
+    transition: {
+      duration: 0.8,
+      ease: "easeOut",
     },
-  };
+  },
+};
 
+export const NewsHeader = ({ subtitle, viewAllLabel }: NewsHeaderProps) => {
   return (
     <motion.div 
       variants={headerVariants}

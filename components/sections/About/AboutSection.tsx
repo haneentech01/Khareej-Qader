@@ -8,7 +8,7 @@ import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 export function AboutSection() {
   const t = useTranslations("About");
-  const { ref, controls, variants } = useScrollAnimation({ once: false, amount: 0.2, delay: 0.2 });
+  const { ref, controls } = useScrollAnimation({ once: false, amount: 0.2, delay: 0.2 });
 
     const containerVariants: Variants = {
         hidden: { opacity: 1 },

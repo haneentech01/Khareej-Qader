@@ -36,6 +36,22 @@ export function NewsGrid({ items, readMoreLabel }: NewsGridProps) {
     },
   };
 
+  if (items.length === 0) {
+    return (
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="text-center py-20 px-4"
+      >
+        <p className="text-xl text-brand-muted font-medium">
+          {/* We'll use a hardcoded fallback or we could pass a label, 
+              but for now a sensible default is fine as this component is internal to News */}
+          لا توجد نتائج تطابق بحثك حالياً.
+        </p>
+      </motion.div>
+    );
+  }
+
   return (
     <motion.div
       ref={ref}

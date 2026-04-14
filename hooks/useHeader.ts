@@ -42,7 +42,9 @@ export function useHeader(navLinks: readonly NavLink[]) {
 
     if (!isHomePage) {
       // On sub-pages like /news, clear active state so no nav item is highlighted
-      setActiveSection("");
+      if (activeSection !== "") {
+        setActiveSection("");
+      }
       return;
     }
 

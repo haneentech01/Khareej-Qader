@@ -13,7 +13,6 @@ interface NewsListProps {
 
 export const NewsList = ({ items, readMoreLabel, viewAllLabel }: NewsListProps) => {
   const locale = useLocale();
-  const isRTL = locale === "ar";
 
   const containerVariants: Variants = {
     hidden: { 

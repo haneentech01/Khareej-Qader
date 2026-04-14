@@ -9,60 +9,19 @@ import { Pagination } from "@/components/ui/Pagination";
 import { CTASection } from "@/components/sections/CTA";
 import { motion } from "framer-motion";
 import { NewsItem } from "@/types";
+import { useNewsManager } from "@/hooks/useNewsManager";
 
 export default function NewsPage({ params }: { params: Promise<{ locale: string }> }) {
   const t = useTranslations("NewsPage");
   const tNews = useTranslations("News");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [activeSearch, setActiveSearch] = useState("");
-  const [isNewestFirst, setIsNewestFirst] = useState(true);
   const { locale } = React.use(params);
 
-  const ITEMS_PER_PAGE = 6;
   const rawNewsItems = t.raw("news_items") || [];
 
-  // Handle Search Debounce (5 seconds as requested)
-  React.useEffect(() => {
-    const timer = setTimeout(() => {
-      setActiveSearch(searchQuery);
-    }, 400);
-    return () => clearTimeout(timer);
-  }, [searchQuery]);
-
-  // Reset page when search changes
-  React.useEffect(() => {
-    setCurrentPage(1);
-  }, [activeSearch]);
-
-  const handleImmediateSearch = () => {
-    setActiveSearch(searchQuery);
-  };
-
-  // Filter items based on active search
-  const filteredItems = (rawNewsItems as NewsItem[]).filter((item) => {
-    const searchLower = activeSearch.toLowerCase();
-    return (
-      item.title?.toLowerCase().includes(searchLower) ||
-      item.description?.toLowerCase().includes(searchLower)
-    );
+  const { state, actions } = useNewsManager({
+    initialItems: rawNewsItems as NewsItem[],
+    itemsPerPage: 6
   });
-
-  // Sort items (Date sorting - very basic since dates are strings in the mock)
-  // In a real app, we'd parse the date. Here we'll just toggle the order of the mock items.
-  const sortedItems =
-    isNewestFirst
-      ? [...filteredItems]
-      : [...filteredItems].reverse();
-
-  const totalPages = Math.ceil(sortedItems.length / ITEMS_PER_PAGE);
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const displayedItems = sortedItems.slice(startIndex, startIndex + ITEMS_PER_PAGE);
-
-  // Scroll to top when page changes
-  React.useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [currentPage]);
 
   const breadcrumbs = [
     { label: t("breadcrumb_home"), href: "/" },
@@ -96,24 +55,24 @@ export default function NewsPage({ params }: { params: Promise<{ locale: string 
 
         {/* Filters & Search */}
         <NewsFilters
-          value={searchQuery}
-          onChange={setSearchQuery}
-          onEnter={handleImmediateSearch}
-          onCalendarClick={() => setIsNewestFirst(!isNewestFirst)}
+          value={state.searchQuery}
+          onChange={actions.setSearchQuery}
+          onEnter={actions.triggerImmediateSearch}
+          onCalendarClick={actions.toggleSortOrder}
         />
 
         {/* News Grid */}
         <NewsGrid
-          items={displayedItems}
+          items={state.displayedItems}
           readMoreLabel={tNews("read_more")}
         />
 
         {/* Pagination - Only shows if more than one page exists */}
-        {totalPages > 1 && (
+        {state.totalPages > 1 && (
           <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={setCurrentPage}
+            currentPage={state.currentPage}
+            totalPages={state.totalPages}
+            onPageChange={actions.setCurrentPage}
             locale={locale}
           />
         )}

@@ -1,6 +1,6 @@
 import { Search, Calendar, SlidersHorizontal } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 interface NewsFiltersProps {
@@ -10,6 +10,18 @@ interface NewsFiltersProps {
   onCalendarClick?: () => void;
 }
 
+const filterVariants: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut",
+    },
+  },
+};
+
 export function NewsFilters({
   value,
   onChange,
@@ -17,20 +29,20 @@ export function NewsFilters({
   onCalendarClick,
 }: NewsFiltersProps) {
   const t = useTranslations("NewsPage");
-  const { ref, controls, variants } = useScrollAnimation({ once: true, amount: 0.1 });
+  const { ref, controls } = useScrollAnimation<HTMLFormElement>({ once: true, amount: 0.1 });
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      onEnter();
-    }
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onEnter();
   };
 
   return (
-    <motion.div
+    <motion.form
       ref={ref}
       initial="hidden"
       animate={controls}
-      variants={variants}
+      variants={filterVariants}
+      onSubmit={handleSubmit}
       className="flex flex-col md:flex-row gap-4 mb-12"
     >
       <div className="relative flex-1 max-w-[768px] mx-auto group">
@@ -38,7 +50,6 @@ export function NewsFilters({
           type="text"
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          onKeyDown={handleKeyDown}
           placeholder={t("search_placeholder")}
           className="w-full h-[58px] 
           rtl:pr-14 rtl:pl-28 ltr:pl-14 ltr:pr-28
@@ -75,6 +86,6 @@ export function NewsFilters({
           </button>
         </div>
       </div>
-    </motion.div>
+    </motion.form>
   );
 }

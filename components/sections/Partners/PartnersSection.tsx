@@ -1,19 +1,16 @@
 "use client";
 
-import { useTranslations, useLocale } from "next-intl";
+import { useLocale } from "next-intl";
 import { motion } from "framer-motion";
 import { SectionHeader } from "../../ui/SectionHeader";
 import Image from "next/image";
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 /**
  * PartnersSection component that displays an infinite scrolling list of university logos.
  */
 export function PartnersSection() {
-  const t = useTranslations("Partners");
   const locale = useLocale();
   const isRTL = locale === "ar";
-  const { ref, controls, variants } = useScrollAnimation({ once: true, amount: 0.1 });
 
   const PARTNERS = [
     { id: 1, name: "Al-Azhar University", logo: "/images/partners/AUG.png" },
