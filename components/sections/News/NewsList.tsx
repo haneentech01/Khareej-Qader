@@ -1,3 +1,5 @@
+import { motion, Variants } from "framer-motion";
+import { useLocale } from "next-intl";
 import { MoveLeft } from "lucide-react";
 import { Link } from "@/i18n/routing";
 import { NewsItem } from "@/types";
@@ -10,8 +12,28 @@ interface NewsListProps {
 }
 
 export const NewsList = ({ items, readMoreLabel, viewAllLabel }: NewsListProps) => {
+  const locale = useLocale();
+  const isRTL = locale === "ar";
+
+  const containerVariants: Variants = {
+    hidden: { 
+      opacity: 0, 
+    },
+    visible: { 
+      opacity: 1, 
+      transition: { 
+        duration: 0.1, // Short duration for container display
+        staggerChildren: 0.6,
+        ease: "easeOut"
+      } 
+    }
+  };
+
   return (
-    <div className="lg:col-span-7 flex flex-col gap-6">
+    <motion.div 
+      variants={containerVariants}
+      className="lg:col-span-7 flex flex-col gap-6"
+    >
       {/* Map through localized news entries */}
       {items.map((item, index) => (
         <NewsCard 
@@ -33,6 +55,6 @@ export const NewsList = ({ items, readMoreLabel, viewAllLabel }: NewsListProps) 
           </button>
         </Link>
       </div>
-    </div>
+    </motion.div>
   );
 };

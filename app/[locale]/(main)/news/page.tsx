@@ -7,58 +7,62 @@ import { NewsFilters } from "@/components/sections/News/NewsFilters";
 import { NewsGrid } from "@/components/sections/News/NewsGrid";
 import { Pagination } from "@/components/ui/Pagination";
 import { CTASection } from "@/components/sections/CTA";
-import { Footer } from "@/components/layout/Footer";
 import { motion } from "framer-motion";
+import { NewsItem } from "@/types";
 
-export default function NewsPage({ params }: { params: { locale: string } }) {
+export default function NewsPage({ params }: { params: Promise<{ locale: string }> }) {
   const t = useTranslations("NewsPage");
-  const tAuth = useTranslations("Auth"); // For footer/cta reuse if needed
+  const tNews = useTranslations("News");
   const [currentPage, setCurrentPage] = useState(1);
-  const locale = params.locale;
+  const [searchQuery, setSearchQuery] = useState("");
+  const [activeSearch, setActiveSearch] = useState("");
+  const [isNewestFirst, setIsNewestFirst] = useState(true);
+  const { locale } = React.use(params);
 
-  // Mock news data strictly following the image
-  const newsItems = [
-    {
-      title: "إطلاق مسار الذكاء الاصطناعي الجديد",
-      date: "25 أبريل 2026",
-      description: "انضم الآن لتعلم أساسيات وتقنيات الذكاء الاصطناعي وكيفية تطبيقها في سوق العمل الحديث.",
-    },
-    {
-      title: "بدء التدريب العملي للمرحلة الثانية",
-      date: "18 أبريل 2026",
-      description: "نعلن عن انطلاق جلسات التدريب العملي المباشرة مع نخبة من الخبراء في مختلف المسارات التقنية.",
-    },
-    {
-      title: "إعلان فرصة تدريبية مع إحدى الشركات الكبرى",
-      date: "28 أبريل 2026",
-      description: "اغتنم الفرصة للتدريب مع واحدة من الشركات الكبرى الرائدة في مجالها لتطوير مهاراتك.",
-    },
-    {
-      title: "فتح باب التسجيل للدفعة الجديدة",
-      date: "10 أبريل 2026",
-      description: "الفرصة الآن متاحة للانضمام إلى برنامج خريج قادر. بادر بحجز مقعدك وابدأ رحلتك المهنية.",
-    },
-    {
-      title: "إطلاق مسار الذكاء الاصطناعي الجديد",
-      date: "25 أبريل 2026",
-      description: "انضم الآن لتعلم أساسيات وتقنيات الذكاء الاصطناعي وكيفية تطبيقها في سوق العمل الحديث.",
-    },
-    {
-      title: "بدء التدريب العملي للمرحلة الثانية",
-      date: "18 أبريل 2026",
-      description: "نعلن عن انطلاق جلسات التدريب العملي المباشرة مع نخبة من الخبراء في مختلف المسارات التقنية.",
-    },
-    {
-      title: "إعلان فرصة تدريبية مع إحدى الشركات الكبرى",
-      date: "28 أبريل 2026",
-      description: "اغتنم الفرصة للتدريب مع واحدة من الشركات الكبرى الرائدة في مجالها لتطوير مهاراتك.",
-    },
-    {
-      title: "فتح باب التسجيل للدفعة الجديدة",
-      date: "10 أبريل 2026",
-      description: "الفرصة الآن متاحة للانضمام إلى برنامج خريج قادر. بادر بحجز مقعدك وابدأ رحلتك المهنية.",
-    },
-  ];
+  const ITEMS_PER_PAGE = 6;
+  const rawNewsItems = t.raw("news_items") || [];
+
+  // Handle Search Debounce (5 seconds as requested)
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      setActiveSearch(searchQuery);
+    }, 400);
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
+
+  // Reset page when search changes
+  React.useEffect(() => {
+    setCurrentPage(1);
+  }, [activeSearch]);
+
+  const handleImmediateSearch = () => {
+    setActiveSearch(searchQuery);
+  };
+
+  // Filter items based on active search
+  const filteredItems = (rawNewsItems as NewsItem[]).filter((item) => {
+    const searchLower = activeSearch.toLowerCase();
+    return (
+      item.title?.toLowerCase().includes(searchLower) ||
+      item.description?.toLowerCase().includes(searchLower)
+    );
+  });
+
+  // Sort items (Date sorting - very basic since dates are strings in the mock)
+  // In a real app, we'd parse the date. Here we'll just toggle the order of the mock items.
+  const sortedItems =
+    isNewestFirst
+      ? [...filteredItems]
+      : [...filteredItems].reverse();
+
+  const totalPages = Math.ceil(sortedItems.length / ITEMS_PER_PAGE);
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const displayedItems = sortedItems.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+
+  // Scroll to top when page changes
+  React.useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [currentPage]);
 
   const breadcrumbs = [
     { label: t("breadcrumb_home"), href: "/" },
@@ -66,13 +70,13 @@ export default function NewsPage({ params }: { params: { locale: string } }) {
   ];
 
   return (
-    <div className="bg-[#F8FAFC] min-h-screen">
-      <div className="container mx-auto px-4 md:px-10 lg:px-20 pt-10">
+    <div className="bg-white min-h-screen">
+      <div className="container mx-auto px-4 md:px-10 pt-10">
         {/* Breadcrumbs */}
         <Breadcrumbs items={breadcrumbs} locale={locale} />
 
         {/* Page Header */}
-        <section className="text-center max-w-3xl mx-auto mb-16">
+        <section className="text-center max-w-7xl mx-auto mb-16">
           <motion.h1
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -91,25 +95,32 @@ export default function NewsPage({ params }: { params: { locale: string } }) {
         </section>
 
         {/* Filters & Search */}
-        <NewsFilters />
+        <NewsFilters
+          value={searchQuery}
+          onChange={setSearchQuery}
+          onEnter={handleImmediateSearch}
+          onCalendarClick={() => setIsNewestFirst(!isNewestFirst)}
+        />
 
         {/* News Grid */}
-        <NewsGrid items={newsItems} readMoreLabel={useTranslations("News")("read_more")} />
-
-        {/* Pagination */}
-        <Pagination
-          currentPage={currentPage}
-          totalPages={2}
-          onPageChange={setCurrentPage}
-          locale={locale}
+        <NewsGrid
+          items={displayedItems}
+          readMoreLabel={tNews("read_more")}
         />
+
+        {/* Pagination - Only shows if more than one page exists */}
+        {totalPages > 1 && (
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={setCurrentPage}
+            locale={locale}
+          />
+        )}
       </div>
 
       {/* Call to Action */}
       <CTASection />
-
-      {/* Footer */}
-      <Footer />
     </div>
   );
 }

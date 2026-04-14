@@ -10,47 +10,70 @@ interface NavLink {
 export function useHeader(navLinks: readonly NavLink[]) {
   const t = useTranslations("Header");
   const pathname = usePathname();
-  const [activeSection, setActiveSection] = useState("/");
+  const [activeSection, setActiveSection] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
   const closeMenu = () => setIsMenuOpen(false);
 
   // Synchronize state during render for page links to avoid cascading renders in useEffect
   const isPageLink = navLinks.some(
-    (link) => !link.href.startsWith("#") && link.href === pathname,
+    (link) => !link.href.includes("#") && link.href === pathname,
   );
   if (isPageLink && activeSection !== pathname) {
     setActiveSection(pathname);
   }
 
+  // Track scroll for styling (header shrinking) globally
   useEffect(() => {
+    const handleGlobalScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleGlobalScroll, { passive: true });
+    handleGlobalScroll();
+    return () => window.removeEventListener("scroll", handleGlobalScroll);
+  }, []);
+
+  // Track active section for scroll spy on home page only
+  useEffect(() => {
+    // Only run scroll spy on the home page (e.g. "/ar", "/en", "/")
+    const isHomePage = /^\/(ar|en)?\/?$/.test(pathname) || pathname === "/";
+
+    if (!isHomePage) {
+      // On sub-pages like /news, clear active state so no nav item is highlighted
+      setActiveSection("");
+      return;
+    }
+
     const handleScroll = () => {
       const scrollY = window.scrollY;
-      
+
       // If we are near the top, highlight home
       if (scrollY < 100) {
-        setActiveSection("/");
+        setActiveSection("/#home");
         return;
       }
 
       const sections = Array.from(document.querySelectorAll("section[id]"));
       let currentActive = "";
-      
-      // For each section, check if a trigger point (e.g., 300px down from the top of the viewport)
+
+      // For each section, check if a trigger point (30% from the top of the viewport)
       // falls inside the section vertically.
-      const triggerPoint = window.innerHeight * 0.3; // 30% from the top
-      
+      const triggerPoint = window.innerHeight * 0.3;
+
       for (const section of sections) {
         const rect = section.getBoundingClientRect();
         if (rect.top <= triggerPoint && rect.bottom > triggerPoint) {
-           currentActive = `#${section.id}`;
-           break;
+          currentActive = `/#${section.id}`;
+          break;
         }
       }
-      
+
       if (currentActive) {
-        setActiveSection((prev) => prev !== currentActive ? currentActive : prev);
+        setActiveSection((prev) =>
+          prev !== currentActive ? currentActive : prev,
+        );
       }
     };
 
@@ -67,5 +90,6 @@ export function useHeader(navLinks: readonly NavLink[]) {
     activeSection,
     toggleMenu,
     closeMenu,
+    isScrolled,
   };
 }

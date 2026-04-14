@@ -13,6 +13,7 @@ export function HeroSection() {
 
   return (
     <motion.section
+      id="home"
       ref={ref}
       initial="hidden"
       animate={controls}
@@ -23,6 +24,7 @@ export function HeroSection() {
       lg:bg-[url('/images/heroSectionBG.png')] 
       pt-8 pb-36 
       md:pt-16 md:pb-60 
+      mb-10 lg:mb-20
       bg-cover bg-center overflow-visible"
     >
       <div className="container mx-auto px-5 md:px-10">
@@ -46,7 +48,7 @@ export function HeroSection() {
                 className="bg-brand-primary hover:bg-brand-dark
                text-white font-semibold h-[60px] text-base lg:text-lg 
                rounded-lg transition-all shadow-md hover:shadow-lg
-               w-full sm:w-[180px] lg:w-[205px]">
+               w-full sm:w-[180px] lg:w-[205px] cursor-pointer">
                 {heroData.registerButton}
               </Button>
 
@@ -54,7 +56,7 @@ export function HeroSection() {
               border-[#CBD5E1] text-[#0F172A]
               hover:text-[#0F172A] hover:bg-brand-surface 
               h-[60px] text-base lg:text-lg rounded-lg transition-all
-              w-full sm:w-[180px] lg:w-[205px] gap-2">
+              w-full sm:w-[180px] lg:w-[205px] gap-2 cursor-pointer">
                 {heroData.learnMore}
                 <PlayCircle className="size-6 rotate-180" />
               </Button>

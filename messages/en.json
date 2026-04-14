@@ -164,6 +164,52 @@
     "page_title": "Latest News and Opportunities",
     "page_subtitle": "Stay informed about the latest developments and educational and professional opportunities available at Areisto Academy.",
     "pagination_prev": "Previous",
-    "pagination_next": "Next"
+    "pagination_next": "Next",
+    "news_items": [
+      {
+        "title": "Launch of the New AI Track",
+        "date": "25 April 2026",
+        "description": "Join now to learn the fundamentals and techniques of AI and how to apply them in the modern job market."
+      },
+      {
+        "title": "Commencement of Phase Two Practical Training",
+        "date": "18 April 2026",
+        "description": "We announce the start of live practical training sessions with elite experts in various technical tracks."
+      },
+      {
+        "title": "Announcement of a Training Opportunity with a Major Company",
+        "date": "28 April 2026",
+        "description": "Seize the opportunity to train with one of the leading major companies in its field to develop your skills."
+      },
+      {
+        "title": "Opening Registration for the New Batch",
+        "date": "10 April 2026",
+        "description": "The opportunity is now available to join the Khareej Qader program. Reserve your seat now and start your professional journey."
+      },
+      {
+        "title": "Launch of the New AI Track",
+        "date": "25 April 2026",
+        "description": "Join now to learn the fundamentals and techniques of AI and how to apply them in the modern job market."
+      },
+      {
+        "title": "Commencement of Phase Two Practical Training",
+        "date": "18 April 2026",
+        "description": "We announce the start of live practical training sessions with elite experts in various technical tracks."
+      },
+      {
+        "title": "Announcement of a Training Opportunity with a Major Company",
+        "date": "28 April 2026",
+        "description": "Seize the opportunity to train with one of the leading major companies in its field to develop your skills."
+      },
+      {
+        "title": "Opening Registration for the New Batch",
+        "date": "10 April 2026",
+        "description": "The opportunity is now available to join the Khareej Qader program. Reserve your seat now and start your professional journey."
+      }
+    ]
+  },
+  "Partners": {
+    "title": "University Success Partners",
+    "subtitle": "We are proud to collaborate with major universities and educational institutions to provide students with the best skills."
   }
 }

@@ -34,8 +34,6 @@ export function CarouselDots({ className, ...props }: CarouselDotsProps) {
   useEffect(() => {
     if (!api) return;
 
-    // Defer initial synchronization to the next tick to avoid synchronous setState warning
-    // as Embla API values are an external system state available only after mount.
     Promise.resolve().then(() => {
       onInit(api);
       onSelect(api);

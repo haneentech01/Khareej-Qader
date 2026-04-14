@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "@/i18n/routing";
-import { useTranslations } from "next-intl";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface BreadcrumbsProps {
@@ -27,7 +26,7 @@ export function Breadcrumbs({ items, locale }: BreadcrumbsProps) {
               {item.label}
             </Link>
           ) : (
-            <span className="text-brand-muted/70 font-medium whitespace-nowrap">
+            <span className="text-brand-primary font-medium whitespace-nowrap">
               {item.label}
             </span>
           )}

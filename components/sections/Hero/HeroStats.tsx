@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { HeroStatItem } from "@/types";
+import { Counter } from "@/components/ui/Counter";
 
 interface HeroStatsComponentProps {
   stats: HeroStatItem[];
@@ -31,7 +32,7 @@ export function HeroStats({ stats }: HeroStatsComponentProps) {
                 <div className="flex flex-col items-center lg:items-start">
                   <span className="text-xl md:text-3xl lg:text-4xl font-bold 
                   text-black leading-none mb-1">
-                    {stat.count}
+                    <Counter targetValue={stat.count} />
                   </span>
                   <span className="text-brand-muted text-sm md:text-lg 
                   font-medium whitespace-nowrap">

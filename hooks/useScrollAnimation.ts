@@ -10,12 +10,12 @@ interface UseScrollAnimationOptions {
   delay?: number;
 }
 
-export function useScrollAnimation({ 
+export function useScrollAnimation<T extends HTMLElement = HTMLElement>({ 
   once = false, 
   amount = 0.2, 
   delay = 0 
 }: UseScrollAnimationOptions = {}) {
-  const ref = useRef<HTMLElement | HTMLDivElement>(null);
+  const ref = useRef<T>(null);
   const isInView = useInView(ref, { once, amount });
   const controls = useAnimation();
 

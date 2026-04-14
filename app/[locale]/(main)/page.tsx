@@ -11,15 +11,10 @@ import { NewsSection } from "@/components/sections/News";
 import { GallerySection } from "@/components/sections/Gallery";
 import { FAQSection } from "@/components/sections/FAQ";
 import { CTASection } from "@/components/sections/CTA";
-import { Footer } from "@/components/layout/Footer";
-import { Header } from "@/components/layout/Header";
 
 export default function Home() {
   return (
-    <main className="flex flex-col min-h-screen bg-white">
-      {/* 1. Header */}
-      <Header />
-
+    <div className="flex flex-col bg-white">
       {/* 2. Hero & Stats */}
       <HeroSection />
 
@@ -52,9 +47,6 @@ export default function Home() {
 
       {/* 10. Call to Action */}
       <CTASection />
-
-      {/* 11. Footer */}
-      <Footer />
-    </main>
+    </div>
   );
 }

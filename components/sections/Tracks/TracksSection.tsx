@@ -32,7 +32,7 @@ export function TracksSection() {
       initial="hidden"
       animate={controls}
       variants={variants}
-      className="py-16 bg-white relative overflow-hidden"
+      className="my-10 lg:my-20 py-5 bg-white relative overflow-hidden"
     >
       <div className="container mx-auto px-4 md:px-6">
         <SectionHeader namespace="Tracks" />
@@ -53,10 +53,29 @@ export function TracksSection() {
                   key={`${track.name}-${index}`}
                   className={`md:basis-1/2 xl:basis-1/3 py-4 ${isRTL ? "pl-0 pr-6" : "pr-0 pl-6"}`}
                 >
-                  <TrackCard
-                    {...track}
-                    registerText={trackData.registerText}
-                  />
+                  <motion.div
+                    custom={index}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.1 }}
+                    variants={{
+                      hidden: { opacity: 0, x: isRTL ? 100 : -100 },
+                      visible: (idx) => ({
+                        opacity: 1,
+                        x: 0,
+                        transition: {
+                          type: "spring",
+                          damping: 20,
+                          stiffness: 100,
+                          duration: 0.6,
+                          delay: 0.2 + idx * 0.15,
+                        },
+                      }),
+                    }}
+                    className="h-full"
+                  >
+                    <TrackCard {...track} registerText={trackData.registerText} />
+                  </motion.div>
                 </CarouselItem>
               ))}
             </CarouselContent>

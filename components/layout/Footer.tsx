@@ -67,7 +67,14 @@ export function Footer() {
           {/* Brand Column */}
           <motion.div variants={footerItemVariants} className="flex flex-col max-w-sm">
             <Link href="/" className="inline-block transition-transform hover:scale-105 active:scale-95">
-              <Image src="/images/logoFooter.png" alt="Khareej Qader" width={180} height={108} className="w-[131px] h-20 md:h-24 lg:h-[108px]" />
+              <Image 
+                src="/images/logoFooter.png" 
+                alt="Khareej Qader" 
+                width={180} 
+                height={108} 
+                className="w-[131px] md:w-[150px] lg:w-[180px] h-auto"
+                style={{ height: 'auto' }}
+              />
             </Link>
             <p className="text-brand-muted text-sm lg:text-base leading-relaxed">
               {t("description")}

@@ -1,6 +1,8 @@
 import React from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 interface PaginationProps {
   currentPage: number;
@@ -13,9 +15,16 @@ export function Pagination({ currentPage, totalPages, onPageChange, locale }: Pa
   const isRtl = locale === "ar";
   const PrevIcon = isRtl ? ChevronRight : ChevronLeft;
   const NextIcon = isRtl ? ChevronLeft : ChevronRight;
+  const { ref, controls, variants } = useScrollAnimation({ once: true, amount: 0.1 });
 
   return (
-    <div className="flex items-center justify-center gap-2 mt-16 pb-12">
+    <motion.div
+      ref={ref}
+      initial="hidden"
+      animate={controls}
+      variants={variants}
+      className="flex items-center justify-center gap-2 mt-16 pb-12"
+    >
       <button
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
@@ -36,7 +45,7 @@ export function Pagination({ currentPage, totalPages, onPageChange, locale }: Pa
               "flex items-center justify-center size-10 rounded-full font-bold transition-all",
               isActive
                 ? "bg-brand-primary text-white shadow-lg shadow-brand-primary/20"
-                : "text-slate-600 hover:bg-slate-50"
+                : "text-brand-muted hover:bg-slate-50"
             )}
           >
             {pageNum}
@@ -51,6 +60,6 @@ export function Pagination({ currentPage, totalPages, onPageChange, locale }: Pa
       >
         <NextIcon className="size-5" />
       </button>
-    </div>
+    </motion.div>
   );
 }

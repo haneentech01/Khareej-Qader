@@ -1,13 +1,27 @@
 import Image from "next/image";
 import { FeatureItem } from "@/types";
+import { motion, Variants } from "framer-motion";
 
 interface FeatureCardProps {
   feature: FeatureItem;
 }
 
 export function FeatureCard({ feature }: FeatureCardProps) {
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut"
+      }
+    }
+  };
+
   return (
-    <div
+    <motion.div
+      variants={itemVariants}
       className="relative p-8 lg:p-10 rounded-[20px] bg-white border 
       border-slate-100 shadow-[0_10px_35px_rgba(0,0,0,0.04)] transition-all 
       duration-500 hover:shadow-[0_25px_60px_rgba(0,0,0,0.08)] 
@@ -37,6 +51,6 @@ export function FeatureCard({ feature }: FeatureCardProps) {
           {feature.desc}
         </p>
       </div>
-    </div>
+    </motion.div>
   );
 }

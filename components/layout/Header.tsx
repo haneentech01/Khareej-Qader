@@ -7,12 +7,12 @@ import { Menu, X } from "lucide-react";
 import { useHeader } from "@/hooks/useHeader";
 
 const navLinks = [
-    { key: "home", href: "/" },
-    { key: "program", href: "#program" },
-    { key: "tracks", href: "#tracks" },
-    { key: "success_stories", href: "#success-stories" },
-    { key: "gallery", href: "#gallery" },
-    { key: "faq", href: "#faq" },
+    { key: "home", href: "/#home" },
+    { key: "program", href: "/#program" },
+    { key: "tracks", href: "/#tracks" },
+    { key: "success_stories", href: "/#success-stories" },
+    { key: "gallery", href: "/#gallery" },
+    { key: "faq", href: "/#faq" },
 ] as const;
 
 export function Header() {
@@ -21,26 +21,31 @@ export function Header() {
         isMenuOpen,
         activeSection,
         toggleMenu,
-        closeMenu
+        closeMenu,
+        isScrolled
     } = useHeader(navLinks);
 
     return (
-        <header className="sticky top-0 z-50 w-full border-b
-        border-[#CBD5E1] bg-white 
-        backdrop-blur supports-backdrop-filter:bg-white/60 ">
+        <header className={`sticky top-0 z-50 w-full border-b
+        border-[#CBD5E1] bg-white transition-all duration-300
+        backdrop-blur supports-backdrop-filter:bg-white/60 
+        ${isScrolled ? "py-0 shadow-md" : "py-0"
+            }`}>
             <div className="container mx-auto flex items-center justify-between 
-            px-4 md:px-10 lg:px-10 xl:px-20">
+            px-6 md:px-10 lg:px-4 xl:px-20">
                 {/* Logo Section */}
                 <div className="flex items-center">
                     <Link href="/" onClick={closeMenu}>
                         <Image
                             src="/images/logo.png"
                             alt="Kharij Qader Logo"
-                            width={100}
+                            width={160}
                             height={60}
                             priority
-                            className="object-contain 
-                            w-16 md:w-24 xl:w-[95px]"
+                            className={`object-contain transition-all duration-300 origin-left ${isScrolled
+                                ? "w-20 md:w-24 xl:w-[95px]"
+                                : "w-[100px] md:w-28 xl:w-[130px]"
+                                }`}
                         />
                     </Link>
                 </div>

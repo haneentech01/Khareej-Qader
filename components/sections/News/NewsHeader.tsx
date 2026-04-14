@@ -1,3 +1,5 @@
+import { motion, Variants } from "framer-motion";
+import { useLocale } from "next-intl";
 import { MoveLeft } from "lucide-react";
 import { Link } from "@/i18n/routing";
 import { SectionHeader } from "../../ui/SectionHeader";
@@ -8,8 +10,26 @@ interface NewsHeaderProps {
 }
 
 export const NewsHeader = ({ subtitle, viewAllLabel }: NewsHeaderProps) => {
+  const locale = useLocale();
+  const isRTL = locale === "ar";
+
+  const headerVariants: Variants = {
+    hidden: { opacity: 0, x: isRTL ? 50 : -50 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.8,
+        ease: "easeOut",
+      },
+    },
+  };
+
   return (
-    <div className="lg:col-span-5 lg:sticky lg:top-32 text-center lg:text-start">
+    <motion.div 
+      variants={headerVariants}
+      className="lg:col-span-5 lg:sticky lg:top-32 text-center lg:text-start"
+    >
       {/* Badge Subtitle */}
       <span className="inline-block px-4 py-1.5 text-sm font-semibold
       text-brand-base bg-[#F0F5F1] rounded-full mb-6">
@@ -31,6 +51,6 @@ export const NewsHeader = ({ subtitle, viewAllLabel }: NewsHeaderProps) => {
           </button>
         </Link>
       </div>
-    </div>
+    </motion.div>
   );
 };

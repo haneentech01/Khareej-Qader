@@ -31,7 +31,8 @@ export function TestimonialCard({ testimonial, isRTL }: TestimonialCardProps) {
           {/* Star Rating */}
           <div className="flex gap-1 mb-5">
             {[...Array(testimonial.rating)].map((_, i) => (
-              <Star key={i} className="size-5 md:size-6 fill-[#ffce00] text-[#ffce00]" />
+              <Star key={i}
+                className="size-5 md:size-6 fill-[#ffce00] text-[#ffce00]" />
             ))}
           </div>
 
@@ -61,7 +62,13 @@ export function TestimonialCard({ testimonial, isRTL }: TestimonialCardProps) {
       </div>
 
       {/* Left: Person Container */}
-      <div className="relative w-full h-[406px] lg:w-1/2 lg:h-[606px] max-w-[510px]">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 0.6, duration: 0.6, type: "spring" }}
+        viewport={{ once: true }}
+        className="relative w-full h-[406px] lg:w-1/2 lg:h-[606px] max-w-[510px]"
+      >
         <div className="w-full h-full">
           <Image
             src={testimonial.image}
@@ -70,7 +77,7 @@ export function TestimonialCard({ testimonial, isRTL }: TestimonialCardProps) {
             className="object-contain"
           />
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }
