@@ -15,7 +15,7 @@ export function Pagination({ currentPage, totalPages, onPageChange, locale }: Pa
   const isRtl = locale === "ar";
   const PrevIcon = isRtl ? ChevronRight : ChevronLeft;
   const NextIcon = isRtl ? ChevronLeft : ChevronRight;
-  const { ref, controls, variants } = useScrollAnimation({ once: true, amount: 0.1 });
+  const { ref, controls, variants } = useScrollAnimation<HTMLDivElement>({ once: true, amount: 0.1 });
 
   return (
     <motion.div
