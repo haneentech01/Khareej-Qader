@@ -25,6 +25,12 @@ export function useHeader(navLinks: readonly NavLink[]) {
     setActiveSection(pathname);
   }
 
+  // Clear active state on non-home pages if not a direct page link
+  const isHomePage = /^\/(ar|en)?\/?$/.test(pathname) || pathname === "/";
+  if (!isHomePage && !isPageLink && activeSection !== "") {
+    setActiveSection("");
+  }
+
   // Track scroll for styling (header shrinking) globally
   useEffect(() => {
     const handleGlobalScroll = () => {
@@ -40,13 +46,7 @@ export function useHeader(navLinks: readonly NavLink[]) {
     // Only run scroll spy on the home page (e.g. "/ar", "/en", "/")
     const isHomePage = /^\/(ar|en)?\/?$/.test(pathname) || pathname === "/";
 
-    if (!isHomePage) {
-      // On sub-pages like /news, clear active state so no nav item is highlighted
-      if (activeSection !== "") {
-        setActiveSection("");
-      }
-      return;
-    }
+    if (!isHomePage) return;
 
     const handleScroll = () => {
       const scrollY = window.scrollY;

@@ -1,5 +1,4 @@
 import { motion, Variants } from "framer-motion";
-import { useLocale } from "next-intl";
 import { MoveLeft } from "lucide-react";
 import { Link } from "@/i18n/routing";
 import { SectionHeader } from "../../ui/SectionHeader";

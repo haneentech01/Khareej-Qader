@@ -23,18 +23,16 @@ export function useNewsManager({
   useEffect(() => {
     const timer = setTimeout(() => {
       setActiveSearch(searchQuery);
+      setCurrentPage(1);
     }, debounceMs);
     return () => clearTimeout(timer);
   }, [searchQuery, debounceMs]);
 
-  // Reset to first page when search changes
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [activeSearch]);
 
   // Immediate search trigger
   const triggerImmediateSearch = useCallback(() => {
     setActiveSearch(searchQuery);
+    setCurrentPage(1);
   }, [searchQuery]);
 
   // Filter and Sort logic
