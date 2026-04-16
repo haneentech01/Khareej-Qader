@@ -120,6 +120,15 @@
   "Footer": {
     "description": "Khareej Qader - Your real gateway to the Gulf and global labor market. We qualify you to be the first choice for companies.",
     "quick_links": "Quick Links",
+    "support": "Support",
+    "contact_us_link": "Contact Us",
+    "help_center": "Help Center",
+    "privacy_policy": "Privacy Policy",
+    "terms_conditions": "Terms & Conditions",
+    "subscribe_title": "Subscribe to stay updated",
+    "subscribe_desc": "Stay informed about the latest courses and available training opportunities.",
+    "email_placeholder": "Enter your email",
+    "subscribe_btn": "Subscribe",
     "contact_us": "Contact Us",
     "rights": "All rights reserved © 2026 Areisto Academy"
   },

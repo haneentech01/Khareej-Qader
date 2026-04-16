@@ -1,5 +1,6 @@
 "use client";
 
+import { Link } from "@/i18n/routing";
 import { Button } from "@/components/ui/button";
 import { PlayCircle } from "lucide-react";
 import { useHero } from "@/hooks/useHero";
@@ -44,22 +45,26 @@ export function HeroSection() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 pt-6">
-              <Button
-                className="bg-brand-primary hover:bg-brand-dark
-               text-white font-semibold h-[60px] text-base lg:text-lg 
-               rounded-lg transition-all shadow-md hover:shadow-lg
-               w-full sm:w-[180px] lg:w-[205px] cursor-pointer">
-                {heroData.registerButton}
-              </Button>
+              <Link href="/register">
+                <Button
+                  className="bg-brand-primary hover:bg-brand-dark
+                text-white font-semibold h-[60px] text-base lg:text-lg 
+                rounded-lg transition-all shadow-md hover:shadow-lg
+                w-full sm:w-[180px] lg:w-[205px] cursor-pointer">
+                  {heroData.registerButton}
+                </Button>
+              </Link>
 
-              <Button size="lg" variant="outline" className="border-2 
-              border-[#CBD5E1] text-[#0F172A]
-              hover:text-[#0F172A] hover:bg-brand-surface 
-              h-[60px] text-base lg:text-lg rounded-lg transition-all
-              w-full sm:w-[180px] lg:w-[205px] gap-2 cursor-pointer">
-                {heroData.learnMore}
-                <PlayCircle className="size-6 rotate-180" />
-              </Button>
+              <Link href="/#program">
+                <Button size="lg" variant="outline" className="border-2 
+                border-[#CBD5E1] text-[#0F172A]
+                hover:text-[#0F172A] hover:bg-brand-surface 
+                h-[60px] text-base lg:text-lg rounded-lg transition-all
+                w-full sm:w-[180px] lg:w-[205px] gap-2 cursor-pointer">
+                  {heroData.learnMore}
+                  <PlayCircle className="size-6 rotate-180" />
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

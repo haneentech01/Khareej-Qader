@@ -17,37 +17,34 @@ export function useHeader(navLinks: readonly NavLink[]) {
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
   const closeMenu = () => setIsMenuOpen(false);
 
-  // Synchronize state during render for page links to avoid cascading renders in useEffect
-  const isPageLink = navLinks.some(
-    (link) => !link.href.includes("#") && link.href === pathname,
-  );
-  if (isPageLink && activeSection !== pathname) {
-    setActiveSection(pathname);
-  }
-
-  // Clear active state on non-home pages if not a direct page link
-  const isHomePage = /^\/(ar|en)?\/?$/.test(pathname) || pathname === "/";
-  if (!isHomePage && !isPageLink && activeSection !== "") {
-    setActiveSection("");
-  }
-
-  // Track scroll for styling (header shrinking) globally
+  // Synchronization of active section based on current pathname
   useEffect(() => {
-    const handleGlobalScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    window.addEventListener("scroll", handleGlobalScroll, { passive: true });
-    handleGlobalScroll();
-    return () => window.removeEventListener("scroll", handleGlobalScroll);
-  }, []);
+    // Only run scroll spy on the home page (e.g. "/", "/ar", "/en")
+    const isHomePage =
+      pathname === "/" ||
+      pathname === "" ||
+      pathname === "/ar" ||
+      pathname === "/en";
 
-  // Track active section for scroll spy on home page only
-  useEffect(() => {
-    // Only run scroll spy on the home page (e.g. "/ar", "/en", "/")
-    const isHomePage = /^\/(ar|en)?\/?$/.test(pathname) || pathname === "/";
+    // 1. If it's a direct page link (like /news or /register), set it as active
+    const matchingLink = navLinks.find(
+      (link) =>
+        !link.href.includes("#") &&
+        (link.href === pathname || link.href === `/${pathname}`),
+    );
 
-    if (!isHomePage) return;
+    if (matchingLink) {
+      setTimeout(() => setActiveSection(matchingLink.href), 0);
+      return;
+    }
 
+    // 2. If we are on a subpage NOT in the main nav (e.g. /login), clear active state
+    if (!isHomePage) {
+      setTimeout(() => setActiveSection(""), 0);
+      return;
+    }
+
+    // 3. Scroll spy logic for home page
     const handleScroll = () => {
       const scrollY = window.scrollY;
 
@@ -59,9 +56,6 @@ export function useHeader(navLinks: readonly NavLink[]) {
 
       const sections = Array.from(document.querySelectorAll("section[id]"));
       let currentActive = "";
-
-      // For each section, check if a trigger point (30% from the top of the viewport)
-      // falls inside the section vertically.
       const triggerPoint = window.innerHeight * 0.3;
 
       for (const section of sections) {
@@ -80,11 +74,20 @@ export function useHeader(navLinks: readonly NavLink[]) {
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    // Run it once on mount
-    handleScroll();
+    handleScroll(); // Initial check on mount/pathname change
 
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [pathname]);
+  }, [pathname, navLinks]);
+
+  // Track scroll for styling (header shrinking) globally
+  useEffect(() => {
+    const handleGlobalScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleGlobalScroll, { passive: true });
+    handleGlobalScroll();
+    return () => window.removeEventListener("scroll", handleGlobalScroll);
+  }, []);
 
   return {
     t,

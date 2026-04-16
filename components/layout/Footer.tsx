@@ -33,15 +33,15 @@ export function Footer() {
 
   const footerItemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
-      transition: { 
-        duration: 0.5, 
+      transition: {
+        duration: 0.5,
         type: "spring",
         stiffness: 100,
         damping: 15
-      } 
+      }
     }
   };
 
@@ -67,11 +67,11 @@ export function Footer() {
           {/* Brand Column */}
           <motion.div variants={footerItemVariants} className="flex flex-col max-w-sm">
             <Link href="/" className="inline-block transition-transform hover:scale-105 active:scale-95">
-              <Image 
-                src="/images/logoFooter.png" 
-                alt="Khareej Qader" 
-                width={180} 
-                height={108} 
+              <Image
+                src="/images/logoFooter.png"
+                alt="Khareej Qader"
+                width={180}
+                height={108}
                 className="w-[131px] md:w-[150px] lg:w-[180px] h-auto"
                 style={{ height: 'auto' }}
               />
@@ -160,13 +160,6 @@ export function Footer() {
               {t("rights")}
             </p>
           </div>
-        </motion.div>
-
-        {/* Watermark Section */}
-        <motion.div variants={footerItemVariants} className="flex items-center justify-center my-9 md:my-12 px-4 w-full overflow-hidden">
-          <span className="text-brand-base text-[70px] md:text-[120px] font-extrabold text-center opacity-5 lg:opacity-10 uppercase select-none w-full whitespace-nowrap tracking-widest">
-            AREISTO
-          </span>
         </motion.div>
       </motion.div>
     </footer>

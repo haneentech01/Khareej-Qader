@@ -16,7 +16,7 @@ export default function NewsPage({ params }: { params: Promise<{ locale: string 
   const tNews = useTranslations("News");
   const { locale } = React.use(params);
 
-  const rawNewsItems = t.raw("news_items") || [];
+  const rawNewsItems = React.useMemo(() => t.raw("news_items") || [], [t]);
 
   const { state, actions } = useNewsManager({
     initialItems: rawNewsItems as NewsItem[],

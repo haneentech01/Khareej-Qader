@@ -34,7 +34,7 @@ export function Header() {
             <div className="container mx-auto flex items-center justify-between 
             px-6 md:px-10 lg:px-4 xl:px-20">
                 {/* Logo Section */}
-                <div className="flex items-center">
+                <div className="flex items-center py-3">
                     <Link href="/" onClick={closeMenu}>
                         <Image
                             src="/images/logo.png"
@@ -43,8 +43,8 @@ export function Header() {
                             height={60}
                             priority
                             className={`object-contain transition-all duration-300 origin-left ${isScrolled
-                                ? "w-20 md:w-24 xl:w-[95px]"
-                                : "w-[100px] md:w-28 xl:w-[130px]"
+                                ? "w-[70px] md:w-20 xl:w-[90px]"
+                                : "w-20 md:w-24 xl:w-[110px]"
                                 }`}
                         />
                     </Link>

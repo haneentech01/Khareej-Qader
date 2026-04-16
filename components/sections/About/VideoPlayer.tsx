@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { PlayButton } from "./PlayButton";
-import { useVideoPlayer } from "../../../hooks/useVideoPlayer";
+import { useVideoPlayer } from "@/hooks/useVideoPlayer";
 
 interface VideoPlayerProps {
   playLabel: string;
