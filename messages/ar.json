@@ -220,5 +220,62 @@
   "Partners": {
     "title": "شركاء النجاح من الجامعات",
     "subtitle": "فخورون بالتعاون مع كبرى الجامعات والمؤسسات التعليمية لتزويد الطلاب بأفضل المهارات."
+  },
+  "Dashboard": {
+    "sidebar": {
+      "home": "الرئيسية",
+      "track": "مساري",
+      "tasks": "المهام",
+      "mentor": "مرشدي",
+      "certificates": "الشهادات",
+      "settings": "الإعدادات",
+      "logout": "تسجيل الخروج"
+    },
+    "topNav": {
+      "search": "ابحث داخل المسار",
+      "userName": "أحمد أحمد",
+      "userMajor": "هندسة حاسوب"
+    },
+    "hero": {
+      "welcome": "مرحباً، {name} 👋",
+      "subtitle": "استمر في التقدم نحو هدفك المهني",
+      "educational_track": "مساري التعليمي",
+      "track_name": "تطوير الويب",
+      "lessons_completed": "{completed} من {total} درس مكتمل",
+      "percent_completed": "{value}% مكتمل",
+      "next_lesson": "الدرس التالي:",
+      "current_lesson": "هيكل صفحة HTML الأساسية",
+      "continue_learning": "تابع التعلم"
+    },
+    "mentor": {
+      "title": "مدربك في هذا المسار",
+      "role": "أخصائي تطوير واجهات",
+      "bio": "أحمد مطور واجهات خبير متخصص في تعليم تقنيات الويب الحديثة وتبسيط المفاهيم المعقدة للمبتدئين.",
+      "contact": "تواصل مع المرشد"
+    },
+    "tasks": {
+      "upcoming": "المهمة القادمة",
+      "title": "بناء أول صفحة ويب",
+      "deadline": "الموعد النهائي: {date}",
+      "start": "ابدأ التنفيذ",
+      "context": "مرتبط بدرس: {lesson}",
+      "lesson_name": "هيكل صفحة HTML"
+    },
+    "announcements": {
+      "title": "إعلانات مهمة",
+      "view_all": "عرض الكل",
+      "item1_title": "ورشة عمل: تقنيات React",
+      "item1_desc": "انضم إلينا في جلسة مباشرة لمناقشة...",
+      "item2_title": "لقاء مرشد المسار",
+      "item2_desc": "موعدك القادم مع مرشد المسار",
+      "october": "أكتوبر"
+    },
+    "certificate": {
+      "title": "الشهادة",
+      "description": "أكمل مسارك للحصول على الشهادة المعتمدة وابدأ رحلتك المهنية.",
+      "progress_label": "التقدم نحو الشهادة",
+      "steps_completed": "{completed} من {total} مكتمل",
+      "details": "عرض التفاصيل"
+    }
   }
 }

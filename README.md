@@ -25,15 +25,26 @@ khareej-qader/
 │       │   ├── page.tsx            # الصفحة الرئيسية
 │       │   └── news/               # صفحة الأخبار والفرص
 │       └── (auth)/                 # صفحات التوثيق (بدون Header)
-│           ├── layout.tsx
-│           ├── login/
-│           └── register/
+│       │   ├── layout.tsx
+│       │   ├── login/
+│       │   └── register/
+│       └── dashboard/              # لوحة تحكم الطالب (Student Dashboard)
+│           ├── layout.tsx          # تخطيط لوحة التحكم (Sidebar + TopNav)
+│           └── page.tsx            # الصفحة الرئيسية للوحة التحكم
 ├── components/
 │   ├── auth/                       # مكونات صفحات التوثيق
 │   │   ├── AuthLayout.tsx
 │   │   ├── AuthIllustration.tsx
 │   │   ├── LoginForm.tsx
 │   │   └── RegisterForm.tsx
+│   ├── dashboard/                  # مكونات لوحة التحكم
+│   │   ├── Sidebar.tsx
+│   │   ├── TopNav.tsx
+│   │   ├── ProgressHero.tsx
+│   │   ├── MentorCard.tsx
+│   │   ├── TaskCard.tsx
+│   │   ├── Announcements.tsx
+│   │   └── CertificateCard.tsx
 │   ├── layout/                     # مكونات التخطيط الثابتة
 │   │   ├── Header.tsx
 │   │   └── Footer.tsx
@@ -117,3 +128,5 @@ page.tsx
 - كل قسم كبير → ملف مستقل في `components/sections/`
 - تجنب تكدس الكود في `page.tsx` — تبقى مجرد wrapper يستدعي المكونات
 - أي تغيير في تصميم عنصر (مثل الأزرار) → يُعدَّل في ملفه فقط وينعكس على النظام كله
+- لوحة تحكم الأدمن (Admin Dashboard) → مخطط لها مستقبلاً وسيتم فصلها عن لوحة تحكم الطالب لضمان قابلية التوسع.
+

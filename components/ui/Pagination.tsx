@@ -28,7 +28,11 @@ export function Pagination({ currentPage, totalPages, onPageChange, locale }: Pa
       <button
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        className="flex items-center justify-center size-10 rounded-full border border-slate-200 text-slate-400 hover:border-brand-primary hover:text-brand-primary disabled:opacity-30 disabled:hover:border-slate-200 disabled:hover:text-slate-400 transition-all"
+        className="flex items-center justify-center size-10 
+        rounded-full border border-slate-200 text-slate-400 
+        hover:border-brand-primary hover:text-brand-primary 
+        disabled:opacity-30 disabled:hover:border-slate-200 
+        disabled:hover:text-slate-400 transition-all"
       >
         <PrevIcon className="size-5" />
       </button>

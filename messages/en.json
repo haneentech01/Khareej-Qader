@@ -220,5 +220,62 @@
   "Partners": {
     "title": "University Success Partners",
     "subtitle": "We are proud to collaborate with major universities and educational institutions to provide students with the best skills."
+  },
+  "Dashboard": {
+    "sidebar": {
+      "home": "Dashboard",
+      "track": "My Track",
+      "tasks": "Tasks",
+      "mentor": "My Mentor",
+      "certificates": "Certificates",
+      "settings": "Settings",
+      "logout": "Logout"
+    },
+    "topNav": {
+      "search": "Search in track",
+      "userName": "Ahmed Ahmed",
+      "userMajor": "Computer Engineering"
+    },
+    "hero": {
+      "welcome": "Welcome, {name} 👋",
+      "subtitle": "Continue progressing toward your professional goal",
+      "educational_track": "Educational Track",
+      "track_name": "Web Development",
+      "lessons_completed": "{completed} of {total} lessons completed",
+      "percent_completed": "{value}% completed",
+      "next_lesson": "Next Lesson:",
+      "current_lesson": "Basic HTML Page Structure",
+      "continue_learning": "Continue Learning"
+    },
+    "mentor": {
+      "title": "Your Mentor in this Track",
+      "role": "Frontend Specialist",
+      "bio": "Ahmed is an expert frontend developer specializing in teaching modern web technologies and simplifying complex concepts for beginners.",
+      "contact": "Contact Mentor"
+    },
+    "tasks": {
+      "upcoming": "Upcoming Task",
+      "title": "Building your first web page",
+      "deadline": "Deadline: {date}",
+      "start": "Start Execution",
+      "context": "Related to lesson: {lesson}",
+      "lesson_name": "HTML Structure"
+    },
+    "announcements": {
+      "title": "Important Announcements",
+      "view_all": "View All",
+      "item1_title": "Workshop: React Techniques",
+      "item1_desc": "Join us in a live session to discuss...",
+      "item2_title": "Track Mentor Meeting",
+      "item2_desc": "Your next appointment with the track mentor",
+      "october": "October"
+    },
+    "certificate": {
+      "title": "Certificate",
+      "description": "Complete your track to obtain the certified certificate and start your professional journey.",
+      "progress_label": "Progress toward Certificate",
+      "steps_completed": "{completed} of {total} completed",
+      "details": "View Details"
+    }
   }
 }

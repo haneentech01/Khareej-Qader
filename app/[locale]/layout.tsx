@@ -23,7 +23,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "خريج قادر - أريستو أكاديميي",
+  title: "خريج قادر - أريستو أكاديمي",
   description: "برنامج تدريبي يهدف إلى تأهيل الخريجين لسوق العمل",
 };
 
