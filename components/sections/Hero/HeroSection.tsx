@@ -13,20 +13,16 @@ export function HeroSection() {
   const { ref, controls, variants } = useScrollAnimation({ delay: 0.1 });
 
   return (
-    <motion.section
+    <section
       id="home"
       ref={ref}
-      initial="hidden"
-      animate={controls}
-      variants={variants}
       className="relative 
       pt-8 pb-36 
       md:pt-16 md:pb-60 
       mb-10 lg:mb-20
       overflow-visible"
     >
-      {/* ✅ Background باستخدام picture */}
-      <div className="absolute inset-0 -z-10">
+      <div className="absolute inset-0 z-0">
         <picture>
           {/* Desktop */}
           <source
@@ -44,21 +40,22 @@ export function HeroSection() {
           <img
             src="/images/heroSectionBGMobilePic.webp"
             alt="Hero Background"
+            fetchPriority="high"
             className="w-full h-full object-cover object-center"
           />
         </picture>
       </div>
 
-      <div className="container mx-auto px-5 md:px-10">
+      <div className="container relative z-10 px-5 lg:px-10">
         <div className="max-w-[900px]">
           {/* Text Content */}
           <div className="flex flex-col justify-center space-y-6">
             <h1
               className="text-3xl font-bold tracking-tight 
               md:text-5xl lg:text-6xl text-balance
-              leading-[55px] md:leading-[90px] lg:leading-[80px]"
+              leading-[55px] md:leading-[70px] lg:leading-[80px]"
             >
-              {heroData.titleStart}{" "}
+              {heroData.titleStart}
               <br className="hidden sm:block" />
               <span className="text-brand-primary">
                 {heroData.brandName}
@@ -73,7 +70,7 @@ export function HeroSection() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 pt-6">
-              <Link href="/register">
+              <Link href="/register" aria-label="register now">
                 <Button
                   className="bg-brand-primary hover:bg-brand-dark
                   text-white font-semibold h-[60px] text-base lg:text-lg 
@@ -84,7 +81,7 @@ export function HeroSection() {
                 </Button>
               </Link>
 
-              <Link href="/#program">
+              <Link href="/#program" aria-label="learn more">
                 <Button
                   size="lg"
                   variant="outline"
@@ -107,6 +104,6 @@ export function HeroSection() {
       <div className="absolute bottom-0 left-0 right-0 translate-y-1/2 z-30">
         <HeroStats stats={heroStats} />
       </div>
-    </motion.section>
+    </section>
   );
 }

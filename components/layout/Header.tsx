@@ -35,7 +35,7 @@ export function Header() {
             px-6 md:px-10 lg:px-4 xl:px-20">
                 {/* Logo Section */}
                 <div className="flex items-center py-3">
-                    <Link href="/" onClick={closeMenu}>
+                    <Link href="/" onClick={closeMenu} aria-label="home">
                         <Image
                             src="/images/logo.png"
                             alt="Kharij Qader Logo"
@@ -60,6 +60,7 @@ export function Header() {
                                 ? "text-brand-primary font-bold"
                                 : "text-black hover:text-brand-hover focus-visible:text-brand-hover"
                                 }`}
+                            aria-label={link.key}
                         >
                             {t(link.key)}
                         </Link>
@@ -69,21 +70,23 @@ export function Header() {
                 {/* Actions Section */}
                 <div className="">
                     <div className="hidden lg:flex items-center gap-2.5">
-                        <Link href="/register">
+                        <Link href="/register" aria-label="register now">
                             <Button
                                 className="bg-brand-primary hover:bg-brand-primary/90
                                 text-lg text-white font-semibold shadow-sm transition-colors
                                 w-16 lg:w-28 h-12"
+                                aria-label="register now"
                             >
                                 {t("register_now")}
                             </Button>
                         </Link>
-                        <Link href="/login">
+                        <Link href="/login" aria-label="login">
                             <Button
                                 variant="outline"
                                 className="text-[#0F172A] border-[#CBD5E1] font-medium
                                  hover:bg-slate-50 transition-colors text-lg
                                  w-20 lg:w-40 h-12"
+                                aria-label="login"
                             >
                                 {t("login")}
                             </Button>
@@ -97,6 +100,7 @@ export function Header() {
                             size="icon"
                             onClick={toggleMenu}
                             className="text-brand-primary"
+                            aria-label="open menu"
                         >
                             {isMenuOpen ? (
                                 <X className="w-5! h-5! md:w-7! md:h-7!" />
@@ -125,6 +129,7 @@ export function Header() {
                                             ? "text-brand-primary font-bold border-brand-primary"
                                             : "text-black active:text-brand-primary"
                                         }`}
+                                    aria-label={link.key}
                                 >
                                     {t(link.key)}
                                 </Link>
@@ -133,22 +138,30 @@ export function Header() {
 
                         <div className="flex flex-col sm:flex-row items-center 
                         justify-center gap-4 mt-4 pt-8 border-t border-[#CBD5E1]">
-                            <Link href="/register" onClick={closeMenu} className="w-full sm:w-[200px]">
+                            <Link href="/register"
+                                aria-label="register now"
+                                onClick={closeMenu}
+                                className="w-full sm:w-[200px]">
                                 <Button
                                     className="bg-brand-primary hover:bg-brand-dark
                                     text-lg text-white font-bold shadow-md h-[55px] 
                                     w-full rounded-xl transition-all"
+                                    aria-label="register now"
                                 >
                                     {t("register_now")}
                                 </Button>
                             </Link>
-                            <Link href="/login" onClick={closeMenu} className="w-full sm:w-[270px]">
+                            <Link href="/login"
+                                aria-label="login"
+                                onClick={closeMenu}
+                                className="w-full sm:w-[270px]">
                                 <Button
                                     variant="outline"
                                     className="border-2 border-brand-primary
                                      text-brand-primary hover:text-brand-dark
                                      hover:bg-brand-surface text-lg h-[55px] 
                                      w-full rounded-xl font-bold transition-all"
+                                    aria-label="login"
                                 >
                                     {t("login")}
                                 </Button>

@@ -10,10 +10,10 @@ interface UseScrollAnimationOptions {
   delay?: number;
 }
 
-export function useScrollAnimation<T extends HTMLElement = HTMLElement>({ 
-  once = false, 
-  amount = 0.2, 
-  delay = 0 
+export function useScrollAnimation<T extends HTMLElement = HTMLElement>({
+  once = false,
+  amount = 0.2,
+  delay = 0,
 }: UseScrollAnimationOptions = {}) {
   const ref = useRef<T>(null);
   const isInView = useInView(ref, { once, amount });
@@ -22,7 +22,8 @@ export function useScrollAnimation<T extends HTMLElement = HTMLElement>({
   useEffect(() => {
     if (isInView) {
       controls.start("visible");
-    } else if (!once) { // Optional: reverse animation if scrolling back up
+    } else if (!once) {
+      //reverse animation if scrolling back up
       controls.start("hidden");
     }
   }, [isInView, controls, once]);
@@ -33,7 +34,6 @@ export function useScrollAnimation<T extends HTMLElement = HTMLElement>({
       opacity: 1,
       y: 0,
       transition: {
-        type: "spring",
         damping: 20,
         stiffness: 100,
         duration: 0.6,
