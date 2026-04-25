@@ -5,17 +5,12 @@ import { Button } from "@/components/ui/button";
 import { PlayCircle } from "lucide-react";
 import { useHero } from "@/hooks/useHero";
 import { HeroStats } from "./HeroStats";
-import { motion } from "framer-motion";
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 export function HeroSection() {
   const { heroData, heroStats } = useHero();
-  const { ref, controls, variants } = useScrollAnimation({ delay: 0.1 });
-
   return (
     <section
       id="home"
-      ref={ref}
       className="relative 
       pt-8 pb-36 
       md:pt-16 md:pb-60 
@@ -53,10 +48,10 @@ export function HeroSection() {
             <h1
               className="text-3xl font-bold tracking-tight 
               md:text-5xl lg:text-6xl text-balance
-              leading-[55px] md:leading-[70px] lg:leading-[80px]"
+              leading-[50px] md:leading-[70px] lg:leading-[90px]"
             >
               {heroData.titleStart}
-              <br className="hidden sm:block" />
+              <br className="block" />
               <span className="text-brand-primary">
                 {heroData.brandName}
               </span>

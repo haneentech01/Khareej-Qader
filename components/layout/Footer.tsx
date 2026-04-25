@@ -68,15 +68,14 @@ export function Footer() {
           <motion.div variants={footerItemVariants} className="flex flex-col max-w-sm">
             <Link href="/" className="inline-block transition-transform hover:scale-105 active:scale-95">
               <Image
-                src="/images/logoFooter.png"
+                src="/images/logo.png"
                 alt="Khareej Qader"
                 width={180}
                 height={108}
-                className="w-[131px] md:w-[150px] lg:w-[180px] h-auto"
-                style={{ height: 'auto' }}
+                className="w-[131px] md:w-[150px] h-auto"
               />
             </Link>
-            <p className="text-brand-muted text-sm lg:text-base leading-relaxed">
+            <p className="text-brand-muted text-sm lg:text-base mt-4 leading-relaxed">
               {t("description")}
             </p>
           </motion.div>

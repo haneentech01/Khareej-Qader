@@ -21,6 +21,7 @@ export function VideoPlayer({ playLabel }: VideoPlayerProps) {
           fill
           className="object-contain"
           priority
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
         <PlayButton label={playLabel} onClick={handlePlay} />
       </div>

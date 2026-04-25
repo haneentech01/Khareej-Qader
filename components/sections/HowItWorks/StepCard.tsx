@@ -45,7 +45,7 @@ export function StepCard({ step }: StepCardProps) {
                     alt={step.title}
                     width={32}
                     height={42}
-                    className="object-contain"
+                    className="object-contain w-auto h-auto"
                 />
             </div>
         </div>

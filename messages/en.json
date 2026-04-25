@@ -1,4 +1,8 @@
 {
+  "RootMetadata": {
+    "title": "Khareej Qader - Areisto Academy",
+    "description": "A training program aimed at qualifying graduates for the labor market"
+  },
   "Header": {
     "home": "Home",
     "program": "Program",
@@ -222,13 +226,16 @@
     "subtitle": "We are proud to collaborate with major universities and educational institutions to provide students with the best skills."
   },
   "Dashboard": {
+    "metadata": {
+      "title": "Dashboard | Khareej Qader",
+      "description": "Follow your training track, complete your tasks, and verify your certificate in the Khareej Qader program."
+    },
     "sidebar": {
       "home": "Dashboard",
       "track": "My Track",
       "tasks": "Tasks",
-      "mentor": "My Mentor",
       "certificates": "Certificates",
-      "settings": "Settings",
+      "profile": "Profile",
       "logout": "Logout"
     },
     "topNav": {
@@ -243,7 +250,7 @@
       "track_name": "Web Development",
       "lessons_completed": "{completed} of {total} lessons completed",
       "percent_completed": "{value}% completed",
-      "next_lesson": "Next Lesson:",
+      "next_lesson": "Current Lesson:",
       "current_lesson": "Basic HTML Page Structure",
       "continue_learning": "Continue Learning"
     },
@@ -276,6 +283,60 @@
       "progress_label": "Progress toward Certificate",
       "steps_completed": "{completed} of {total} completed",
       "details": "View Details"
+    },
+    "MyTrack": {
+      "title": "My Track",
+      "subtitle": "Follow your educational journey within the current track",
+      "breadcrumb_home": "Home",
+      "breadcrumb_track": "Training Track",
+      "lessons_title": "Track Lessons",
+      "lesson_prefix": "Lesson",
+      "duration": "{minutes} minutes",
+      "status_completed": "Completed",
+      "status_current": "Current Lesson",
+      "status_locked": "Locked"
+    },
+    "TasksPage": {
+      "title": "My Tasks",
+      "subtitle": "Perform tasks related to your lessons and apply what you've learned to improve your skills.",
+      "breadcrumb_home": "Home",
+      "breadcrumb_tasks": "Tasks",
+      "current_task": {
+        "deadline_prefix": "Deadline:",
+        "related_lesson": "Related to lesson:",
+        "upload_title": "Upload Solution",
+        "upload_drop": "Drag your file here or upload it",
+        "upload_hint": "Supports HTML, PDF, ZIP files",
+        "upload_btn": "Choose Files",
+        "status_label": "Status :",
+        "status_pending": "Not submitted yet",
+        "submit_btn": "Submit Solution"
+      },
+      "previous_tasks": {
+        "title": "Previous Tasks",
+        "completed_status": "Completed",
+        "submitted_on": "Submitted on {date}"
+      }
+    },
+    "ProfilePage": {
+      "title": "Profile",
+      "account_info": "Account Information",
+      "personal_info": "Personal Information",
+      "edu_info": "Educational Information",
+      "cv_info": "Curriculum Vitae (CV)",
+      "username": "Username",
+      "full_name": "Full Name",
+      "email": "Email Address",
+      "phone": "Phone Number",
+      "gender": "Gender",
+      "university": "University",
+      "major": "Major",
+      "training_path": "Training Path",
+      "cv_hint": "You can upload a new PDF file to update your CV",
+      "save_btn": "Save Changes",
+      "locked_info_hint": "Some data cannot be edited",
+      "male": "Male",
+      "female": "Female"
     }
   }
 }

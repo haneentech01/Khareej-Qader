@@ -25,37 +25,59 @@ export function Announcements() {
   ];
 
   return (
-    <div className="bg-white rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col h-full">
+    <div className="bg-white rounded-[30px] p-8 border border-slate-100
+     shadow-sm flex flex-col justify-between h-full">
+      {/* title and view all button */}
       <div className="flex justify-between items-center mb-8">
-        <div className="flex items-center gap-2 text-brand-base">
+        {/* title */}
+        <div className="flex items-center gap-2 text-brand-primary">
           <Megaphone className="size-5" />
-          <h3 className="text-xl font-bold">{t("title")}</h3>
+          <h3 className="text-xl font-bold">
+            {t("title")}
+          </h3>
         </div>
-        <button className="text-gray-400 text-sm hover:text-brand-base transition-colors">{t("view_all")}</button>
+        {/* view all button */}
+        <button className="text-black text-sm hover:text-brand-base 
+        transition-colors cursor-pointer">
+          {t("view_all")}
+        </button>
       </div>
 
-      <div className="space-y-6 flex-1">
+      {/* announcements list */}
+      <div className="space-y-5 flex-1">
         {announcements.map((item) => (
           <div key={item.id} className="flex items-center gap-4 group cursor-pointer">
-            <div className="bg-brand-surface rounded-xl p-2 min-w-[56px] flex flex-col items-center justify-center border border-brand-surface/20 group-hover:bg-brand-base group-hover:text-white transition-all">
-              <span className="text-lg font-bold leading-none">{item.date}</span>
-              <span className="text-[10px] font-medium opacity-80">{item.month}</span>
+
+            {/* date */}
+            <div className="bg-[#D9EAFF] rounded-lg p-2 min-w-[40px] flex flex-col 
+            items-center justify-center border border-brand-surface/20 gap-1
+            group-hover:bg-brand-base group-hover:text-white transition-all">
+              <span className="text-[#004335] text-xs font-bold leading-none">
+                {item.date}
+              </span>
+              <span className="text-[#004335] text-xs font-bold">
+                {item.month}
+              </span>
             </div>
-            <div>
-              <h4 className="font-bold text-gray-900 group-hover:text-brand-base transition-colors">{item.title}</h4>
-              <p className="text-xs text-gray-500 line-clamp-1">{item.description}</p>
+
+            {/* title and description */}
+            <div className="flex-1">
+              <div className="flex justify-between ">
+                <h4 className="font-bold text-black 
+                group-hover:text-brand-base transition-colors">
+                  {item.title}
+                </h4>
+                <button className="group-hover:cursor-pointer hover:bg-gray-50 
+                text-gray-400 group-hover:text-black transition-all">
+                  <ChevronLeft className="size-5" />
+                </button>
+              </div>
+              <p className="text-xs text-brand-muted line-clamp-1">
+                {item.description}
+              </p>
             </div>
           </div>
         ))}
-      </div>
-
-      <div className="flex gap-2 mt-8">
-        <button className="p-2 border border-gray-100 rounded-lg hover:bg-gray-50 text-gray-400 hover:text-gray-900 transition-all">
-          <ChevronRight className="size-5" />
-        </button>
-        <button className="p-2 border border-gray-100 rounded-lg hover:bg-gray-50 text-gray-400 hover:text-gray-900 transition-all">
-          <ChevronLeft className="size-5" />
-        </button>
       </div>
     </div>
   );

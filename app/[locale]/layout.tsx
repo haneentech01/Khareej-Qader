@@ -6,6 +6,7 @@ import { getMessages } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import { notFound } from "next/navigation";
 import { ScrollToTopButton } from "@/components/ui/ScrollToTopButton";
+import { getTranslations } from "next-intl/server";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,10 +23,17 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "خريج قادر - أريستو أكاديمي",
-  description: "برنامج تدريبي يهدف إلى تأهيل الخريجين لسوق العمل",
-};
+
+
+export async function generateMetadata({ params }: { params: { locale: string } }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "RootMetadata" });
+
+  return {
+    title: t("title"),
+    description: t("description"),
+  };
+}
 
 
 export default async function RootLayout({

@@ -27,8 +27,8 @@ export function PlayButton({ label, onClick }: PlayButtonProps) {
       </div>
 
       {/* Tooltip-like Text Overlay */}
-      <span className="absolute bottom-[58px] md:bottom-40 lg:bottom-36 xl:bottom-44
-                        right-0 -translate-x-12 md:right-10 lg:right-[108px] xl:right-36
+      <span className="absolute bottom-[58px] md:bottom-28 lg:bottom-36 xl:bottom-44
+                        right-0 -translate-x-12 md:right-16 lg:right-[108px] xl:right-36
                         text-white font-bold 
                         text-sm md:text-xl lg:text-2xl 
                         transition-all duration-500 delay-75 

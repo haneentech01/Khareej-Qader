@@ -1,4 +1,8 @@
 {
+  "RootMetadata": {
+    "title": "خريج قادر - أريستو أكاديمي",
+    "description": "برنامج تدريبي يهدف إلى تأهيل الخريجين لسوق العمل"
+  },
   "Header": {
     "home": "الرئيسية",
     "program": "البرنامج",
@@ -222,13 +226,16 @@
     "subtitle": "فخورون بالتعاون مع كبرى الجامعات والمؤسسات التعليمية لتزويد الطلاب بأفضل المهارات."
   },
   "Dashboard": {
+    "metadata": {
+      "title": "لوحة التحكم | خريج قادر",
+      "description": "تابع مسارك التدريبي، أنجز مهامك، وتحقق من شهادتك في برنامج خريج قادر."
+    },
     "sidebar": {
       "home": "الرئيسية",
-      "track": "مساري",
+      "track": "المسار التدريبي",
       "tasks": "المهام",
-      "mentor": "مرشدي",
-      "certificates": "الشهادات",
-      "settings": "الإعدادات",
+      "certificates": "الشهادة",
+      "profile": "الملف الشخصي",
       "logout": "تسجيل الخروج"
     },
     "topNav": {
@@ -243,15 +250,9 @@
       "track_name": "تطوير الويب",
       "lessons_completed": "{completed} من {total} درس مكتمل",
       "percent_completed": "{value}% مكتمل",
-      "next_lesson": "الدرس التالي:",
+      "next_lesson": "الدرس الحالي:",
       "current_lesson": "هيكل صفحة HTML الأساسية",
       "continue_learning": "تابع التعلم"
-    },
-    "mentor": {
-      "title": "مدربك في هذا المسار",
-      "role": "أخصائي تطوير واجهات",
-      "bio": "أحمد مطور واجهات خبير متخصص في تعليم تقنيات الويب الحديثة وتبسيط المفاهيم المعقدة للمبتدئين.",
-      "contact": "تواصل مع المرشد"
     },
     "tasks": {
       "upcoming": "المهمة القادمة",
@@ -260,6 +261,19 @@
       "start": "ابدأ التنفيذ",
       "context": "مرتبط بدرس: {lesson}",
       "lesson_name": "هيكل صفحة HTML"
+    },
+    "mentor": {
+      "title": "مدربك في هذا المسار",
+      "role": "أخصائي تطوير واجهات",
+      "bio": "أحمد مطور واجهات خبير متخصص في تعليم تقنيات الويب الحديثة وتبسيط المفاهيم المعقدة للمبتدئين.",
+      "contact": "تواصل مع المرشد"
+    },
+    "certificate": {
+      "title": "الشهادة",
+      "description": "أكمل مسارك للحصول على الشهادة المعتمدة وابدأ رحلتك المهنية.",
+      "progress_label": "التقدم نحو الشهادة",
+      "steps_completed": "{completed} من {total} مكتمل",
+      "details": "عرض التفاصيل"
     },
     "announcements": {
       "title": "إعلانات مهمة",
@@ -270,12 +284,59 @@
       "item2_desc": "موعدك القادم مع مرشد المسار",
       "october": "أكتوبر"
     },
-    "certificate": {
-      "title": "الشهادة",
-      "description": "أكمل مسارك للحصول على الشهادة المعتمدة وابدأ رحلتك المهنية.",
-      "progress_label": "التقدم نحو الشهادة",
-      "steps_completed": "{completed} من {total} مكتمل",
-      "details": "عرض التفاصيل"
+    "MyTrack": {
+      "title": "مساري",
+      "subtitle": "تابع رحلتك التعليمية داخل المسار الحالي",
+      "breadcrumb_home": "الرئيسية",
+      "breadcrumb_track": "المسار التدريبي",
+      "lessons_title": "دروس المسار",
+      "lesson_prefix": "الدرس",
+      "duration": "{minutes} دقيقة",
+      "status_completed": "مكتمل",
+      "status_current": "الدرس الحالي",
+      "status_locked": "مقفل"
+    },
+    "TasksPage": {
+      "title": "مهامي",
+      "subtitle": "نفذ المهام المرتبطة بدوروسك وطبق ما تعلمته لتحسين مهاراتك.",
+      "breadcrumb_home": "الرئيسية",
+      "breadcrumb_tasks": "المهام",
+      "current_task": {
+        "deadline_prefix": "الموعد النهائي:",
+        "related_lesson": "مرتبطة بدرس:",
+        "upload_title": "رفع الحل",
+        "upload_drop": "اسحب ملفك هنا أو ارفعه",
+        "upload_hint": "يدعم ملفات HTML, PDF, ZIP",
+        "upload_btn": "اختر الملفات",
+        "status_label": "الحالة :",
+        "status_pending": "لم يتم التسليم بعد",
+        "submit_btn": "قم بالتسليم"
+      },
+      "previous_tasks": {
+        "title": "مهامي السابقة",
+        "completed_status": "مكتملة",
+        "submitted_on": "تم التسليم في {date}"
+      }
+    },
+    "ProfilePage": {
+      "title": "الملف الشخصي",
+      "account_info": "معلومات الحساب",
+      "personal_info": "البيانات الشخصية",
+      "edu_info": "المعلومات التعليمية",
+      "cv_info": "السيرة الذاتية (CV)",
+      "username": "اسم المستخدم",
+      "full_name": "الاسم الكامل",
+      "email": "البريد الإلكتروني",
+      "phone": "رقم الهاتف",
+      "gender": "الجنس",
+      "university": "اسم الجامعة",
+      "major": "التخصص الجامعي",
+      "training_path": "المسار التدريبي",
+      "cv_hint": "يمكنك رفع ملف PDF جديد لتحديث سيرتك الذاتية",
+      "save_btn": "حفظ التعديلات",
+      "locked_info_hint": "بعض البيانات لا يمكن تعديلها",
+      "male": "ذكر",
+      "female": "أنثى"
     }
   }
 }

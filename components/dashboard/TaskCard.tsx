@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { ClipboardCheck, Calendar } from "lucide-react";
+import { ClipboardCheck, Calendar, ClipboardClock } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 interface TaskCardProps {
@@ -15,24 +15,40 @@ export function TaskCard({ title, context, deadline }: TaskCardProps) {
   const t = useTranslations("Dashboard.tasks");
 
   return (
-    <div className="bg-white rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col justify-between h-full">
-      <div className="mb-6">
-        <div className="flex justify-between items-center mb-6">
-          <div className="flex items-center gap-2 text-brand-base">
-            <ClipboardCheck className="size-5" />
-            <span className="text-sm font-bold">{t("upcoming")}</span>
+    <div className="bg-white rounded-[30px] p-8
+     shadow-sm border border-slate-100
+     flex flex-col h-full">
+      <div className="mb-7">
+        <div className="flex justify-between items-center mb-7">
+          {/* Upcoming */}
+          <div className="flex items-center gap-2 text-brand-primary">
+            <ClipboardClock className="size-6" />
+            <span className="text-xl font-bold">
+              {t("upcoming")}
+            </span>
           </div>
-          <div className="flex items-center gap-1.5 text-red-500 bg-red-50 px-3 py-1 rounded-full">
-            <Calendar className="size-3.5" />
-            <span className="text-[10px] font-bold">{t("deadline", { date: deadline })}</span>
+          {/* Deadline */}
+          <div className="flex items-center gap-2 text-[#93000A]">
+            <Calendar className="size-4" />
+            <span className="text-sm">
+              {t("deadline", { date: deadline })}
+            </span>
           </div>
         </div>
-        
-        <h3 className="text-2xl font-bold text-gray-900 mb-2">{title}</h3>
-        <p className="text-gray-500 text-sm">{t("context", { lesson: context })}</p>
+
+        {/* Task Title */}
+        <h3 className="text-xl font-bold text-[#191C1B] mb-2.5">
+          {title}
+        </h3>
+
+        {/* Task Context */}
+        <p className="text-brand-muted">
+          {t("context", { lesson: context })}
+        </p>
       </div>
-      
-      <Button className="w-full bg-brand-base hover:bg-brand-hover text-white rounded-xl h-12 font-bold">
+
+      <Button className="w-full bg-brand-primary hover:bg-brand-hover/90
+      cursor-pointer text-white rounded-[10px] h-12 font-semibold">
         {t("start")}
       </Button>
     </div>
