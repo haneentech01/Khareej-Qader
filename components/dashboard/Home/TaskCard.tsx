@@ -1,8 +1,7 @@
 "use client";
 
-import React from "react";
 import { Button } from "@/components/ui/button";
-import { ClipboardCheck, Calendar, ClipboardClock } from "lucide-react";
+import { Calendar, ClipboardClock } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 interface TaskCardProps {

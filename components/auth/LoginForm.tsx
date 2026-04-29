@@ -5,9 +5,12 @@ import { Link } from "@/i18n/routing";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { motion } from "framer-motion";
+import { Eye, EyeOff } from "lucide-react";
+import { useState } from "react";
 
 export function LoginForm() {
   const t = useTranslations("Auth");
+  const [show, setShow] = useState<boolean>(false);
 
   return (
     <motion.div
@@ -29,8 +32,41 @@ export function LoginForm() {
 
       <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
         {/* username */}
-        <div className="space-y-1.5">
-          <Input placeholder={t("username")} />
+        <div>
+          <Input className="h-11" placeholder={t("username")} />
+        </div>
+
+        {/* password */}
+        <div>
+          <div className="relative">
+            <Input
+              className="h-11"
+              type={show ? "text" : "password"}
+              placeholder={t("password")}
+            />
+
+            <button
+              type="button"
+              onClick={() => setShow(!show)}
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-brand-muted"
+            >
+              {show
+                ? <EyeOff size={18} />
+                : <Eye size={18} />}
+            </button>
+          </div>
+
+          <div className="flex items-center justify-between mt-2.5">
+            <div className="flex items-center space-x-2">
+              <input type="checkbox" id="remember" className="h-4 w-4" />
+              <label htmlFor="remember" className="text-sm text-gray-600">
+                {t("remember_me")}
+              </label>
+            </div>
+            <Link href="#" className="text-sm text-brand-primary hover:underline">
+              {t("forgot_password")}
+            </Link>
+          </div>
         </div>
 
         {/* Login Button */}

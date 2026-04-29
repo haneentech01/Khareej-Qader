@@ -21,30 +21,37 @@ export default async function TasksPage({
   return (
     <div className="max-w-7xl mx-auto space-y-6">
       {/* Header & Breadcrumbs */}
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-3.5">
         <Breadcrumbs items={breadcrumbItems} locale={locale} />
-        <h1 className="text-4xl font-bold text-black">{t("title")}</h1>
-        <p className="text-brand-muted text-lg">{t("subtitle")}</p>
+        <h1 className="text-4xl font-bold text-black">
+          {t("title")}
+        </h1>
+        <p className="text-brand-muted text-lg">
+          {t("subtitle")}
+        </p>
       </div>
 
       {/* Main Task Card */}
-      <div className="bg-white rounded-[30px] p-10 shadow-xs border border-gray-50 relative overflow-hidden">
+      <div className="bg-white rounded-[20px] p-8 shadow-xs border border-gray-50 relative overflow-hidden">
         <div className="flex flex-col gap-6">
+          {/* task header */}
           <div className="flex justify-between items-start">
             <div>
-              <h2 className="text-3xl font-bold text-black mb-2">بناء أول صفحة ويب</h2>
+              <h2 className="text-3xl font-bold text-black mb-3.5">
+                {t("current_task.title")}
+              </h2>
               <p className="text-brand-base font-medium flex items-center gap-1 text-sm">
-                {t("current_task.related_lesson")} <span className="font-bold">هيكل صفحة HTML الأساسية</span>
+                {t("current_task.related_lesson")}
               </p>
             </div>
-
+            {/* deadline */}
             <span className="bg-[#FCE7F3] text-[#BE185D] text-sm font-bold px-4 py-2 rounded-full">
-              {t("current_task.deadline_prefix")} 25 أبريل
+              {t("current_task.deadline_prefix")}
             </span>
           </div>
 
           <div className="bg-[#F8FAFC] rounded-[20px] p-6 text-brand-muted leading-relaxed">
-            قم ببناء صفحة HTML تحتوي على الهيكل الأساسي الذي تعلمته في الدرس السابق، تأكد من تضمين الوسوم الرئيسية مثل head و body واستخدام عناوين h1 وفقرات p بشكل صحيح.
+            {t("current_task.task_description")}
           </div>
 
           <FileUpload />

@@ -20,7 +20,7 @@ export function LessonTimeline({ lessons }: LessonTimelineProps) {
   const t = useTranslations("Dashboard.MyTrack");
 
   return (
-    <div className="bg-white rounded-[30px] p-10 border border-slate-100 shadow-sm">
+    <div className="bg-white rounded-[20px] p-10 border border-slate-100 shadow-sm">
       <h3 className="text-2xl font-bold text-black mb-10">
         {t("lessons_title")}
       </h3>

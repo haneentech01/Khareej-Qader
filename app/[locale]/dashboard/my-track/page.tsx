@@ -1,8 +1,7 @@
-import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
-import { TrackProgressHero } from "@/components/dashboard/TrackProgressHero";
-import { LessonTimeline } from "@/components/dashboard/LessonTimeline";
+import { ProgressHero } from "@/components/dashboard/Home/ProgressHero";
+import { LessonTimeline } from "@/components/dashboard/myTrack/LessonTimeline";
 
 export default async function MyTrackPage({
   params,
@@ -48,20 +47,25 @@ export default async function MyTrackPage({
 
   return (
     <div className="max-w-7xl mx-auto space-y-6">
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-3.5">
         <Breadcrumbs items={breadcrumbItems} locale={locale} />
-        <h1 className="text-4xl font-bold text-black">{t("title")}</h1>
-        <p className="text-brand-muted text-lg">{t("subtitle")}</p>
+        <h1 className="text-4xl font-bold text-black">
+          {t("title")}
+        </h1>
+        <p className="text-brand-muted text-lg">
+          {t("subtitle")}
+        </p>
       </div>
 
-      <TrackProgressHero
+      <ProgressHero
+        variant="standalone"
         trackName={dashboardT("hero.track_name")}
         progressValue={45}
         totalLessons={12}
         completedLessons={6}
       />
 
-      <div className="mt-10">
+      <div>
         <LessonTimeline lessons={lessons} />
       </div>
     </div>

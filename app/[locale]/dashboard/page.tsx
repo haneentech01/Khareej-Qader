@@ -1,9 +1,9 @@
 import { getTranslations } from "next-intl/server";
-import { ProgressHero } from "@/components/dashboard/ProgressHero";
-import { MentorCard } from "@/components/dashboard/MentorCard";
-import { TaskCard } from "@/components/dashboard/TaskCard";
-import { Announcements } from "@/components/dashboard/Announcements";
-import { CertificateCard } from "@/components/dashboard/CertificateCard";
+import { ProgressHero } from "@/components/dashboard/Home/ProgressHero";
+import { MentorCard } from "@/components/dashboard/Home/MentorCard";
+import { TaskCard } from "@/components/dashboard/Home/TaskCard";
+import { Announcements } from "@/components/dashboard/Home/Announcements";
+import { CertificateCard } from "@/components/dashboard/Home/CertificateCard";
 
 export default async function DashboardPage() {
   const t = await getTranslations("Dashboard");
