@@ -1,19 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const EXTERNAL_API = "https://mammary-lagoon-headboard.ngrok-free.dev";
+const EXTERNAL_API = process.env.NEXT_PUBLIC_API_URL;
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
+    const formData = await request.formData();
 
     const response = await fetch(`${EXTERNAL_API}/api/students/auth/register`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
-        // ngrok بحتاج هاد الهيدر
         "ngrok-skip-browser-warning": "true",
       },
-      body: JSON.stringify(body),
+      body: formData,
     });
 
     const data = await response.json();

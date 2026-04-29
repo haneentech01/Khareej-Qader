@@ -12,7 +12,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { CarouselDots } from "../../ui/carousel-dots";
-import { useTestimonials } from "@/hooks/useTestimonials";
+import { useTestimonials } from "@/hook/useTestimonials";
 import { TestimonialCard } from "./TestimonialCard";
 
 export function TestimonialsSection() {

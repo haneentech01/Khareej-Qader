@@ -2,7 +2,7 @@ import React from "react";
 import { NewsItem } from "@/types";
 import { NewsCard } from "./NewsCard";
 import { motion, Variants } from "framer-motion";
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { useScrollAnimation } from "@/hook/useScrollAnimation";
 
 interface NewsGridProps {
   items: NewsItem[];
@@ -38,7 +38,7 @@ export function NewsGrid({ items, readMoreLabel }: NewsGridProps) {
 
   if (items.length === 0) {
     return (
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         className="text-center py-20 px-4"

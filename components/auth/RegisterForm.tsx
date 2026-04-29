@@ -8,51 +8,38 @@ import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
 import { UploadCloud, Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
+import { useInsertData } from "@/hooks/useInsertData";
+import endpoints from "@/lib/api/endpoints";
 
 export function RegisterForm() {
   const t = useTranslations("Auth");
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
-  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const { insertData, loading, error } = useInsertData(
+    endpoints.auth.register
+  );
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsLoading(true);
-    setErrorMsg(null);
+    const fields = new FormData(e.currentTarget);
 
-    const formData = new FormData(e.currentTarget);
-    const data = {
-      name: formData.get("name"),
-      email: formData.get("email"),
-      password: formData.get("password"),
-      password_confirmation: formData.get("password_confirmation"),
-      phone: `${formData.get("phoneCode")}${formData.get("phone")}`,
-      gender: formData.get("gender"),
-      university: formData.get("university"),
-      major: formData.get("major"),
-      training_path: formData.get("trainingPath"),
-      // CV upload might require FormData instead of JSON, but following API route convention
-    };
+    const formData = new FormData();
+    formData.append("name", fields.get("name") as string);
+    formData.append("email", fields.get("email") as string);
+    formData.append("password", fields.get("password") as string);
+    formData.append("password_confirmation", fields.get("password_confirmation") as string);
+    formData.append("phone", `${fields.get("phoneCode")}${fields.get("phone")}`);
+    formData.append("gender", fields.get("gender") as string);
+    formData.append("university", fields.get("university") as string);
+    formData.append("major", fields.get("major") as string);
+    formData.append("training_path", fields.get("trainingPath") as string);
 
-    try {
-      const res = await fetch("/api/students/auth/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-
-      const result = await res.json();
-
-      if (!res.ok) {
-        setErrorMsg(result.message || "حدث خطأ أثناء التسجيل. يرجى المحاولة مرة أخرى.");
-      } else {
-        router.push("/login");
-      }
-    } catch (err) {
-      setErrorMsg("تعذر الاتصال بالخادم. تأكد من اتصالك بالإنترنت.");
-    } finally {
-      setIsLoading(false);
+    const cvFile = fields.get("cv") as File;
+    if (cvFile && cvFile.size > 0) {
+      formData.append("cv", cvFile);
     }
+
+    const result = await insertData(formData);
+    if (result) router.push("/login");
   };
 
   return (
@@ -74,9 +61,9 @@ export function RegisterForm() {
       </div>
 
       <form className="space-y-6" onSubmit={handleSubmit}>
-        {errorMsg && (
+        {error && (
           <div className="p-3 text-sm text-red-600 bg-red-50 rounded-lg text-center">
-            {errorMsg}
+            {error}
           </div>
         )}
 
@@ -171,12 +158,14 @@ export function RegisterForm() {
         </div>
 
         {/* register button */}
-        <Button 
+        <Button
           type="submit"
-          disabled={isLoading}
+          disabled={loading}
           className="w-full h-14 bg-brand-primary hover:bg-brand-accent text-white text-lg font-bold rounded-lg shadow-lg shadow-brand-primary/20 transition-all"
         >
-          {isLoading ? <Loader2 className="w-6 h-6 animate-spin mx-auto" /> : t("register_btn")}
+          {loading
+            ? <Loader2 className="w-6 h-6 animate-spin mx-auto" />
+            : t("register_btn")}
         </Button>
 
         {/* already have an account */}

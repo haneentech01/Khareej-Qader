@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa";
 import { motion, Variants } from "framer-motion";
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { useScrollAnimation } from "@/hook/useScrollAnimation";
 
 /**
  * Footer component providing site navigation, contact information,

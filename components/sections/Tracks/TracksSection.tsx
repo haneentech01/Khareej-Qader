@@ -10,7 +10,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { CarouselDots } from "../../ui/carousel-dots";
-import { useTracks } from "@/hooks/useTracks";
+import { useTracks } from "@/hook/useTracks";
 import { motion, Variants } from "framer-motion";
 
 export function TracksSection() {

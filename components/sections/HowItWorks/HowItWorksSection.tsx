@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { SectionHeader } from "../../ui/SectionHeader";
-import { useHowItWorks } from "../../../hooks/useHowItWorks";
+import { useHowItWorks } from "../../../hook/useHowItWorks";
 import { StepCard } from "./StepCard";
 import { FlowArrow } from "./FlowArrow";
 import { motion, Variants } from "framer-motion";

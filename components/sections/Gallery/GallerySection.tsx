@@ -9,7 +9,7 @@ import {
    CarouselPrevious,
 } from "@/components/ui/carousel";
 import { CarouselDots } from "../../ui/carousel-dots";
-import { useGallery } from "@/hooks/useGallery";
+import { useGallery } from "@/hook/useGallery";
 import { GalleryCard } from "./GalleryCard";
 
 const COLS_TO_CLASS: Record<number, string> = {

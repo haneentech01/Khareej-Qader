@@ -4,7 +4,7 @@ import { Link } from "@/i18n/routing";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
-import { useHeader } from "@/hooks/useHeader";
+import { useHeader } from "@/hook/useHeader";
 
 const navLinks = [
     { key: "home", href: "/#home" },

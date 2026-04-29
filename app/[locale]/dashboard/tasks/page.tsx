@@ -54,7 +54,12 @@ export default async function TasksPage({
             {t("current_task.task_description")}
           </div>
 
-          <FileUpload />
+          <FileUpload
+            title={t("current_task.upload_title")}
+            dropText={t("current_task.upload_drop")}
+            hintText={t("current_task.upload_hint")}
+            buttonText={t("current_task.upload_btn")}
+          />
 
           <div className="flex flex-col gap-8 mt-4">
             <div className="flex items-center gap-3">

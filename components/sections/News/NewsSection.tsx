@@ -1,6 +1,6 @@
 "use client";
 
-import { useNews } from "@/hooks/useNews";
+import { useNews } from "@/hook/useNews";
 import { NewsHeader } from "./NewsHeader";
 import { NewsList } from "./NewsList";
 import { motion, Variants } from "framer-motion";
