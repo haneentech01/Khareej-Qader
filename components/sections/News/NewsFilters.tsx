@@ -1,7 +1,7 @@
 import { Search, Calendar, SlidersHorizontal } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { motion, Variants } from "framer-motion";
-import { useScrollAnimation } from "@/hook/useScrollAnimation";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 interface NewsFiltersProps {
   value: string;

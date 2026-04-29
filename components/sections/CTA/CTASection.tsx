@@ -1,6 +1,6 @@
 "use client";
 
-import { useCTA } from "@/hook/useCTA";
+import { useCTA } from "@/hooks/useCTA";
 import { CTABox } from "./CTABox";
 
 export function CTASection() {

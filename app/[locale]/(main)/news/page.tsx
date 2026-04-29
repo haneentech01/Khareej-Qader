@@ -9,7 +9,7 @@ import { Pagination } from "@/components/ui/Pagination";
 import { CTASection } from "@/components/sections/CTA";
 import { motion } from "framer-motion";
 import { NewsItem } from "@/types";
-import { useNewsManager } from "@/hook/useNewsManager";
+import { useNewsManager } from "@/hooks/useNewsManager";
 
 export default function NewsPage({ params }: { params: Promise<{ locale: string }> }) {
   const t = useTranslations("NewsPage");

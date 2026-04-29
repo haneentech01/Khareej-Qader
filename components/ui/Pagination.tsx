@@ -2,7 +2,7 @@ import React from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import { useScrollAnimation } from "@/hook/useScrollAnimation";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 interface PaginationProps {
   currentPage: number;

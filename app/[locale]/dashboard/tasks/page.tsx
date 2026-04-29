@@ -1,6 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
-import { FileUpload } from "@/components/dashboard/FileUpload";
+import { FileUpload } from "@/components/dashboard/Tasks/FileUpload";
 import { PreviousTaskItem } from "@/components/dashboard/PreviousTaskItem";
 import { Button } from "@/components/ui/button";
 import { AlertCircle } from "lucide-react";
@@ -44,16 +44,20 @@ export default async function TasksPage({
                 {t("current_task.related_lesson")}
               </p>
             </div>
+
             {/* deadline */}
-            <span className="bg-[#FCE7F3] text-[#BE185D] text-sm font-bold px-4 py-2 rounded-full">
+            <span className="bg-transparent-red text-dark-red
+             text-sm md:text-base font-semibold px-4 py-2.5 rounded-full">
               {t("current_task.deadline_prefix")}
             </span>
           </div>
 
-          <div className="bg-[#F8FAFC] rounded-[20px] p-6 text-brand-muted leading-relaxed">
+          {/* task description */}
+          <div className="bg-[#F8FAFC] rounded-[20px] text-base md:text-lg p-6 text-brand-muted leading-relaxed">
             {t("current_task.task_description")}
           </div>
 
+          {/* upload file */}
           <FileUpload
             title={t("current_task.upload_title")}
             dropText={t("current_task.upload_drop")}

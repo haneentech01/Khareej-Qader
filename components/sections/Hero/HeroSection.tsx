@@ -3,7 +3,7 @@
 import { Link } from "@/i18n/routing";
 import { Button } from "@/components/ui/button";
 import { PlayCircle } from "lucide-react";
-import { useHero } from "@/hook/useHero";
+import { useHero } from "@/hooks/useHero";
 import { HeroStats } from "./HeroStats";
 
 export function HeroSection() {

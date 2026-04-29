@@ -11,42 +11,73 @@ import { NewsSection } from "@/components/sections/News";
 import { GallerySection } from "@/components/sections/Gallery";
 import { FAQSection } from "@/components/sections/FAQ";
 import { CTASection } from "@/components/sections/CTA";
+import { Footer } from "@/components/layout/Footer";
+import { Header } from "@/components/layout/Header";
+import { Reveal } from "@/components/animations/Reveal";
 
 export default function Home() {
   return (
-    <div className="flex flex-col bg-white">
+    <main className="flex flex-col min-h-screen bg-white">
+      {/* 1. Header */}
+      <Header />
+
       {/* 2. Hero & Stats */}
-      <HeroSection />
+      <Reveal>
+        <HeroSection />
+      </Reveal>
 
       {/* 3. About & Video */}
-      <AboutSection />
+      <Reveal>
+        <AboutSection />
+      </Reveal>
 
       {/* 3. Process Section */}
-      <HowItWorks />
+      <Reveal>
+        <HowItWorks />
+      </Reveal>
 
       {/* 4. Features Section */}
-      <WhyChooseUsSection />
+      <Reveal>
+        <WhyChooseUsSection />
+      </Reveal>
 
       {/* 4.1 University Partners */}
-      <PartnersSection />
+      <Reveal>
+        <PartnersSection />
+      </Reveal>
 
       {/* 5. Training Tracks */}
-      <TracksSection />
+      <Reveal>
+        <TracksSection />
+      </Reveal>
 
       {/* 6. Success Stories */}
-      <TestimonialsSection />
+      <Reveal>
+        <TestimonialsSection />
+      </Reveal>
 
       {/* 7. Latest News */}
-      <NewsSection />
+      <Reveal>
+        <NewsSection />
+      </Reveal>
 
       {/* 8. Highlights Gallery */}
-      <GallerySection />
+      <Reveal>
+        <GallerySection />
+      </Reveal>
 
       {/* 9. Frequently Asked Questions */}
-      <FAQSection />
+      <Reveal>
+        <FAQSection />
+      </Reveal>
 
       {/* 10. Call to Action */}
-      <CTASection />
-    </div>
+      <Reveal>
+        <CTASection />
+      </Reveal>
+
+      {/* 11. Footer */}
+      <Footer />
+    </main>
   );
 }
