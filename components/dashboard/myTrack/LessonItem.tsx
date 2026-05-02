@@ -4,10 +4,12 @@ import React from "react";
 import { Check, Play, LockKeyholeIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/routing";
 
 export type LessonStatus = "completed" | "current" | "locked";
 
 interface LessonItemProps {
+  id: string;
   number: number;
   title: string;
   duration?: string;
@@ -16,6 +18,7 @@ interface LessonItemProps {
 }
 
 export function LessonItem({
+  id,
   number,
   title,
   duration,
@@ -83,28 +86,56 @@ export function LessonItem({
         "flex-1 pb-10 transition-all duration-300",
         status === "current" && "pb-6")
       }>
-        <div className={cn(
-          "flex flex-col transition-all duration-300",
-          config.containerClass
-        )}>
-          <div className="flex items-center flex-col md:flex-row justify-between gap-4">
-            <div>
-              <p className="text-xs text-brand-primary font-bold mb-1">
-                {t("lesson_prefix")} {number}
-              </p>
-              <h4 className={cn("text-lg", config.textClass)}>
-                {title}
-              </h4>
-            </div>
-
-            {status === "current" && duration && (
-              <span className="bg-white px-3 py-1.5 rounded-md 
-              text-brand-base text-xs font-bold shadow-sm">
-                {duration}
-              </span>
+        {status === "current" ? (
+          <Link
+            href={`/dashboard/my-track/lessons/${id}`}
+            className={cn(
+              "flex flex-col transition-all duration-300",
+              config.containerClass
             )}
+          >
+            <div className="flex items-center flex-col md:flex-row justify-between gap-4">
+              <div>
+                <p className="text-xs text-brand-primary font-bold mb-1">
+                  {t("lesson_prefix")} {number}
+                </p>
+                <h4 className={cn("text-lg", config.textClass)}>
+                  {title}
+                </h4>
+              </div>
+
+              {duration && (
+                <span className="bg-white px-3 py-1.5 rounded-md 
+                text-brand-base text-xs font-bold shadow-sm">
+                  {duration}
+                </span>
+              )}
+            </div>
+          </Link>
+        ) : (
+          <div className={cn(
+            "flex flex-col transition-all duration-300",
+            config.containerClass
+          )}>
+            <div className="flex items-center flex-col md:flex-row justify-between gap-4">
+              <div>
+                <p className="text-xs text-brand-primary font-bold mb-1">
+                  {t("lesson_prefix")} {number}
+                </p>
+                <h4 className={cn("text-lg", config.textClass)}>
+                  {title}
+                </h4>
+              </div>
+
+              {status === "completed" && duration && (
+                <span className="bg-gray-100 px-3 py-1.5 rounded-md 
+                text-gray-500 text-xs font-bold shadow-sm">
+                  {duration}
+                </span>
+              )}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

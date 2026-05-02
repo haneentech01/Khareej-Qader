@@ -18,10 +18,10 @@ export function ProfileFieldSection({
   className,
 }: ProfileFieldSectionProps) {
   return (
-    <div className={cn("bg-white rounded-[30px] p-8 border border-gray-50 shadow-xs", className)}>
-      <div className="flex items-center gap-2 mb-8 text-[#34B898]">
-        <Icon className="size-6" />
-        <h3 className="text-xl font-bold">{title}</h3>
+    <div className={cn("bg-white rounded-[30px] p-7 border border-gray-50 shadow-xs", className)}>
+      <div className="flex items-center gap-2 mb-8 text-brand-primary">
+        <Icon className="size-7 font-bold" />
+        <h3 className="text-xl md:text-2xl font-bold">{title}</h3>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
         {children}
@@ -38,7 +38,7 @@ interface ProfileInputGroupProps {
 export function ProfileInputGroup({ label, children }: ProfileInputGroupProps) {
   return (
     <div className="space-y-2">
-      <label className="text-sm font-bold text-brand-muted block pr-1">
+      <label className="text-sm md:text-base font-semibold text-brand-muted block">
         {label}
       </label>
       {children}

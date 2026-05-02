@@ -29,6 +29,7 @@ export function LessonTimeline({ lessons }: LessonTimelineProps) {
         {lessons.map((lesson, index) => (
           <LessonItem
             key={lesson.id}
+            id={lesson.id}
             number={lesson.number}
             title={lesson.title}
             duration={lesson.duration}

@@ -321,11 +321,15 @@
       "previous_tasks": {
         "title": "مهامي السابقة",
         "completed_status": "مكتملة",
+        "task": "تطبيق على CSS",
         "submitted_on": "تم التسليم في {date}"
       }
     },
     "ProfilePage": {
-      "title": "الملف الشخصي",
+      "title": "ملفي الشخصي",
+      "subtitle": "يمكنك مراجعة وتحديث بياناتك",
+      "breadcrumb_home": "الرئيسية",
+      "breadcrumb_profile": "ملفي الشخصي",
       "account_info": "معلومات الحساب",
       "personal_info": "البيانات الشخصية",
       "edu_info": "المعلومات التعليمية",
@@ -343,6 +347,84 @@
       "locked_info_hint": "بعض البيانات لا يمكن تعديلها",
       "male": "ذكر",
       "female": "أنثى"
+    },
+    "CertificatesPage": {
+      "breadcrumb_home": "الرئيسية",
+      "breadcrumb_certificate": "الشهادة",
+      "title": "شهادتي",
+      "subtitle": "تابع تقدمك واحصل على شهاداتك",
+      "progress_card": {
+        "title": "تقدم الشهادة الحالية",
+        "requirements_completed": "{completed} من {total} متطلب مكتمل",
+        "percent_completed": "{percent}% مكتمل",
+        "current_certificate": "الشهادة الحالية",
+        "track_name": "تطوير الويب",
+        "track_role": "مطور ويب",
+        "track_desc": "إتقان الواجهات الأمامية والخلفية وبناء تطبيقات متكاملة."
+      },
+      "preview": {
+        "academy_name": "أكاديمية أريستو",
+        "certificate_type": "شهادة إتمام مسار",
+        "certify_text": "نشهد بأن الطالب",
+        "completion_text": "قد أكمل بنجاح كافة المتطلبات الأكاديمية والعملية للمسار التدريبي \"{track}\" بمعدل امتياز، مما يؤهله للعمل كمحترف {role}.",
+        "academic_director": "المدير الأكاديمي",
+        "director_name": "أحمد يوسف",
+        "issue_date_label": "تاريخ الإصدار"
+      },
+      "details": {
+        "title": "عن الشهادة",
+        "type_label": "النوع",
+        "type_value": "شهادة إتمام مسار",
+        "track_label": "المسار",
+        "track_value": "تطوير الويب الشامل",
+        "expected_date_label": "تاريخ الإصدار المتوقع",
+        "alert_message": "أكمل جميع متطلبات المسار لتفعيل الشهادة والحصول على نسخة قابلة للطباعة.",
+        "download_btn": "تحميل الشهادة",
+        "disabled_hint": "الزر سيتفعل عند إكمال المسار بنسبة 100%"
+      }
+    },
+    "LessonViewer": {
+      "breadcrumb_home": "الرئيسية",
+      "breadcrumb_track": "المسار التدريبي",
+      "breadcrumb_lesson": "تطوير الويب",
+      "title": "تطوير الويب",
+      "subtitle": "الدرس الحالي: {lessonName}",
+      "sidebar_title": "دروس المسار",
+      "lessons_count": "{count} درس",
+      "playing_now": "يتم عرضه الآن",
+      "duration": "{minutes} دقيقة",
+      "prev_lesson": "الدرس السابق",
+      "next_lesson": "الدرس التالي",
+      "tab_about": "عن الدرس",
+      "tab_notes": "الملاحظات",
+      "tab_attachments": "المرفقات",
+      "tab_questions": "أسئلة الدرس",
+      "about_title": "وصف الدرس",
+      "objectives_title": "أهداف التعلم",
+      "video_title": "هيكل صفحة HTML",
+      "video_subtitle": "أساس بناء صفحات الويب",
+      "about_description": "في هذا الدرس سنتعرف على الهيكل الأساسي لصفحات الويب باستخدام HTML5. سنقوم بشرح العناصر الأساسية مثل وسم البداية، الرأس، والجسم، وكيفية ربط الملفات الخارجية مثل الـ CSS والـ JS.",
+      "objective_1": "فهم بنية Document Object Model الأساسية.",
+      "objective_2": "التعرف على الفرق بين HEAD و BODY.",
+      "objective_3": "كتابة أول هيكل HTML متوافق مع المعايير.",
+      "video_rewind": "رجوع 10 ثواني",
+      "video_forward": "تقديم 10 ثواني",
+      "lesson_1_title": "مقدمة في تطوير الويب",
+      "lesson_2_title": "تثبيت بيئة العمل",
+      "lesson_3_title": "هيكل صفحة HTML",
+      "lesson_4_title": "الوسوم الأساسية للنصوص",
+      "lesson_5_title": "القوائم والروابط",
+      "questions": {
+        "title": "هل لديك سؤال؟ اترك تعليقاً أدناه!",
+        "add_placeholder": "لديك سؤال؟ اكتبه هنا...",
+        "submit_btn": "إرسال السؤال",
+        "replies": "{count} ردود",
+        "no_questions": "لا توجد أسئلة بعد لهذا الدرس. كن أول من يسأل!",
+        "search_placeholder": "ابحث في الأسئلة...",
+        "add_comment_button": "إضافة تعليق",
+        "trainer_reply_badge": "رد المدرب",
+        "time_ago": "منذ {time}"
+      }
     }
   }
 }

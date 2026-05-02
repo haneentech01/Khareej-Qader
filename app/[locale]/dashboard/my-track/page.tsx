@@ -1,7 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { ProgressHero } from "@/components/dashboard/Home/ProgressHero";
-import { LessonTimeline } from "@/components/dashboard/myTrack/LessonTimeline";
+import { LessonTimeline } from "@/components/dashboard/MyTrack/LessonTimeline";
 
 export default async function MyTrackPage({
   params,

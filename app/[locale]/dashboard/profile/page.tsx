@@ -1,23 +1,43 @@
 import { getTranslations } from "next-intl/server";
-import { User, GraduationCap, Info, Lock } from "lucide-react";
+import { User, GraduationCap, Info, Lock, UserCog } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Select } from "@/components/ui/select";
-import { ProfileFieldSection, ProfileInputGroup } from "@/components/dashboard/ProfileFieldSection";
-import { ProfileCVDisplay } from "@/components/dashboard/ProfileCVDisplay";
+import { ProfileFieldSection, ProfileInputGroup } from "@/components/dashboard/Profile/ProfileFieldSection";
+import { ProfileCVDisplay } from "@/components/dashboard/Profile/ProfileCVDisplay";
+import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 
-export default async function ProfilePage() {
+export default async function ProfilePage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const isRtl = locale === "ar";
   const t = await getTranslations("Dashboard.ProfilePage");
-
+  const breadcrumbItems = [
+    { label: t("breadcrumb_home"), href: "/dashboard" },
+    { label: t("breadcrumb_profile") },
+  ];
   return (
     <div className="max-w-7xl mx-auto space-y-8 pb-10">
+      {/* Header & Breadcrumbs */}
+      <div className="flex flex-col gap-3.5">
+        <Breadcrumbs items={breadcrumbItems} locale={locale} />
+        <h1 className="text-4xl font-bold text-black">
+          {t("title")}
+        </h1>
+        <p className="text-brand-muted text-lg">
+          {t("subtitle")}
+        </p>
+      </div>
+
       {/* Account Info Section */}
-      <ProfileFieldSection title={t("account_info")} icon={User}>
+      <ProfileFieldSection title={t("account_info")} icon={UserCog}>
         <ProfileInputGroup label={t("username")}>
-          <Input 
-            value="areisto_1023" 
-            disabled 
-            className="bg-[#F8FAFC] border-[#F1F5F9] text-brand-muted h-12 rounded-xl text-center"
+          <Input
+            defaultValue="areisto_1023"
+            className="bg-[#F8F8F8] text-[#191C1B] font-medium h-12 rounded-[10px]"
           />
         </ProfileInputGroup>
       </ProfileFieldSection>
@@ -25,20 +45,20 @@ export default async function ProfilePage() {
       {/* Personal Info Section */}
       <ProfileFieldSection title={t("personal_info")} icon={User}>
         <ProfileInputGroup label={t("full_name")}>
-          <Input 
-            defaultValue="أحمد محمد" 
-            className="border-[#BCCAC3] h-12 rounded-xl"
+          <Input
+            defaultValue="أحمد محمد"
+            className="border-[#BCCAC3] h-12 rounded-xl focus:ring-0 focus:outline-brand-base"
           />
         </ProfileInputGroup>
         <ProfileInputGroup label={t("email")}>
-          <Input 
-            defaultValue="ahmed@example.com" 
-            className="border-[#BCCAC3] h-12 rounded-xl"
+          <Input
+            defaultValue="ahmed@example.com"
+            className="border-[#BCCAC3] h-12 rounded-xl focus:ring-0 focus:outline-brand-base"
           />
         </ProfileInputGroup>
         <ProfileInputGroup label={t("phone")}>
-          <Input 
-            defaultValue="+970 50 123 4567" 
+          <Input
+            defaultValue="+970 50 123 4567"
             className="border-[#BCCAC3] h-12 rounded-xl"
           />
         </ProfileInputGroup>
@@ -65,16 +85,20 @@ export default async function ProfilePage() {
           </Select>
         </ProfileInputGroup>
         <div className="md:col-span-2">
-            <ProfileInputGroup label={t("training_path")}>
-              <div className="relative">
-                <Input 
-                    value="تطوير الويب" 
-                    disabled 
-                    className="bg-[#F8FAFC] border-[#F1F5F9] text-brand-muted h-12 rounded-xl pr-10"
-                />
-                <Lock className="absolute right-3 top-1/2 -translate-y-1/2 size-4 text-brand-muted" />
-              </div>
-            </ProfileInputGroup>
+          <ProfileInputGroup label={t("training_path")}>
+            <div className="relative">
+              <Input
+                value="تطوير الويب"
+                disabled
+                className={`bg-[#F8FAFC] border-[#F1F5F9] text-black h-12 rounded-xl 
+                  ${isRtl ? "pr-10" : "pl-10"}`}
+              />
+              <Lock className={`absolute 
+                ${isRtl ? "right-3" : "left-3"} 
+                top-1/2 -translate-y-1/2 
+                size-4 text-brand-muted`} />
+            </div>
+          </ProfileInputGroup>
         </div>
       </ProfileFieldSection>
 
@@ -83,12 +107,15 @@ export default async function ProfilePage() {
 
       {/* Footer Actions */}
       <div className="flex flex-col md:flex-row items-center justify-between gap-6 pt-4">
-        <div className="bg-[#F4F7F5] px-6 py-3 rounded-full flex items-center gap-2 text-brand-muted text-sm">
-           <Info className="size-4" />
-           {t("locked_info_hint")}
+        <div className="bg-[#BCCAC31A] px-8 py-3 rounded-full 
+          flex items-center gap-2 text-brand-muted
+          text-sm">
+          <Info className="size-4 text-brand-primary" />
+          {t("locked_info_hint")}
         </div>
-        
-        <Button className="bg-brand-base hover:bg-brand-hover text-white h-14 px-12 rounded-2xl font-bold text-lg">
+
+        <Button className="bg-brand-primary hover:bg-brand-hover/90 cursor-pointer
+         text-white h-14 px-12 rounded-[10px] font-bold text-lg">
           {t("save_btn")}
         </Button>
       </div>

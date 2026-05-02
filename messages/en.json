@@ -252,6 +252,7 @@
       "subtitle": "Continue progressing toward your professional goal",
       "educational_track": "Educational Track",
       "track_name": "Web Development",
+      "track_role": "Web Developer",
       "lessons_completed": "{completed} of {total} lessons completed",
       "percent_completed": "{value}% completed",
       "next_lesson": "Current Lesson:",
@@ -321,11 +322,15 @@
       "previous_tasks": {
         "title": "Previous Tasks",
         "completed_status": "Completed",
+        "task": "Building your first web page",
         "submitted_on": "Submitted on {date}"
       }
     },
     "ProfilePage": {
       "title": "Profile",
+      "subtitle": "You can review and update your information",
+      "breadcrumb_home": "Home",
+      "breadcrumb_profile": "Profile",
       "account_info": "Account Information",
       "personal_info": "Personal Information",
       "edu_info": "Educational Information",
@@ -343,6 +348,83 @@
       "locked_info_hint": "Some data cannot be edited",
       "male": "Male",
       "female": "Female"
+    },
+    "CertificatesPage": {
+      "breadcrumb_home": "Home",
+      "breadcrumb_certificate": "Certificate",
+      "title": "My Certificate",
+      "subtitle": "Track your progress and get your certificates",
+      "progress_card": {
+        "title": "Current Certificate Progress",
+        "requirements_completed": "{completed} of {total} requirements completed",
+        "percent_completed": "{percent}% completed",
+        "current_certificate": "Current Certificate",
+        "track_name": "Web Development",
+        "track_desc": "Mastering frontend and backend interfaces and building full-fledged applications."
+      },
+      "preview": {
+        "academy_name": "Areisto Academy",
+        "certificate_type": "Track Completion Certificate",
+        "certify_text": "We certify that the student",
+        "completion_text": "Has successfully completed all academic and practical requirements for the \"{track}\" training track with an excellent grade, which qualifies them to work as a professional {role}.",
+        "academic_director": "Academic Director",
+        "director_name": "Ahmed Youssef",
+        "issue_date_label": "Issue Date"
+      },
+      "details": {
+        "title": "About the Certificate",
+        "type_label": "Type",
+        "type_value": "Track Completion Certificate",
+        "track_label": "Track",
+        "track_value": "Full Stack Web Development",
+        "expected_date_label": "Expected Issue Date",
+        "alert_message": "Complete all track requirements to activate the certificate and obtain a printable copy.",
+        "download_btn": "Download Certificate",
+        "disabled_hint": "The button will be enabled when the track is 100% completed"
+      }
+    },
+    "LessonViewer": {
+      "breadcrumb_home": "Home",
+      "breadcrumb_track": "Training Track",
+      "breadcrumb_lesson": "Web Development",
+      "title": "Web Development",
+      "subtitle": "Current Lesson: {lessonName}",
+      "sidebar_title": "Track Lessons",
+      "lessons_count": "{count} lessons",
+      "playing_now": "Playing now",
+      "duration": "{minutes} minutes",
+      "prev_lesson": "Previous Lesson",
+      "next_lesson": "Next Lesson",
+      "tab_about": "About Lesson",
+      "tab_notes": "Notes",
+      "tab_attachments": "Attachments",
+      "tab_questions": "Lesson Questions",
+      "about_title": "Lesson Description",
+      "objectives_title": "Learning Objectives",
+      "video_title": "HTML Page Structure",
+      "video_subtitle": "Basics of building web pages",
+      "about_description": "In this lesson we will learn about the basic structure of web pages using HTML5. We will explain the basic elements such as start tag, head, and body, and how to link external files like CSS and JS.",
+      "objective_1": "Understand the basic Document Object Model structure.",
+      "objective_2": "Learn the difference between HEAD and BODY.",
+      "objective_3": "Write your first standards-compliant HTML structure.",
+      "video_rewind": "Rewind 10s",
+      "video_forward": "Forward 10s",
+      "lesson_1_title": "Introduction to Web Development",
+      "lesson_2_title": "Workspace Setup",
+      "lesson_3_title": "HTML Page Structure",
+      "lesson_4_title": "Basic Text Tags",
+      "lesson_5_title": "Lists and Links",
+      "questions": {
+        "title": "Do you have a question? Leave a comment below!",
+        "add_placeholder": "Have a question? Write it here...",
+        "submit_btn": "Submit Question",
+        "replies": "{count} replies",
+        "no_questions": "No questions yet for this lesson. Be the first to ask!",
+        "search_placeholder": "Search questions...",
+        "add_comment_button": "Add Comment",
+        "trainer_reply_badge": "Trainer Reply",
+        "time_ago": "{time} ago"
+      }
     }
   }
 }

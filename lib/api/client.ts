@@ -4,6 +4,7 @@ import axios from "axios";
 // عشان أوحد الإعدادات (base URL + headers + interceptors) بكل المشروع.
 const apiClient = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
+  withCredentials: true,
   headers: {
     "ngrok-skip-browser-warning": "true",
   },

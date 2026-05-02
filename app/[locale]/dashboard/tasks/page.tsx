@@ -1,7 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { FileUpload } from "@/components/dashboard/Tasks/FileUpload";
-import { PreviousTaskItem } from "@/components/dashboard/PreviousTaskItem";
+import { PreviousTaskItem } from "@/components/dashboard/Tasks/PreviousTaskItem";
 import { Button } from "@/components/ui/button";
 import { AlertCircle } from "lucide-react";
 
@@ -65,9 +65,12 @@ export default async function TasksPage({
             buttonText={t("current_task.upload_btn")}
           />
 
+          {/* Status And Submit Button */}
           <div className="flex flex-col gap-8 mt-4">
             <div className="flex items-center gap-3">
-              <span className="text-lg font-bold text-black">{t("current_task.status_label")}</span>
+              <span className="text-lg font-bold text-black">
+                {t("current_task.status_label")}
+              </span>
               <span className="bg-[#FEF3C7] text-[#D97706] text-sm font-bold px-4 py-2 rounded-full flex items-center gap-2">
                 <AlertCircle className="size-4" />
                 {t("current_task.status_pending")}
@@ -83,16 +86,18 @@ export default async function TasksPage({
 
       {/* Previous Tasks Section */}
       <div className="mt-12 space-y-6">
-        <h3 className="text-3xl font-bold text-black">{t("previous_tasks.title")}</h3>
+        <h3 className="text-3xl font-bold text-black">
+          {t("previous_tasks.title")}
+        </h3>
 
         <div className="space-y-4">
           <PreviousTaskItem
-            title="تطبيق على CSS"
+            title={t("previous_tasks.task")}
             date="18 أبريل"
             status="completed"
           />
           <PreviousTaskItem
-            title="تطبيق على CSS"
+            title={t("previous_tasks.task")}
             date="18 أبريل"
             status="completed"
           />
