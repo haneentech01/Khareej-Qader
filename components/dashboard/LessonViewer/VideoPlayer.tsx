@@ -14,7 +14,6 @@ import {
     MediaSeekForwardButton,
     MediaMuteButton,
     MediaFullscreenButton,
-    MediaLoadingIndicator,
 } from "media-chrome/react";
 import "youtube-video-element";
 import { useLessonProgress } from "@/hooks/useLessonProgress";
@@ -23,21 +22,18 @@ interface VideoPlayerProps {
     lessonId?: string;
     videoUrl?: string;
     thumbnailUrl?: string;
-    controls?: boolean;
 }
 
 export function VideoPlayer({
     lessonId = "default",
     videoUrl = "https://youtu.be/6QAELgirvjs?si=06Zg99i75Ku48xet",
     thumbnailUrl = "https://image.mux.com/6QAELgirvjs/storyboard.vtt",
-    controls = false,
 }: VideoPlayerProps) {
 
     // فصل اللوجيك في Hook خاص
     const {
         videoRef,
         isCompleted,
-        playing,
         handleTimeUpdate,
         handleLoadedMetadata,
         togglePlay,
@@ -48,7 +44,7 @@ export function VideoPlayer({
             dir="ltr"
             className="video-player-container rounded-t-4xl overflow-hidden group">
             <ReactPlayer
-                ref={videoRef as any}
+                ref={videoRef as React.Ref<ReactPlayer>}
                 slot="media"
                 src={videoUrl}
                 onTimeUpdate={handleTimeUpdate}

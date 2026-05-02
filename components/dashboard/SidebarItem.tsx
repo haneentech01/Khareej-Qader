@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
 import { usePathname } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
@@ -20,14 +20,10 @@ export function SidebarItem({ title, href, icon: Icon, isRTL }: SidebarItemProps
   const { state } = useSidebar();
   const isCollapsed = state === "collapsed";
   const isActive = pathname === href;
-  const [isHovered, setIsHovered] = useState(false);
-
   return (
     <div className="relative group py-1">
       <Link
         href={href}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
         className={cn(
           "flex items-center gap-4 px-6 py-3 rounded-e-lg transition-all duration-300",
           isActive

@@ -11,7 +11,6 @@ import { NewsSection } from "@/components/sections/News";
 import { GallerySection } from "@/components/sections/Gallery";
 import { FAQSection } from "@/components/sections/FAQ";
 import { CTASection } from "@/components/sections/CTA";
-import { Footer } from "@/components/layout/Footer";
 import { Reveal } from "@/components/animations/Reveal";
 
 export default function Home() {

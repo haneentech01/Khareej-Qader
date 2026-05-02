@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/carousel";
 import { CarouselDots } from "../../ui/carousel-dots";
 import { useTracks } from "@/hooks/useTracks";
-import { motion, Variants } from "framer-motion";
+import { motion } from "framer-motion";
 
 export function TracksSection() {
   const { trackData, isRTL } = useTracks();

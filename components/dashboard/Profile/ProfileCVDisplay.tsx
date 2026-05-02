@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { FileText, Trash2, Download, CloudUpload, FileBracesCornerIcon, FileUpIcon } from "lucide-react";
+import { FileText, Trash2, FileBracesCornerIcon, FileUpIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 export function ProfileCVDisplay() {

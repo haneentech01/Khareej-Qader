@@ -11,7 +11,7 @@ interface MentorCardProps {
   avatarUrl: string;
 }
 
-export function MentorCard({ name, role, bio, avatarUrl }: MentorCardProps) {
+export function MentorCard({ name, bio, avatarUrl }: MentorCardProps) {
   const t = useTranslations("Dashboard.mentor");
 
   return (

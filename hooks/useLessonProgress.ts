@@ -19,7 +19,7 @@ export function useLessonProgress({ lessonId }: UseLessonProgressProps) {
         // التحقق من حالة الإكمال عند التحميل
         const savedCompleted = localStorage.getItem(completedKey);
         if (savedCompleted === "true") {
-            setIsCompleted(true);
+            setTimeout(() => setIsCompleted(true), 0);
         }
 
         // استعادة وقت المشاهدة الأخير

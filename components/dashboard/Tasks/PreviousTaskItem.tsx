@@ -2,7 +2,6 @@
 
 import React from "react";
 import { Eye, FileCode2 } from "lucide-react";
-import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 
 interface PreviousTaskItemProps {
@@ -11,7 +10,7 @@ interface PreviousTaskItemProps {
   status: string;
 }
 
-export function PreviousTaskItem({ title, date, status }: PreviousTaskItemProps) {
+export function PreviousTaskItem({ title, date }: PreviousTaskItemProps) {
   const t = useTranslations("Dashboard.TasksPage.previous_tasks");
 
   return (

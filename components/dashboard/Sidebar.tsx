@@ -16,7 +16,6 @@ import {
 import {
   Sidebar as ShadcnSidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarHeader,
   SidebarRail,
   useSidebar,

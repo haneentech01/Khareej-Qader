@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Megaphone, ChevronLeft, ChevronRight } from "lucide-react";
+import { Megaphone, ChevronLeft } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 export function Announcements() {

@@ -1,5 +1,5 @@
 import React from "react";
-import { Award, BadgeCheck, Stamp } from "lucide-react";
+import { Award, BadgeCheck } from "lucide-react";
 import Image from "next/image";
 
 interface CertificatePreviewProps {

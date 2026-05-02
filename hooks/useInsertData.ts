@@ -14,8 +14,9 @@ export function useInsertData<T>(url: string) {
       const res = await apiClient.post<T>(url, body);
       setData(res.data);
       return res.data;
-    } catch (err: any) {
-      setError(err.response?.data?.message || "حدث خطأ");
+    } catch (err) {
+      const error = err as { response?: { data?: { message?: string } } };
+      setError(error.response?.data?.message || "حدث خطأ");
       return null;
     } finally {
       setLoading(false);

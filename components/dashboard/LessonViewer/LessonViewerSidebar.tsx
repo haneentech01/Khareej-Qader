@@ -13,7 +13,7 @@ interface LessonItemProps {
   isActive?: boolean;
 }
 
-const LessonItem = ({ id, title, duration, status, isActive }: LessonItemProps) => {
+const LessonItem = ({ title, duration, status, isActive }: LessonItemProps) => {
   const t = useTranslations("Dashboard.LessonViewer");
 
   return (
@@ -68,7 +68,7 @@ const LessonItem = ({ id, title, duration, status, isActive }: LessonItemProps) 
   );
 };
 
-export function LessonViewerSidebar({ lessonId }: { lessonId?: string }) {
+export function LessonViewerSidebar({}: { lessonId?: string }) {
   const t = useTranslations("Dashboard.LessonViewer");
 
   const lessons = [

@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { useTranslations } from "next-intl";
-import { Send, Search, MessagesSquareIcon } from "lucide-react";
+import { Send, MessagesSquareIcon } from "lucide-react";
 import { QuestionItem } from "./QuestionItem";
 import { Button } from "@/components/ui/button";
 
