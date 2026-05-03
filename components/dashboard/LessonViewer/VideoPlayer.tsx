@@ -44,7 +44,7 @@ export function VideoPlayer({
             dir="ltr"
             className="video-player-container rounded-t-4xl overflow-hidden group">
             <ReactPlayer
-                ref={videoRef as any}
+                ref={videoRef as React.Ref<HTMLVideoElement>}
                 slot="media"
                 src={videoUrl}
                 onTimeUpdate={handleTimeUpdate}
