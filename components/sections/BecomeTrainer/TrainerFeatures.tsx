@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useTranslations } from "next-intl";
-import { Users, Layout, Banknote, ShieldCheck, BadgeCheck, BrainCog } from "lucide-react";
+import { Users, Banknote, BadgeCheck, BrainCog } from "lucide-react";
 import { motion } from "framer-motion";
 
 export function TrainerFeatures() {
