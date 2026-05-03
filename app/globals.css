@@ -15,6 +15,8 @@
   --color-slate-green: #3d4945;
   --color-dark-red: #93000a;
   --color-transparent-red: #ba1a1a29;
+  --color-brand-light: #e8fdf2;
+  --color-gray-bg: #f2f4f2;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -88,54 +90,6 @@
   }
 }
 
-.stagger-item {
-  animation: staggerFadeUp 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-  animation-delay: var(--stagger-delay, 0ms);
-}
-
-/* Testimonial card: يجي من اليسار */
-.animate-slide-from-left {
-  animation: slideFromLeft 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-}
-
-/* Testimonial image: تجي من اليمين */
-.animate-slide-from-right {
-  animation: slideFromRight 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-}
-
-@keyframes staggerFadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(24px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideFromLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes slideFromRight {
-  from {
-    opacity: 0;
-    transform: translateX(40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
 /* Video Player Custom Styles */
 .video-player-container {
   width: 100%;
@@ -181,7 +135,7 @@
   top: 2rem;
   left: 1rem;
   z-index: 50;
-  background-color: var(--brand-500);
+  background-color: var(--color-brand-primary);
   color: white;
   font-size: 0.75rem;
   font-weight: bold;

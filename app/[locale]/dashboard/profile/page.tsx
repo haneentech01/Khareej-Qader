@@ -1,5 +1,6 @@
 import { getTranslations } from "next-intl/server";
-import { User, GraduationCap, Info, Lock, UserCog } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { User, GraduationCap, Info, Lock, UserCog, CloudUpload } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Select } from "@/components/ui/select";
@@ -36,9 +37,30 @@ export default async function ProfilePage({
       <ProfileFieldSection title={t("account_info")} icon={UserCog}>
         <ProfileInputGroup label={t("username")}>
           <Input
+            type="text"
             defaultValue="areisto_1023"
             className="bg-[#F8F8F8] text-[#191C1B] font-medium h-12 rounded-[10px]"
           />
+        </ProfileInputGroup>
+
+        <ProfileInputGroup label={t("avatar")}>
+          <div className="relative">
+            <CloudUpload className="size-6 text-brand-primary absolute top-1/2 right-4 -translate-y-1/2 pointer-events-none" />
+            <label className={cn(
+              "flex items-center justify-start cursor-pointer",
+              "bg-[#F8F8F8] text-[#191C1B] font-medium h-12 rounded-[10px] border",
+              isRtl ? "pr-11" : "pl-11"
+            )}>
+              <span className="text-[#8C8D8D] text-sm md:text-base">
+                {t("avatar_hint")}
+              </span>
+              <input
+                type="file"
+                className="hidden"
+                accept="image/*"
+              />
+            </label>
+          </div>
         </ProfileInputGroup>
       </ProfileFieldSection>
 

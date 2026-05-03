@@ -9,6 +9,7 @@ import { TracksSection } from "@/components/sections/Tracks";
 import { TestimonialsSection } from "@/components/sections/Testimonials";
 import { NewsSection } from "@/components/sections/News";
 import { GallerySection } from "@/components/sections/Gallery";
+import { BecomeTrainerSection } from "@/components/sections/BecomeTrainer";
 import { FAQSection } from "@/components/sections/FAQ";
 import { CTASection } from "@/components/sections/CTA";
 import { Reveal } from "@/components/animations/Reveal";
@@ -62,12 +63,17 @@ export default function Home() {
         <GallerySection />
       </Reveal>
 
-      {/* 9. Frequently Asked Questions */}
+      {/* 9. Become a Trainer Section */}
+      <Reveal>
+        <BecomeTrainerSection />
+      </Reveal>
+
+      {/* 10. Frequently Asked Questions */}
       <Reveal>
         <FAQSection />
       </Reveal>
 
-      {/* 10. Call to Action */}
+      {/* 11. Call to Action */}
       <Reveal>
         <CTASection />
       </Reveal>
