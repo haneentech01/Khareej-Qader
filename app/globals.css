@@ -37,6 +37,14 @@
   --color-primary: var(--primary);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+
+  /* Sidebar Colors */
+  --color-sidebar: #ffffff;
+  --color-sidebar-foreground: var(--color-brand-muted);
+  --color-sidebar-primary: var(--color-brand-primary);
+  --color-sidebar-accent: var(--color-brand-surface);
+  --color-sidebar-border: #f1f5f9;
+  --color-sidebar-ring: var(--color-brand-primary);
 }
 
 :root {

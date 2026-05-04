@@ -21,14 +21,14 @@ export default async function ProfilePage({
     { label: t("breadcrumb_profile") },
   ];
   return (
-    <div className="max-w-7xl mx-auto space-y-8 pb-10">
+    <div className="max-w-7xl mx-auto space-y-8 pb-10 px-4 md:px-0">
       {/* Header & Breadcrumbs */}
       <div className="flex flex-col gap-3.5">
         <Breadcrumbs items={breadcrumbItems} locale={locale} />
-        <h1 className="text-4xl font-bold text-black">
+        <h1 className="text-3xl md:text-4xl font-bold text-black">
           {t("title")}
         </h1>
-        <p className="text-brand-muted text-lg">
+        <p className="text-brand-muted text-base md:text-lg">
           {t("subtitle")}
         </p>
       </div>

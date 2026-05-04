@@ -69,7 +69,7 @@ export function Sidebar() {
           <button
             onClick={() => console.log("Logout")}
             className={cn(
-              "flex items-center gap-3 w-full px-3 py-3 rounded-e-lg",
+              "flex items-center gap-3 w-full px-6 py-3 rounded-e-lg",
               "transition-all duration-300 text-red-500 hover:bg-red-50",
               isCollapsed && "justify-center"
             )}
@@ -78,7 +78,9 @@ export function Sidebar() {
               <LogOut size={20} />
             </div>
             {!isCollapsed && (
-              <span className="font-semibold text-sm">{t("logout")}</span>
+              <span className="font-semibold text-sm">
+                {t("logout")}
+              </span>
             )}
           </button>
         </div>

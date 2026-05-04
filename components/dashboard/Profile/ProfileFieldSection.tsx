@@ -18,7 +18,7 @@ export function ProfileFieldSection({
   className,
 }: ProfileFieldSectionProps) {
   return (
-    <div className={cn("bg-white rounded-[30px] p-7 border border-gray-50 shadow-xs", className)}>
+    <div className={cn("bg-white rounded-[20px] md:rounded-[30px] p-5 md:p-7 border border-gray-50 shadow-xs", className)}>
       <div className="flex items-center gap-2 mb-8 text-brand-primary">
         <Icon className="size-7 font-bold" />
         <h3 className="text-xl md:text-2xl font-bold">{title}</h3>

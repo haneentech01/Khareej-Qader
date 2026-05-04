@@ -101,7 +101,7 @@
   "BecomeTrainer": {
     "badge": "Opportunity to join",
     "title": "Share your knowledge and make a real impact",
-    "description": "Join the Areisto platform and share your experience with thousands of students, help them learn, develop and build a better future, we provide you with the necessary tools for success and growth as an expert in your field.",
+    "subtitle": "Join the Areisto platform and share your experience with thousands of students, help them learn, develop and build a better future, we provide you with the necessary tools for success and growth as an expert in your field.",
     "form_title": "Start your journey as a trainer today",
     "full_name": "Full Name",
     "full_name_placeholder": "Ahmed Mohamed",

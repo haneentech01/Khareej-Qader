@@ -4,6 +4,7 @@ import React from "react";
 import { useTranslations } from "next-intl";
 import { Users, Banknote, BadgeCheck, BrainCog } from "lucide-react";
 import { motion } from "framer-motion";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 
 export function TrainerFeatures() {
   const t = useTranslations("BecomeTrainer");
@@ -44,22 +45,17 @@ export function TrainerFeatures() {
   ];
 
   return (
-    <div className="flex flex-col gap-10">
+    <div className="flex flex-col">
+      {/* Header */}
       <div className="space-y-6">
         <div className="inline-flex items-center px-4 py-1.5 
         rounded-full bg-brand-primary text-white text-sm font-bold">
           {t("badge")}
         </div>
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-black
-         text-black leading-[1.3]">
-          {t("title")}
-        </h2>
-        <p className="text-lg md:text-xl text-brand-muted 
-        leading-relaxed max-w-xl">
-          {t("description")}
-        </p>
+        <SectionHeader namespace="BecomeTrainer" centered={false} />
       </div>
 
+      {/* Features */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {features.map((feature, index) => (
           <motion.div
