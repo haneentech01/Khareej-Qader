@@ -56,6 +56,10 @@ export default async function RootLayout({
       dir={locale === "ar" ? "rtl" : "ltr"}
       className={`${cairo.variable} ${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
+      <head>
+        {/* eslint-disable-next-line @next/next/no-inline-script */}
+        <script src="https://analytics.ahrefs.com/analytics.js" data-key="YVab7IUpJ7GpncxdfJ66Kg" async></script>
+      </head>
       <body className="min-h-full flex flex-col">
         <NextIntlClientProvider messages={messages}>
           {children}
