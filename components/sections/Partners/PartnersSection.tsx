@@ -21,7 +21,7 @@ export function PartnersSection() {
     { id: 6, name: "University College of Applied Sciences", logo: "/images/partners/UCAS.png" },
   ];
 
-  const duplicatedPartners = [...PARTNERS, ...PARTNERS, ...PARTNERS];
+  const duplicatedPartners = [...PARTNERS, ...PARTNERS];
 
   return (
     <section

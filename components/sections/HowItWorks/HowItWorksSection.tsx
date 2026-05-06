@@ -49,7 +49,6 @@ export function HowItWorksSection() {
                 <div className="relative mt-12 md:mt-32">
                     <motion.div
                         variants={containerVariants}
-                        // ✅ هذا السطران هما التغيير الوحيد
                         initial="hidden"
                         whileInView="visible"
                         viewport={{ once: true, amount: 0.1 }}

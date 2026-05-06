@@ -279,7 +279,8 @@
     "topNav": {
       "search": "ابحث داخل المسار",
       "userName": "أحمد أحمد",
-      "userMajor": "هندسة حاسوب"
+      "userMajor": "هندسة حاسوب",
+      "notifications": "الإشعارات"
     },
     "hero": {
       "welcome": "مرحباً، {name} 👋",

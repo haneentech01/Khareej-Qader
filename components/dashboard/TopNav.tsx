@@ -18,7 +18,7 @@ export function TopNav() {
     <header className="sticky top-0 z-40 bg-white backdrop-blur-md
       border-b border-gray-100
       px-4 md:px-8 h-20 flex justify-between items-center gap-4">
-      {/*  */}
+      {/* Trigger for mobile sidebar */}
       <div className="flex items-center gap-3 lg:hidden">
         <SidebarTrigger className="text-brand-muted hover:text-brand-primary transition-colors" />
       </div>
@@ -38,7 +38,8 @@ export function TopNav() {
       {/* Profile & Notifications */}
       <div className="flex items-center gap-7">
         <button className="relative text-brand-muted hover:text-brand-base
-          transition-colors p-2 rounded-full hover:bg-gray-50 cursor-pointer">
+          transition-colors p-2 rounded-full hover:bg-gray-50 cursor-pointer"
+          aria-label={t("notifications")}>
           <Bell className="size-5" />
           <span className="absolute top-2 right-2 size-2
             bg-red-500 rounded-full border-2 border-white" />

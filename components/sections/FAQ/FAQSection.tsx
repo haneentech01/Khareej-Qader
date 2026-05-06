@@ -45,14 +45,13 @@ export function FAQSection() {
 
         <motion.div
           variants={containerVariants}
-          // ✅ التغيير الوحيد — هذين السطرين
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
           className="max-w-6xl mx-auto flex flex-col gap-7 mt-12 md:mt-24"
         >
           {faqs.map((faq, index) => (
-            <motion.div key={index} variants={itemVariants}>
+            <motion.div key={index} variants={itemVariants} aria-expanded={openIndex === index}>
               <FAQAccordionItem
                 faq={faq}
                 isOpen={openIndex === index}

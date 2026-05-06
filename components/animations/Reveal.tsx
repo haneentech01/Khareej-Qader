@@ -14,7 +14,7 @@ interface RevealProps {
 export function Reveal({
     children,
     amount = 0.08,
-    distance = 36,
+    distance = 16,
     delay = 0,
     className,
 }: RevealProps) {
@@ -24,9 +24,9 @@ export function Reveal({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount }}
             transition={{
-                duration: 0.55,
+                duration: 0.45,
                 delay,
-                ease: [0.25, 0.46, 0.45, 0.94],
+                ease: "easeOut",
             }}
             className={className}
         >

@@ -279,7 +279,8 @@
     "topNav": {
       "search": "Search in track",
       "userName": "Ahmed Ahmed",
-      "userMajor": "Computer Engineering"
+      "userMajor": "Computer Engineering",
+      "notifications": "Notifications"
     },
     "hero": {
       "welcome": "Welcome, {name} 👋",
