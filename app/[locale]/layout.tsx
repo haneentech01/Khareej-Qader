@@ -6,6 +6,7 @@ import { routing } from "@/i18n/routing";
 import { notFound } from "next/navigation";
 import { ScrollToTopButton } from "@/components/ui/ScrollToTopButton";
 import { getTranslations } from "next-intl/server";
+import { ToastContainer, toast } from 'react-toastify';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -65,6 +66,15 @@ export default async function RootLayout({
           {children}
           <ScrollToTopButton />
         </NextIntlClientProvider>
+
+        {/* Toast هون يشتغل على كل الصفحات */}
+        <ToastContainer
+          position={locale === 'ar' ? 'top-left' : 'top-right'}
+          rtl={locale === 'ar'}
+          autoClose={4000}
+          hideProgressBar={false}
+          theme="light"
+        />
       </body>
     </html>
   );

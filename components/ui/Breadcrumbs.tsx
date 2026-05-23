@@ -15,7 +15,7 @@ export function Breadcrumbs({ items, locale }: BreadcrumbsProps) {
   const ChevronIcon = isRtl ? ChevronLeft : ChevronRight;
 
   return (
-    <nav className="flex items-center gap-2 text-sm md:text-base text-brand-muted mb-5 md:mb-7">
+    <nav className="flex items-center gap-2 text-xs md:text-sm text-brand-muted mb-5 md:mb-7">
       {items.map((item, index) => (
         <React.Fragment key={index}>
           {item.href ? (

@@ -5,17 +5,7 @@ import { Check, Play, LockKeyholeIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
-
-export type LessonStatus = "completed" | "current" | "locked";
-
-interface LessonItemProps {
-  id: string;
-  number: number;
-  title: string;
-  duration?: string;
-  status: LessonStatus;
-  isLast?: boolean;
-}
+import { LessonItemProps } from "@/types";
 
 export function LessonItem({
   id,

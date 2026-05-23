@@ -1,20 +1,9 @@
 "use client";
 
 import React from "react";
-import { LessonItem, LessonStatus } from "./LessonItem";
+import { LessonItem } from "./LessonItem";
 import { useTranslations } from "next-intl";
-
-interface Lesson {
-  id: string;
-  number: number;
-  title: string;
-  duration?: string;
-  status: LessonStatus;
-}
-
-interface LessonTimelineProps {
-  lessons: Lesson[];
-}
+import { LessonTimelineProps } from "@/types";
 
 export function LessonTimeline({ lessons }: LessonTimelineProps) {
   const t = useTranslations("Dashboard.MyTrack");

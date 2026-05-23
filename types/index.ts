@@ -76,3 +76,52 @@ export interface NewsLabels {
   viewAll: string;
   readMore: string;
 }
+
+export interface TaskDetailsPageProps {
+  params: Promise<{
+    locale: string;
+    taskId: string;
+  }>;
+  searchParams: Promise<{
+    status?: string;
+  }>;
+}
+
+export interface TaskDetailsViewProps {
+  id?: string;
+  locale: string;
+  status: "pending" | "completed";
+  title: string;
+  subtitle: string;
+  breadcrumbItems: { label: string; href?: string }[];
+  switcherCompleted: string;
+  switcherPending: string;
+}
+
+export type LessonStatus = "completed" | "current" | "locked";
+
+export interface LessonItemProps {
+  id: string;
+  number: number;
+  title: string;
+  duration?: string;
+  status: LessonStatus;
+  isLast?: boolean;
+}
+
+export interface Lesson {
+  id: string;
+  number: number;
+  title: string;
+  duration?: string;
+  status: LessonStatus;
+}
+
+export interface LessonTimelineProps {
+  lessons: Lesson[];
+}
+
+export interface SubmissionInfoCardProps {
+  status: "pending" | "completed";
+}
+

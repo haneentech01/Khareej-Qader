@@ -5,6 +5,9 @@ import { useTranslations } from "next-intl";
 import { Users, Banknote, BadgeCheck, BrainCog } from "lucide-react";
 import { motion } from "framer-motion";
 import { SectionHeader } from "@/components/ui/SectionHeader";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTrigger, DialogTitle } from "@/components/ui/dialog";
+import { TrainerForm } from "./TrainerForm";
 
 export function TrainerFeatures() {
   const t = useTranslations("BecomeTrainer");
@@ -45,25 +48,25 @@ export function TrainerFeatures() {
   ];
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col items-center">
       {/* Header */}
-      <div className="space-y-6">
-        <div className="inline-flex items-center px-4 py-1.5 
+      <div className="space-y-6 flex flex-col items-center">
+        <div className="inline-flex items-center justify-center px-4 py-1.5
         rounded-full bg-brand-primary text-white text-sm font-bold">
           {t("badge")}
         </div>
-        <SectionHeader namespace="BecomeTrainer" centered={false} />
+        <SectionHeader namespace="BecomeTrainer" centered={true} />
       </div>
 
       {/* Features */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
         {features.map((feature, index) => (
           <motion.div
             key={feature.id}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: index * 0.1 }}
+            transition={{ delay: index * 0.35 }}
             className="bg-white p-6 rounded-4xl border border-slate-50 shadow-sm hover:shadow-md transition-all group hover:scale-105"
           >
             <div className={`w-12 h-12 rounded-2xl ${feature.bg} flex items-center justify-center mb-4 transition-transform`}>
@@ -78,6 +81,25 @@ export function TrainerFeatures() {
           </motion.div>
         ))}
       </div>
-    </div>
+
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button className="mt-10 lg:mt-16 bg-brand-base hover:bg-brand-base/90 
+          text-white rounded-2xl text-lg font-bold shadow-lg
+          shadow-brand-primary/20 transition-all active:scale-95 cursor-pointer
+         w-[249px] h-[60px]">
+            {t("become_a_trainer")}
+          </Button>
+        </DialogTrigger>
+        <DialogContent showCloseButton={false}
+          className="w-full max-w-2xl border-none mx-auto
+         bg-transparent shadow-none p-0">
+          <DialogTitle className="sr-only">
+            {t("become_a_trainer")}
+          </DialogTitle>
+          <TrainerForm />
+        </DialogContent>
+      </Dialog>
+    </div >
   );
 }

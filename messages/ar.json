@@ -132,7 +132,7 @@
     "password": "كلمة المرور",
     "password_placeholder": "********",
     "terms_text": "أوافق على شروط الاستخدام و سياسة الخصوصية الخاصة بأكاديمية أريستو",
-    "submit_button": "تسجيل كمدرب",
+    "become_a_trainer": "إنضم إلينا كمدرب",
     "feature1_title": "مجتمع متفاعل",
     "feature1_desc": "تواصل مع آلاف العقول المبدعة والطلاب الطموحين.",
     "feature2_title": "أدوات تعليمية متقدمة",
@@ -360,6 +360,41 @@
         "submitted_on": "تم التسليم في {date}"
       }
     },
+    "TaskDetailsPage": {
+      "title": "بناء أول صفحة ويب",
+      "subtitle": "مرتبط بدرس: هيكل صفحة HTML الأساسية",
+      "breadcrumb_home": "الرئيسية",
+      "breadcrumb_tasks": "المهام",
+      "breadcrumb_task_title": "بناء أول صفحة ويب",
+      "mentor_review_title": "تحت المراجعة بواسطة",
+      "mentor_name": "أحمد يوسف",
+      "mentor_role": "منتور - مسار تطوير الويب",
+      "review_status_waiting": "بانتظار المراجعة",
+      "review_status_desc": "تم استلام مهمتك بنجاح وهي الآن بانتظار مراجعة المنتور.",
+      "review_status_completed": "مكتملة",
+      "review_status_completed_desc": "تم قبول مهمتك بنجاح",
+      "reviewed_on": "تم مراجعة مهمتك في {date}",
+      "submitted_on": "تم التسليم في {date}",
+      "uploaded_files_title": "ملفاتك المرفوعة",
+      "submission_info_title": "معلومات التسليم",
+      "submission_date": "تاريخ التسليم",
+      "deadline_date": "موعد التسليم النهائي",
+      "submission_status": "حالة التسليم",
+      "attempts_count": "عدد المحاولات",
+      "evaluation_title": "التقييم والملاحظات",
+      "evaluation_completed_title": "تقييم المنتور وملاحظاته",
+      "evaluation_pending": "لم يقم المنتور بمراجعة المهمة بعد.",
+      "evaluation_pending_desc": "ستظهر التقييمات والملاحظات هنا بعد مراجعة المنتور لمهمتك.",
+      "evaluation_overall": "التقييم العام",
+      "evaluation_rating_text": "جيد جداً",
+      "evaluation_trophy_text": "استمر في هذا المستوى الرائع!",
+      "evaluation_points": [
+        "عمل ممتاز في تنفيذ المتطلبات الأساسية للصفحة.",
+        "تنظيم الكود جيد جداً وسهل القراءة.",
+        "انتبه لاستخدام خصائص semantic HTML بشكل أفضل.",
+        "حاول تحسين تصميم الـ footer واضافة روابط أكثر."
+      ]
+    },
     "ProfilePage": {
       "title": "ملفي الشخصي",
       "subtitle": "يمكنك مراجعة وتحديث بياناتك",
@@ -463,5 +498,106 @@
         "time_ago": "منذ {time}"
       }
     }
-  }
+  },
+  "MentorDashboard": {
+      "sidebar": {
+        "home": "الرئيسية",
+        "track": "المسار التدريبي",
+        "tasks": "المهام",
+        "submissions": "التسليمات",
+        "students": "الطلاب",
+        "profile": "الملف الشخصي",
+        "logout": "تسجيل الخروج"
+      },
+      "header": {
+        "welcome": "مرحباً، {name} 👋",
+        "subtitle": "هنا نظرة عامة على مسارك التدريبي اليوم",
+        "track_label": "المسار التعليمي",
+        "track_name": "تطوير الويب"
+      },
+      "stats": {
+        "average_progress": "متوسط التقدم",
+        "average_progress_desc": "متوسط تقدم الطلاب",
+        "students_count": "عدد الطلاب",
+        "students_count_desc": "+5 منذ الأسبوع الماضي",
+        "new_submissions": "التسليمات الجديدة",
+        "new_submissions_desc": "تحتاج إلى مراجعة",
+        "late_students": "الطلاب المتأخرون",
+        "late_students_desc": "لم يسلموا مهامهم بعد"
+      },
+      "submissions_table": {
+        "title": "آخر التسليمات",
+        "view_all": "عرض الكل",
+        "student": "الطالب",
+        "task": "المهمة",
+        "time": "وقت التسليم",
+        "status": "الحالة",
+        "action": "الإجراء",
+        "review_btn": "مراجعة",
+        "status_evaluated": "تم التقييم",
+        "status_pending": "بانتظار المراجعة"
+      },
+      "late_students_list": {
+        "title": "الطلاب المتأخرون",
+        "view_all": "عرض الكل",
+        "late_days_1": "متأخر يوم",
+        "late_days_2": "متأخر 2 يوم",
+        "late_days_plural": "متأخر {days} أيام"
+      },
+      "activities": {
+        "title": "آخر النشاطات",
+        "submitted": "قام {name} بتسليم مهمة {task}",
+        "added_link": "قمت بإضافة رابط تعليمي جديد في درس {lesson}",
+        "created_task": "قمت بإنشاء مهمة جديدة: {task}"
+      },
+      "quick_actions": {
+        "title": "إجراءات سريعة",
+        "add_task": "إضافة مهمة جديدة",
+        "add_link": "إضافة رابط تعليمي",
+        "send_email": "إرسال بريد إلى الطلاب"
+      }
+    },
+    "MentorSubmissions": {
+      "breadcrumbs": {
+        "home": "الرئيسية",
+        "tasks": "المهام",
+        "review": "مراجعة التسليم"
+      },
+      "header": {
+        "title": "مراجعة التسليم",
+        "subtext": "راجع عمل الطالب وقدم ملاحظاتك وتقييمك"
+      },
+      "student_card": {
+        "name": "محمد محمد",
+        "university": "جامعة الأزهر - غزة",
+        "track": "المسار: تطوير الويب",
+        "status_label": "حالة التسليم",
+        "status_pending": "في انتظار المراجعة",
+        "date_label": "تاريخ التسليم",
+        "date_value": "22 أبريل 2024 - 04:30م",
+        "activity_label": "آخر نشاط",
+        "activity_value": "منذ يومين"
+      },
+      "task_card": {
+        "title": "معلومات المهمة",
+        "task_name_label": "اسم المهمة",
+        "task_name_value": "بناء صفحة أول ويب",
+        "lesson_label": "الدرس المرتبط",
+        "lesson_value": "الدرس 3: HTML صفحة أساسية",
+        "deadline_label": "الموعد النهائي",
+        "deadline_value": "25 أبريل 2024 - 11:59 م",
+        "instructions_label": "تعليمات المهمة",
+        "instructions_link": "عرض التعليمات"
+      },
+      "files_card": {
+        "title": "الملفات المرفوعة",
+        "files_count": "3 ملفات"
+      },
+      "evaluation_card": {
+        "title": "تقييمك وملاحظاتك",
+        "rating_very_good": "جيد جداً",
+        "accept_btn": "قبول المهمة",
+        "editor_placeholder": "اكتب ملاحظاتك وتقييمك هنا..."
+      }
+    }
 }

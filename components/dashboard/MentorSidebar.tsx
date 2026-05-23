@@ -1,0 +1,94 @@
+"use client";
+
+import React from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { useLocale, useTranslations } from "next-intl";
+import { cn } from "@/lib/utils";
+import {
+  LayoutDashboard,
+  ClipboardList,
+  BookOpenText,
+  ClipboardCheck,
+  Users,
+  User,
+  LogOut,
+} from "lucide-react";
+import {
+  Sidebar as ShadcnSidebar,
+  SidebarContent,
+  SidebarHeader,
+  SidebarRail,
+  useSidebar,
+} from "@/components/ui/sidebar";
+import { SidebarItem } from "./SidebarItem";
+
+export function MentorSidebar() {
+  const t = useTranslations("MentorDashboard.sidebar");
+  const locale = useLocale();
+  const isRTL = locale === "ar";
+  const { state } = useSidebar();
+  const isCollapsed = state === "collapsed";
+
+  const sidebarLinks = [
+    { title: t("home"), icon: LayoutDashboard, href: "/mentor" },
+    { title: t("track"), icon: BookOpenText, href: "/mentor/track" },
+    { title: t("tasks"), icon: ClipboardList, href: "/mentor/tasks" },
+    { title: t("submissions"), icon: ClipboardCheck, href: "/mentor/submissions" },
+    { title: t("students"), icon: Users, href: "/mentor/students" },
+    { title: t("profile"), icon: User, href: "/mentor/profile" },
+  ];
+
+  return (
+    <ShadcnSidebar
+      side={isRTL ? "right" : "left"}
+      collapsible="icon"
+      className="border-slate-100 bg-white"
+    >
+      {/* Logo */}
+      <SidebarHeader className="p-6">
+        <Link href="/mentor">
+          <Image
+            src="/images/logo.png"
+            alt="Logo"
+            width={170}
+            height={100}
+            className={cn(
+              "object-contain transition-all duration-300",
+              isCollapsed ? "w-8 h-8" : "w-[130px] h-auto"
+            )}
+          />
+        </Link>
+      </SidebarHeader>
+
+      {/* Navigation + Logout */}
+      <SidebarContent className="space-y-1">
+        {sidebarLinks.map((link) => (
+          <SidebarItem key={link.href} {...link} isRTL={isRTL} />
+        ))}
+        
+        <div className="py-1">
+          <button
+            onClick={() => console.log("Logout")}
+            className={cn(
+              "flex items-center gap-3 w-full px-6 py-3 rounded-e-lg",
+              "transition-all duration-300 text-red-500 hover:bg-red-50",
+              isCollapsed && "justify-center"
+            )}
+          >
+            <div className="shrink-0">
+              <LogOut size={20} />
+            </div>
+            {!isCollapsed && (
+              <span className="font-semibold text-sm">
+                {t("logout")}
+              </span>
+            )}
+          </button>
+        </div>
+      </SidebarContent>
+
+      <SidebarRail />
+    </ShadcnSidebar>
+  );
+}

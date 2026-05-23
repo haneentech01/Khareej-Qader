@@ -9,6 +9,7 @@ const endpoints = {
   },
   admin: {
     students: "/api/admin/students",
+    login: "/api/admin/auth/login",
   },
 } as const;
 

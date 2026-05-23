@@ -3,70 +3,72 @@
 import { useEffect, useRef, useState } from "react";
 
 interface UseLessonProgressProps {
-    lessonId: string;
+  lessonId: string;
 }
 
 export function useLessonProgress({ lessonId }: UseLessonProgressProps) {
-    const videoRef = useRef<HTMLVideoElement>(null);
-    const [isCompleted, setIsCompleted] = useState(false);
-    const [playing, setPlaying] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isCompleted, setIsCompleted] = useState(false);
+  const [playing, setPlaying] = useState(false);
 
-    // المفاتيح الخاصة بـ LocalStorage
-    const progressKey = `lesson-progress-${lessonId}`;
-    const completedKey = `lesson-completed-${lessonId}`;
+  // المفاتيح الخاصة بـ LocalStorage
+  const progressKey = `lesson-progress-${lessonId}`;
+  const completedKey = `lesson-completed-${lessonId}`;
 
-    useEffect(() => {
-        // التحقق من حالة الإكمال عند التحميل
-        const savedCompleted = localStorage.getItem(completedKey);
-        if (savedCompleted === "true") {
-            setTimeout(() => setIsCompleted(true), 0);
-        }
+  useEffect(() => {
+    // التحقق من حالة الإكمال عند التحميل
+    if (typeof window === "undefined") return;
+    const savedCompleted = localStorage.getItem(completedKey);
 
-        // استعادة وقت المشاهدة الأخير
-        const savedTime = localStorage.getItem(progressKey);
-        if (savedTime && videoRef.current) {
-            videoRef.current.currentTime = parseFloat(savedTime);
-        }
-    }, [lessonId, progressKey, completedKey]);
+    if (savedCompleted === "true") {
+      setTimeout(() => setIsCompleted(true), 0);
+    }
 
-    const handleTimeUpdate = () => {
-        if (!videoRef.current) return;
+    // استعادة وقت المشاهدة الأخير
+    const savedTime = localStorage.getItem(progressKey);
+    if (savedTime && videoRef.current) {
+      videoRef.current.currentTime = parseFloat(savedTime);
+    }
+  }, [lessonId, progressKey, completedKey]);
 
-        const currentTime = videoRef.current.currentTime;
-        const duration = videoRef.current.duration;
+  const handleTimeUpdate = () => {
+    if (!videoRef.current) return;
 
-        if (duration > 0) {
-            const percentage = (currentTime / duration) * 100;
+    const currentTime = videoRef.current.currentTime;
+    const duration = videoRef.current.duration;
 
-            // حفظ التقدم الحالي
-            localStorage.setItem(progressKey, currentTime.toString());
+    if (duration > 0) {
+      const percentage = (currentTime / duration) * 100;
 
-            // تعليم الدرس كمكتمل إذا تجاوز 95%
-            if (percentage >= 95 && !isCompleted) {
-                setIsCompleted(true);
-                localStorage.setItem(completedKey, "true");
-                console.log("Lesson marked as completed!");
-            }
-        }
-    };
+      // حفظ التقدم الحالي
+      localStorage.setItem(progressKey, currentTime.toString());
 
-    const handleLoadedMetadata = () => {
-        const savedTime = localStorage.getItem(progressKey);
-        if (savedTime && videoRef.current) {
-            videoRef.current.currentTime = parseFloat(savedTime);
-        }
-    };
+      // تعليم الدرس كمكتمل إذا تجاوز 95%
+      if (percentage >= 95 && !isCompleted) {
+        setIsCompleted(true);
+        localStorage.setItem(completedKey, "true");
+        console.log("Lesson marked as completed!");
+      }
+    }
+  };
 
-    const togglePlay = (isPlaying: boolean) => {
-        setPlaying(isPlaying);
-    };
+  const handleLoadedMetadata = () => {
+    const savedTime = localStorage.getItem(progressKey);
+    if (savedTime && videoRef.current) {
+      videoRef.current.currentTime = parseFloat(savedTime);
+    }
+  };
 
-    return {
-        videoRef,
-        isCompleted,
-        playing,
-        handleTimeUpdate,
-        handleLoadedMetadata,
-        togglePlay,
-    };
+  const togglePlay = (isPlaying: boolean) => {
+    setPlaying(isPlaying);
+  };
+
+  return {
+    videoRef,
+    isCompleted,
+    playing,
+    handleTimeUpdate,
+    handleLoadedMetadata,
+    togglePlay,
+  };
 }
