@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useTranslations } from "next-intl";
-import { ClipboardCheck, ChevronLeft, ChevronRight } from "lucide-react";
+import { ClipboardCheck, ChevronLeft, ChevronRight, Building } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useLocale } from "next-intl";
@@ -40,18 +40,18 @@ export function LatestSubmissions() {
   ];
 
   return (
-    <div className="bg-white rounded-[20px] p-6 md:p-8 border border-sidebar-border shadow-sm flex flex-col gap-6 w-full overflow-hidden">
+    <div className="bg-white rounded-[24px] p-6  border border-sidebar-border shadow-sm flex flex-col gap-6 w-full overflow-hidden">
       {/* Title Header */}
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-2">
-          <ClipboardCheck className="size-5 text-brand-base" />
-          <h4 className="font-bold text-black text-lg">
+          <Building className="size-5 text-brand-base" />
+          <h4 className="font-bold text-black text-lg md:text-xl">
             {t("title")}
           </h4>
         </div>
         <Link
           href="/mentor/submissions"
-          className="text-brand-muted hover:text-black text-xs md:text-sm font-bold flex items-center gap-1 transition-colors"
+          className="text-brand-muted hover:text-black text-xs md:text-sm flex items-center gap-1 transition-colors"
         >
           {t("view_all")}
           {isRtl ? <ChevronLeft className="size-4" /> : <ChevronRight className="size-4" />}
@@ -59,10 +59,10 @@ export function LatestSubmissions() {
       </div>
 
       {/* Table Shell */}
-      <div className="overflow-x-auto w-full -mx-6 md:-mx-8 px-6 md:px-8">
+      <div className="overflow-x-auto w-full px-6">
         <table className="w-full text-right rtl:text-right ltr:text-left border-collapse">
           <thead>
-            <tr className="border-b border-slate-100 pb-3 text-brand-muted/70 text-xs md:text-sm font-bold uppercase tracking-wider">
+            <tr className="border-b border-slate-100 pb-3 text-black text-xs md:text-sm font-semibold uppercase tracking-wider">
               <th className="py-3 px-4 first:pr-0 last:pl-0 font-extrabold">{t("student")}</th>
               <th className="py-3 px-4 font-extrabold">{t("task")}</th>
               <th className="py-3 px-4 font-extrabold">{t("time")}</th>
@@ -76,7 +76,7 @@ export function LatestSubmissions() {
                 {/* Student Avatar + Name */}
                 <td className="py-4 px-4 first:pr-0 last:pl-0">
                   <div className="flex items-center gap-3">
-                    <div className="relative size-10 rounded-full overflow-hidden border border-gray-100 shrink-0">
+                    <div className="relative size-8 rounded-full overflow-hidden border border-gray-100 shrink-0">
                       <Image
                         src={sub.studentAvatar}
                         alt={sub.studentName}
@@ -84,14 +84,14 @@ export function LatestSubmissions() {
                         className="object-cover"
                       />
                     </div>
-                    <span className="font-extrabold text-black text-sm md:text-base whitespace-nowrap">
+                    <span className="font-semibold text-black text-xs md:text-sm whitespace-nowrap">
                       {sub.studentName}
                     </span>
                   </div>
                 </td>
 
                 {/* Task Name */}
-                <td className="py-4 px-4 text-brand-muted text-sm md:text-base whitespace-nowrap font-medium">
+                <td className="py-4  text-brand-muted text-xs md:text-sm whitespace-nowrap font-medium">
                   {sub.task}
                 </td>
 

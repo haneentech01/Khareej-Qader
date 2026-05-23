@@ -500,104 +500,106 @@
     }
   },
   "MentorDashboard": {
-      "sidebar": {
-        "home": "الرئيسية",
-        "track": "المسار التدريبي",
-        "tasks": "المهام",
-        "submissions": "التسليمات",
-        "students": "الطلاب",
-        "profile": "الملف الشخصي",
-        "logout": "تسجيل الخروج"
-      },
-      "header": {
-        "welcome": "مرحباً، {name} 👋",
-        "subtitle": "هنا نظرة عامة على مسارك التدريبي اليوم",
-        "track_label": "المسار التعليمي",
-        "track_name": "تطوير الويب"
-      },
-      "stats": {
-        "average_progress": "متوسط التقدم",
-        "average_progress_desc": "متوسط تقدم الطلاب",
-        "students_count": "عدد الطلاب",
-        "students_count_desc": "+5 منذ الأسبوع الماضي",
-        "new_submissions": "التسليمات الجديدة",
-        "new_submissions_desc": "تحتاج إلى مراجعة",
-        "late_students": "الطلاب المتأخرون",
-        "late_students_desc": "لم يسلموا مهامهم بعد"
-      },
-      "submissions_table": {
-        "title": "آخر التسليمات",
-        "view_all": "عرض الكل",
-        "student": "الطالب",
-        "task": "المهمة",
-        "time": "وقت التسليم",
-        "status": "الحالة",
-        "action": "الإجراء",
-        "review_btn": "مراجعة",
-        "status_evaluated": "تم التقييم",
-        "status_pending": "بانتظار المراجعة"
-      },
-      "late_students_list": {
-        "title": "الطلاب المتأخرون",
-        "view_all": "عرض الكل",
-        "late_days_1": "متأخر يوم",
-        "late_days_2": "متأخر 2 يوم",
-        "late_days_plural": "متأخر {days} أيام"
-      },
-      "activities": {
-        "title": "آخر النشاطات",
-        "submitted": "قام {name} بتسليم مهمة {task}",
-        "added_link": "قمت بإضافة رابط تعليمي جديد في درس {lesson}",
-        "created_task": "قمت بإنشاء مهمة جديدة: {task}"
-      },
-      "quick_actions": {
-        "title": "إجراءات سريعة",
-        "add_task": "إضافة مهمة جديدة",
-        "add_link": "إضافة رابط تعليمي",
-        "send_email": "إرسال بريد إلى الطلاب"
-      }
+    "sidebar": {
+      "home": "الرئيسية",
+      "track": "المسار التدريبي",
+      "tasks": "المهام",
+      "submissions": "التسليمات",
+      "students": "الطلاب",
+      "profile": "الملف الشخصي",
+      "logout": "تسجيل الخروج"
     },
-    "MentorSubmissions": {
-      "breadcrumbs": {
-        "home": "الرئيسية",
-        "tasks": "المهام",
-        "review": "مراجعة التسليم"
-      },
-      "header": {
-        "title": "مراجعة التسليم",
-        "subtext": "راجع عمل الطالب وقدم ملاحظاتك وتقييمك"
-      },
-      "student_card": {
-        "name": "محمد محمد",
-        "university": "جامعة الأزهر - غزة",
-        "track": "المسار: تطوير الويب",
-        "status_label": "حالة التسليم",
-        "status_pending": "في انتظار المراجعة",
-        "date_label": "تاريخ التسليم",
-        "date_value": "22 أبريل 2024 - 04:30م",
-        "activity_label": "آخر نشاط",
-        "activity_value": "منذ يومين"
-      },
-      "task_card": {
-        "title": "معلومات المهمة",
-        "task_name_label": "اسم المهمة",
-        "task_name_value": "بناء صفحة أول ويب",
-        "lesson_label": "الدرس المرتبط",
-        "lesson_value": "الدرس 3: HTML صفحة أساسية",
-        "deadline_label": "الموعد النهائي",
-        "deadline_value": "25 أبريل 2024 - 11:59 م",
-        "instructions_label": "تعليمات المهمة",
-        "instructions_link": "عرض التعليمات"
-      },
-      "files_card": {
-        "title": "الملفات المرفوعة",
-        "files_count": "3 ملفات"
-      },
-      "evaluation_card": {
-        "title": "تقييمك وملاحظاتك",
-        "rating_very_good": "جيد جداً",
-        "accept_btn": "قبول المهمة",
-        "editor_placeholder": "اكتب ملاحظاتك وتقييمك هنا..."
-      }
+    "header": {
+      "welcome": "مرحباً، {name} 👋",
+      "subtitle": "هنا نظرة عامة على مسارك التدريبي اليوم",
+      "track_label": "المسار التعليمي",
+      "track_name": "تطوير الويب"
+    },
+    "stats": {
+      "average_progress": "متوسط التقدم",
+      "average_progress_desc": "متوسط تقدم الطلاب",
+      "students_count": "عدد الطلاب",
+      "student": "طالب",
+      "students_count_desc": "+5 منذ الأسبوع الماضي",
+      "new_submissions": "التسليمات الجديدة",
+      "submissions": "تسليمات",
+      "new_submissions_desc": "تحتاج إلى مراجعة",
+      "late_students": "الطلاب المتأخرون",
+      "late_students_desc": "لم يسلموا مهامهم بعد"
+    },
+    "submissions_table": {
+      "title": "آخر التسليمات",
+      "view_all": "عرض الكل",
+      "student": "الطالب",
+      "task": "المهمة",
+      "time": "وقت التسليم",
+      "status": "الحالة",
+      "action": "الإجراء",
+      "review_btn": "مراجعة",
+      "status_evaluated": "تم التقييم",
+      "status_pending": "بانتظار المراجعة"
+    },
+    "late_students_list": {
+      "title": "الطلاب المتأخرون",
+      "view_all": "عرض الكل",
+      "late_days_1": "متأخر يوم",
+      "late_days_2": "متأخر 2 يوم",
+      "late_days_plural": "متأخر {days} أيام"
+    },
+    "activities": {
+      "title": "آخر النشاطات",
+      "submitted": "قام {name} بتسليم مهمة {task}",
+      "added_link": "قمت بإضافة رابط تعليمي جديد في درس {lesson}",
+      "created_task": "قمت بإنشاء مهمة جديدة: {task}"
+    },
+    "quick_actions": {
+      "title": "إجراءات سريعة",
+      "add_task": "إضافة مهمة جديدة",
+      "add_link": "إضافة رابط تعليمي",
+      "send_email": "إرسال بريد إلى الطلاب"
     }
+  },
+  "MentorSubmissions": {
+    "breadcrumbs": {
+      "home": "الرئيسية",
+      "tasks": "المهام",
+      "review": "مراجعة التسليم"
+    },
+    "header": {
+      "title": "مراجعة التسليم",
+      "subtext": "راجع عمل الطالب وقدم ملاحظاتك وتقييمك"
+    },
+    "student_card": {
+      "name": "محمد محمد",
+      "university": "جامعة الأزهر - غزة",
+      "track": "المسار: تطوير الويب",
+      "status_label": "حالة التسليم",
+      "status_pending": "في انتظار المراجعة",
+      "date_label": "تاريخ التسليم",
+      "date_value": "22 أبريل 2024 - 04:30م",
+      "activity_label": "آخر نشاط",
+      "activity_value": "منذ يومين"
+    },
+    "task_card": {
+      "title": "معلومات المهمة",
+      "task_name_label": "اسم المهمة",
+      "task_name_value": "بناء صفحة أول ويب",
+      "lesson_label": "الدرس المرتبط",
+      "lesson_value": "الدرس 3: HTML صفحة أساسية",
+      "deadline_label": "الموعد النهائي",
+      "deadline_value": "25 أبريل 2024 - 11:59 م",
+      "instructions_label": "تعليمات المهمة",
+      "instructions_link": "عرض التعليمات"
+    },
+    "files_card": {
+      "title": "الملفات المرفوعة",
+      "files_count": "3 ملفات"
+    },
+    "evaluation_card": {
+      "title": "تقييمك وملاحظاتك",
+      "rating_very_good": "جيد جداً",
+      "accept_btn": "قبول المهمة",
+      "editor_placeholder": "اكتب ملاحظاتك وتقييمك هنا..."
+    }
+  }
 }

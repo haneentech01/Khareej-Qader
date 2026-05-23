@@ -500,104 +500,106 @@
     }
   },
   "MentorDashboard": {
-      "sidebar": {
-        "home": "Home",
-        "track": "Training Track",
-        "tasks": "Tasks",
-        "submissions": "Submissions",
-        "students": "Students",
-        "profile": "Profile",
-        "logout": "Logout"
-      },
-      "header": {
-        "welcome": "Welcome, {name} 👋",
-        "subtitle": "Here is an overview of your training track today",
-        "track_label": "Educational Track",
-        "track_name": "Web Development"
-      },
-      "stats": {
-        "average_progress": "Average Progress",
-        "average_progress_desc": "Average student progress",
-        "students_count": "Number of Students",
-        "students_count_desc": "+5 since last week",
-        "new_submissions": "New Submissions",
-        "new_submissions_desc": "Needs review",
-        "late_students": "Late Students",
-        "late_students_desc": "Have not submitted tasks yet"
-      },
-      "submissions_table": {
-        "title": "Latest Submissions",
-        "view_all": "View All",
-        "student": "Student",
-        "task": "Task",
-        "time": "Submission Time",
-        "status": "Status",
-        "action": "Action",
-        "review_btn": "Review",
-        "status_evaluated": "Evaluated",
-        "status_pending": "Pending Review"
-      },
-      "late_students_list": {
-        "title": "Late Students",
-        "view_all": "View All",
-        "late_days_1": "Late 1 day",
-        "late_days_2": "Late 2 days",
-        "late_days_plural": "Late {days} days"
-      },
-      "activities": {
-        "title": "Latest Activities",
-        "submitted": "{name} submitted task {task}",
-        "added_link": "Added a new educational link to lesson {lesson}",
-        "created_task": "Created a new task: {task}"
-      },
-      "quick_actions": {
-        "title": "Quick Actions",
-        "add_task": "Add New Task",
-        "add_link": "Add Educational Link",
-        "send_email": "Send Email to Students"
-      }
+    "sidebar": {
+      "home": "Home",
+      "track": "Training Track",
+      "tasks": "Tasks",
+      "submissions": "Submissions",
+      "students": "Students",
+      "profile": "Profile",
+      "logout": "Logout"
     },
-    "MentorSubmissions": {
-      "breadcrumbs": {
-        "home": "Home",
-        "tasks": "Tasks",
-        "review": "Review Submission"
-      },
-      "header": {
-        "title": "Review Submission",
-        "subtext": "Review student's work and provide your feedback and rating"
-      },
-      "student_card": {
-        "name": "Mohamed Mohamed",
-        "university": "Al-Azhar University - Gaza",
-        "track": "Track: Web Development",
-        "status_label": "Submission Status",
-        "status_pending": "Pending Review",
-        "date_label": "Submission Date",
-        "date_value": "22 April 2024 - 04:30 PM",
-        "activity_label": "Last Active",
-        "activity_value": "2 days ago"
-      },
-      "task_card": {
-        "title": "Task Information",
-        "task_name_label": "Task Name",
-        "task_name_value": "Build First Web Page",
-        "lesson_label": "Related Lesson",
-        "lesson_value": "Lesson 3: HTML Basic Page",
-        "deadline_label": "Deadline",
-        "deadline_value": "25 April 2024 - 11:59 PM",
-        "instructions_label": "Task Instructions",
-        "instructions_link": "View Instructions"
-      },
-      "files_card": {
-        "title": "Uploaded Files",
-        "files_count": "3 files"
-      },
-      "evaluation_card": {
-        "title": "Your Evaluation and Comments",
-        "rating_very_good": "Very Good",
-        "accept_btn": "Accept Task",
-        "editor_placeholder": "Write your feedback and rating here..."
-      }
+    "header": {
+      "welcome": "Welcome, {name} 👋",
+      "subtitle": "Here is an overview of your training track today",
+      "track_label": "Educational Track",
+      "track_name": "Web Development"
+    },
+    "stats": {
+      "average_progress": "Average Progress",
+      "average_progress_desc": "Average student progress",
+      "students_count": "Number of Students",
+      "student": "Students",
+      "students_count_desc": "+5 since last week",
+      "new_submissions": "New Submissions",
+      "submissions": "Submissions",
+      "new_submissions_desc": "Needs review",
+      "late_students": "Late Students",
+      "late_students_desc": "Have not submitted tasks yet"
+    },
+    "submissions_table": {
+      "title": "Latest Submissions",
+      "view_all": "View All",
+      "student": "Student",
+      "task": "Task",
+      "time": "Submission Time",
+      "status": "Status",
+      "action": "Action",
+      "review_btn": "Review",
+      "status_evaluated": "Evaluated",
+      "status_pending": "Pending Review"
+    },
+    "late_students_list": {
+      "title": "Late Students",
+      "view_all": "View All",
+      "late_days_1": "Late 1 day",
+      "late_days_2": "Late 2 days",
+      "late_days_plural": "Late {days} days"
+    },
+    "activities": {
+      "title": "Latest Activities",
+      "submitted": "{name} submitted task {task}",
+      "added_link": "Added a new educational link to lesson {lesson}",
+      "created_task": "Created a new task: {task}"
+    },
+    "quick_actions": {
+      "title": "Quick Actions",
+      "add_task": "Add New Task",
+      "add_link": "Add Educational Link",
+      "send_email": "Send Email to Students"
     }
+  },
+  "MentorSubmissions": {
+    "breadcrumbs": {
+      "home": "Home",
+      "tasks": "Tasks",
+      "review": "Review Submission"
+    },
+    "header": {
+      "title": "Review Submission",
+      "subtext": "Review student's work and provide your feedback and rating"
+    },
+    "student_card": {
+      "name": "Mohamed Mohamed",
+      "university": "Al-Azhar University - Gaza",
+      "track": "Track: Web Development",
+      "status_label": "Submission Status",
+      "status_pending": "Pending Review",
+      "date_label": "Submission Date",
+      "date_value": "22 April 2024 - 04:30 PM",
+      "activity_label": "Last Active",
+      "activity_value": "2 days ago"
+    },
+    "task_card": {
+      "title": "Task Information",
+      "task_name_label": "Task Name",
+      "task_name_value": "Build First Web Page",
+      "lesson_label": "Related Lesson",
+      "lesson_value": "Lesson 3: HTML Basic Page",
+      "deadline_label": "Deadline",
+      "deadline_value": "25 April 2024 - 11:59 PM",
+      "instructions_label": "Task Instructions",
+      "instructions_link": "View Instructions"
+    },
+    "files_card": {
+      "title": "Uploaded Files",
+      "files_count": "3 files"
+    },
+    "evaluation_card": {
+      "title": "Your Evaluation and Comments",
+      "rating_very_good": "Very Good",
+      "accept_btn": "Accept Task",
+      "editor_placeholder": "Write your feedback and rating here..."
+    }
+  }
 }

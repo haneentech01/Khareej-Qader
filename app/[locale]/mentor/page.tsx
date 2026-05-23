@@ -5,6 +5,7 @@ import { LatestSubmissions } from "@/components/dashboard/Mentor/LatestSubmissio
 import { LateStudents } from "@/components/dashboard/Mentor/LateStudents";
 import { LatestActivities } from "@/components/dashboard/Mentor/LatestActivities";
 import { QuickActions } from "@/components/dashboard/Mentor/QuickActions";
+import { Code2 } from "lucide-react";
 
 interface MentorDashboardPageProps {
   params: Promise<{
@@ -19,28 +20,28 @@ export default async function MentorDashboardPage({ params }: MentorDashboardPag
   return (
     <div className="max-w-7xl mx-auto space-y-8 pb-12 px-4 md:px-0">
       {/* Welcome Greeting Row */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 bg-white rounded-[20px] p-6 md:p-8 border border-sidebar-border shadow-xs">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 p-6">
         <div className="space-y-1.5 text-right rtl:text-right ltr:text-left">
-          <h1 className="text-2xl md:text-3xl font-extrabold text-black">
+          <h1 className="text-2xl md:text-3xl font-bold text-black">
             {t("header.welcome", { name: locale === "ar" ? "أحمد" : "Ahmed" })}
           </h1>
-          <p className="text-brand-muted text-sm md:text-base font-bold">
+          <p className="text-brand-muted text-sm md:text-base">
             {t("header.subtitle")}
           </p>
         </div>
 
         {/* Educational Track Info Box */}
-        <div className="flex items-center gap-3 bg-[#F6FBFA] border border-sidebar-border p-3.5 rounded-2xl shrink-0 w-full sm:w-auto justify-end sm:justify-start">
+        <div className="flex items-center gap-3 bg-white border border-sidebar-border p-3.5 rounded-2xl shrink-0 w-full sm:w-auto justify-end sm:justify-start">
           <div className="space-y-1 text-right rtl:text-right ltr:text-left">
-            <span className="text-brand-muted/70 text-xs font-semibold block leading-none">
+            <span className="text-brand-primary text-xs block leading-none">
               {t("header.track_label")}
             </span>
-            <span className="text-black font-extrabold text-sm md:text-base block">
+            <span className="text-black font-bold text-sm md:text-base block">
               {t("header.track_name")}
             </span>
           </div>
-          <div className="size-11 rounded-2xl bg-white border border-gray-100 flex items-center justify-center shrink-0 shadow-xs">
-            <span className="text-[#22b48d] font-bold text-lg">&lt;/&gt;</span>
+          <div className="size-12 rounded-2xl bg-brand-light-green flex items-center justify-center shrink-0">
+            <Code2 className="size-6 text-brand-primary" />
           </div>
         </div>
       </div>
