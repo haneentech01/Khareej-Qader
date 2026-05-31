@@ -597,9 +597,54 @@
     },
     "evaluation_card": {
       "title": "Your Evaluation and Comments",
-      "rating_very_good": "Very Good",
+      "rating": {
+        "label": "Your Rating",
+        "EXCELLENT": "Excellent",
+        "VERY_GOOD": "Very Good",
+        "GOOD": "Good",
+        "FAIR": "Fair",
+        "POOR": "Poor"
+      },
       "accept_btn": "Accept Task",
       "editor_placeholder": "Write your feedback and rating here..."
+    }
+  },
+  "MentorTrack": {
+    "breadcrumbs": {
+      "home": "Home",
+      "track": "Training Track"
+    },
+    "header": {
+      "title": "Web Development",
+      "subtitle": "Manage track content and educational lessons"
+    },
+    "search_placeholder": "Search in lessons...",
+    "filters": {
+      "all": "All",
+      "published": "Published",
+      "draft": "Draft",
+      "hidden": "Hidden"
+    },
+    "sorting": {
+      "sort_lessons": "Sort Lessons",
+      "newest": "Newest First",
+      "oldest": "Oldest First",
+      "highest_progress": "Highest Progress",
+      "lowest_progress": "Lowest Progress"
+    },
+    "table": {
+      "lesson": "Lesson",
+      "status": "Status",
+      "average_progress": "Average Progress",
+      "date_added": "Date Added",
+      "actions": "Actions",
+      "minutes": "{minutes} mins"
+    },
+    "pagination": {
+      "showing": "Showing {start} to {end} of {total} lessons",
+      "prev": "Previous",
+      "next": "Next",
+      "show_per_page": "Show"
     }
   }
 }

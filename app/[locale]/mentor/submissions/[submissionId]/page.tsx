@@ -5,14 +5,8 @@ import { FileCheck2, ChevronLeft, ChevronRight } from "lucide-react";
 import { SubmissionHeader } from "@/components/dashboard/Mentor/Submissions/SubmissionHeader";
 import { TaskInfoCard } from "@/components/dashboard/Mentor/Submissions/TaskInfoCard";
 import { FilesCard } from "@/components/dashboard/Mentor/Submissions/FilesCard";
-import { EvaluationForm } from "@/components/dashboard/Mentor/Submissions/EvaluationForm";
-
-interface SubmissionReviewPageProps {
-  params: Promise<{
-    locale: string;
-    submissionId: string;
-  }>;
-}
+import { SubmissionReviewPageProps } from "@/types";
+import { EvaluationForm } from "@/components/dashboard/Mentor/Submissions/Evaluation/EvaluationForm";
 
 export default async function SubmissionReviewPage({ params }: SubmissionReviewPageProps) {
   const { locale } = await params;
@@ -24,7 +18,7 @@ export default async function SubmissionReviewPage({ params }: SubmissionReviewP
       {/* Top Navigation & Breadcrumbs */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         {/* Breadcrumbs */}
-        <div className="flex items-center gap-2 text-brand-muted/70 text-xs md:text-sm font-bold rtl:flex-row-reverse">
+        <div className="flex items-center gap-2 text-brand-muted text-xs md:text-sm">
           <Link href="/mentor" className="hover:text-black transition-colors">
             {t("breadcrumbs.home")}
           </Link>
@@ -33,26 +27,26 @@ export default async function SubmissionReviewPage({ params }: SubmissionReviewP
             {t("breadcrumbs.tasks")}
           </Link>
           {isRtl ? <ChevronLeft className="size-4 shrink-0" /> : <ChevronRight className="size-4 shrink-0" />}
-          <span className="text-[#22b48d] font-extrabold">
+          <span className="text-brand-primary">
             {t("breadcrumbs.review")}
           </span>
         </div>
       </div>
 
       {/* Main Title Banner with Green Document Icon */}
-      <div className="flex justify-between items-center bg-white rounded-[20px] p-6 border border-sidebar-border shadow-xs">
+      <div className="flex justify-start items-center gap-5 mt-9">
+        {/* Dynamic Green Document Check Icon */}
+        <div className="size-16 rounded-2xl bg-white flex items-center justify-center shrink-0 shadow-2xs">
+          <FileCheck2 className="size-8 text-brand-primary" />
+        </div>
         <div className="space-y-1.5 text-right rtl:text-right ltr:text-left">
-          <h1 className="text-2xl md:text-3xl font-extrabold text-black">
+
+          <h1 className="text-2xl md:text-3xl font-bold text-black">
             {t("header.title")}
           </h1>
-          <p className="text-brand-muted text-sm md:text-base font-bold">
+          <p className="text-brand-muted text-sm md:text-base">
             {t("header.subtext")}
           </p>
-        </div>
-
-        {/* Dynamic Green Document Check Icon */}
-        <div className="size-12 rounded-2xl bg-[#E8FDF2] border border-[#A7F3D0]/60 flex items-center justify-center shrink-0 shadow-2xs">
-          <FileCheck2 className="size-6 text-[#22b48d]" />
         </div>
       </div>
 
@@ -60,14 +54,14 @@ export default async function SubmissionReviewPage({ params }: SubmissionReviewP
       <SubmissionHeader />
 
       {/* Grid of Task Details & Uploaded Files */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
         {/* Task Details Info Card (Takes 2/3 width) */}
-        <div className="lg:col-span-2 flex">
+        <div className="lg:col-span-7 flex">
           <TaskInfoCard />
         </div>
 
         {/* Uploaded Files Card (Takes 1/3 width) */}
-        <div className="lg:col-span-1 flex">
+        <div className="lg:col-span-5 flex">
           <FilesCard />
         </div>
       </div>

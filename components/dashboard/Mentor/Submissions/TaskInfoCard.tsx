@@ -15,36 +15,34 @@ export function TaskInfoCard() {
   ];
 
   return (
-    <div className="bg-white rounded-[20px] p-6 md:p-8 border border-sidebar-border shadow-xs flex flex-col gap-6 w-full h-full">
+    <div className="bg-white rounded-3xl p-6 border border-sidebar-border shadow-xs flex flex-col gap-6 w-full h-full">
       {/* Title Header */}
       <div className="flex items-center gap-2 border-b border-slate-50 pb-4">
-        <div className="size-8 rounded-lg bg-amber-50 border border-amber-100 flex items-center justify-center shrink-0">
-          <FileText className="size-4.5 text-amber-600" />
-        </div>
-        <h4 className="font-extrabold text-black text-lg">
+        <FileText className="size-6 text-brand-orange" />
+        <h4 className="font-bold text-black text-lg md:text-xl">
           {t("title")}
         </h4>
       </div>
 
       {/* Information Grid/List */}
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-5 px-3">
         {infoItems.map((item, idx) => (
           <div
             key={idx}
-            className="flex justify-between items-center py-2 border-b border-slate-50 last:border-b-0"
+            className="flex justify-between items-center gap-4"
           >
-            <span className="text-brand-muted/70 text-sm font-bold">
+            <span className="text-brand-muted text-sm">
               {item.label}
             </span>
-            <span className={`text-black text-sm md:text-base ${item.isBold ? "font-extrabold" : "font-semibold"}`}>
+            <span className={`text-black text-sm ${item.isBold ? "font-bold" : "font-normal"}`}>
               {item.value}
             </span>
           </div>
         ))}
 
         {/* Task Instructions Link */}
-        <div className="flex justify-between items-center py-2">
-          <span className="text-brand-muted/70 text-sm font-bold">
+        <div className="flex justify-between items-center gap-4">
+          <span className="text-brand-muted text-sm">
             {t("instructions_label")}
           </span>
           <Link
@@ -53,7 +51,7 @@ export function TaskInfoCard() {
               e.preventDefault();
               console.log("View instructions");
             }}
-            className="text-[#22b48d] hover:underline font-extrabold text-sm flex items-center gap-1.5 transition-all"
+            className="text-brand-primary hover:underline font-bold text-sm flex items-center gap-1.5 transition-all"
           >
             <Eye className="size-4" />
             {t("instructions_link")}

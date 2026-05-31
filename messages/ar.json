@@ -597,9 +597,54 @@
     },
     "evaluation_card": {
       "title": "تقييمك وملاحظاتك",
-      "rating_very_good": "جيد جداً",
+      "rating": {
+        "label": "تقييمك",
+        "EXCELLENT": "ممتاز",
+        "VERY_GOOD": "جيد جدا",
+        "GOOD": "جيد",
+        "FAIR": "مقبول",
+        "POOR": "ضعيف"
+      },
       "accept_btn": "قبول المهمة",
       "editor_placeholder": "اكتب ملاحظاتك وتقييمك هنا..."
+    }
+  },
+  "MentorTrack": {
+    "breadcrumbs": {
+      "home": "الرئيسية",
+      "track": "المسار التدريبي"
+    },
+    "header": {
+      "title": "تطوير الويب",
+      "subtitle": "قم بإدارة محتوى المسار والدروس التعليمية"
+    },
+    "search_placeholder": "ابحث في الدروس...",
+    "filters": {
+      "all": "الكل",
+      "published": "منشور",
+      "draft": "مسودة",
+      "hidden": "مخفي"
+    },
+    "sorting": {
+      "sort_lessons": "ترتيب الدروس",
+      "newest": "الأحدث تاريخاً",
+      "oldest": "الأقدم تاريخاً",
+      "highest_progress": "الأعلى تقدماً",
+      "lowest_progress": "الأقل تقدماً"
+    },
+    "table": {
+      "lesson": "الدرس",
+      "status": "الحالة",
+      "average_progress": "التقدم المتوسط",
+      "date_added": "تاريخ الإضافة",
+      "actions": "إجراءات",
+      "minutes": "{minutes} دقيقة"
+    },
+    "pagination": {
+      "showing": "عرض {start} إلى {end} من {total} درس",
+      "prev": "السابق",
+      "next": "التالي",
+      "show_per_page": "عرض"
     }
   }
 }

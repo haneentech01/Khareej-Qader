@@ -36,18 +36,20 @@ export function LateStudents() {
   ];
 
   return (
-    <div className="bg-white rounded-[20px] p-6 md:p-8 border border-sidebar-border shadow-sm flex flex-col gap-6 w-full h-full">
+    <div className="bg-white rounded-3xl p-6 border border-sidebar-border shadow-sm flex flex-col gap-6 w-full h-full">
       {/* Title Header */}
       <div className="flex justify-between items-center">
-        <div className="flex items-center gap-2">
-          <Clock className="size-5 text-dark-red" />
-          <h4 className="font-bold text-black text-lg">
+        <div className="flex items-center gap-1.5">
+          <div className="size-9 flex items-center justify-center rounded-xl bg-red-bg">
+            <Clock className="size-5 text-light-red" />
+          </div>
+          <h4 className="font-bold text-black text-sm md:text-base">
             {t("title")}
           </h4>
         </div>
         <Link
           href="/mentor/late-students"
-          className="text-brand-muted hover:text-black text-xs md:text-sm font-bold flex items-center gap-1 transition-colors"
+          className="text-brand-muted hover:text-black text-xs md:text-sm flex items-center gap-1 transition-colors"
         >
           {t("view_all")}
           {isRtl ? <ChevronLeft className="size-4" /> : <ChevronRight className="size-4" />}
@@ -59,15 +61,15 @@ export function LateStudents() {
         {lateStudents.map((student) => (
           <div key={student.id} className="flex justify-between items-center py-4 first:pt-0 last:pb-0 gap-4">
             <div className="space-y-1">
-              <span className="font-extrabold text-black text-sm md:text-base block">
+              <span className="font-semibold text-black text-sm md:text-base block">
                 {student.name}
               </span>
-              <span className="text-brand-muted/70 text-xs md:text-sm font-medium block">
+              <span className="text-brand-muted text-xs block">
                 {student.task}
               </span>
             </div>
             {/* Red Warning Tag */}
-            <span className="bg-[#FEF2F2] text-dark-red text-xs font-extrabold px-3 py-1.5 rounded-xl border border-[#FCA5A5]/20 shrink-0 shadow-xs">
+            <span className="bg-red-bg text-light-red text-xs font-extrabold px-3 py-1.5 rounded-lg border border-[#FCA5A5]/20 shrink-0 shadow-xs">
               {student.tag}
             </span>
           </div>

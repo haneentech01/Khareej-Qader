@@ -38,47 +38,49 @@ export function LatestActivities() {
   ];
 
   return (
-    <div className="bg-white rounded-[20px] p-6 md:p-8 border border-sidebar-border shadow-sm flex flex-col gap-6 w-full h-full">
+    <div className="bg-white rounded-3xl p-6 border border-sidebar-border shadow-sm flex flex-col gap-6 w-full h-full">
       {/* Title Header */}
       <div className="flex items-center gap-2 border-b border-slate-50 pb-4">
-        <Zap className="size-5 text-[#22b48d] fill-[#22b48d]/20" />
+        <div className="size-10 bg-brand-light flex items-center justify-center rounded-xl">
+          <Zap className="size-5 text-brand-primary" />
+        </div>
         <h4 className="font-bold text-black text-lg">
           {t("title")}
         </h4>
       </div>
 
       {/* Timeline */}
-      <div className="relative flex flex-col gap-6 pl-2 pr-2">
-        {/* Vertical Linking Line */}
-        <div className="absolute top-3 bottom-3 w-0.5 bg-slate-100 rtl:right-[119px] ltr:left-[119px] hidden sm:block"></div>
-
+      <div className="relative flex flex-col gap-4">
         {activities.map((activity) => (
           <div
             key={activity.id}
             className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-0"
           >
             {/* Time Stamp (Takes fixed width on desktop) */}
-            <div className="w-[100px] text-right rtl:text-right ltr:text-left shrink-0 text-brand-muted/70 text-xs md:text-sm font-bold sm:px-2">
+            <div className="w-[100px] text-right rtl:text-right ltr:text-left shrink-0 text-brand-muted text-xs sm:px-2">
               {activity.time}
             </div>
+
+
+            {/* Activity Text */}
+            <p className="flex-1 text-black text-sm md:text-base leading-relaxed sm:px-2">
+              {activity.text}
+            </p>
 
             {/* Icon Container (Aligned exactly in the middle of line) */}
             <div className="flex items-center justify-center shrink-0 w-10 sm:w-10 z-10 rtl:sm:mr-2 ltr:sm:ml-2">
               {activity.iconType === "plus" ? (
-                <div className="size-8 rounded-full bg-[#E8FDF2] border border-[#A7F3D0] flex items-center justify-center shadow-xs">
-                  <Plus className="size-4 text-[#22b48d] stroke-3" />
+                <div className="size-7 rounded-full bg-brand-light-green border border-brand-primary/30 flex items-center justify-center shadow-xs">
+                  <Plus className="size-4 text-brand-primary stroke-3" />
                 </div>
               ) : (
-                <div className="size-8 rounded-full bg-[#E8FDF2] border border-[#A7F3D0] flex items-center justify-center shadow-xs">
-                  <Check className="size-4 text-[#22b48d] stroke-3" />
+                <div className="size-7 rounded-full bg-brand-light-green border border-brand-primary/30 flex items-center justify-center shadow-xs">
+                  <Check className="size-4 text-brand-primary stroke-3" />
                 </div>
               )}
             </div>
 
-            {/* Activity Text */}
-            <p className="flex-1 text-black font-extrabold text-sm md:text-base leading-relaxed sm:px-4">
-              {activity.text}
-            </p>
+
           </div>
         ))}
       </div>

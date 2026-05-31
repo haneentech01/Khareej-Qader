@@ -50,21 +50,21 @@ export default async function MentorDashboardPage({ params }: MentorDashboardPag
       <MentorStats />
 
       {/* Middle Section: Latest Submissions & Late Students */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
-        <div className="lg:col-span-2 flex">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+        <div className="lg:col-span-8 flex">
           <LatestSubmissions />
         </div>
-        <div className="lg:col-span-1 flex">
+        <div className="lg:col-span-4 flex">
           <LateStudents />
         </div>
       </div>
 
       {/* Bottom Section: Activities & Quick Actions */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
-        <div className="lg:col-span-2 flex">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+        <div className="lg:col-span-7 flex">
           <LatestActivities />
         </div>
-        <div className="lg:col-span-1 flex">
+        <div className="lg:col-span-5 flex">
           <QuickActions />
         </div>
       </div>

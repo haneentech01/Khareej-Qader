@@ -1,3 +1,7 @@
+import React from "react";
+import type { Editor } from "@tiptap/react";
+
+
 export interface StepItem {
     number: string;
     title: string;
@@ -124,4 +128,37 @@ export interface LessonTimelineProps {
 export interface SubmissionInfoCardProps {
   status: "pending" | "completed";
 }
+
+export interface SubmissionReviewPageProps {
+  params: Promise<{
+    locale: string;
+    submissionId: string;
+  }>;
+}
+
+export interface ToolbarButtonProps {
+    onClick: () => void;
+    isActive?: boolean;
+    children: React.ReactNode;
+    title: string;
+}
+
+export interface EditorToolbarProps {
+    editor: Editor | null;
+}
+
+export type MentorLessonStatus = "published" | "draft" | "hidden";
+
+export interface MentorLesson {
+  id: string;
+  number: number;
+  title: string;
+  duration: string;
+  status: MentorLessonStatus;
+  averageProgress: number;
+  dateAdded: string;
+}
+
+
+
 
