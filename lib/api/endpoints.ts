@@ -2,47 +2,55 @@ const endpoints = {
   // ─── تسجيل الدخول والخروج لكل نوع ─────────
   auth: {
     student: {
-      register: "/api/students/auth/register",
-      login: "/api/students/auth/login",
-      logout: "/api/students/auth/logout",
-      countries: "/api/code-number",
-      me: "/api/students/auth/me", // جيب بيانات المستخدم الحالي
+      register: "/students/auth/register",
+      login: "/students/auth/login",
+      logout: "/students/auth/logout",
+      countries: "/code-number",
+      me: "/students/auth/me", // جيب بيانات المستخدم الحالي
     },
     mentor: {
-      login: "/api/mentor/auth/login",
-      logout: "/api/mentor/auth/logout",
-      me: "/api/mentor/auth/me",
+      login: "/mentor/auth/login",
+      logout: "/mentor/auth/logout",
+      me: "/mentor/auth/me",
     },
     admin: {
-      login: "/api/admin/auth/login",
-      logout: "/api/admin/auth/logout",
-      me: "/api/admin/auth/me",
+      login: "/admin/auth/login",
+      logout: "/admin/auth/logout",
+      me: "/admin/auth/me",
     },
   },
 
   // ─── روابط الطالب ───────────────────────────
   student: {
-    profile: "/api/students/profile",
-    track: "/api/students/track",
-    tasks: "/api/students/tasks",
-    task: (id: string) => `/api/students/tasks/${id}`,
-    certificates: "/api/students/certificates",
+    profile: "/students/profile",
+    track: "/students/track",
+    tasks: "/students/tasks",
+    task: (id: string) => `/students/tasks/${id}`,
+    certificates: "/students/certificates",
   },
 
   // ─── روابط المنتور ──────────────────────────
   mentor: {
-    profile: "/api/mentor/profile",
-    submissions: "/api/mentor/submissions",
-    submission: (id: string) => `/api/mentor/submissions/${id}`,
-    students: "/api/mentor/students",
+    profile: "/mentor/profile",
+    submissions: "/mentor/submissions",
+    submission: (id: string) => `/mentor/submissions/${id}`,
+    students: "/mentor/students",
   },
 
   // ─── روابط الأدمن ───────────────────────────
   admin: {
-    students: "/api/admin/students",
-    student: (id: string) => `/api/admin/students/${id}`,
-    mentors: "/api/admin/mentors",
-    stats: "/api/admin/stats",
+    students: "/admin/students",
+    student: (id: string) => `/admin/students/${id}`,
+    mentors: "/admin/mentors",
+    stats: "/admin/stats",
+    courses: "/admin/courses",
+  },
+
+  // ─── Lookup data (بيانات القوائم المنسدلة) ──
+  lookup: {
+    countries: "/code-number",
+    universities: "/university-list",
+    majors: "/major-list",
   },
 } as const;
 

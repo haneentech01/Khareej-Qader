@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
 import apiClient from "@/lib/api/client";
+import { ApiResponse } from "@/types";
 
 // T = نوع البيانات اللي رح يرجعها (Generic)
 // مثال: useGetData<StudentProfile>("/api/profile")
@@ -12,7 +13,7 @@ export function useGetData<T>(
   url: string,
   { immediate = true }: UseGetDataOptions = {},
 ) {
-  const [data, setData] = useState<T | null>(null);
+  const [data, setData] = useState<T | string | null>(null);
   const [loading, setLoading] = useState(immediate); // لو immediate=true ابدأ بـ loading
   const [error, setError] = useState<string | null>(null);
 
@@ -22,11 +23,13 @@ export function useGetData<T>(
     setError(null);
 
     try {
-      const res = await apiClient.get<{ data: T }>(url);
-      // بعض الـ APIs بترجع { data: {...} } وبعضها بترجع البيانات مباشرة
-      // هاد بيتعامل مع الحالتين
-      setData(res.data);
-      return res.data;
+      const res = await apiClient.get<ApiResponse<T>>(url);
+      const { data: responseData, message } = res.data;
+
+      // لو data فيها بيانات → احفظها
+      // لو data = null     → احفظ الـ message بدلها
+      setData(responseData ?? message);
+      return responseData ?? message;
     } catch (err) {
       const e = err as { message?: string };
       setError(e.message || "حدث خطأ");

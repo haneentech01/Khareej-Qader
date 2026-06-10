@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import apiClient from "@/lib/api/client";
+import axios from "axios";
 
 export function useInsertData<T>(url: string) {
   const [data, setData] = useState<T | null>(null);
@@ -16,12 +17,10 @@ export function useInsertData<T>(url: string) {
       setData(res.data);
       return res.data;
     } catch (err) {
-      const error = err as {
-        response?: {
-          data?: { message?: string };
-        };
-      };
-      setError(error.response?.data?.message || "حدث خطأ");
+      if (axios.isAxiosError(err)) {
+        const error = err.response?.data?.errors || err.message;
+        setError(error);
+      }
       return null;
     } finally {
       setLoading(false);
