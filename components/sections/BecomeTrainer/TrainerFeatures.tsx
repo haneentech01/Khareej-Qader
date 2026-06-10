@@ -1,12 +1,12 @@
 "use client";
 
 import React from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Users, Banknote, BadgeCheck, BrainCog } from "lucide-react";
 import { motion } from "framer-motion";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogTrigger, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger, DialogTitle, DialogHeader, DialogDescription } from "@/components/ui/dialog";
 import { TrainerForm } from "./TrainerForm";
 
 export function TrainerFeatures() {
@@ -91,12 +91,20 @@ export function TrainerFeatures() {
             {t("become_a_trainer")}
           </Button>
         </DialogTrigger>
-        <DialogContent showCloseButton={false}
-          className="w-full max-w-2xl border-none mx-auto
-         bg-transparent shadow-none p-0">
-          <DialogTitle className="sr-only">
-            {t("become_a_trainer")}
-          </DialogTitle>
+
+        <DialogContent
+          className="border-none mx-auto 
+         bg-red-100 shadow-none p-6 outline-none max-h-[98vh] text-center">
+          <DialogHeader className="pb-6 border-b border-b-gray-100">
+            <DialogTitle className="text-2xl font-bold text-gray-800" >
+              {t("form_title")}
+            </DialogTitle>
+            <DialogDescription className="text-gray-500 text-sm ">
+              {t("form_description")}
+            </DialogDescription>
+          </DialogHeader>
+
+          {/* Form Trainer  */}
           <TrainerForm />
         </DialogContent>
       </Dialog>

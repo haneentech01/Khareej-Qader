@@ -61,10 +61,10 @@ export default async function MentorDashboardPage({ params }: MentorDashboardPag
 
       {/* Bottom Section: Activities & Quick Actions */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-        <div className="lg:col-span-7 flex">
+        <div className="lg:col-span-8 flex">
           <LatestActivities />
         </div>
-        <div className="lg:col-span-5 flex">
+        <div className="lg:col-span-4 flex">
           <QuickActions />
         </div>
       </div>

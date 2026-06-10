@@ -1,45 +1,44 @@
 import React from "react";
 import type { Editor } from "@tiptap/react";
 
-
 export interface StepItem {
-    number: string;
-    title: string;
-    desc: string;
-    icon: string;
+  number: string;
+  title: string;
+  desc: string;
+  icon: string;
 }
 
 export interface FeatureItem {
-    title: string;
-    desc: string;
-    icon: string;
+  title: string;
+  desc: string;
+  icon: string;
 }
 
 export interface TestimonialItem {
-    id: string | number;
-    quote: string;
-    name: string;
-    role: string;
-    badge: string;
-    image: string;
-    rating: number;
+  id: string | number;
+  quote: string;
+  name: string;
+  role: string;
+  badge: string;
+  image: string;
+  rating: number;
 }
 
 export interface GalleryItem {
-    id: string | number;
-    image: string;
-    title: string;
+  id: string | number;
+  image: string;
+  title: string;
 }
 
 export interface FaqItem {
-    q: string;
-    a: string;
+  q: string;
+  a: string;
 }
 
 export interface CtaData {
-    title: string;
-    subtitle: string;
-    buttonText: string;
+  title: string;
+  subtitle: string;
+  buttonText: string;
 }
 
 export interface HeroStatItem {
@@ -137,14 +136,14 @@ export interface SubmissionReviewPageProps {
 }
 
 export interface ToolbarButtonProps {
-    onClick: () => void;
-    isActive?: boolean;
-    children: React.ReactNode;
-    title: string;
+  onClick: () => void;
+  isActive?: boolean;
+  children: React.ReactNode;
+  title: string;
 }
 
 export interface EditorToolbarProps {
-    editor: Editor | null;
+  editor: Editor | null;
 }
 
 export type MentorLessonStatus = "published" | "draft" | "hidden";
@@ -159,6 +158,81 @@ export interface MentorLesson {
   dateAdded: string;
 }
 
+export type SubmissionStatus =
+  | "pending"
+  | "evaluated"
+  | "late"
+  | "not_submitted";
 
+export type SubmissionFileType = "zip" | "github" | "code" | "none";
 
+export interface SubmissionListItem {
+  id: string;
+  studentName: string;
+  studentAvatar: string;
+  taskTitle: string;
+  taskSubtitle: string;
+  submissionTime: string;
+  submissionDate: string;
+  timeIsRed?: boolean;
+  fileName?: string;
+  fileSize?: string;
+  fileType: SubmissionFileType;
+  status: SubmissionStatus;
+  evaluation?: string;
+}
 
+export interface StudentSubmissionSummary {
+  id: string;
+  taskTitle: string;
+  submissionDate?: string;
+  submissionTime?: string;
+  evaluation?: string;
+  status: SubmissionStatus;
+}
+
+export interface StudentProfileData {
+  id: string;
+  fullName: string;
+  avatar: string;
+  university: string;
+  major: string;
+  email: string;
+  trackProgress: number;
+  completedLessons: number;
+  totalLessons: number;
+  completedTasks: number;
+  totalTasks: number;
+  averageRating: string;
+  recentSubmissions: StudentSubmissionSummary[];
+}
+
+export interface Country {
+  iso: string;
+  countryCode: string;
+  name: string;
+}
+
+export interface Gender {
+  id: string | number;
+  name: string;
+}
+
+export interface University {
+  id: string | number;
+  name: string;
+}
+
+export interface Major {
+  id: string | number;
+  name: string;
+}
+
+export interface Course {
+  id: string | number;
+  name: string;
+}
+
+export interface RegisterResponse {
+  message: string;
+}

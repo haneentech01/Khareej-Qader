@@ -7,39 +7,21 @@ import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
 import { UploadCloud, Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
-import { useInsertData } from "@/hooks/useInsertData";
 import endpoints from "@/lib/api/endpoints";
+import { useInsertData } from "@/lib/hooks/useInsertData";
+import { useGetData } from "@/lib/hooks/useGetData";
 
 export function RegisterForm() {
   const t = useTranslations("Auth");
   const router = useRouter();
-  const { insertData, loading, error } = useInsertData(
-    endpoints.auth.register
+  const { data, loading, error, insertData } = useInsertData(
+    endpoints.auth.student.register
   );
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const fields = new FormData(e.currentTarget);
-
-    const formData = new FormData();
-    formData.append("name", fields.get("name") as string);
-    formData.append("email", fields.get("email") as string);
-    formData.append("password", fields.get("password") as string);
-    formData.append("password_confirmation", fields.get("password_confirmation") as string);
-    formData.append("phone", `${fields.get("phoneCode")}${fields.get("phone")}`);
-    formData.append("gender", fields.get("gender") as string);
-    formData.append("university", fields.get("university") as string);
-    formData.append("major", fields.get("major") as string);
-    formData.append("training_path", fields.get("trainingPath") as string);
-
-    const cvFile = fields.get("cv") as File;
-    if (cvFile && cvFile.size > 0) {
-      formData.append("cv", cvFile);
-    }
-
-    const result = await insertData(formData);
-    if (result) router.push("/login");
-  };
+  const { data: countries } =
+    useGetData<Country[]>(
+      endpoints.auth.student.countries
+    );
 
   return (
     <motion.div
@@ -59,7 +41,7 @@ export function RegisterForm() {
         </p>
       </div>
 
-      <form className="space-y-6" onSubmit={handleSubmit}>
+      <form className="space-y-6">
         {error && (
           <div className="p-3 text-sm text-red-600 bg-red-50 rounded-lg text-center">
             {error}
@@ -68,81 +50,110 @@ export function RegisterForm() {
 
         {/* full name */}
         <div>
-          <Input className="h-11" name="name" placeholder={t("full_name")} required />
+          <Input className="h-11"
+            id="full_name" name="full_name"
+            placeholder={t("full_name")} required />
         </div>
 
         {/* email */}
         <div>
-          <Input className="h-11" type="email" name="email" placeholder={t("email")} required />
-        </div>
-
-        {/* password */}
-        <div>
-          <Input className="h-11" type="password" name="password" placeholder={t("password")} required />
-        </div>
-
-        {/* confirm password */}
-        <div>
-          <Input className="h-11" type="password" name="password_confirmation" placeholder={t("password_confirmation")} required />
+          <Input className="h-11" id="email" type="email" name="email" placeholder={t("email")} required />
         </div>
 
         {/* phone */}
         <div>
           <div className="flex gap-2">
             <div className="w-1/3 min-w-[120px]">
-              <Select defaultValue="+970" className="h-12" name="phoneCode">
-                <option value="+970">🇵🇸 +970</option>
-                <option value="+972">🇵🇸 +972</option>
-                <option value="+966">🇸🇦 +966</option>
-                <option value="+971">🇦🇪 +971</option>
-                <option value="+20">🇪🇬 +20</option>
-                <option value="+962">🇯🇴 +962</option>
+              <Select
+                defaultValue="country_iso"
+                className="h-12"
+                name="country_iso">
+                <option value="country_iso">t{"country"}</option>
+                {countries?.map((country) => (
+                  <option
+                    key={country.iso}
+                    value={country.iso}
+                  >
+                    {country.countryCode}
+                  </option>
+                ))}
               </Select>
             </div>
+
             <div className="flex-1">
-              <Input type="tel" name="phone" placeholder={t("phone")} className="h-12 text-right" required />
+              <Input
+                type="tel"
+                id="mobile_number"
+                name="mobile_number" placeholder={t("phone")}
+                className="h-12 text-right" required />
             </div>
           </div>
         </div>
 
         {/* gender */}
         <div className="grid grid-cols-1 gap-4">
-          <Select defaultValue="" name="gender" required>
+          <Select defaultValue="" id="gender" name="gender" required>
             <option value="" disabled>{t("gender")}</option>
-            <option value="male">ذكر</option>
-            <option value="female">أنثى</option>
+            {genders?.map((gender) => (
+              <option
+                key={gender.id}
+                value={gender.id}
+              >
+                {gender.name}
+              </option>
+            ))}
           </Select>
 
           {/* university */}
-          <Select defaultValue="" name="university" required>
+          <Select
+            defaultValue=""
+            id="university_name"
+            name="university_name" required>
             <option value="" disabled>{t("university")}</option>
-            <option value="azhar">جامعة الأزهر</option>
-            <option value="islamic">الجامعة الإسلامية</option>
-            <option value="aqsa">جامعة الأقصى</option>
-            <option value="israa">جامعة الإسراء</option>
-            <option value="gaza">جامعة غزة</option>
-            <option value="ucas">الكلية التطبيقية للعلوم التطبيقية</option>
+            {universities?.map((university) => (
+              <option
+                key={university.id}
+                value={university.id}
+              >
+                {university.name}
+              </option>
+            ))}
           </Select>
 
           {/* major */}
-          <Select defaultValue="" name="major" required>
+          <Select
+            defaultValue=""
+            id="university_major"
+            name="university_major" required>
             <option value="" disabled>{t("major")}</option>
-            <option value="se">Software Engineering</option>
-            <option value="cs">Computer Science</option>
-            <option value="it">Information Technology</option>
+            {courses?.map((course) => (
+              <option
+                key={course.id}
+                value={course.id}
+              >
+                {course.name}
+              </option>
+            ))}
           </Select>
 
           {/* training path */}
-          <Select defaultValue="" name="trainingPath" required>
-            <option value="" disabled>{t("training_path")}</option>
+          <Select defaultValue="" id="course_id" name="course_id" required>
+            {/* <option value="" disabled>{t("training_path")}</option>
             <option value="web">Web Development</option>
             <option value="uiux">UI/UX Design</option>
-            <option value="marketing">Digital Marketing</option>
+            <option value="marketing">Digital Marketing</option> */}
+
+            <option value="" disabled>{t("training_path")}</option>
+            {courses.data?.map((course) => (
+              <option key={course.id} value={course.id}>
+                {course.name}
+              </option>
+            ))}
           </Select>
         </div>
 
         {/* CV Upload */}
-        <div className="">
+        {/* <div className="">
           <div className="group relative flex flex-col 
           items-center justify-center w-full h-32 
           border-2 border-dashed border-slate-200 
@@ -151,10 +162,14 @@ export function RegisterForm() {
             <input type="file" name="cv" className="absolute inset-0 opacity-0 cursor-pointer" />
             <UploadCloud className="w-8 h-8 text-brand-muted 
             group-hover:text-brand-primary transition-colors mb-2" />
-            <span className="text-base font-semibold text-black">{t("cv_label")}</span>
-            <span className="text-xs text-brand-muted mt-2.5">{t("cv_hint")}</span>
+            <span className="text-base font-semibold text-black">
+              {t("cv_label")}
+            </span>
+            <span className="text-xs text-brand-muted mt-2.5">
+              {t("cv_hint")}
+            </span>
           </div>
-        </div>
+        </div> */}
 
         {/* register button */}
         <Button

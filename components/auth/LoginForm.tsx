@@ -5,12 +5,11 @@ import { Link } from "@/i18n/routing";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { motion } from "framer-motion";
-import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 
 export function LoginForm() {
   const t = useTranslations("Auth");
-  const [show, setShow] = useState<boolean>(false);
+  // const [show, setShow] = useState<boolean>(false);
 
   return (
     <motion.div
@@ -37,7 +36,7 @@ export function LoginForm() {
         </div>
 
         {/* password */}
-        <div>
+        {/* <div>
           <div className="relative">
             <Input
               className="h-11"
@@ -67,7 +66,7 @@ export function LoginForm() {
               {t("forgot_password")}
             </Link>
           </div>
-        </div>
+        </div> */}
 
         {/* Login Button */}
         <Button className="w-full h-14 bg-brand-primary hover:bg-brand-hover text-white text-lg font-bold rounded-2xl shadow-lg shadow-brand-primary/20 transition-all mt-4">

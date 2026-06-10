@@ -14,11 +14,6 @@ export function BecomeTrainerSection() {
           <Reveal delay={0.2}>
             <TrainerFeatures />
           </Reveal>
-
-          {/* Registration Form */}
-          {/* <Reveal delay={0.4}>
-            <TrainerForm />
-          </Reveal> */}
         </div>
       </div>
     </section>

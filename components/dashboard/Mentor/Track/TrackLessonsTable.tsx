@@ -2,8 +2,10 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { useTranslations, useLocale } from "next-intl";
+import { Link } from "@/i18n/routing";
 import { MoreHorizontal, Clock, Edit3, EyeOff, Trash2, Eye } from "lucide-react";
 import { MentorLesson } from "@/types";
+import { ColumnDef, getCoreRowModel, useReactTable } from "@tanstack/react-table";
 
 interface TrackLessonsTableProps {
   lessons: MentorLesson[];
@@ -65,6 +67,36 @@ export function TrackLessonsTable({ lessons }: TrackLessonsTableProps) {
     }
   };
 
+  const columns = React.useMemo<ColumnDef<MentorLesson>[]>(
+    () => [
+      {
+        accessorKey: "title",
+      },
+      {
+        accessorKey: "status",
+      },
+      {
+        accessorKey: "averageProgress",
+      },
+      {
+        accessorKey: "dateAdded",
+      },
+      {
+        id: "actions",
+      },
+    ],
+    []
+  );
+
+  const table = useReactTable({
+    data: lessons,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+    manualPagination: true,
+    manualFiltering: true,
+    manualSorting: true,
+  });
+
   return (
     <div className="bg-white rounded-3xl border border-slate-100 shadow-[0_10px_30px_rgba(0,0,0,0.01)] overflow-hidden">
       <div className="overflow-x-auto">
@@ -86,7 +118,8 @@ export function TrackLessonsTable({ lessons }: TrackLessonsTableProps) {
                 </td>
               </tr>
             ) : (
-              lessons.map((lesson) => {
+              table.getRowModel().rows.map((row) => {
+                const lesson = row.original;
                 const config = getStatusConfig(lesson.status);
                 return (
                   <tr
@@ -162,17 +195,17 @@ export function TrackLessonsTable({ lessons }: TrackLessonsTableProps) {
                       {activeMenuId === lesson.id && (
                         <div
                           ref={menuRef}
-                          className={`absolute z-30 mt-1 w-40 bg-white border border-slate-150 rounded-2xl shadow-xl p-1.5 animate-in fade-in slide-in-from-top-2 duration-200 ${
-                            isRtl ? "left-4" : "right-4"
-                          }`}
+                          className={`absolute z-30 mt-1 w-40 bg-white border border-slate-150 rounded-2xl shadow-xl p-1.5 animate-in fade-in slide-in-from-top-2 duration-200 ${isRtl ? "left-4" : "right-4"
+                            }`}
                         >
-                          <button
+                          <Link
+                            href={`/mentor/track/${lesson.id}`}
                             onClick={() => setActiveMenuId(null)}
                             className="flex items-center gap-2.5 w-full px-3 py-2 text-right rtl:text-right ltr:text-left text-xs md:text-sm rounded-lg hover:bg-slate-50 font-semibold text-slate-700 hover:text-black transition-colors"
                           >
                             <Edit3 className="size-4 text-slate-400" />
                             <span>{isRtl ? "تعديل الدرس" : "Edit Lesson"}</span>
-                          </button>
+                          </Link>
                           <button
                             onClick={() => setActiveMenuId(null)}
                             className="flex items-center gap-2.5 w-full px-3 py-2 text-right rtl:text-right ltr:text-left text-xs md:text-sm rounded-lg hover:bg-slate-50 font-semibold text-slate-700 hover:text-black transition-colors"

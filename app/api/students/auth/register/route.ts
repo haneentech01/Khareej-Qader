@@ -1,26 +1,34 @@
+import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
 
-const EXTERNAL_API = process.env.NEXT_PUBLIC_API_URL;
+const EXTERNAL_API = process.env.API_URL;
 
+// Post request for student registration to external API
 export async function POST(request: NextRequest) {
   try {
-    const formData = await request.formData();
-
-    const response = await fetch(`${EXTERNAL_API}/api/students/auth/register`, {
-      method: "POST",
-      headers: {
-        "ngrok-skip-browser-warning": "true",
-      },
-      body: formData,
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      return NextResponse.json(data, { status: response.status });
+    if (!EXTERNAL_API) {
+      throw new Error("API_URL is not defined");
     }
 
-    return NextResponse.json(data, { status: 201 });
+    const formData = await request.formData();
+
+    const response = await axios.post(
+      `${EXTERNAL_API}/students/auth/register`,
+      formData,
+      {
+        headers: {
+          "ngrok-skip-browser-warning": "true",
+        },
+      },
+    );
+
+    const data = await response.data;
+
+    if (!response.status) {
+      return NextResponse.json({ data, status: response.status });
+    }
+
+    return NextResponse.json({ data, status: 201 });
   } catch {
     return NextResponse.json(
       { message: "Internal Server Error" },

@@ -1,0 +1,206 @@
+"use client";
+
+import React, { useMemo } from "react";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/routing";
+import { Eye, AlertTriangle } from "lucide-react";
+import { StudentSubmissionSummary, SubmissionStatus } from "@/types";
+import {
+  ColumnDef,
+  flexRender,
+  getCoreRowModel,
+  useReactTable,
+} from "@tanstack/react-table";
+
+interface StudentSubmissionsTableProps {
+  submissions: StudentSubmissionSummary[];
+}
+
+function SubmissionStatusBadge({ status }: { status: SubmissionStatus }) {
+  switch (status) {
+    case "pending":
+      return (
+        <span className="bg-[#fef3c7] text-[#d97706] text-xs font-bold px-3 py-1.5 rounded-lg inline-flex items-center gap-1.5 whitespace-nowrap">
+          <span className="size-1.5 rounded-full bg-[#d97706] animate-pulse" />
+          بانتظار التقييم
+        </span>
+      );
+    case "evaluated":
+      return (
+        <span className="bg-brand-light text-brand-primary text-xs font-bold px-3 py-1.5 rounded-lg inline-flex items-center gap-1.5 whitespace-nowrap">
+          <span className="size-1.5 rounded-full bg-brand-primary" />
+          تم تقييمها
+        </span>
+      );
+    case "late":
+      return (
+        <span className="bg-red-50 text-red-500 text-xs font-bold px-3 py-1.5 rounded-lg inline-flex items-center gap-1.5 whitespace-nowrap">
+          <span className="size-1.5 rounded-full bg-red-500" />
+          متأخرة
+        </span>
+      );
+    case "not_submitted":
+      return (
+        <span className="bg-slate-100 text-slate-500 text-xs font-bold px-3 py-1.5 rounded-lg inline-flex items-center gap-1.5 whitespace-nowrap">
+          <span className="size-1.5 rounded-full bg-slate-400" />
+          لم يتم التسليم
+        </span>
+      );
+  }
+}
+
+export function StudentSubmissionsTable({ submissions }: StudentSubmissionsTableProps) {
+  const t = useTranslations("MentorStudentProfile");
+
+  const columns: ColumnDef<StudentSubmissionSummary>[] = useMemo(
+    () => [
+      {
+        id: "task",
+        header: () => (
+          <span className="font-extrabold">{t("recent_submissions.task")}</span>
+        ),
+        cell: ({ row }) => (
+          <span className="font-bold text-slate-800 text-xs md:text-sm">
+            {row.original.taskTitle}
+          </span>
+        ),
+      },
+      {
+        id: "date",
+        header: () => (
+          <span className="font-extrabold">{t("recent_submissions.date")}</span>
+        ),
+        cell: ({ row }) =>
+          row.original.submissionDate ? (
+            <div className="space-y-0.5">
+              <span className="font-bold text-slate-800 text-xs md:text-sm block">
+                {row.original.submissionDate}
+              </span>
+              {row.original.submissionTime && (
+                <span className="text-[11px] text-slate-400 font-semibold block">
+                  {row.original.submissionTime}
+                </span>
+              )}
+            </div>
+          ) : (
+            <span className="text-slate-300 font-medium">—</span>
+          ),
+      },
+      {
+        id: "evaluation",
+        header: () => (
+          <span className="font-extrabold">{t("recent_submissions.evaluation")}</span>
+        ),
+        cell: ({ row }) =>
+          row.original.evaluation ? (
+            <span className="font-bold text-brand-primary text-xs md:text-sm">
+              {row.original.evaluation}
+            </span>
+          ) : (
+            <span className="text-slate-300 font-medium">—</span>
+          ),
+      },
+      {
+        id: "status",
+        header: () => (
+          <span className="font-extrabold">{t("recent_submissions.status")}</span>
+        ),
+        cell: ({ row }) => (
+          <SubmissionStatusBadge status={row.original.status} />
+        ),
+      },
+      {
+        id: "action",
+        header: () => (
+          <span className="font-extrabold block text-center">
+            {t("recent_submissions.action")}
+          </span>
+        ),
+        cell: ({ row }) => (
+          <div className="flex justify-center">
+            <Link
+              href={`/mentor/submissions/${row.original.id}`}
+              className="border border-brand-primary/40 text-brand-primary hover:text-white hover:bg-brand-primary/90 rounded-xl px-4 py-1.5 font-bold text-xs md:text-sm inline-flex items-center gap-1.5 transition-all shadow-2xs hover:border-brand-primary cursor-pointer whitespace-nowrap"
+            >
+              <Eye className="size-4 shrink-0" />
+              <span>{t("recent_submissions.view")}</span>
+            </Link>
+          </div>
+        ),
+      },
+    ],
+    [t]
+  );
+
+  const table = useReactTable({
+    data: submissions,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+  });
+
+  return (
+    <div className="bg-white rounded-3xl border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.015)] overflow-hidden flex flex-col">
+      {/* Card Title */}
+      <div className="px-6 py-5 border-b border-slate-50">
+        <h2 className="text-slate-800 font-extrabold text-base md:text-lg">
+          {t("recent_submissions.title")}
+        </h2>
+      </div>
+
+      {/* Table */}
+      <div className="overflow-x-auto">
+        <table className="w-full text-right rtl:text-right ltr:text-left border-collapse">
+          <thead>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <tr
+                key={headerGroup.id}
+                className="border-b border-slate-100 text-slate-500 text-xs font-bold bg-slate-50/40"
+              >
+                {headerGroup.headers.map((header) => (
+                  <th
+                    key={header.id}
+                    className="px-5 py-4 text-start font-extrabold select-none"
+                  >
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(header.column.columnDef.header, header.getContext())}
+                  </th>
+                ))}
+              </tr>
+            ))}
+          </thead>
+          <tbody className="divide-y divide-slate-50">
+            {submissions.length === 0 ? (
+              <tr>
+                <td colSpan={columns.length} className="text-center py-14">
+                  <div className="flex flex-col items-center justify-center gap-2.5 text-slate-400">
+                    <AlertTriangle className="size-9 text-slate-200 stroke-1.5" />
+                    <span className="text-sm font-semibold">
+                      {t("recent_submissions.no_data")}
+                    </span>
+                  </div>
+                </td>
+              </tr>
+            ) : (
+              table.getRowModel().rows.map((row) => (
+                <tr
+                  key={row.id}
+                  className="group hover:bg-slate-50/40 transition-all duration-200"
+                >
+                  {row.getVisibleCells().map((cell) => (
+                    <td
+                      key={cell.id}
+                      className="px-5 py-4 text-start align-middle"
+                    >
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </td>
+                  ))}
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}

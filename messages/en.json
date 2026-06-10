@@ -115,6 +115,9 @@
     "country_placeholder": "Palestine",
     "profile_picture": "Profile Picture",
     "profile_picture_hint": "Choose a suitable image",
+    "profile_picture_hint_selected": "Selected: {fileName}",
+    "profile_picture_hint_drag": "Drag & drop image here or click to browse",
+    "profile_picture_hint_formats": "Supports JPG, PNG, WEBP (Max 5MB)",
     "portfolio_link": "Portfolio or CV Link",
     "portfolio_placeholder": "https://portfolio.com",
     "about_me": "About Me",
@@ -123,6 +126,12 @@
     "password_placeholder": "********",
     "terms_text": "I agree to the terms of use and privacy policy of Areisto Academy",
     "become_a_trainer": "Join Us as a Trainer",
+    "success_title": "Application Submitted Successfully!",
+    "success_message": "Thank you for your interest in joining Areisto Academy as a trainer. Our team will review your profile and contact you via email or phone as soon as possible.",
+    "back_to_home": "Back to Home",
+    "password_length_error": "Password must be at least 8 characters long",
+    "email_invalid_error": "Please enter a valid email address",
+    "required_fields_error": "Please fill in all required fields and accept the terms",
     "feature1_title": "Interactive Community",
     "feature1_desc": "Connect with thousands of creative minds and ambitious students.",
     "feature2_title": "Advanced Educational Tools",
@@ -645,6 +654,125 @@
       "prev": "Previous",
       "next": "Next",
       "show_per_page": "Show"
+    }
+  },
+  "MentorLessonEdit": {
+    "breadcrumbs": {
+      "home": "Home",
+      "track": "Training Track",
+      "edit_lesson": "Lesson Management"
+    },
+    "delete_lesson": "Delete Lesson",
+    "lesson_status": "Lesson Status",
+    "published": "Published",
+    "published_desc": "Lesson is visible to students",
+    "draft": "Draft",
+    "draft_desc": "Lesson is under edit and not visible to students",
+    "hidden": "Hidden",
+    "hidden_desc": "Lesson is completed but not visible to students",
+    "track_lessons": "Track Lessons",
+    "add_lesson": "Add Lesson",
+    "preview_lesson": "Preview Lesson",
+    "tab_about": "About Lesson",
+    "tab_tasks": "Tasks",
+    "tab_attachments": "Attachments",
+    "tab_questions": "Lesson Questions",
+    "lesson_title": "Lesson Title",
+    "lesson_desc": "Lesson Description",
+    "video_link": "Video Link (YouTube / Vimeo)",
+    "video_duration": "Video Duration (minutes)",
+    "thumbnail": "Lesson Thumbnail (optional)",
+    "thumbnail_drop": "Drag image here",
+    "thumbnail_hint": "Or click to upload an image with 16:9 dimensions",
+    "lesson_objectives": "Lesson Objectives",
+    "add_objective": "Add Objective",
+    "save_success": "Changes saved successfully",
+    "delete_success": "Lesson deleted successfully"
+  },
+  "MentorSubmissionsList": {
+    "breadcrumbs": {
+      "home": "Home",
+      "submissions": "Submissions"
+    },
+    "header": {
+      "title": "Submissions",
+      "subtitle": "Overview of all student submissions in the training track"
+    },
+    "stats": {
+      "awaiting_evaluation": "Awaiting Evaluation",
+      "late": "Late",
+      "evaluated": "Evaluated",
+      "not_submitted": "Not Submitted",
+      "submissions_unit": "submissions",
+      "submissions_plural": "submissions",
+      "students_unit": "students"
+    },
+    "filters": {
+      "search_placeholder": "Search submissions...",
+      "sort_label": "Sort Submissions",
+      "all": "All",
+      "status": "By Status"
+    },
+    "sorting": {
+      "newest": "Newest",
+      "oldest": "Oldest",
+      "student_name": "Student Name"
+    },
+    "table": {
+      "student": "Student",
+      "task": "Task",
+      "time": "Submission Time",
+      "file_link": "File / Link",
+      "status": "Status",
+      "evaluation": "Evaluation",
+      "action": "Action",
+      "review": "Review",
+      "no_data": "No submissions found matching search or filters.",
+      "github_link": "GitHub Link",
+      "yesterday": "Yesterday",
+      "ended_since_days": "Ended {days} days ago",
+      "ended_since_day": "Ended a day ago",
+      "ended_since_two_days": "Ended two days ago",
+      "ago": "ago"
+    },
+    "pagination": {
+      "showing": "Showing {start} to {end} of {total} submissions",
+      "prev": "Previous",
+      "next": "Next",
+      "show_per_page": "Show"
+    }
+  },
+  "MentorStudentProfile": {
+    "breadcrumbs": {
+      "home": "Home",
+      "submissions": "Submissions",
+      "students": "Students"
+    },
+    "send_note": "Send Note",
+    "stats": {
+      "track_progress": "Track Progress",
+      "completed_lessons": "Completed Lessons",
+      "completed_tasks": "Completed Tasks",
+      "avg_rating": "Average Rating",
+      "lesson": "lesson",
+      "task": "task"
+    },
+    "personal_info": {
+      "title": "Personal Information",
+      "full_name": "Full Name",
+      "email": "Email",
+      "university": "University",
+      "major": "Major"
+    },
+    "recent_submissions": {
+      "title": "Recent Submissions",
+      "task": "Task",
+      "date": "Submission Date",
+      "evaluation": "Evaluation",
+      "status": "Status",
+      "action": "Action",
+      "view": "View Submission",
+      "no_data": "No submissions yet."
     }
   }
 }

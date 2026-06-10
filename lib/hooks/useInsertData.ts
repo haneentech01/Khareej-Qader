@@ -10,12 +10,17 @@ export function useInsertData<T>(url: string) {
   const insertData = async (body: Record<string, unknown> | FormData) => {
     setLoading(true);
     setError(null);
+
     try {
       const res = await apiClient.post<T>(url, body);
       setData(res.data);
       return res.data;
     } catch (err) {
-      const error = err as { response?: { data?: { message?: string } } };
+      const error = err as {
+        response?: {
+          data?: { message?: string };
+        };
+      };
       setError(error.response?.data?.message || "حدث خطأ");
       return null;
     } finally {

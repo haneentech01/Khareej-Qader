@@ -1,5 +1,5 @@
 import { getTranslations } from "next-intl/server";
-import { TrackPageClient } from "@/components/dashboard/Mentor/Track/TrackPageClient";
+import { TrackPageMentor } from "@/components/dashboard/Mentor/Track/TrackPageMentor";
 
 interface MentorTrackPageProps {
   params: Promise<{
@@ -19,5 +19,5 @@ export async function generateMetadata({
 }
 
 export default async function MentorTrackPage() {
-  return <TrackPageClient />;
+  return <TrackPageMentor />;
 }

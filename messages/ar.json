@@ -113,26 +113,38 @@
     "title": "شارك معرفتك وأحدث أثراً حقيقياً",
     "subtitle": "انضم إلى منصة أريستو وشارك خبرتك مع آلاف الطلاب، ساعدهم على التعلم والتطور وبناء مستقبل أفضل، نحن نوفر لك الأدوات اللازمة للنجاح والنمو كخبير في مجالك.",
     "form_title": "ابدأ رحلتك كمدرب اليوم",
+    "form_description": "انضم إلى منصة خريج قادر وساهم في إعداد جيل المستقبل",
+    "basic_information": "المعلومات الأساسية",
     "full_name": "الاسم الكامل",
     "full_name_placeholder": "أحمد محمد",
     "email": "البريد الإلكتروني",
     "email_placeholder": "example@email.com",
     "phone": "رقم الهاتف",
-    "phone_placeholder": "+970 50 000 0000",
+    "phone_placeholder": "50 000 0000",
     "specialization": "التخصص",
-    "specialization_placeholder": "مثلاً: تطوير الويب",
+    "specialization_placeholder": "مثال: تطوير ويب",
     "country": "الدولة",
     "country_placeholder": "فلسطين",
-    "profile_picture": "صورة البروفايل",
-    "profile_picture_hint": "اختر صورة مناسبة",
-    "portfolio_link": "رابط أعمالك أو السيرة الذاتية",
+    "profile_picture": "الصورة الشخصية",
+    "profile_picture_hint": "اختر صورة شخصية مناسبة",
+    "profile_picture_hint_selected": "تم اختيار: {fileName}",
+    "profile_picture_hint_drag": "اسحب وأسقط الصورة هنا أو اضغط للتصفح",
+    "profile_picture_hint_formats": "يدعم JPG, PNG, WEBP (بحد أقصى 5 ميجابايت)",
+    "professional_information": "المعلومات المهنية",
+    "portfolio_link": "رابط المعرض أو السيرة الذاتية",
     "portfolio_placeholder": "https://portfolio.com",
-    "about_me": "نبذة عنك",
-    "about_me_placeholder": "تحدث قليلاً عن خبرتك وشغفك بالتدريس...",
+    "about_me": "نبذة عني",
+    "about_me_placeholder": "تحدث قليلاً عن خبرتك وشغفك بالتعليم...",
     "password": "كلمة المرور",
     "password_placeholder": "********",
     "terms_text": "أوافق على شروط الاستخدام و سياسة الخصوصية الخاصة بأكاديمية أريستو",
-    "become_a_trainer": "إنضم إلينا كمدرب",
+    "become_a_trainer": "انضم إلينا كمدرب",
+    "success_title": "تم تقديم الطلب بنجاح!",
+    "success_message": "شكرًا لاهتمامك بالانضمام إلى أكاديمية أريستو كمدرب. سيقوم فريقنا بمراجعة ملفك الشخصي والتواصل معك عبر البريد الإلكتروني أو الهاتف في أقرب وقت ممكن.",
+    "back_to_home": "العودة للرئيسية",
+    "password_length_error": "يجب أن تتكون كلمة المرور من 8 أحرف على الأقل",
+    "email_invalid_error": "يرجى إدخال بريد إلكتروني صحيح",
+    "required_fields_error": "يرجى ملء جميع الحقول المطلوبة وقبول الشروط",
     "feature1_title": "مجتمع متفاعل",
     "feature1_desc": "تواصل مع آلاف العقول المبدعة والطلاب الطموحين.",
     "feature2_title": "أدوات تعليمية متقدمة",
@@ -645,6 +657,125 @@
       "prev": "السابق",
       "next": "التالي",
       "show_per_page": "عرض"
+    }
+  },
+  "MentorLessonEdit": {
+    "breadcrumbs": {
+      "home": "الرئيسية",
+      "track": "المسار التدريبي",
+      "edit_lesson": "إدارة الدرس"
+    },
+    "delete_lesson": "حذف الدرس",
+    "lesson_status": "حالة الدرس",
+    "published": "منشور",
+    "published_desc": "الدرس ظاهر للطلاب",
+    "draft": "مسودة",
+    "draft_desc": "الدرس قيد التعديل وغير ظاهر للطلاب",
+    "hidden": "مخفي",
+    "hidden_desc": "الدرس مكتمل ولكن غير ظاهر للطلاب",
+    "track_lessons": "دروس المسار",
+    "add_lesson": "إضافة درس",
+    "preview_lesson": "معاينة الدرس",
+    "tab_about": "عن الدرس",
+    "tab_tasks": "المهام",
+    "tab_attachments": "المرفقات",
+    "tab_questions": "أسئلة الدرس",
+    "lesson_title": "عنوان الدرس",
+    "lesson_desc": "وصف الدرس",
+    "video_link": "رابط الفيديو (YouTube / Vimeo)",
+    "video_duration": "مدة الفيديو (دقيقة)",
+    "thumbnail": "صورة مصغرة للدرس (اختياري)",
+    "thumbnail_drop": "اسحب صورة هنا",
+    "thumbnail_hint": "أو اضغط لرفع صورة بمقاس أبعاد 16:9",
+    "lesson_objectives": "أهداف الدرس",
+    "add_objective": "إضافة هدف",
+    "save_success": "تم حفظ التعديلات بنجاح",
+    "delete_success": "تم حذف الدرس بنجاح"
+  },
+  "MentorSubmissionsList": {
+    "breadcrumbs": {
+      "home": "الرئيسية",
+      "submissions": "التسليمات"
+    },
+    "header": {
+      "title": "التسليمات",
+      "subtitle": "نظرة عامة على جميع تسليمات الطلاب في المسار التدريبي"
+    },
+    "stats": {
+      "awaiting_evaluation": "بانتظار التقييم",
+      "late": "متأخرة",
+      "evaluated": "تم تقييمها",
+      "not_submitted": "لم يتم التسليم",
+      "submissions_unit": "تسليماً",
+      "submissions_plural": "تسليمات",
+      "students_unit": "طالب"
+    },
+    "filters": {
+      "search_placeholder": "ابحث في التسليمات...",
+      "sort_label": "ترتيب التسليمات",
+      "all": "الكل",
+      "status": "حسب الحالة"
+    },
+    "sorting": {
+      "newest": "الأحدث تاريخاً",
+      "oldest": "الأقدم تاريخاً",
+      "student_name": "اسم الطالب"
+    },
+    "table": {
+      "student": "الطالب",
+      "task": "المهمة",
+      "time": "وقت التسليم",
+      "file_link": "الملف / الرابط",
+      "status": "الحالة",
+      "evaluation": "التقييم",
+      "action": "الإجراء",
+      "review": "مراجعة",
+      "no_data": "لا توجد تسليمات تطابق البحث أو الفلاتر.",
+      "github_link": "رابط GitHub",
+      "yesterday": "أمس",
+      "ended_since_days": "انتهى منذ {days} أيام",
+      "ended_since_day": "انتهى منذ يوم",
+      "ended_since_two_days": "انتهى منذ يومين",
+      "ago": "منذ"
+    },
+    "pagination": {
+      "showing": "عرض {start} إلى {end} من {total} تسليمات",
+      "prev": "السابق",
+      "next": "التالي",
+      "show_per_page": "عرض"
+    }
+  },
+  "MentorStudentProfile": {
+    "breadcrumbs": {
+      "home": "الرئيسية",
+      "submissions": "التسليمات",
+      "students": "الطلاب"
+    },
+    "send_note": "إرسال ملاحظة",
+    "stats": {
+      "track_progress": "التقدم في المسار",
+      "completed_lessons": "الدروس المكتملة",
+      "completed_tasks": "المهام المكتملة",
+      "avg_rating": "متوسط التقييم",
+      "lesson": "درس",
+      "task": "مهمة"
+    },
+    "personal_info": {
+      "title": "المعلومات الشخصية",
+      "full_name": "الاسم الكامل",
+      "email": "البريد الإلكتروني",
+      "university": "الجامعة",
+      "major": "التخصص"
+    },
+    "recent_submissions": {
+      "title": "آخر التسليمات",
+      "task": "المهمة",
+      "date": "تاريخ التسليم",
+      "evaluation": "التقييم",
+      "status": "الحالة",
+      "action": "الإجراء",
+      "view": "عرض التسليم",
+      "no_data": "لا توجد تسليمات حتى الآن."
     }
   }
 }

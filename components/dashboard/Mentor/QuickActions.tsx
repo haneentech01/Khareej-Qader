@@ -16,13 +16,6 @@ export function QuickActions() {
       onClick: () => console.log("Add task"),
     },
     {
-      title: t("add_link"),
-      icon: Link2,
-      color: "text-brand-primary bg-white border border-gray-100",
-      hoverColor: "hover:border-brand-primary hover:shadow-teal-50",
-      onClick: () => console.log("Add link"),
-    },
-    {
       title: t("send_email"),
       icon: Mail,
       color: "text-brand-primary bg-white border border-gray-100",
@@ -44,14 +37,18 @@ export function QuickActions() {
       </div>
 
       {/* Grid of Actions */}
-      <div className="grid grid-cols-3 gap-3 my-auto">
+      <div className="grid grid-cols-2 gap-3 md:gap-7 my-auto">
         {actions.map((action, idx) => {
           const Icon = action.icon;
           return (
             <button
               key={idx}
               onClick={action.onClick}
-              className={`flex flex-col items-center justify-center p-4 rounded-2xl border bg-[#F8FAFC] hover:bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-md cursor-pointer h-[160px] group ${action.hoverColor}`}
+              className={`flex flex-col items-center justify-center 
+                p-4 rounded-2xl border bg-slate-50 hover:bg-white 
+                transition-all duration-300 hover:-translate-y-1 
+                hover:shadow-md cursor-pointer h-[160px] group 
+                ${action.hoverColor}`}
             >
               {/* Centered Icon with circular wrapper */}
               <div className={`size-14 rounded-2xl flex items-center justify-center mb-3 transition-transform group-hover:scale-110 ${action.color}`}>
