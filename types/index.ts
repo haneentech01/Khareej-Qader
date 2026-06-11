@@ -208,19 +208,15 @@ export interface StudentProfileData {
 }
 
 export interface Country {
-  iso: string;
+  nationality: string;
   countryCode: string;
-  name: string;
-}
-
-export interface Gender {
-  id: string | number;
-  name: string;
+  iso: string;
 }
 
 export interface University {
   id: string | number;
-  name: string;
+  un_name: string;
+  type: string;
 }
 
 export interface Major {
@@ -231,6 +227,7 @@ export interface Major {
 export interface Course {
   id: string | number;
   name: string;
+  description: string;
 }
 
 export interface RegisterResponse {

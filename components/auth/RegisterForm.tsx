@@ -5,23 +5,38 @@ import { Link, useRouter } from "@/i18n/routing";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
-import { UploadCloud, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
 import endpoints from "@/lib/api/endpoints";
 import { useInsertData } from "@/lib/hooks/useInsertData";
 import { useGetData } from "@/lib/hooks/useGetData";
+import { Country, Course, Major, RegisterResponse, University } from "@/types";
 
 export function RegisterForm() {
   const t = useTranslations("Auth");
   const router = useRouter();
-  const { data, loading, error, insertData } = useInsertData(
+
+  // ─── Hook للتسجيل (POST) ──────────────────────
+  const { data, loading, error, insertData } = useInsertData<RegisterResponse>(
     endpoints.auth.student.register
   );
 
-  const { data: countries } =
-    useGetData<Country[]>(
-      endpoints.auth.student.countries
-    );
+  // ─── Hook لجلب الدول (GET) ──────────────────────
+  const { data: countries } = useGetData<Country[]>(
+    endpoints.lookup.countries
+  );
+
+  const { data: universities } = useGetData<University[]>(
+    endpoints.lookup.universities
+  );
+
+  const { data: majors } = useGetData<Major[]>(
+    endpoints.lookup.majors
+  );
+
+  const { data: courses } = useGetData<Course[]>(
+    endpoints.lookup.courses
+  )
 
   return (
     <motion.div
@@ -64,19 +79,15 @@ export function RegisterForm() {
         <div>
           <div className="flex gap-2">
             <div className="w-1/3 min-w-[120px]">
-              <Select
-                defaultValue="country_iso"
-                className="h-12"
-                name="country_iso">
-                <option value="country_iso">t{"country"}</option>
-                {countries?.map((country) => (
-                  <option
-                    key={country.iso}
-                    value={country.iso}
-                  >
-                    {country.countryCode}
-                  </option>
-                ))}
+              <Select name="country_iso" className="h-12">
+                <option value="">{t("country")}</option>
+
+                {Array.isArray(countries) &&
+                  countries.map((country) => (
+                    <option key={country.iso} value={country.iso}>
+                      {country.countryCode}
+                    </option>
+                  ))}
               </Select>
             </div>
 
@@ -92,16 +103,23 @@ export function RegisterForm() {
 
         {/* gender */}
         <div className="grid grid-cols-1 gap-4">
-          <Select defaultValue="" id="gender" name="gender" required>
-            <option value="" disabled>{t("gender")}</option>
-            {genders?.map((gender) => (
-              <option
-                key={gender.id}
-                value={gender.id}
-              >
-                {gender.name}
-              </option>
-            ))}
+          <Select
+            defaultValue=""
+            id="gender"
+            name="gender"
+            required
+          >
+            <option value="" disabled>
+              {t("gender")}
+            </option>
+
+            <option value="male">
+              {t("male")}
+            </option>
+
+            <option value="female">
+              {t("female")}
+            </option>
           </Select>
 
           {/* university */}
@@ -110,45 +128,34 @@ export function RegisterForm() {
             id="university_name"
             name="university_name" required>
             <option value="" disabled>{t("university")}</option>
-            {universities?.map((university) => (
-              <option
-                key={university.id}
-                value={university.id}
-              >
-                {university.name}
-              </option>
-            ))}
+            {Array.isArray(universities) &&
+              universities.map((university) => (
+                <option key={university.id} value={university.id}>
+                  {university.un_name}
+                </option>
+              ))}
           </Select>
 
           {/* major */}
-          <Select
-            defaultValue=""
-            id="university_major"
-            name="university_major" required>
-            <option value="" disabled>{t("major")}</option>
-            {courses?.map((course) => (
-              <option
-                key={course.id}
-                value={course.id}
-              >
-                {course.name}
-              </option>
-            ))}
+          <Select name="university_major" required>
+            <option value="">{t("major")}</option>
+            {Array.isArray(majors) &&
+              majors.map((major) => (
+                <option key={major.id} value={major.id}>
+                  {major.name}
+                </option>
+              ))}
           </Select>
 
           {/* training path */}
           <Select defaultValue="" id="course_id" name="course_id" required>
-            {/* <option value="" disabled>{t("training_path")}</option>
-            <option value="web">Web Development</option>
-            <option value="uiux">UI/UX Design</option>
-            <option value="marketing">Digital Marketing</option> */}
-
             <option value="" disabled>{t("training_path")}</option>
-            {courses.data?.map((course) => (
-              <option key={course.id} value={course.id}>
-                {course.name}
-              </option>
-            ))}
+            {Array.isArray(courses) &&
+              courses.map((course) => (
+                <option key={course.id} value={course.id}>
+                  {course.name}
+                </option>
+              ))}
           </Select>
         </div>
 

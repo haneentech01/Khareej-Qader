@@ -43,7 +43,6 @@ const endpoints = {
     student: (id: string) => `/admin/students/${id}`,
     mentors: "/admin/mentors",
     stats: "/admin/stats",
-    courses: "/admin/courses",
   },
 
   // ─── Lookup data (بيانات القوائم المنسدلة) ──
@@ -51,6 +50,7 @@ const endpoints = {
     countries: "/code-number",
     universities: "/university-list",
     majors: "/major-list",
+    courses: "/course",
   },
 } as const;
 
