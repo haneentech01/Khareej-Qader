@@ -2,7 +2,7 @@
 
 import { useLocale } from "next-intl";
 import { SectionHeader } from "../../ui/SectionHeader";
-import { useFAQ } from "@/hooks/useFAQ";
+import { useFAQ } from "@/hooks/sections/useFAQ";
 import { FAQAccordionItem } from "./FAQAccordionItem";
 import { motion, Variants } from "framer-motion";
 

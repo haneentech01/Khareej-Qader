@@ -239,3 +239,18 @@ export interface ApiResponse<T> {
   message: string;
   data: T | null;
 }
+
+export interface RegisterFormData {
+  full_name: string;
+  email: string;
+  mobile_number: string;
+  country_iso: string;
+  gender: string;
+  university_name: string;
+  university_major: string;
+  course_id: string;
+}
+
+export interface ValidationErrors {
+  [key: string]: string[];
+}

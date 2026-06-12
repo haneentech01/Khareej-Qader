@@ -7,6 +7,9 @@ export function useInsertData<T>(url: string) {
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [validationErrors, setValidationErrors] = useState<
+    Record<string, string[]>
+  >({});
 
   const insertData = async (body: Record<string, unknown> | FormData) => {
     setLoading(true);
@@ -19,6 +22,10 @@ export function useInsertData<T>(url: string) {
     } catch (err) {
       if (axios.isAxiosError(err)) {
         const error = err.response?.data?.errors || err.message;
+        if (error) {
+          setValidationErrors(error);
+        }
+
         setError(error);
       }
       return null;
@@ -27,5 +34,5 @@ export function useInsertData<T>(url: string) {
     }
   };
 
-  return { data, loading, error, insertData };
+  return { data, loading, error, validationErrors, insertData };
 }

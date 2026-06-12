@@ -12,4 +12,5 @@ const apiClient = axios.create({
   },
 });
 
+setupInterceptors(apiClient);
 export default apiClient;

@@ -1,5 +1,5 @@
 import { SectionHeader } from "../../ui/SectionHeader";
-import { useWhyChooseUs } from "@/hooks/useWhyChooseUs";
+import { useWhyChooseUs } from "@/hooks/sections/useWhyChooseUs";
 import { FeatureCard } from "./FeatureCard";
 import { motion, Variants } from "framer-motion";
 

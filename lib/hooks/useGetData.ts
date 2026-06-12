@@ -3,8 +3,6 @@ import { useState, useEffect, useCallback } from "react";
 import apiClient from "@/lib/api/client";
 import { ApiResponse } from "@/types";
 
-// T = نوع البيانات اللي رح يرجعها (Generic)
-// مثال: useGetData<StudentProfile>("/api/profile")
 interface UseGetDataOptions {
   immediate?: boolean; // هل نجيب البيانات فوراً لما يفتح الصفحة؟
 }

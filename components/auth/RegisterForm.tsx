@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Link, useRouter } from "@/i18n/routing";
+import { Link } from "@/i18n/routing";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
@@ -11,13 +11,13 @@ import endpoints from "@/lib/api/endpoints";
 import { useInsertData } from "@/lib/hooks/useInsertData";
 import { useGetData } from "@/lib/hooks/useGetData";
 import { Country, Course, Major, RegisterResponse, University } from "@/types";
+import { useEffect } from "react";
 
 export function RegisterForm() {
   const t = useTranslations("Auth");
-  const router = useRouter();
 
   // ─── Hook للتسجيل (POST) ──────────────────────
-  const { data, loading, error, insertData } = useInsertData<RegisterResponse>(
+  const { formData, fieldErrors, loading, error, handleChange, handleSubmit, } = useInsertData<RegisterResponse>(
     endpoints.auth.student.register
   );
 
@@ -56,30 +56,53 @@ export function RegisterForm() {
         </p>
       </div>
 
-      <form className="space-y-6">
-        {error && (
-          <div className="p-3 text-sm text-red-600 bg-red-50 rounded-lg text-center">
-            {error}
-          </div>
-        )}
-
+      <form className="space-y-6" onSubmit={handleSubmit}>
         {/* full name */}
         <div>
-          <Input className="h-11"
-            id="full_name" name="full_name"
-            placeholder={t("full_name")} required />
+          <Input
+            id="full_name"
+            name="full_name"
+            value={formData.full_name}
+            onChange={handleChange}
+            placeholder={t("full_name")}
+            className="h-11 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none"
+            required />
+
+          {fieldErrors.full_name?.[0] && (
+            <p className="text-sm text-red-500 mt-1">
+              {fieldErrors.full_name[0]}
+            </p>
+          )}
         </div>
 
         {/* email */}
         <div>
-          <Input className="h-11" id="email" type="email" name="email" placeholder={t("email")} required />
+          <Input
+            id="email"
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder={t("email")}
+            className="h-11 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none"
+            required />
+
+          {fieldErrors.email?.[0] && (
+            <p className="text-sm text-red-500 mt-1">
+              {fieldErrors.email[0]}
+            </p>
+          )}
         </div>
 
         {/* phone */}
         <div>
           <div className="flex gap-2">
             <div className="w-1/3 min-w-[120px]">
-              <Select name="country_iso" className="h-12">
+              <Select
+                id="country_iso"
+                name="country_iso"
+                className="h-12 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none"
+              >
                 <option value="">{t("country")}</option>
 
                 {Array.isArray(countries) &&
@@ -93,10 +116,12 @@ export function RegisterForm() {
 
             <div className="flex-1">
               <Input
-                type="tel"
                 id="mobile_number"
-                name="mobile_number" placeholder={t("phone")}
-                className="h-12 text-right" required />
+                name="mobile_number"
+                type="tel"
+                placeholder={t("phone")}
+                className="h-12 ltr:text-left rtl:text-right focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none"
+                required />
             </div>
           </div>
         </div>
@@ -104,12 +129,12 @@ export function RegisterForm() {
         {/* gender */}
         <div className="grid grid-cols-1 gap-4">
           <Select
-            defaultValue=""
             id="gender"
             name="gender"
+            className="focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none"
             required
           >
-            <option value="" disabled>
+            <option disabled>
               {t("gender")}
             </option>
 
@@ -124,9 +149,10 @@ export function RegisterForm() {
 
           {/* university */}
           <Select
-            defaultValue=""
             id="university_name"
-            name="university_name" required>
+            name="university_name"
+            className="focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none"
+            required>
             <option value="" disabled>{t("university")}</option>
             {Array.isArray(universities) &&
               universities.map((university) => (
@@ -137,8 +163,13 @@ export function RegisterForm() {
           </Select>
 
           {/* major */}
-          <Select name="university_major" required>
-            <option value="">{t("major")}</option>
+          <Select
+            id="university_major"
+            name="university_major"
+            className="focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none"
+            required
+          >
+            <option>{t("major")}</option>
             {Array.isArray(majors) &&
               majors.map((major) => (
                 <option key={major.id} value={major.id}>
@@ -148,7 +179,10 @@ export function RegisterForm() {
           </Select>
 
           {/* training path */}
-          <Select defaultValue="" id="course_id" name="course_id" required>
+          <Select
+            id="course_id"
+            name="course_id"
+            className="focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none" required>
             <option value="" disabled>{t("training_path")}</option>
             {Array.isArray(courses) &&
               courses.map((course) => (
