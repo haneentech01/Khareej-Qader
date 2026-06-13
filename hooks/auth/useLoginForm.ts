@@ -3,22 +3,15 @@
 import { useRouter } from "@/i18n/routing";
 import endpoints from "@/lib/api/endpoints";
 import { useInsertData } from "@/lib/hooks/useInsertData";
-import { RegisterFormData, RegisterResponse, ValidationErrors } from "@/types";
+import { LoginFormData, RegisterResponse, ValidationErrors } from "@/types";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
-export function useRegisterForm() {
+export function useLoginForm() {
   const router = useRouter();
 
-  const [formData, setFormData] = useState<RegisterFormData>({
+  const [formData, setFormData] = useState<LoginFormData>({
     full_name: "",
-    email: "",
-    mobile_number: "",
-    country_iso: "",
-    gender: "",
-    university_name: "",
-    university_major: "",
-    course_id: "",
   });
 
   const [fieldErrors, setFieldErrors] = useState<ValidationErrors>({});
@@ -48,7 +41,6 @@ export function useRegisterForm() {
 
     const payload = {
       ...formData,
-      course_id: formData.course_id ? [formData.course_id] : [],
     };
 
     const result = await insertData(payload);

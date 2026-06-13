@@ -254,3 +254,7 @@ export interface RegisterFormData {
 export interface ValidationErrors {
   [key: string]: string[];
 }
+
+export interface LoginFormData {
+  full_name: string;
+}

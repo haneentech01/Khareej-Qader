@@ -8,18 +8,16 @@ import { Select } from "@/components/ui/select";
 import { Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
 import endpoints from "@/lib/api/endpoints";
-import { useInsertData } from "@/lib/hooks/useInsertData";
 import { useGetData } from "@/lib/hooks/useGetData";
-import { Country, Course, Major, RegisterResponse, University } from "@/types";
-import { useEffect } from "react";
+import { Country, Course, Major, University } from "@/types";
+import { useRegisterForm } from "@/hooks/auth/useRegisterForm";
 
 export function RegisterForm() {
   const t = useTranslations("Auth");
 
   // ─── Hook للتسجيل (POST) ──────────────────────
-  const { formData, fieldErrors, loading, error, handleChange, handleSubmit, } = useInsertData<RegisterResponse>(
-    endpoints.auth.student.register
-  );
+  const { formData, fieldErrors, loading, handleChange, handleSubmit } =
+    useRegisterForm();
 
   // ─── Hook لجلب الدول (GET) ──────────────────────
   const { data: countries } = useGetData<Country[]>(
@@ -47,6 +45,7 @@ export function RegisterForm() {
       shadow-[0_20px_40px_0x_#0000000D] 
       py-8 md:py-8 px-4 lg:px-11"
     >
+      {/* title + subtitle */}
       <div className="text-center mb-8">
         <h1 className="text-3xl font-bold text-black mb-2">
           {t("register_title")}
@@ -62,6 +61,7 @@ export function RegisterForm() {
           <Input
             id="full_name"
             name="full_name"
+            type="text"
             value={formData.full_name}
             onChange={handleChange}
             placeholder={t("full_name")}
@@ -101,6 +101,9 @@ export function RegisterForm() {
               <Select
                 id="country_iso"
                 name="country_iso"
+                value={formData.country_iso}
+                onChange={handleChange}
+                required
                 className="h-12 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none"
               >
                 <option value="">{t("country")}</option>
@@ -119,38 +122,56 @@ export function RegisterForm() {
                 id="mobile_number"
                 name="mobile_number"
                 type="tel"
+                value={formData.mobile_number}
+                onChange={handleChange}
                 placeholder={t("phone")}
                 className="h-12 ltr:text-left rtl:text-right focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none"
                 required />
             </div>
           </div>
+
+          {fieldErrors.country_iso?.[0] && (
+            <p className="text-sm text-red-500 mt-1">
+              {fieldErrors.country_iso[0]}
+            </p>
+          )}
+          {fieldErrors.mobile_number?.[0] && (
+            <p className="text-sm text-red-500 mt-1">
+              {fieldErrors.mobile_number[0]}
+            </p>
+          )}
         </div>
 
+
         {/* gender */}
-        <div className="grid grid-cols-1 gap-4">
+        <div>
           <Select
             id="gender"
             name="gender"
+            value={formData.gender}
+            onChange={handleChange}
             className="focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none"
             required
           >
-            <option disabled>
-              {t("gender")}
-            </option>
-
-            <option value="male">
-              {t("male")}
-            </option>
-
-            <option value="female">
-              {t("female")}
-            </option>
+            <option disabled value="">{t("gender")}</option>
+            <option value="male">{t("male")}</option>
+            <option value="female">{t("female")}</option>
           </Select>
 
-          {/* university */}
+          {fieldErrors.gender?.[0] && (
+            <p className="text-sm text-red-500 mt-1">
+              {fieldErrors.gender[0]}
+            </p>
+          )}
+        </div>
+
+        {/* university */}
+        <div>
           <Select
             id="university_name"
             name="university_name"
+            value={formData.university_name}
+            onChange={handleChange}
             className="focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none"
             required>
             <option value="" disabled>{t("university")}</option>
@@ -161,11 +182,20 @@ export function RegisterForm() {
                 </option>
               ))}
           </Select>
+          {fieldErrors.university_name?.[0] && (
+            <p className="text-sm text-red-500 mt-1">
+              {fieldErrors.university_name[0]}
+            </p>
+          )}
+        </div>
 
-          {/* major */}
+        {/* major */}
+        <div>
           <Select
             id="university_major"
             name="university_major"
+            value={formData.university_major}
+            onChange={handleChange}
             className="focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none"
             required
           >
@@ -177,11 +207,20 @@ export function RegisterForm() {
                 </option>
               ))}
           </Select>
+          {fieldErrors.university_major?.[0] && (
+            <p className="text-sm text-red-500 mt-1">
+              {fieldErrors.university_major[0]}
+            </p>
+          )}
+        </div>
 
-          {/* training path */}
+        {/* training path */}
+        <div>
           <Select
             id="course_id"
             name="course_id"
+            value={formData.course_id}
+            onChange={handleChange}
             className="focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none" required>
             <option value="" disabled>{t("training_path")}</option>
             {Array.isArray(courses) &&
@@ -191,6 +230,11 @@ export function RegisterForm() {
                 </option>
               ))}
           </Select>
+          {fieldErrors.course_id?.[0] && (
+            <p className="text-sm text-red-500 mt-1">
+              {fieldErrors.course_id[0]}
+            </p>
+          )}
         </div>
 
         {/* CV Upload */}

@@ -14,21 +14,39 @@ export function useInsertData<T>(url: string) {
   const insertData = async (body: Record<string, unknown> | FormData) => {
     setLoading(true);
     setError(null);
+    setValidationErrors({});
 
     try {
       const res = await apiClient.post<T>(url, body);
       setData(res.data);
-      return res.data;
-    } catch (err) {
-      if (axios.isAxiosError(err)) {
-        const error = err.response?.data?.errors || err.message;
-        if (error) {
-          setValidationErrors(error);
-        }
 
-        setError(error);
+      return {
+        success: true,
+        data: res.data,
+        message:
+          ((res.data as Record<string, unknown>)?.message as string) || null,
+        validationErrors: {},
+      };
+    } catch (err) {
+      let validationErrs: Record<string, string[]> = {};
+      let errorMessage: string | null = null;
+
+      if (axios.isAxiosError(err)) {
+        const responseData = err.response?.data;
+        validationErrs = responseData?.errors || {};
+        errorMessage = responseData?.message || err.message || null;
+        setValidationErrors(validationErrs);
+        setError(errorMessage);
+      } else {
+        errorMessage = "حدث خطأ غير متوقع";
+        setError(errorMessage);
       }
-      return null;
+      return {
+        success: false,
+        data: null,
+        message: errorMessage,
+        validationErrors: validationErrs,
+      };
     } finally {
       setLoading(false);
     }

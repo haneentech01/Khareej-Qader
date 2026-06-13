@@ -5,11 +5,14 @@ import { Link } from "@/i18n/routing";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useLoginForm } from "@/hooks/auth/useLoginForm";
 
 export function LoginForm() {
   const t = useTranslations("Auth");
-  // const [show, setShow] = useState<boolean>(false);
+
+  // ─── Hook للتسجيل (POST) ──────────────────────
+  const { formData, fieldErrors, loading, handleChange, handleSubmit } =
+    useLoginForm();
 
   return (
     <motion.div
@@ -20,6 +23,7 @@ export function LoginForm() {
       shadow-[0_20px_40px_0px_#0000000D] 
       p-8 md:p-12 border border-slate-50 mt-28"
     >
+      {/* title + subtitle */}
       <div className="text-center mb-10">
         <h1 className="text-3xl font-bold text-black mb-4">
           {t("login_title")}
@@ -32,7 +36,16 @@ export function LoginForm() {
       <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
         {/* username */}
         <div>
-          <Input className="h-11" placeholder={t("username")} />
+          <Input
+            id="username"
+            type="text"
+            name="username"
+            value={formData.full_name}
+            onChange={handleChange}
+            className="h-11 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none"
+            placeholder={t("username")}
+            required
+          />
         </div>
 
         {/* password */}
