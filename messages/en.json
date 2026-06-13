@@ -777,5 +777,12 @@
       "view": "View Submission",
       "no_data": "No submissions yet."
     }
+  },
+  "Error": {
+    "title_404": "Page Not Found",
+    "desc_404": "Sorry, the page you are looking for does not exist or has been moved.",
+    "title_500": "Internal Server Error",
+    "desc_500": "Sorry, something went wrong on our server. We are working to fix this, please try again later.",
+    "back_home": "Back to Home"
   }
 }

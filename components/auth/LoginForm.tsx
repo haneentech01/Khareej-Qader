@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { motion } from "framer-motion";
 import { useLoginForm } from "@/hooks/auth/useLoginForm";
+import { Loader2 } from "lucide-react";
 
 export function LoginForm() {
   const t = useTranslations("Auth");
@@ -33,57 +34,35 @@ export function LoginForm() {
         </p>
       </div>
 
-      <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+      <form className="space-y-6" onSubmit={handleSubmit}>
         {/* username */}
         <div>
           <Input
             id="username"
-            type="text"
             name="username"
-            value={formData.full_name}
+            type="text"
+            value={formData.username}
             onChange={handleChange}
             className="h-11 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none"
             placeholder={t("username")}
             required
           />
+          {fieldErrors.username?.[0] && (
+            <p className="text-sm text-red-500 mt-1">
+              {fieldErrors.username[0]}
+            </p>
+          )}
         </div>
 
-        {/* password */}
-        {/* <div>
-          <div className="relative">
-            <Input
-              className="h-11"
-              type={show ? "text" : "password"}
-              placeholder={t("password")}
-            />
-
-            <button
-              type="button"
-              onClick={() => setShow(!show)}
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-brand-muted"
-            >
-              {show
-                ? <EyeOff size={18} />
-                : <Eye size={18} />}
-            </button>
-          </div>
-
-          <div className="flex items-center justify-between mt-2.5">
-            <div className="flex items-center space-x-2">
-              <input type="checkbox" id="remember" className="h-4 w-4" />
-              <label htmlFor="remember" className="text-sm text-gray-600">
-                {t("remember_me")}
-              </label>
-            </div>
-            <Link href="#" className="text-sm text-brand-primary hover:underline">
-              {t("forgot_password")}
-            </Link>
-          </div>
-        </div> */}
-
         {/* Login Button */}
-        <Button className="w-full h-14 bg-brand-primary hover:bg-brand-hover text-white text-lg font-bold rounded-2xl shadow-lg shadow-brand-primary/20 transition-all mt-4">
-          {t("register_btn")}
+        <Button
+          type="submit"
+          disabled={loading}
+          className="cursor-pointer w-full h-14 bg-brand-primary hover:bg-brand-hover text-white text-lg font-bold rounded-2xl shadow-lg shadow-brand-primary/20 transition-all mt-4">
+
+          {loading
+            ? <Loader2 className="w-6 h-6 animate-spin mx-auto" />
+            : t("register_btn")}
         </Button>
 
         {/* Register Button */}

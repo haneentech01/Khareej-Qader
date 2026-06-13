@@ -241,6 +241,7 @@ export interface ApiResponse<T> {
 }
 
 export interface RegisterFormData {
+  [key: string]: unknown;
   full_name: string;
   email: string;
   mobile_number: string;
@@ -255,6 +256,11 @@ export interface ValidationErrors {
   [key: string]: string[];
 }
 
+export interface LoginResponse {
+  message: string;
+}
+
 export interface LoginFormData {
-  full_name: string;
+  [key: string]: unknown;
+  username: string;
 }
