@@ -101,28 +101,13 @@ export interface TaskDetailsViewProps {
   switcherPending: string;
 }
 
-export type LessonStatus = "completed" | "current" | "locked";
-
-export interface LessonItemProps {
-  id: string;
-  number: number;
-  title: string;
-  duration?: string;
-  status: LessonStatus;
-  isLast?: boolean;
-}
-
-export interface Lesson {
-  id: string;
-  number: number;
-  title: string;
-  duration?: string;
-  status: LessonStatus;
-}
-
-export interface LessonTimelineProps {
-  lessons: Lesson[];
-}
+// export interface Lesson {
+//   id: string;
+//   number: number;
+//   title: string;
+//   duration?: string;
+//   status: LessonStatus;
+// }
 
 export interface SubmissionInfoCardProps {
   status: "pending" | "completed";
@@ -263,4 +248,111 @@ export interface LoginResponse {
 export interface LoginFormData {
   [key: string]: unknown;
   username: string;
+}
+
+// ─── Dashboard Types ────────────────────────────
+
+export interface DashboardStudent {
+  name: string;
+  slug: string;
+  email: string;
+}
+
+export interface DashboardCourse {
+  id: number;
+  name: string;
+  description: string;
+}
+
+export interface DashboardProgress {
+  completed_lessons: number;
+  total_lessons: number;
+  percentage: number;
+}
+
+export interface DashboardCurrentLesson {
+  id: number;
+  title: string;
+  youtube_id: string;
+  embed_url: string;
+  last_position: number;
+  watched_seconds: number;
+}
+
+export interface DashboardNextTask {
+  id: number;
+  title: string;
+  deadline: string;
+  lesson_name: string;
+}
+
+export interface DashboardMentor {
+  name: string;
+  role: string;
+  bio: string;
+  avatar: string;
+}
+
+export interface DashboardCertificate {
+  id: number;
+  progress_percentage: number;
+  completed_steps: number;
+  total_steps: number;
+}
+
+export interface DashboardAnnouncement {
+  id: number;
+  title: string;
+  description: string;
+  date: string;
+}
+
+export interface DashboardData {
+  student: DashboardStudent;
+  course: DashboardCourse;
+  progress: DashboardProgress;
+  current_lesson: DashboardCurrentLesson | null;
+  next_task: DashboardNextTask | null;
+  mentor: DashboardMentor | null;
+  certificate: DashboardCertificate | null;
+  announcements: DashboardAnnouncement[];
+}
+
+// ─── Student Path Types ────────────────────
+export interface PathInfo {
+  id: number;
+  name: string;
+  description: string;
+}
+
+export interface PathProgress {
+  completed: number;
+  total: number;
+  percentage: number;
+}
+
+export interface CurrentVideo {
+  index: number;
+  id: number;
+  title: string;
+}
+
+export interface PathVideo {
+  index: number;
+  id: number;
+  title: string;
+  duration: number;
+  youtube_id: string;
+  video_url: string;
+  thumbnail_url: string;
+  completed: boolean;
+}
+
+export type LessonStatus = "completed" | "current" | "locked";
+
+export interface StudentPathData {
+  path: PathInfo;
+  progress: PathProgress;
+  current_video: CurrentVideo;
+  videos: PathVideo[];
 }

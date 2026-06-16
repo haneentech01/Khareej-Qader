@@ -44,7 +44,7 @@ export function Sidebar() {
       className="border-slate-100 bg-white"
     >
       {/* ── Logo ── */}
-      <SidebarHeader className="p-6">
+      <SidebarHeader className="py-7 px-6">
         <Link href="/dashboard">
           <Image
             src="/images/logo.png"

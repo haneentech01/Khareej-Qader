@@ -293,8 +293,8 @@
     },
     "topNav": {
       "search": "ابحث داخل المسار",
-      "userName": "أحمد أحمد",
-      "userMajor": "هندسة حاسوب",
+      "userName": "اسم المستخدم",
+      "userMajor": "التخصص",
       "notifications": "الإشعارات"
     },
     "hero": {
@@ -473,8 +473,8 @@
     "LessonViewer": {
       "breadcrumb_home": "الرئيسية",
       "breadcrumb_track": "المسار التدريبي",
-      "breadcrumb_lesson": "تطوير الويب",
-      "title": "تطوير الويب",
+      "breadcrumb_lesson": "الدرس الحالي",
+      "title": "المسار التدريبي الحالي",
       "subtitle": "الدرس الحالي: {lessonName}",
       "sidebar_title": "دروس المسار",
       "lessons_count": "{count} درس",

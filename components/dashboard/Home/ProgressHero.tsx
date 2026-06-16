@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
 import { PlayCircle, Route } from "lucide-react";
@@ -48,11 +47,11 @@ export function ProgressHero({
 
       {/* progress hero */}
       <div
-        className={`bg-white rounded-[20px] ${
-          isStandalone
+        className={`bg-white rounded-[20px] 
+          ${isStandalone
             ? "p-10 border border-slate-100 shadow-sm"
             : "p-8 shadow-[0_8px_40px_0_#22B48D0F] relative overflow-hidden flex flex-col md:flex-row gap-20"
-        }`}
+          }`}
       >
         {/* Educational Track Box */}
         <div className={isStandalone ? "flex flex-col gap-6 w-full" : "flex-1"}>
@@ -93,9 +92,8 @@ export function ProgressHero({
             {/* progress bar */}
             <Progress
               value={progressValue}
-              className={`h-3 bg-[#E6E9E7] [&>div]:bg-linear-to-l [&>div]:from-brand-primary [&>div]:to-brand-base/20 rounded-full rtl:rotate-180 w-full ${
-                isStandalone ? "" : "max-w-[555px]"
-              }`}
+              className={`h-3 bg-[#E6E9E7] [&>div]:bg-linear-to-l [&>div]:from-brand-primary [&>div]:to-brand-base/20 rounded-full rtl:rotate-180 w-full ${isStandalone ? "" : "max-w-[555px]"
+                }`}
             />
           </div>
         </div>

@@ -1,7 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
-import { ProgressHero } from "@/components/dashboard/Home/ProgressHero";
-import { LessonTimeline } from "@/components/dashboard/MyTrack/LessonTimeline";
+import { MyTrackContent } from "@/components/dashboard/MyTrack/MyTrackContent";
 
 export default async function MyTrackPage({
   params,
@@ -17,34 +16,6 @@ export default async function MyTrackPage({
     { label: t("breadcrumb_track") },
   ];
 
-  const lessons = [
-    {
-      id: "1",
-      number: 1,
-      title: "أساسيات HTML5",
-      status: "completed" as const,
-    },
-    {
-      id: "2",
-      number: 2,
-      title: "هيكل صفحة HTML",
-      duration: "15:20 دقيقة",
-      status: "current" as const,
-    },
-    {
-      id: "3",
-      number: 3,
-      title: "التنسيق باستخدام CSS",
-      status: "locked" as const,
-    },
-    {
-      id: "4",
-      number: 4,
-      title: "أساسيات التصميم المتجاوب",
-      status: "locked" as const,
-    },
-  ];
-
   return (
     <div className="max-w-7xl mx-auto space-y-6">
       <div className="flex flex-col gap-3.5">
@@ -57,16 +28,8 @@ export default async function MyTrackPage({
         </p>
       </div>
 
-      <ProgressHero
-        variant="standalone"
-        trackName={dashboardT("hero.track_name")}
-        progressValue={45}
-        totalLessons={12}
-        completedLessons={6}
-      />
-
       <div>
-        <LessonTimeline lessons={lessons} />
+        <MyTrackContent />
       </div>
     </div>
   );

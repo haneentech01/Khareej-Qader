@@ -11,7 +11,7 @@ export function useGetData<T>(
   url: string,
   { immediate = true }: UseGetDataOptions = {},
 ) {
-  const [data, setData] = useState<T | string | null>(null);
+  const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState(immediate); // لو immediate=true ابدأ بـ loading
   const [error, setError] = useState<string | null>(null);
 
@@ -25,9 +25,13 @@ export function useGetData<T>(
       const { data: responseData, message } = res.data;
 
       // لو data فيها بيانات → احفظها
-      // لو data = null     → احفظ الـ message بدلها
-      setData(responseData ?? message);
-      return responseData ?? message;
+      // لو data = null     → احفظ الـ message في error
+      if (responseData !== null && responseData !== undefined) {
+        setData(responseData);
+      } else {
+        setError(message);
+      }
+      return responseData;
     } catch (err) {
       const e = err as { message?: string };
       setError(e.message || "حدث خطأ");

@@ -10,9 +10,14 @@ import {
   AvatarImage,
 } from "@/components/ui/avatar";
 import { SidebarTrigger } from "@/components/ui/sidebar";
+import { useDashboard } from "@/hooks/dashboard/useDashboard";
 
 export function TopNav() {
   const t = useTranslations("Dashboard.topNav");
+  const { dashboard } = useDashboard();
+
+  const studentName = dashboard?.student?.name || t("userName");
+  const studentEmail = dashboard?.student?.email || t("userMajor");
 
   return (
     <header className="sticky top-0 z-40 bg-white backdrop-blur-md
@@ -47,12 +52,16 @@ export function TopNav() {
 
         <div className="flex items-center gap-3">
           <div className="text-left hidden md:block">
-            <p className="text-sm font-semibold text-black leading-tight">{t("userName")}</p>
-            <p className="text-xs text-brand-muted">{t("userMajor")}</p>
+            <p className="text-sm font-semibold text-black leading-tight">
+              {studentName}
+            </p>
+            <p className="text-xs text-brand-muted">
+              {studentEmail}
+            </p>
           </div>
           <Avatar className="size-10 border border-brand-surface">
             <AvatarImage src="https://github.com/shadcn.png" />
-            <AvatarFallback>Haneen</AvatarFallback>
+            <AvatarFallback>{studentName?.[0] || "U"}</AvatarFallback>
             <AvatarBadge className="bg-green-600 dark:bg-green-800" />
           </Avatar>
         </div>

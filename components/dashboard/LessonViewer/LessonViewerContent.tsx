@@ -1,17 +1,64 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { ArrowLeft, ArrowRight, CheckCircle2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { VideoPlayer } from "./VideoPlayer";
 import { LessonQuestions } from "./LessonQuestions";
+import { useLessonPath } from "./LessonPathProvider";
+import { Link } from "@/i18n/routing";
 
-export function LessonViewerContent({ lessonId }: { lessonId?: string }) {
+
+interface LessonViewerContentProps {
+  lessonId?: string;
+}
+
+export function LessonViewerContent({ lessonId }: LessonViewerContentProps) {
   const t = useTranslations("Dashboard.LessonViewer");
   const [activeTab, setActiveTab] = useState("about");
   const locale = useLocale();
   const isRtl = locale === "ar";
+  const { data, loading, error, refetch } = useLessonPath();
+
+  useEffect(() => {
+    refetch();
+  }, [lessonId]);
+
+  // ─── Loading ─────────────────────────
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center py-20">
+        <div className="animate-spin size-10 border-4 border-brand-primary border-t-transparent rounded-full" />
+      </div>
+    );
+  }
+
+  // ─── Error ───────────────────────────
+  if (error) {
+    return (
+      <div className="text-center py-20">
+        <p className="text-red-500 text-lg">{error}</p>
+      </div>
+    );
+  }
+
+  // ─── No data ─────────────────────────
+  if (!data || typeof data !== "object") {
+    return null;
+  }
+
+  const { path, videos } = data;
+
+  // ─── إيجاد الفيديو الحالي ─────────────
+  const currentIndex = videos.findIndex((v) => String(v.id) === lessonId);
+  const currentVideo = videos[currentIndex];
+
+  // ─── إيجاد الفيديو السابق والتالي ────
+  const prevVideo = currentIndex > 0 ? videos[currentIndex - 1] : null;
+  const nextVideo =
+    currentIndex < videos.length - 1 ? videos[currentIndex + 1] : null;
+
 
 
   const tabs = [
@@ -23,36 +70,56 @@ export function LessonViewerContent({ lessonId }: { lessonId?: string }) {
 
   return (
     <div className="flex flex-col gap-6">
-      {/* Video Player */}
+      {/* ─── Video Player ─────────────── */}
       <div className="bg-slate-900 rounded-t-4xl overflow-hidden relative aspect-video shadow-sm">
-        <VideoPlayer lessonId={lessonId} />
+        <VideoPlayer
+          lessonId={lessonId}
+          videoUrl={currentVideo?.video_url}
+          thumbnailUrl={currentVideo?.thumbnail_url}
+        />
       </div>
 
-      {/* Navigation Buttons */}
+      {/* ─── Navigation Buttons ───────── */}
       <div className="flex items-center justify-between gap-4 bg-[#F2F4F280] py-6 shadow-[0px_1px_2px_0px_#0000000D]">
-        <button className="flex-1 md:flex-none 
-        flex items-center justify-center gap-2 
-        bg-white border border-slate-100 px-6 py-3 
-        rounded-2xl text-black font-bold 
-        hover:scale-[1.02] active:scale-[0.98]
-        hover:bg-slate-50 transition-all 
-        shadow-sm group">
-          <ArrowRight className={cn("w-5 h-5",
-            isRtl ? "" : "rotate-180")} />
-          {t("prev_lesson")}
-        </button>
+        {prevVideo ? (
+          <Link
+            href={`/dashboard/my-track/lessons/${prevVideo.id}`}
+            // onClick={() => refetch()}
+            className="flex-1 md:flex-none flex items-center justify-center 
+            gap-2 bg-white border border-slate-100 px-3 py-3 rounded-2xl 
+            text-black font-bold hover:scale-[1.02] active:scale-[0.98] 
+            hover:bg-slate-50 transition-all shadow-sm"
+          >
+            <ArrowRight
+              className={cn("w-5 h-5", isRtl ? "" : "rotate-180")}
+            />
+            <span className="truncate max-w-[300px]">
+              {prevVideo.title}
+            </span>
+          </Link>
+        ) : (
+          <div />
+        )}
 
-        <button className="flex-1 md:flex-none 
-        flex items-center justify-center gap-2 
-        bg-brand-primary border border-slate-100 px-6 py-3 
-        rounded-2xl text-white font-bold 
-        hover:scale-[1.02] active:scale-[0.98]
-        hover:bg-brand-dark/80 transition-all 
-        shadow-sm group">
-          {t("next_lesson")}
-          <ArrowLeft className={cn("w-5 h-5",
-            isRtl ? "" : "rotate-180")} />
-        </button>
+        {nextVideo ? (
+          <Link
+            href={`/dashboard/my-track/lessons/${nextVideo.id}`}
+            // onClick={() => refetch()}
+            className="flex-1 md:flex-none flex items-center justify-center 
+            gap-2 bg-brand-primary px-3 py-3 rounded-2xl text-white 
+            font-bold hover:scale-[1.02] active:scale-[0.98] 
+            hover:bg-brand-dark/80 transition-all shadow-sm"
+          >
+            <span className="truncate max-w-[300px]">
+              {nextVideo.title}
+            </span>
+            <ArrowLeft
+              className={cn("w-5 h-5", isRtl ? "" : "rotate-180")}
+            />
+          </Link>
+        ) : (
+          <div />
+        )}
       </div>
 
       {/* Tabs */}

@@ -4,7 +4,7 @@ import { Link } from "@/i18n/routing";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
-import { useHeader } from "@/hooks/useHeader";
+import { useHeader } from "@/hooks/layout/useHeader";
 
 const navLinks = [
     { key: "home", href: "/#home" },
@@ -27,7 +27,7 @@ export function Header() {
 
     return (
         <header className={`sticky top-0 z-50 w-full border-b
-        border-[#CBD5E1] bg-white transition-all duration-300
+        border-slate-300 bg-white transition-all duration-300
         backdrop-blur supports-backdrop-filter:bg-white/60 
         ${isScrolled ? "py-0 shadow-md" : "py-0"
             }`}>
@@ -73,6 +73,7 @@ export function Header() {
                         <Link href="/register" aria-label="register now">
                             <Button
                                 className="bg-brand-primary hover:bg-brand-primary/90
+                                 border-brand-primary
                                 text-lg text-white font-semibold shadow-sm transition-colors
                                 w-16 lg:w-28 h-12"
                                 aria-label="register now"
@@ -83,7 +84,7 @@ export function Header() {
                         <Link href="/login" aria-label="login">
                             <Button
                                 variant="outline"
-                                className="text-[#0F172A] border-[#CBD5E1] font-medium
+                                className="text-[#0F172A] border-slate-300 font-medium
                                  hover:bg-slate-50 transition-colors text-lg
                                  w-20 lg:w-40 h-12"
                                 aria-label="login"

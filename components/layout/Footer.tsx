@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa";
 import { motion, Variants } from "framer-motion";
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { useScrollAnimation } from "@/hooks/layout/useScrollAnimation";
 
 /**
  * Footer component providing site navigation, contact information,
@@ -56,7 +56,7 @@ export function Footer() {
   };
 
   return (
-    <footer ref={ref} className="pt-20 pb-10 bg-[#F8FAF8] overflow-hidden">
+    <footer ref={ref} className="pt-20 pb-10 bg-slate-50 overflow-hidden">
       <motion.div
         initial="hidden"
         animate={controls}

@@ -2,7 +2,7 @@ import React from "react";
 import { NewsItem } from "@/types";
 import { NewsCard } from "./NewsCard";
 import { motion, Variants } from "framer-motion";
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { useScrollAnimation } from "@/hooks/layout/useScrollAnimation";
 
 interface NewsGridProps {
   items: NewsItem[];
