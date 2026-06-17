@@ -18,6 +18,7 @@ export function TopNav() {
 
   const studentName = dashboard?.student?.name || t("userName");
   const studentEmail = dashboard?.student?.email || t("userMajor");
+  const studentImage = dashboard?.student?.avatar || "/images/default-avatar.svg";
 
   return (
     <header className="sticky top-0 z-40 bg-white backdrop-blur-md
@@ -60,7 +61,7 @@ export function TopNav() {
             </p>
           </div>
           <Avatar className="size-10 border border-brand-surface">
-            <AvatarImage src="https://github.com/shadcn.png" />
+            <AvatarImage src={dashboard?.student?.avatar || "/images/default-avatar.svg"} />
             <AvatarFallback>{studentName?.[0] || "U"}</AvatarFallback>
             <AvatarBadge className="bg-green-600 dark:bg-green-800" />
           </Avatar>

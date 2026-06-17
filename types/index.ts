@@ -256,7 +256,9 @@ export interface DashboardStudent {
   name: string;
   slug: string;
   email: string;
+  avatar?: string;
 }
+
 
 export interface DashboardCourse {
   id: number;

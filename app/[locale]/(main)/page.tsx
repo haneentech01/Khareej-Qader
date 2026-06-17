@@ -1,18 +1,39 @@
-"use client";
-
+import dynamic from "next/dynamic";
 import { HeroSection } from "@/components/sections/Hero";
 import { AboutSection } from "@/components/sections/About";
-import { HowItWorks } from "@/components/sections/HowItWorks";
-import { WhyChooseUsSection } from "@/components/sections/WhyChooseUs";
-import { PartnersSection } from "@/components/sections/Partners";
-import { TracksSection } from "@/components/sections/Tracks";
-import { TestimonialsSection } from "@/components/sections/Testimonials";
-import { NewsSection } from "@/components/sections/News";
-import { GallerySection } from "@/components/sections/Gallery";
-import { BecomeTrainerSection } from "@/components/sections/BecomeTrainer";
-import { FAQSection } from "@/components/sections/FAQ";
-import { CTASection } from "@/components/sections/CTA";
 import { Reveal } from "@/components/animations/Reveal";
+
+// Below-the-fold sections loaded dynamically to improve initial loading & TBT
+const HowItWorks = dynamic(() =>
+  import("@/components/sections/HowItWorks").then((mod) => mod.HowItWorks)
+);
+const WhyChooseUsSection = dynamic(() =>
+  import("@/components/sections/WhyChooseUs").then((mod) => mod.WhyChooseUsSection)
+);
+const PartnersSection = dynamic(() =>
+  import("@/components/sections/Partners").then((mod) => mod.PartnersSection)
+);
+const TracksSection = dynamic(() =>
+  import("@/components/sections/Tracks").then((mod) => mod.TracksSection)
+);
+const TestimonialsSection = dynamic(() =>
+  import("@/components/sections/Testimonials").then((mod) => mod.TestimonialsSection)
+);
+const NewsSection = dynamic(() =>
+  import("@/components/sections/News").then((mod) => mod.NewsSection)
+);
+const GallerySection = dynamic(() =>
+  import("@/components/sections/Gallery").then((mod) => mod.GallerySection)
+);
+const BecomeTrainerSection = dynamic(() =>
+  import("@/components/sections/BecomeTrainer").then((mod) => mod.BecomeTrainerSection)
+);
+const FAQSection = dynamic(() =>
+  import("@/components/sections/FAQ").then((mod) => mod.FAQSection)
+);
+const CTASection = dynamic(() =>
+  import("@/components/sections/CTA").then((mod) => mod.CTASection)
+);
 
 export default function Home() {
   return (
@@ -81,3 +102,4 @@ export default function Home() {
     </main>
   );
 }
+

@@ -50,10 +50,15 @@ export function CertificateCard({
             {t("steps_completed", { completed: completedSteps, total: totalSteps })}
           </p>
         </div>
-        <Progress value={progressValue} className="h-3 bg-[#E6E9E7] 
+        <Progress
+          value={progressValue}
+          aria-label={t("progress_label")}
+          className="h-3 bg-[#E6E9E7] 
             [&>div]:bg-brand-base
             rounded-full rtl:rotate-180 
-            w-full max-w-[555px]" />
+            w-full max-w-[555px]"
+        />
+
       </div>
 
       {/* button */}

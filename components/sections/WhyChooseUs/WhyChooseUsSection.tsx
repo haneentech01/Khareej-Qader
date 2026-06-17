@@ -1,3 +1,5 @@
+"use client";
+
 import { SectionHeader } from "../../ui/SectionHeader";
 import { useWhyChooseUs } from "@/hooks/sections/useWhyChooseUs";
 import { FeatureCard } from "./FeatureCard";

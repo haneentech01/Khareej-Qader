@@ -92,9 +92,14 @@ export function ProgressHero({
             {/* progress bar */}
             <Progress
               value={progressValue}
+              aria-label={t("lessons_completed", {
+                completed: completedLessons,
+                total: totalLessons,
+              })}
               className={`h-3 bg-[#E6E9E7] [&>div]:bg-linear-to-l [&>div]:from-brand-primary [&>div]:to-brand-base/20 rounded-full rtl:rotate-180 w-full ${isStandalone ? "" : "max-w-[555px]"
                 }`}
             />
+
           </div>
         </div>
 

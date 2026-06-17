@@ -1,0 +1,340 @@
+// "use client";
+
+// import React, { useState } from "react";
+// import { useTranslations } from "next-intl";
+// import { useRouter } from "next/navigation";
+// import { CheckCircle2, ChevronRight } from "lucide-react";
+// import { MentorRegisterForm } from "./MentorRegisterForm";
+// import { Link } from "@/i18n/routing";
+
+// export function MentorRegisterFormWrapper() {
+//   const t = useTranslations("MentorRegisterModal");
+//   const router = useRouter();
+//   const [submitted, setSubmitted] = useState(false);
+
+//   const handleCancel = () => {
+//     router.push("/");
+//   };
+
+//   return (
+//     <div className="w-full flex flex-col gap-6 py-6 md:py-10" dir="rtl">
+//       {/* Back to Home link */}
+//       <div className="flex justify-start">
+//         <Link
+//           href="/"
+//           className="flex items-center gap-1.5 text-sm text-brand-muted hover:text-brand-primary font-semibold transition-colors"
+//         >
+//           <ChevronRight className="size-4" />
+//           {t("back_btn")}
+//         </Link>
+//       </div>
+
+//       {submitted ? (
+//         /* Success State */
+//         <div className="flex flex-col items-center justify-center gap-6 py-12 text-center bg-white rounded-3xl p-8 shadow-sm border border-slate-100">
+//           <div className="w-20 h-20 rounded-full bg-brand-light flex items-center justify-center">
+//             <CheckCircle2 className="size-10 text-brand-primary" />
+//           </div>
+//           <div>
+//             <h3 className="text-2xl font-bold text-brand-dark-text mb-2">
+//               {t("success_title")}
+//             </h3>
+//             <p className="text-base text-brand-muted max-w-sm mx-auto leading-relaxed">
+//               {t("success_message")}
+//             </p>
+//           </div>
+//           <Link href="/">
+//             <button className="h-11 px-8 rounded-2xl bg-brand-primary hover:bg-brand-dark text-white font-bold text-sm transition-all cursor-pointer">
+//               {t("back_btn")}
+//             </button>
+//           </Link>
+//         </div>
+//       ) : (
+//         <>
+//           {/* Header */}
+//           <div className="text-right">
+//             <h1 className="text-3xl font-extrabold text-brand-dark-text mb-2">
+//               {t("title")}
+//             </h1>
+//             <p className="text-sm text-brand-muted leading-relaxed">
+//               {t("subtitle")}
+//             </p>
+//           </div>
+
+//           {/* Form */}
+//           <div className="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-slate-100">
+//             <MentorRegisterForm
+//               onCancel={handleCancel}
+//               onSuccess={() => setSubmitted(true)}
+//             />
+//           </div>
+//         </>
+//       )}
+//     </div>
+//   );
+// }
+
+
+"use client";
+
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/routing";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Select } from "@/components/ui/select";
+import { Loader2 } from "lucide-react";
+import { motion } from "framer-motion";
+import endpoints from "@/lib/api/endpoints";
+import { useGetData } from "@/lib/hooks/useGetData";
+import { Country, Course, Major, University } from "@/types";
+import { useRegisterForm } from "@/hooks/auth/useRegisterForm";
+
+export function MentorRegisterForm() {
+  const t = useTranslations("Auth");
+
+  // ─── Hook للتسجيل (POST) ──────────────────────
+  const { formData, fieldErrors, loading, handleChange, handleSubmit } =
+    useRegisterForm();
+
+  // ─── Hook لجلب الدول (GET) ──────────────────────
+  const { data: countries } = useGetData<Country[]>(
+    endpoints.lookup.countries
+  );
+
+  const { data: universities } = useGetData<University[]>(
+    endpoints.lookup.universities
+  );
+
+  const { data: majors } = useGetData<Major[]>(
+    endpoints.lookup.majors
+  );
+
+  const { data: courses } = useGetData<Course[]>(
+    endpoints.lookup.courses
+  )
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: 20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.5 }}
+      className="bg-white rounded-[10px] 
+      shadow-[0_20px_40px_0x_#0000000D] 
+      py-8 md:py-8 px-4 lg:px-11"
+    >
+      {/* title + subtitle */}
+      <div className="text-center mb-8">
+        <h1 className="text-3xl font-bold text-black mb-2">
+          {t("register_title")}
+        </h1>
+        <p className="text-brand-muted text-base">
+          {t("subtitle")}
+        </p>
+      </div>
+
+      <form className="space-y-6" onSubmit={handleSubmit}>
+        {/* full name */}
+        <div>
+          <Input
+            id="full_name"
+            name="full_name"
+            type="text"
+            value={formData.full_name}
+            onChange={handleChange}
+            placeholder={t("full_name")}
+            className="h-11 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none"
+            required />
+
+          {fieldErrors.full_name?.[0] && (
+            <p className="text-sm text-red-500 mt-1">
+              {fieldErrors.full_name[0]}
+            </p>
+          )}
+        </div>
+
+        {/* email */}
+        <div>
+          <Input
+            id="email"
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder={t("email")}
+            className="h-11 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none"
+            required />
+
+          {fieldErrors.email?.[0] && (
+            <p className="text-sm text-red-500 mt-1">
+              {fieldErrors.email[0]}
+            </p>
+          )}
+        </div>
+
+        {/* phone */}
+        <div>
+          <div className="flex gap-2">
+            <div className="w-1/3 min-w-[120px]">
+              <Select
+                id="country_iso"
+                name="country_iso"
+                value={formData.country_iso}
+                onChange={handleChange}
+                required
+                className="h-12 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none"
+              >
+                <option value="">{t("country")}</option>
+
+                {Array.isArray(countries) &&
+                  countries.map((country) => (
+                    <option key={country.iso} value={country.iso}>
+                      {country.countryCode}
+                    </option>
+                  ))}
+              </Select>
+            </div>
+
+            <div className="flex-1">
+              <Input
+                id="mobile_number"
+                name="mobile_number"
+                type="tel"
+                value={formData.mobile_number}
+                onChange={handleChange}
+                placeholder={t("phone")}
+                className="h-12 ltr:text-left rtl:text-right focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none"
+                required />
+            </div>
+          </div>
+
+          {fieldErrors.country_iso?.[0] && (
+            <p className="text-sm text-red-500 mt-1">
+              {fieldErrors.country_iso[0]}
+            </p>
+          )}
+          {fieldErrors.mobile_number?.[0] && (
+            <p className="text-sm text-red-500 mt-1">
+              {fieldErrors.mobile_number[0]}
+            </p>
+          )}
+        </div>
+
+
+        {/* gender */}
+        <div>
+          <Select
+            id="gender"
+            name="gender"
+            value={formData.gender}
+            onChange={handleChange}
+            className="focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none"
+            required
+          >
+            <option disabled value="">{t("gender")}</option>
+            <option value="male">{t("male")}</option>
+            <option value="female">{t("female")}</option>
+          </Select>
+
+          {fieldErrors.gender?.[0] && (
+            <p className="text-sm text-red-500 mt-1">
+              {fieldErrors.gender[0]}
+            </p>
+          )}
+        </div>
+
+        {/* university */}
+        <div>
+          <Select
+            id="university_name"
+            name="university_name"
+            value={formData.university_name}
+            onChange={handleChange}
+            className="focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none"
+            required>
+            <option value="" disabled>{t("university")}</option>
+            {Array.isArray(universities) &&
+              universities.map((university) => (
+                <option key={university.id} value={university.id}>
+                  {university.un_name}
+                </option>
+              ))}
+          </Select>
+          {fieldErrors.university_name?.[0] && (
+            <p className="text-sm text-red-500 mt-1">
+              {fieldErrors.university_name[0]}
+            </p>
+          )}
+        </div>
+
+        {/* major */}
+        <div>
+          <Select
+            id="university_major"
+            name="university_major"
+            value={formData.university_major}
+            onChange={handleChange}
+            className="focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none"
+            required
+          >
+            <option>{t("major")}</option>
+            {Array.isArray(majors) &&
+              majors.map((major) => (
+                <option key={major.id} value={major.id}>
+                  {major.name}
+                </option>
+              ))}
+          </Select>
+          {fieldErrors.university_major?.[0] && (
+            <p className="text-sm text-red-500 mt-1">
+              {fieldErrors.university_major[0]}
+            </p>
+          )}
+        </div>
+
+        {/* training path */}
+        <div>
+          <Select
+            id="course_id"
+            name="course_id"
+            value={formData.course_id}
+            onChange={handleChange}
+            className="focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none" required>
+            <option value="" disabled>{t("training_path")}</option>
+            {Array.isArray(courses) &&
+              courses.map((course) => (
+                <option key={course.id} value={course.id}>
+                  {course.name}
+                </option>
+              ))}
+          </Select>
+          {fieldErrors.course_id?.[0] && (
+            <p className="text-sm text-red-500 mt-1">
+              {fieldErrors.course_id[0]}
+            </p>
+          )}
+        </div>
+
+        {/* register button */}
+        <Button
+          type="submit"
+          disabled={loading}
+          className="w-full h-14 bg-brand-primary hover:bg-brand-accent text-white text-lg font-bold rounded-lg shadow-lg shadow-brand-primary/20 transition-all"
+        >
+          {loading
+            ? <Loader2 className="w-6 h-6 animate-spin mx-auto" />
+            : t("register_btn")}
+        </Button>
+
+        {/* already have an account */}
+        <div className="text-center">
+          <p className="text-sm text-brand-muted">
+            {t("has_account")}{" "}
+            <Link href="/login" className="text-brand-primary font-bold hover:underline">
+              {t("login_title")}
+            </Link>
+          </p>
+        </div>
+      </form>
+    </motion.div>
+  );
+}

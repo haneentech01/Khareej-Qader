@@ -6,9 +6,17 @@ import Image from "next/image";
 
 interface AuthLayoutProps {
   children: React.ReactNode;
+  illustrationImage?: string;
+  benefitsKeys?: string[];
+  translationNamespace?: string;
 }
 
-export function AuthLayout({ children }: AuthLayoutProps) {
+export function AuthLayout({
+  children,
+  illustrationImage,
+  benefitsKeys,
+  translationNamespace,
+}: AuthLayoutProps) {
   return (
     <div className="flex min-h-screen bg-[#F6FBFA]">
       {/* Mobile Logo (Visible only on mobile/tablet) */}
@@ -33,7 +41,12 @@ export function AuthLayout({ children }: AuthLayoutProps) {
       </div>
 
       {/* Illustration (Desktop Only) */}
-      <AuthIllustration />
+      <AuthIllustration
+        imageSrc={illustrationImage}
+        benefits={benefitsKeys}
+        translationNamespace={translationNamespace}
+      />
     </div>
   );
 }
+

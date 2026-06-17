@@ -7,6 +7,7 @@ import { notFound } from "next/navigation";
 import { ScrollToTopButton } from "@/components/ui/ScrollToTopButton";
 import { getTranslations } from "next-intl/server";
 import { ToastContainer, toast } from 'react-toastify';
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -59,8 +60,14 @@ export default async function RootLayout({
     >
       <head>
         {/* Ahrefs analytics */}
-        <script src="https://analytics.ahrefs.com/analytics.js" data-key="YVab7IUpJ7GpncxdfJ66Kg" async></script>
+        <Script
+          src="https://analytics.ahrefs.com/analytics.js"
+          data-key="YVab7IUpJ7GpncxdfJ66Kg"
+          strategy="lazyOnload"
+        />
       </head>
+
+
       <body className="min-h-full flex flex-col">
         <NextIntlClientProvider messages={messages}>
           {children}

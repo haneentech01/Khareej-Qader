@@ -51,6 +51,8 @@ export function Sidebar() {
             alt="Logo"
             width={170}
             height={100}
+            priority
+            sizes="130px"
             className={cn(
               "object-contain transition-all duration-300",
               isCollapsed ? "w-8 h-8" : "w-[130px] h-auto"

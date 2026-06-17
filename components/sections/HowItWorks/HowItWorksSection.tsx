@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import { SectionHeader } from "../../ui/SectionHeader";
 import { useHowItWorks } from "../../../hooks/sections/useHowItWorks";
