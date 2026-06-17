@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Star, Clock, Trophy } from "lucide-react";
-import { useTranslations, useLocale } from "next-intl";
+import { useTranslations } from "next-intl";
 
 interface EvaluationCardProps {
   status: "pending" | "completed";
@@ -16,7 +16,7 @@ export function EvaluationCard({ status }: EvaluationCardProps) {
   let points: string[] = [];
   try {
     points = t.raw("evaluation_points") as string[];
-  } catch (e) {
+  } catch (_e) {
     points = [
       "عمل ممتاز في تنفيذ المتطلبات الأساسية للصفحة.",
       "تنظيم الكود جيد جداً وسهل القراءة.",

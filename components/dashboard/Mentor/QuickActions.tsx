@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useTranslations } from "next-intl";
-import { Zap, FilePlus, Link2, Mail } from "lucide-react";
+import { Zap, FilePlus, Mail } from "lucide-react";
 
 export function QuickActions() {
   const t = useTranslations("MentorDashboard.quick_actions");

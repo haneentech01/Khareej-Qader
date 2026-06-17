@@ -78,7 +78,7 @@ export function EditorToolbar({ editor }: EditorToolbarProps) {
             isActive: editor.isActive("blockquote"),
             action: () =>
                 editor.chain().focus().toggleBlockquote().run(),
-            icon: <span>"</span>,
+            icon: <span>&quot;</span>,
         },
 
         {

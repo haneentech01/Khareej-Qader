@@ -161,6 +161,7 @@ export function useMentorLessonForm(lessonId: string) {
   const [toastMessage, setToastMessage] = useState<{ text: string; type: "success" | "error" } | null>(null);
 
   // Load lesson details
+  /* eslint-disable react-hooks/set-state-in-effect */
   useEffect(() => {
     const lesson = lessonsList.find(l => l.id === lessonId) || lessonsList[0];
     if (lesson) {
@@ -174,6 +175,7 @@ export function useMentorLessonForm(lessonId: string) {
       setThumbnailName(lesson.thumbnail || null);
     }
   }, [lessonId, lessonsList]);
+  /* eslint-enable react-hooks/set-state-in-effect */
 
   // Objective Management
   const handleAddObjective = () => {

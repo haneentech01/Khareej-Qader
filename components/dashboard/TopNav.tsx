@@ -18,7 +18,7 @@ export function TopNav() {
 
   const studentName = dashboard?.student?.name || t("userName");
   const studentEmail = dashboard?.student?.email || t("userMajor");
-  const studentImage = dashboard?.student?.avatar || "/images/default-avatar.svg";
+  const _studentImage = dashboard?.student?.avatar || "/images/default-avatar.svg";
 
   return (
     <header className="sticky top-0 z-40 bg-white backdrop-blur-md

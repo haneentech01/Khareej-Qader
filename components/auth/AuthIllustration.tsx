@@ -17,6 +17,7 @@ export function AuthIllustration({
   benefits = ["benefit1", "benefit2", "benefit3", "benefit4"],
   translationNamespace = "Auth",
 }: AuthIllustrationProps) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const t = useTranslations(translationNamespace as any);
 
   const parsedBenefits = benefits.map((key) => ({

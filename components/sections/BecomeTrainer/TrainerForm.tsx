@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { useTranslations, useLocale } from "next-intl";
+import { useTranslations } from "next-intl";
 import {
   CloudUpload,
   FileImage,
@@ -16,7 +16,6 @@ import { cn } from "@/lib/utils";
 
 export function TrainerForm() {
   const t = useTranslations("BecomeTrainer");
-  const locale = useLocale();
 
   const [profilePicture, setProfilePicture] = React.useState<File | null>(null);
   const [isDragActive, setIsDragActive] = React.useState(false);

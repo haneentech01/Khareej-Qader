@@ -4,13 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 const PROTECTED_ROUTES = ["/dashboard", "/mentor", "/admin"];
 
-const ROUTE_AUTH_MAP: Record<string, string> = {
-  "/dashboard": "/students/auth/me",
-  "/mentor": "/mentor/auth/me",
-  "/admin": "/admin/auth/me",
-};
 
-const intlMiddleware = createMiddleware(routing);
 
 export default async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;

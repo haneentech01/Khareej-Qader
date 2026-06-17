@@ -2,7 +2,6 @@
 
 import React from "react";
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/routing";
 import { useLessonPath } from "./LessonPathProvider";
 import { LessonItem } from "../MyTrack/LessonItem";
 import { LessonStatus } from "@/types";

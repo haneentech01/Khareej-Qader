@@ -27,7 +27,7 @@ export interface FormErrors {
   general?: string;
 }
 
-export function useTrainerForm(t: (key: string, values?: any) => string) {
+export function useTrainerForm(t: (key: string, values?: Record<string, unknown>) => string) {
   const [values, setValues] = useState<TrainerFormValues>({
     name: "",
     email: "",
@@ -188,8 +188,8 @@ export function useTrainerForm(t: (key: string, values?: any) => string) {
       // Simulate API registration request
       await new Promise((resolve) => setTimeout(resolve, 1500));
       setSuccess(true);
-    } catch (err: any) {
-      setErrors({ general: err?.message || "An unexpected error occurred." });
+    } catch (err: unknown) {
+      setErrors({ general: (err as { message?: string })?.message || "An unexpected error occurred." });
     } finally {
       setLoading(false);
     }

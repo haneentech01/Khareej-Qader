@@ -1,22 +1,11 @@
 "use client";
 
 import { useStudentPath } from "@/hooks/dashboard/useStudentPath";
-import { useTranslations } from "next-intl";
 import { ProgressHero } from "@/components/dashboard/Home/ProgressHero";
 import { LessonTimeline } from "@/components/dashboard/MyTrack/LessonTimeline";
 
-/**
- * helper: حوّل الثواني لـ string مقروء
- * مثال: 598 → "9:58"
- */
-function formatDuration(seconds: number): string {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, "0")}`;
-}
 
 export function MyTrackContent() {
-    const t = useTranslations("Dashboard");
     const { data, loading, error } = useStudentPath();
 
     // ─── Loading state ──────────────────────

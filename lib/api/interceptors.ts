@@ -8,9 +8,8 @@ export function setupInterceptors(client: AxiosInstance): void {
       return response;
     },
 
-    // ❌ الطلب فشل
     (error) => {
-      const status = error.response?.status;
+      // const _status = error.response?.status;
 
       const message =
         error.response?.data?.message ||

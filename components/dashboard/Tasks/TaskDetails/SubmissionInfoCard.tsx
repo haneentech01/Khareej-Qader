@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Calendar, ClipboardList } from "lucide-react";
+import { Calendar } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { SubmissionInfoCardProps } from "@/types";
 

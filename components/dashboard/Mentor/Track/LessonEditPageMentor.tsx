@@ -14,10 +14,8 @@ import {
   Check,
   ChevronLeft,
   ChevronRight,
-  Sparkles,
   FileCheck2,
   Paperclip,
-  HelpCircle,
   X,
   Target
 } from "lucide-react";
@@ -30,7 +28,6 @@ interface LessonEditPageMentorProps {
 
 export function LessonEditPageMentor({ lessonId }: LessonEditPageMentorProps) {
   const t = useTranslations("MentorLessonEdit");
-  const tGlobal = useTranslations("MentorTrack");
   const locale = useLocale();
   const isRtl = locale === "ar";
   const router = useRouter();
