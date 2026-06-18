@@ -16,7 +16,7 @@ export function EvaluationCard({ status }: EvaluationCardProps) {
   let points: string[] = [];
   try {
     points = t.raw("evaluation_points") as string[];
-  } catch (_e) {
+  } catch {
     points = [
       "عمل ممتاز في تنفيذ المتطلبات الأساسية للصفحة.",
       "تنظيم الكود جيد جداً وسهل القراءة.",

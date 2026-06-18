@@ -10,7 +10,6 @@ export function setupInterceptors(client: AxiosInstance): void {
 
     (error) => {
       const status = error.response?.status;
-      const data = error.response?.data;
       const message =
         error.response?.data?.message ||
         error.response?.data?.errors ||

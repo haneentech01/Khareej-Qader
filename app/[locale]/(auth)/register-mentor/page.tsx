@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { AuthLayout } from "@/components/auth/AuthLayout";
-import { MentorRegisterForm } from "@/components/auth/MentorRegisterFormWrapper";
+import { MentorRegisterForm } from "@/components/auth/MentorRegisterForm";
 
 
 

@@ -1,5 +1,4 @@
 import createMiddleware from "next-intl/middleware";
-import { routing } from "./i18n/routing";
 import { NextRequest, NextResponse } from "next/server";
 
 const PROTECTED_ROUTES = ["/dashboard", "/mentor", "/admin"];
@@ -36,7 +35,6 @@ export default async function middleware(request: NextRequest) {
   // الـ URL يكون /ar/dashboard, /en/dashboard, etc.
   const localeMatch = pathname.match(/^\/(ar|en)(\/.*)?$/);
   const locale = localeMatch?.[1] || "ar";
-  const pathAfterLocale = localeMatch?.[2] || "";
 
   // ─── 1) لو المسار محمي والـ user مش مسجل → وجّه لـ login ──
   const isProtected = PROTECTED_ROUTES.some((route) =>
