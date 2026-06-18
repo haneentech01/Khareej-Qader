@@ -54,7 +54,7 @@ export function AuthIllustration({
             alt="Illustration"
             width={imageSrc.includes("signupMentorLogo") ? 585 : 609}
             height={imageSrc.includes("signupMentorLogo") ? 562 : 560}
-            className="w-full max-w-[450px] lg:max-w-[600px] h-auto object-contain"
+            className="w-full max-w-[600px] lg:max-w-[600px] h-auto object-contain"
             priority
           />
         </motion.div>

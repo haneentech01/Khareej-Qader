@@ -30,7 +30,7 @@ export function RegisterModal({ open, onOpenChange }: RegisterModalProps) {
         <div className="flex justify-center mb-1">
           <div className="w-16 h-16 bg-brand-light rounded-2xl flex items-center justify-center">
             <Image
-              src="/images/icons/signupMentorLogo.png"
+              src="/images/icons/registerForTheProgram.png"
               alt="register"
               width={40}
               height={40}

@@ -3,8 +3,17 @@ import { routing } from "./i18n/routing";
 import { NextRequest, NextResponse } from "next/server";
 
 const PROTECTED_ROUTES = ["/dashboard", "/mentor", "/admin"];
+// ─── المسارات المخصصة للمستخدمين المسجلين فقط (لا يدخلونها بعد الـ login) ──
+const AUTH_ONLY_ROUTES = ["/login", "/register"];
 
-
+// ─── أسماء الـ cookies اللي ممكن تحمل التوكن ─
+const AUTH_COOKIE_NAMES = [
+  "token",
+  "access_token",
+  "auth_token",
+  "student_token",
+  "mentor_token",
+];
 
 export default async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -18,16 +27,34 @@ export default async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  const isProtected = PROTECTED_ROUTES.some((route) =>
-    pathname.startsWith(route),
+  // ─── فحص الـ auth cookie ────────────────
+  const hasAuth = AUTH_COOKIE_NAMES.some(
+    (name) => request.cookies.get(name)?.value,
   );
 
-  if (!isProtected) return NextResponse.next();
+  // ─── استخراج الـ locale من الـ URL ──────
+  // الـ URL يكون /ar/dashboard, /en/dashboard, etc.
+  const localeMatch = pathname.match(/^\/(ar|en)(\/.*)?$/);
+  const locale = localeMatch?.[1] || "ar";
+  const pathAfterLocale = localeMatch?.[2] || "";
 
-  const token = request.cookies.get("token")?.value;
+  // ─── 1) لو المسار محمي والـ user مش مسجل → وجّه لـ login ──
+  const isProtected = PROTECTED_ROUTES.some((route) =>
+    pathname.includes(route),
+  );
 
-  if (!token) {
-    return NextResponse.redirect(new URL("/login", request.url));
+  if (isProtected && !hasAuth) {
+    const loginUrl = new URL(`/${locale}/login`, request.url);
+    // احفظ المسار الأصلي عشان نرجّع المستخدم له بعد الـ login
+    loginUrl.searchParams.set("redirect", pathname);
+    return NextResponse.redirect(loginUrl);
+  }
+
+  // ─── 2) لو المسار /login أو /register والـ user مسجل → وجّه لـ dashboard ──
+  const isAuthOnly = AUTH_ONLY_ROUTES.some((route) => pathname.includes(route));
+
+  if (isAuthOnly && hasAuth) {
+    return NextResponse.redirect(new URL(`/${locale}/dashboard`, request.url));
   }
 
   return NextResponse.next();
@@ -36,3 +63,22 @@ export default async function middleware(request: NextRequest) {
 export const config = {
   matcher: ["/((?!_next|api|.*\\..*).*)"],
 };
+
+//   const isProtected = PROTECTED_ROUTES.some((route) =>
+//     pathname.startsWith(route),
+//   );
+
+//   if (!isProtected) return NextResponse.next();
+
+//   const token = request.cookies.get("token")?.value;
+
+//   if (!token) {
+//     return NextResponse.redirect(new URL("/login", request.url));
+//   }
+
+//   return NextResponse.next();
+// }
+
+// export const config = {
+//   matcher: ["/((?!_next|api|.*\\..*).*)"],
+// };
