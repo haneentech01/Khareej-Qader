@@ -12,6 +12,7 @@ const AUTH_COOKIE_NAMES = [
   "auth_token",
   "student_token",
   "mentor_token",
+  "areisto-platform-session",
 ];
 
 export default async function middleware(request: NextRequest) {
@@ -35,6 +36,16 @@ export default async function middleware(request: NextRequest) {
   // الـ URL يكون /ar/dashboard, /en/dashboard, etc.
   const localeMatch = pathname.match(/^\/(ar|en)(\/.*)?$/);
   const locale = localeMatch?.[1] || "ar";
+
+  // ✅ جديد: لو الـ URL ما فيه locale → وجّه له مع إضافة locale
+  if (!localeMatch) {
+    const url = new URL(`/${locale}${pathname}`, request.url);
+    // نسخ الـ query params الأصلية (مثل redirect=...)
+    request.nextUrl.searchParams.forEach((value, key) => {
+      url.searchParams.set(key, value);
+    });
+    return NextResponse.redirect(url);
+  }
 
   // ─── 1) لو المسار محمي والـ user مش مسجل → وجّه لـ login ──
   const isProtected = PROTECTED_ROUTES.some((route) =>
@@ -61,22 +72,3 @@ export default async function middleware(request: NextRequest) {
 export const config = {
   matcher: ["/((?!_next|api|.*\\..*).*)"],
 };
-
-//   const isProtected = PROTECTED_ROUTES.some((route) =>
-//     pathname.startsWith(route),
-//   );
-
-//   if (!isProtected) return NextResponse.next();
-
-//   const token = request.cookies.get("token")?.value;
-
-//   if (!token) {
-//     return NextResponse.redirect(new URL("/login", request.url));
-//   }
-
-//   return NextResponse.next();
-// }
-
-// export const config = {
-//   matcher: ["/((?!_next|api|.*\\..*).*)"],
-// };

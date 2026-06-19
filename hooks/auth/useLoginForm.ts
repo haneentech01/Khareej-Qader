@@ -25,8 +25,12 @@ export function useLoginForm() {
 
     successMessage: "تم تسجيل الدخول بنجاح",
 
-    onSuccess: (data: unknown) => {
-      router.push("/dashboard");
+    // onSuccess: (data: unknown) => {
+    //   router.push("/dashboard");
+    // },
+
+    onSuccess: () => {
+      window.location.href = "/dashboard";
     },
   });
 }

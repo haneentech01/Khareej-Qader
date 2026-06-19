@@ -11,6 +11,7 @@ interface SidebarItemProps {
   title: string;
   href: string;
   icon: LucideIcon;
+  isRTL?: boolean;
 }
 
 export function SidebarItem({ title, href, icon: Icon }: SidebarItemProps) {
