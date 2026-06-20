@@ -23,8 +23,9 @@ export function useLessonProgress({
   const completeCalledRef = useRef(false);
   const durationRef = useRef(0);
   const lastSavedPosition = useRef(0);
+  const playerRef = useRef<any>(null);
 
-  // ─── 1. جلب آخر موقع ──────────────────────────
+  // ─── 1. Reset + fetch resume ──────────────────
   useEffect(() => {
     if (!lessonId) return;
     let cancelled = false;
@@ -60,17 +61,54 @@ export function useLessonProgress({
     };
   }, [lessonId]);
 
-  // ─── 2. حفظ Duration ──────────────────────────
+  // ─── 2. Duration من onReady مباشرة ───────────
+  const handleReady = useCallback(
+    (player: any) => {
+      playerRef.current = player;
+
+      // جلب duration مباشرة من ReactPlayer instance
+      try {
+        const duration = player.getDuration?.();
+        if (duration && duration > 0) {
+          durationRef.current = duration;
+        }
+      } catch {
+        // silent
+      }
+
+      // Resume seek
+      if (resumeLoaded && resumePosition && resumePosition > 0) {
+        setTimeout(() => {
+          try {
+            player.seekTo?.(resumePosition, "seconds");
+          } catch {
+            // silent
+          }
+        }, 800);
+      }
+    },
+    [resumeLoaded, resumePosition],
+  );
+
+  // ─── 3. Duration callback ─────────────────────
   const handleDuration = useCallback((duration: number) => {
     if (duration > 0) {
       durationRef.current = duration;
     }
   }, []);
 
-  // ─── 3. حفظ التقدم (throttled) ─────────────────
+  // ─── 4. حفظ التقدم ───────────────────────────
   const handleProgress = useCallback(
     ({ playedSeconds }: { playedSeconds: number; played: number }) => {
       if (!lessonId || playedSeconds <= 0) return;
+
+      // محاولة جلب duration إذا ما اتجلب بعد
+      if (!durationRef.current && playerRef.current) {
+        try {
+          const d = playerRef.current.getDuration?.();
+          if (d > 0) durationRef.current = d;
+        } catch {}
+      }
 
       const now = Date.now();
       if (now - lastProgressSave.current < 5000) return;
@@ -87,7 +125,7 @@ export function useLessonProgress({
     [lessonId],
   );
 
-  // ─── 4. إكمال الفيديو ──────────────────────────
+  // ─── 5. markAsCompleted ───────────────────────
   const markAsCompleted = useCallback(async () => {
     if (completeCalledRef.current || !lessonId) return;
 
@@ -103,43 +141,48 @@ export function useLessonProgress({
     }
   }, [lessonId, onVideoCompleted]);
 
-  // ─── 5. فحص 90% أو آخر 3 ثوانٍ ────────────────
+  // ─── 6. فحص 90% ──────────────────────────────
   const handleProgressCheck = useCallback(
-    ({ playedSeconds }: { played: number; playedSeconds: number }) => {
+    ({ playedSeconds, played }: { played: number; playedSeconds: number }) => {
       if (isCompleted || completeCalledRef.current) return;
 
       const duration = durationRef.current;
-      if (!duration || duration <= 0) return;
 
-      const percent = playedSeconds / duration;
-      const remaining = duration - playedSeconds;
-
-      if (percent >= 0.9 || remaining <= 3) {
-        markAsCompleted();
+      if (duration > 0) {
+        // إذا عندنا duration، نستخدمه
+        const percent = playedSeconds / duration;
+        const remaining = duration - playedSeconds;
+        if (percent >= 0.9 || remaining <= 5) {
+          markAsCompleted();
+          return;
+        }
+      } else {
+        // Fallback: استخدم played من ReactPlayer مباشرة
+        if (played >= 0.9) {
+          markAsCompleted();
+          return;
+        }
       }
     },
     [isCompleted, markAsCompleted],
   );
 
-  // ─── 6. Fallback: onEnded ──────────────────────
+  // ─── 7. onEnded fallback ──────────────────────
   const handleEnded = useCallback(() => {
     if (!isCompleted && !completeCalledRef.current) {
       markAsCompleted();
     }
   }, [isCompleted, markAsCompleted]);
 
-  // ─── 7. حفظ التقدم عند مغادرة الصفحة ──────────
+  // ─── 8. Save on page leave ────────────────────
   useEffect(() => {
     const saveOnLeave = () => {
       if (lastSavedPosition.current > 0 && lessonId) {
-        // sendBeacon أضمن من fetch عند الإغلاق
         const payload = JSON.stringify({
           position: lastSavedPosition.current,
           watched_seconds: lastSavedPosition.current,
         });
-
         const url = `${process.env.NEXT_PUBLIC_API_URL}${endpoints.video.progress(lessonId)}`;
-
         if (navigator.sendBeacon) {
           const blob = new Blob([payload], { type: "application/json" });
           navigator.sendBeacon(url, blob);
@@ -155,6 +198,7 @@ export function useLessonProgress({
     isCompleted,
     resumePosition,
     resumeLoaded,
+    handleReady,
     handleDuration,
     handleProgress,
     handleProgressCheck,

@@ -1,7 +1,6 @@
-// components/dashboard/LessonViewer/LessonViewerContent.tsx
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import {
   ArrowLeft,
@@ -45,6 +44,7 @@ export function LessonViewerContent({ lessonId }: LessonViewerContentProps) {
   if (!data || typeof data !== "object") return null;
 
   const { videos, current_video } = data;
+
   const currentIndex = videos.findIndex((v) => String(v.id) === lessonId);
   const currentVideo = videos[currentIndex];
   const prevVideo = currentIndex > 0 ? videos[currentIndex - 1] : null;

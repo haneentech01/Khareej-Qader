@@ -14,7 +14,11 @@ interface LessonPathContextValue {
 
 const LessonPathContext = createContext<LessonPathContextValue | null>(null);
 
-export function LessonPathProvider({ children }: { children: React.ReactNode }) {
+export function LessonPathProvider({
+    children,
+}: {
+    children: React.ReactNode;
+}) {
     const { data, loading, error, refetch, markVideoCompleted } = useStudentPath();
 
     return (

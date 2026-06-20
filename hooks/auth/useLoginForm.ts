@@ -4,6 +4,8 @@ import { useRouter } from "@/i18n/routing";
 import endpoints from "@/lib/api/endpoints";
 import { useForm } from "../forms/useForm";
 import { LoginFormData, ValidationErrors } from "@/types";
+import { useLocale } from "next-intl";
+
 // ─── قواعد الفحص المحلي ──────────────────────────
 const validate = (values: LoginFormData): ValidationErrors => {
   const errors: ValidationErrors = {};
@@ -13,6 +15,7 @@ const validate = (values: LoginFormData): ValidationErrors => {
 
 export function useLoginForm() {
   const router = useRouter();
+  const locale = useLocale();
 
   return useForm<LoginFormData>({
     initialValues: {
@@ -25,12 +28,8 @@ export function useLoginForm() {
 
     successMessage: "تم تسجيل الدخول بنجاح",
 
-    // onSuccess: (data: unknown) => {
-    //   router.push("/dashboard");
-    // },
-
     onSuccess: () => {
-      window.location.href = "/dashboard";
+      router.push("/dashboard");
     },
   });
 }

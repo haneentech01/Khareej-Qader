@@ -76,6 +76,49 @@ export function useStudentPath() {
       // إيجاد أول فيديو غير مكتمل ليصبح current
       const nextCurrent = updatedVideos.find((v) => !v.completed);
 
+      // ✅ الصحيح
+      const markVideoCompleted = useCallback((videoId: string | number) => {
+        setData((prev) => {
+          if (!prev) return prev;
+
+          const numericId = Number(videoId);
+
+          // إيجاد index الفيديو الحالي
+          const currentIndex = prev.videos.findIndex((v) => v.id === numericId);
+
+          const updatedVideos = prev.videos.map((v) =>
+            v.id === numericId ? { ...v, completed: true } : v,
+          );
+
+          const completedCount = updatedVideos.filter(
+            (v) => v.completed,
+          ).length;
+
+          // الفيديو التالي مباشرة بعد الذي اكتمل
+          const nextVideo = updatedVideos[currentIndex + 1];
+
+          return {
+            ...prev,
+            videos: updatedVideos,
+            progress: {
+              ...prev.progress,
+              completed: completedCount,
+              percentage: Math.round(
+                (completedCount / updatedVideos.length) * 100,
+              ),
+            },
+            // إذا في تالي، اجعله current، وإلا ابقَ على الحالي
+            current_video: nextVideo
+              ? {
+                  index: nextVideo.index,
+                  id: nextVideo.id,
+                  title: nextVideo.title,
+                }
+              : prev.current_video,
+          };
+        });
+      }, []);
+
       return {
         ...prev,
         videos: updatedVideos,

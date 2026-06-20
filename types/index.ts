@@ -259,7 +259,6 @@ export interface DashboardStudent {
   avatar?: string;
 }
 
-
 export interface DashboardCourse {
   id: number;
   name: string;
