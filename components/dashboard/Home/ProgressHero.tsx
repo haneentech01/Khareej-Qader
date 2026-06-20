@@ -4,11 +4,14 @@ import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
 import { PlayCircle, Route } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/routing";
+import { useParams } from "next/navigation";
 
 interface ProgressHeroProps {
   userName?: string;
   trackName: string;
   currentLesson?: string;
+  currentLessonId?: string | number;
   progressValue: number;
   totalLessons: number;
   completedLessons: number;
@@ -19,6 +22,7 @@ export function ProgressHero({
   userName,
   trackName,
   currentLesson,
+  currentLessonId,
   progressValue,
   totalLessons,
   completedLessons,
@@ -26,6 +30,7 @@ export function ProgressHero({
 }: ProgressHeroProps) {
   const t = useTranslations("Dashboard.hero");
   const isStandalone = variant === "standalone";
+
 
   return (
     <div className={isStandalone ? "" : "mb-10"}>
@@ -105,7 +110,9 @@ export function ProgressHero({
 
         {/* Next Lesson Box */}
         {!isStandalone && currentLesson && (
-          <div className="md:w-80 bg-[#F4F7F5] rounded-4xl p-7 flex flex-col justify-between">
+          <Link
+            href={`/dashboard/my-track/lessons/${currentLessonId}`}
+            className="md:w-80 bg-[#F4F7F5] rounded-4xl p-7 flex flex-col justify-between">
             <div>
               <p className="text-brand-primary text-sm font-semibold mb-4">
                 {t("next_lesson")}
@@ -119,7 +126,7 @@ export function ProgressHero({
               <PlayCircle className="size-5" />
               {t("continue_learning")}
             </Button>
-          </div>
+          </Link>
         )}
       </div>
     </div>

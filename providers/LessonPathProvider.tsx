@@ -9,15 +9,16 @@ interface LessonPathContextValue {
     loading: boolean;
     error: string | null;
     refetch: () => Promise<unknown>;
+    markVideoCompleted: (videoId: string | number) => void;
 }
 
 const LessonPathContext = createContext<LessonPathContextValue | null>(null);
 
 export function LessonPathProvider({ children }: { children: React.ReactNode }) {
-    const { data, loading, error, refetch } = useStudentPath();
+    const { data, loading, error, refetch, markVideoCompleted } = useStudentPath();
 
     return (
-        <LessonPathContext.Provider value={{ data, loading, error, refetch }}>
+        <LessonPathContext.Provider value={{ data, loading, error, refetch, markVideoCompleted }}>
             {children}
         </LessonPathContext.Provider>
     );

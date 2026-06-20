@@ -1,14 +1,105 @@
+// "use client";
+
+// import { useGetData } from "@/lib/hooks/useGetData";
+// import endpoints from "@/lib/api/endpoints";
+// import { StudentPathData } from "@/types";
+
+// export function useStudentPath() {
+//   const { data, loading, error, refetch } = useGetData<StudentPathData>(
+//     endpoints.student.studentPath,
+//     { immediate: true },
+//   );
+
+//   return { data, loading, error, refetch };
+// }
+
+// hooks/dashboard/useStudentPath.ts
 "use client";
 
-import { useGetData } from "@/lib/hooks/useGetData";
+import { useCallback, useEffect, useRef, useState } from "react";
+import apiClient from "@/lib/api/client";
 import endpoints from "@/lib/api/endpoints";
-import { StudentPathData } from "@/types";
+import { ApiResponse, StudentPathData } from "@/types";
 
 export function useStudentPath() {
-  const { data, loading, error, refetch } = useGetData<StudentPathData>(
-    endpoints.student.studentPath,
-    { immediate: true },
-  );
+  const [data, setData] = useState<StudentPathData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  return { data, loading, error, refetch };
+  // لمنع race conditions
+  const fetchIdRef = useRef(0);
+
+  const fetchPath = useCallback(async () => {
+    const currentFetchId = ++fetchIdRef.current;
+
+    try {
+      const res = await apiClient.get<ApiResponse<StudentPathData>>(
+        endpoints.student.studentPath,
+      );
+
+      // تجاهل response قديم لو صار fetch جديد
+      if (currentFetchId !== fetchIdRef.current) return;
+
+      if (res.data?.success && res.data.data) {
+        setData(res.data.data);
+        setError(null);
+      } else {
+        setError("Failed to load path data");
+      }
+    } catch (err: unknown) {
+      if (currentFetchId !== fetchIdRef.current) return;
+      setError(err instanceof Error ? err.message : "Unknown error");
+    } finally {
+      if (currentFetchId === fetchIdRef.current) {
+        setLoading(false);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchPath();
+  }, [fetchPath]);
+
+  // ★ تحديث optimistic محلي — بدون انتظار الباك
+  const markVideoCompleted = useCallback((videoId: string | number) => {
+    setData((prev) => {
+      if (!prev) return prev;
+
+      const numericId = Number(videoId);
+      const updatedVideos = prev.videos.map((v) =>
+        v.id === numericId ? { ...v, completed: true } : v,
+      );
+
+      // حساب التقدم الجديد
+      const completedCount = updatedVideos.filter((v) => v.completed).length;
+
+      // إيجاد أول فيديو غير مكتمل ليصبح current
+      const nextCurrent = updatedVideos.find((v) => !v.completed);
+
+      return {
+        ...prev,
+        videos: updatedVideos,
+        progress: {
+          ...prev.progress,
+          completed: completedCount,
+          percentage: Math.round((completedCount / updatedVideos.length) * 100),
+        },
+        current_video: nextCurrent
+          ? {
+              index: nextCurrent.index,
+              id: nextCurrent.id,
+              title: nextCurrent.title,
+            }
+          : prev.current_video,
+      };
+    });
+  }, []);
+
+  return {
+    data,
+    loading,
+    error,
+    refetch: fetchPath,
+    markVideoCompleted,
+  };
 }

@@ -2,7 +2,8 @@
 
 import { useTranslations } from "next-intl";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
-import { useLessonPath } from "./LessonPathProvider";
+import { useLessonPath } from "@/providers/LessonPathProvider";
+
 
 interface LessonBreadcrumbsProps {
     locale: string;

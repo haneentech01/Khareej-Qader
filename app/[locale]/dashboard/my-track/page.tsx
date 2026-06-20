@@ -9,7 +9,6 @@ export default async function MyTrackPage({
 }) {
   const { locale } = await params;
   const t = await getTranslations("Dashboard.MyTrack");
-  const dashboardT = await getTranslations("Dashboard");
 
   const breadcrumbItems = [
     { label: t("breadcrumb_home"), href: "/dashboard" },

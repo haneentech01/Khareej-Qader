@@ -1,8 +1,9 @@
+// components/dashboard/LessonViewer/LessonViewerSidebar.tsx
 "use client";
 
 import React from "react";
 import { useTranslations } from "next-intl";
-import { useLessonPath } from "./LessonPathProvider";
+import { useLessonPath } from "../../../providers/LessonPathProvider";
 import { LessonItem } from "../MyTrack/LessonItem";
 import { LessonStatus } from "@/types";
 
@@ -14,7 +15,6 @@ export function LessonViewerSidebar({ lessonId }: LessonViewerSidebarProps) {
   const t = useTranslations("Dashboard.LessonViewer");
   const { data, loading, error } = useLessonPath();
 
-  // ─── Loading ─────────────────────────
   if (loading) {
     return (
       <div className="flex items-center justify-center py-20">
@@ -23,7 +23,6 @@ export function LessonViewerSidebar({ lessonId }: LessonViewerSidebarProps) {
     );
   }
 
-  // ─── Error ───────────────────────────
   if (error) {
     return (
       <div className="text-center py-20">
@@ -32,16 +31,14 @@ export function LessonViewerSidebar({ lessonId }: LessonViewerSidebarProps) {
     );
   }
 
-  // ─── No data ─────────────────────────
-  if (!data || typeof data !== "object") {
-    return null;
-
-  }
-
+  if (!data || typeof data !== "object") return null;
 
   const { videos, current_video } = data;
 
-  const getStatus = (video: { id: number; completed: boolean }): LessonStatus => {
+  const getStatus = (video: {
+    id: number;
+    completed: boolean;
+  }): LessonStatus => {
     if (video.completed) return "completed";
     if (video.id === current_video.id) return "current";
     return "locked";

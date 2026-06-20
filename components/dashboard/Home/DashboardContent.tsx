@@ -60,6 +60,7 @@ export function DashboardContent() {
                     userName={student?.name || ""}
                     trackName={course?.name || t("hero.track_name")}
                     currentLesson={current_lesson?.title || undefined}
+                    currentLessonId={current_lesson?.id || undefined}
                     progressValue={progress?.percentage || 0}
                     totalLessons={progress?.total_lessons || 0}
                     completedLessons={progress?.completed_lessons || 0}

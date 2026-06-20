@@ -1,14 +1,19 @@
+// components/dashboard/LessonViewer/LessonViewerContent.tsx
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { ArrowLeft, ArrowRight, CheckCircle2 } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  CheckCircle2,
+  LockKeyholeIcon,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import { VideoPlayer } from "./VideoPlayer";
 import { LessonQuestions } from "./LessonQuestions";
-import { useLessonPath } from "./LessonPathProvider";
 import { Link } from "@/i18n/routing";
-
+import { useLessonPath } from "@/providers/LessonPathProvider";
 
 interface LessonViewerContentProps {
   lessonId?: string;
@@ -19,13 +24,8 @@ export function LessonViewerContent({ lessonId }: LessonViewerContentProps) {
   const [activeTab, setActiveTab] = useState("about");
   const locale = useLocale();
   const isRtl = locale === "ar";
-  const { data, loading, error, refetch } = useLessonPath();
+  const { data, loading, error, refetch, markVideoCompleted } = useLessonPath();
 
-  useEffect(() => {
-    refetch();
-  }, [lessonId]);
-
-  // ─── Loading ─────────────────────────
   if (loading) {
     return (
       <div className="flex items-center justify-center py-20">
@@ -34,7 +34,6 @@ export function LessonViewerContent({ lessonId }: LessonViewerContentProps) {
     );
   }
 
-  // ─── Error ───────────────────────────
   if (error) {
     return (
       <div className="text-center py-20">
@@ -43,23 +42,34 @@ export function LessonViewerContent({ lessonId }: LessonViewerContentProps) {
     );
   }
 
-  // ─── No data ─────────────────────────
-  if (!data || typeof data !== "object") {
-    return null;
-  }
+  if (!data || typeof data !== "object") return null;
 
-  const { path, videos } = data;
-
-  // ─── إيجاد الفيديو الحالي ─────────────
+  const { videos, current_video } = data;
   const currentIndex = videos.findIndex((v) => String(v.id) === lessonId);
   const currentVideo = videos[currentIndex];
-
-  // ─── إيجاد الفيديو السابق والتالي ────
   const prevVideo = currentIndex > 0 ? videos[currentIndex - 1] : null;
   const nextVideo =
     currentIndex < videos.length - 1 ? videos[currentIndex + 1] : null;
 
+  // ★ الشرط الصحيح: هل الدرس الحالي مكتمل؟
+  const isCurrentCompleted = currentVideo?.completed === true;
 
+  // ★ فتح الدرس التالي
+  const isNextAccessible =
+    !!nextVideo &&
+    (isCurrentCompleted || nextVideo.id === current_video.id || nextVideo.completed);
+
+  const handleVideoCompleted = () => {
+    if (!lessonId) return;
+
+    // 1. تحديث فوري (optimistic)
+    markVideoCompleted(lessonId);
+
+    // 2. تأكيد من الباك بعد ثانية
+    setTimeout(() => {
+      refetch();
+    }, 1000);
+  };
 
   const tabs = [
     { id: "about", label: t("tab_about") },
@@ -72,11 +82,15 @@ export function LessonViewerContent({ lessonId }: LessonViewerContentProps) {
     <div className="flex flex-col gap-6">
       {/* ─── Video Player ─────────────── */}
       <div className="bg-slate-900 rounded-t-4xl overflow-hidden relative aspect-video shadow-sm">
-        <VideoPlayer
-          lessonId={lessonId}
-          videoUrl={currentVideo?.video_url}
-          thumbnailUrl={currentVideo?.thumbnail_url}
-        />
+        {currentVideo && (
+          <VideoPlayer
+            key={currentVideo.id}
+            lessonId={currentVideo.id}
+            videoUrl={currentVideo.video_url}
+            thumbnailUrl={currentVideo.thumbnail_url}
+            onVideoCompleted={handleVideoCompleted}
+          />
+        )}
       </div>
 
       {/* ─── Navigation Buttons ───────── */}
@@ -84,45 +98,50 @@ export function LessonViewerContent({ lessonId }: LessonViewerContentProps) {
         {prevVideo ? (
           <Link
             href={`/dashboard/my-track/lessons/${prevVideo.id}`}
-            // onClick={() => refetch()}
-            className="flex-1 md:flex-none flex items-center justify-center 
-            gap-2 bg-white border border-slate-100 px-3 py-3 rounded-2xl 
-            text-black font-bold hover:scale-[1.02] active:scale-[0.98] 
-            hover:bg-slate-50 transition-all shadow-sm"
+            className="flex-1 md:flex-none flex items-center justify-center gap-2 bg-white border border-slate-100 px-3 py-3 rounded-2xl text-black font-bold hover:scale-[1.02] active:scale-[0.98] hover:bg-slate-50 transition-all shadow-sm"
           >
             <ArrowRight
               className={cn("w-5 h-5", isRtl ? "" : "rotate-180")}
             />
-            <span className="truncate max-w-[300px]">
-              {prevVideo.title}
-            </span>
+            <span className="truncate max-w-[300px]">{prevVideo.title}</span>
           </Link>
         ) : (
           <div />
         )}
 
         {nextVideo ? (
-          <Link
-            href={`/dashboard/my-track/lessons/${nextVideo.id}`}
-            // onClick={() => refetch()}
-            className="flex-1 md:flex-none flex items-center justify-center 
-            gap-2 bg-brand-primary px-3 py-3 rounded-2xl text-white 
-            font-bold hover:scale-[1.02] active:scale-[0.98] 
-            hover:bg-brand-dark/80 transition-all shadow-sm"
-          >
-            <span className="truncate max-w-[300px]">
-              {nextVideo.title}
-            </span>
-            <ArrowLeft
-              className={cn("w-5 h-5", isRtl ? "" : "rotate-180")}
-            />
-          </Link>
+          isNextAccessible ? (
+            <Link
+              href={`/dashboard/my-track/lessons/${nextVideo.id}`}
+              className="flex-1 md:flex-none flex items-center justify-center gap-2 bg-brand-primary px-3 py-3 rounded-2xl text-white font-bold hover:scale-[1.02] active:scale-[0.98] hover:bg-brand-dark/80 transition-all shadow-sm"
+            >
+              <span className="truncate max-w-[300px]">
+                {nextVideo.title}
+              </span>
+              <ArrowLeft
+                className={cn("w-5 h-5", isRtl ? "" : "rotate-180")}
+              />
+            </Link>
+          ) : (
+            <div className="flex-1 md:flex-none flex items-center justify-center gap-2 bg-slate-200/70 px-3 py-3 rounded-2xl text-slate-400 font-bold cursor-not-allowed select-none">
+              <LockKeyholeIcon className="w-5 h-5" />
+              <span className="truncate max-w-[300px]">
+                {nextVideo.title}
+              </span>
+              <ArrowLeft
+                className={cn(
+                  "w-5 h-5 opacity-40",
+                  isRtl ? "" : "rotate-180",
+                )}
+              />
+            </div>
+          )
         ) : (
           <div />
         )}
       </div>
 
-      {/* Tabs */}
+      {/* ─── Tabs ──────────────────────── */}
       <div className="bg-white rounded-[20px] p-6 border border-slate-100 shadow-sm flex-1">
         <div className="flex items-center justify-center gap-8 border-b border-slate-100 mb-8">
           {tabs.map((tab) => (
@@ -133,7 +152,7 @@ export function LessonViewerContent({ lessonId }: LessonViewerContentProps) {
                 "pb-4 text-base font-bold transition-colors relative",
                 activeTab === tab.id
                   ? "text-brand-primary"
-                  : "text-brand-muted hover:text-brand-primary"
+                  : "text-brand-muted hover:text-brand-primary",
               )}
             >
               {tab.label}
@@ -144,23 +163,25 @@ export function LessonViewerContent({ lessonId }: LessonViewerContentProps) {
           ))}
         </div>
 
-        {/* Tab Content */}
         {activeTab === "about" && (
           <div className="flex flex-col gap-8 max-w-3xl">
             <div>
-              <h3 className="text-xl font-bold text-black mb-4">{t("about_title")}</h3>
+              <h3 className="text-xl font-bold text-black mb-4">
+                {t("about_title")}
+              </h3>
               <p className="text-slate-500 text-lg leading-relaxed">
                 {t("about_description")}
               </p>
             </div>
-
             <div>
-              <h3 className="text-xl font-bold text-black mb-4">{t("objectives_title")}</h3>
+              <h3 className="text-xl font-bold text-black mb-4">
+                {t("objectives_title")}
+              </h3>
               <ul className="space-y-4">
                 {[
                   t("objective_1"),
                   t("objective_2"),
-                  t("objective_3")
+                  t("objective_3"),
                 ].map((obj, i) => (
                   <li key={i} className="flex items-start gap-3">
                     <CheckCircle2 className="w-6 h-6 fill-brand-primary text-white shrink-0" />
@@ -172,9 +193,7 @@ export function LessonViewerContent({ lessonId }: LessonViewerContentProps) {
           </div>
         )}
 
-        {activeTab === "questions" && (
-          <LessonQuestions />
-        )}
+        {activeTab === "questions" && <LessonQuestions />}
       </div>
     </div>
   );

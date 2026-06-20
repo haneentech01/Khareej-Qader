@@ -22,13 +22,19 @@ const endpoints = {
 
   // ─── روابط الطالب ───────────────────────────
   student: {
-    // profile: (slug: string) => `/students/student-profile${slug}`,
     profile: "/students/student-profile",
     track: "/students/track",
     tasks: "/students/tasks",
     task: (id: string) => `/students/tasks/${id}`,
     certificates: "/students/certificates",
     studentPath: "/students/student-path",
+  },
+
+  // ─── روابط الفيديو (تقدم + استكمال) ────────
+  video: {
+    resume: (id: string | number) => `/videos/${id}/resume`,
+    progress: (id: string | number) => `/videos/${id}/progress`,
+    complete: (id: string | number) => `/videos/${id}/complete`,
   },
 
   // ─── روابط المنتور ──────────────────────────
