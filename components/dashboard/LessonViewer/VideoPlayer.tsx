@@ -1,8 +1,7 @@
 // components/dashboard/LessonViewer/VideoPlayer.tsx
 "use client";
 
-import React, { useEffect, useRef, useCallback } from "react";
-import ReactPlayer from "react-player";
+import React, { useEffect, useRef } from "react";
 import {
     MediaController,
     MediaControlBar,
@@ -26,111 +25,172 @@ interface VideoPlayerProps {
     onVideoCompleted?: () => void;
 }
 
+// استخراج YouTube ID من الـ URL
+function extractYoutubeId(url?: string): string | null {
+    if (!url) return null;
+    const match = url.match(
+        /(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\n?#]+)/,
+    );
+    return match ? match[1] : null;
+}
+
 export function VideoPlayer({
     lessonId = "default",
     videoUrl,
-    thumbnailUrl,
+    thumbnailUrl: _thumbnailUrl,
     onVideoCompleted,
 }: VideoPlayerProps) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const playerRef = useRef<any>(null);
-    const seekedRef = useRef(false);
+    const videoRef = useRef<any>(null);
+    const readyFiredRef = useRef(false);
+    const seekAppliedRef = useRef(false);
 
     const {
         isCompleted,
         resumePosition,
         resumeLoaded,
-        handleDuration,
-        handleProgress,
-        handleProgressCheck,
+        handleReady,
         handleEnded,
     } = useLessonProgress({
         lessonId: String(lessonId),
         onVideoCompleted,
     });
 
-    // ─── Reset seek flag عند تغيير الدرس ─────────
+    // Debug logging
     useEffect(() => {
-        seekedRef.current = false;
-    }, [lessonId]);
+        console.log("🎬 VideoPlayer mounted/updated:", {
+            lessonId,
+            videoUrl,
+            youtubeId: extractYoutubeId(videoUrl),
+            resumePosition,
+            resumeLoaded,
+        });
+    }, [lessonId, videoUrl, resumePosition, resumeLoaded]);
 
-    // ─── استعادة آخر موقع ──────────────────────────
-    const handleReady = useCallback(() => {
-        if (
-            !seekedRef.current &&
-            resumeLoaded &&
-            resumePosition &&
-            resumePosition > 0 &&
-            playerRef.current
-        ) {
-            // ننتظر شوية للتأكد أن الـ player جاهز فعلاً
-            setTimeout(() => {
-                playerRef.current?.seekTo(resumePosition, "seconds");
-                seekedRef.current = true;
-            }, 500);
-        }
-    }, [resumeLoaded, resumePosition]);
+    const youtubeId = extractYoutubeId(videoUrl);
 
-    // ─── لو resumeLoaded تأخر عن onReady ─────────
+    // ★ Reset flags عند تغيير الدرس
     useEffect(() => {
-        if (
-            !seekedRef.current &&
-            resumeLoaded &&
-            resumePosition &&
-            resumePosition > 0 &&
-            playerRef.current
-        ) {
-            playerRef.current.seekTo(resumePosition, "seconds");
-            seekedRef.current = true;
+        readyFiredRef.current = false;
+        seekAppliedRef.current = false;
+    }, [lessonId, youtubeId]);
+
+    // ★ ربط الأحداث بـ youtube-video element
+    useEffect(() => {
+        const video = videoRef.current;
+        if (!video) {
+            console.warn("⚠️ video element not ready yet");
+            return;
         }
-    }, [resumeLoaded, resumePosition]);
 
-    const onProgressHandler = (state: {
-        playedSeconds: number;
-        played: number;
-    }) => {
-        handleProgress(state);
-        handleProgressCheck(state);
-    };
+        console.log("🎧 Attaching listeners to youtube-video element");
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const playerProps: Record<string, any> = {
-        ref: playerRef,
-        slot: "media",
-        src: videoUrl,
-        onReady: handleReady,
-        onDuration: handleDuration,
-        onProgress: onProgressHandler,
-        onEnded: handleEnded,
-        progressInterval: 2000,
-        style: { width: "100%", height: "100%" },
-        className: "bg-cover",
-    };
+        const tryReady = (eventName: string) => {
+            if (readyFiredRef.current) return;
+            readyFiredRef.current = true;
+            console.log(`✅ ${eventName} fired — calling handleReady`);
+            handleReady(video);
+        };
+
+        const onCanPlay = () => tryReady("canplay");
+        const onLoadedData = () => tryReady("loadeddata");
+        const onLoadedMetadata = () => tryReady("loadedmetadata");
+        const onTimeUpdate = () => tryReady("timeupdate");
+        const onPlay = () => tryReady("play");
+        const onEnded = () => {
+            console.log("🏁 ended fired");
+            handleEnded();
+        };
+
+        video.addEventListener("canplay", onCanPlay);
+        video.addEventListener("loadeddata", onLoadedData);
+        video.addEventListener("loadedmetadata", onLoadedMetadata);
+        video.addEventListener("timeupdate", onTimeUpdate);
+        video.addEventListener("play", onPlay);
+        video.addEventListener("ended", onEnded);
+
+        // Fallback timer
+        const fallbackTimer = setTimeout(() => {
+            if (!readyFiredRef.current) {
+                console.warn("⏰ Fallback: forcing handleReady");
+                tryReady("fallback-timer");
+            }
+        }, 3000);
+
+        return () => {
+            video.removeEventListener("canplay", onCanPlay);
+            video.removeEventListener("loadeddata", onLoadedData);
+            video.removeEventListener("loadedmetadata", onLoadedMetadata);
+            video.removeEventListener("timeupdate", onTimeUpdate);
+            video.removeEventListener("play", onPlay);
+            video.removeEventListener("ended", onEnded);
+            clearTimeout(fallbackTimer);
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [lessonId, youtubeId, resumeLoaded, resumePosition]);
+
+    // ★★★ تطبيق الـ resume عند توفر البيانات (الحل الجديد) ★★★
+    useEffect(() => {
+        const video = videoRef.current;
+        if (!video) return;
+        if (seekAppliedRef.current) return;
+        if (!resumeLoaded) return;
+        if (!resumePosition || resumePosition <= 0) return;
+
+        console.log("🎯 Resume data ready, attempting seek to:", resumePosition);
+
+        const trySeek = () => {
+            if (seekAppliedRef.current) return;
+            try {
+                video.currentTime = resumePosition;
+                seekAppliedRef.current = true;
+                console.log("▶️ Successfully seeked to:", resumePosition);
+            } catch (err) {
+                console.error("❌ Seek attempt failed:", err);
+            }
+        };
+
+        // محاولات متعددة لأن YouTube IFrame API يحتاج وقتاً
+        const timers = [300, 800, 1500, 2500, 4000].map((delay) =>
+            setTimeout(trySeek, delay),
+        );
+
+        return () => {
+            timers.forEach(clearTimeout);
+        };
+    }, [resumeLoaded, resumePosition, lessonId, youtubeId]);
+
+    if (!youtubeId) {
+        console.warn("⚠️ No YouTube ID found for URL:", videoUrl);
+        return (
+            <div className="flex items-center justify-center w-full h-full bg-slate-900">
+                <p className="text-white">الفيديو غير متاح</p>
+            </div>
+        );
+    }
 
     return (
         <MediaController
             dir="ltr"
-            className="video-player-container rounded-t-4xl overflow-hidden group"
+            className="video-player-container rounded-t-4xl overflow-hidden group w-full h-full"
         >
-            <ReactPlayer {...playerProps}>
-                <track
-                    label="thumbnails"
-                    default
-                    kind="metadata"
-                    src={thumbnailUrl}
-                />
-            </ReactPlayer>
+            {React.createElement("youtube-video", {
+                ref: videoRef,
+                slot: "media",
+                src: `https://www.youtube.com/watch?v=${youtubeId}`,
+                style: { width: "100%", height: "100%" },
+            })}
 
             <MediaControlBar className="video-control-bar">
                 <div className="flex items-center gap-2">
                     <MediaPlayButton className="video-button-transparent" />
                     <MediaSeekBackwardButton
                         seekOffset={10}
-                        className="video-button-transparent relative group/seek"
+                        className="video-button-transparent"
                     />
                     <MediaSeekForwardButton
                         seekOffset={10}
-                        className="video-button-transparent relative group/seek"
+                        className="video-button-transparent"
                     />
                 </div>
 

@@ -1,10 +1,13 @@
-// hooks/dashboard/videos/useLessonProgress.ts
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
 import apiClient from "@/lib/api/client";
 import endpoints from "@/lib/api/endpoints";
-import { ApiResponse } from "@/types";
+
+// ─── ثوابت ──────────────────────────────────────
+const PROGRESS_INTERVAL_MS = 5000;
+const RESUME_APPLY_DELAY_MS = 800;
+const COMPLETION_THRESHOLD = 0.95;
 
 interface UseLessonProgressProps {
   lessonId: string | number;
@@ -19,174 +22,169 @@ export function useLessonProgress({
   const [resumePosition, setResumePosition] = useState<number | null>(null);
   const [resumeLoaded, setResumeLoaded] = useState(false);
 
-  const lastProgressSave = useRef(0);
-  const completeCalledRef = useRef(false);
-  const durationRef = useRef(0);
-  const lastSavedPosition = useRef(0);
-  const playerRef = useRef<any>(null);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const lastSavedPositionRef = useRef(0);
+  const completionFiredRef = useRef(false);
+  const onVideoCompletedRef = useRef(onVideoCompleted);
 
-  // ─── 1. Reset + fetch resume ──────────────────
+  useEffect(() => {
+    onVideoCompletedRef.current = onVideoCompleted;
+  });
+
+  // 1) جلب resume position
   useEffect(() => {
     if (!lessonId) return;
     let cancelled = false;
 
-    completeCalledRef.current = false;
+    completionFiredRef.current = false;
+    lastSavedPositionRef.current = 0;
     setIsCompleted(false);
     setResumePosition(null);
     setResumeLoaded(false);
-    lastProgressSave.current = 0;
-    durationRef.current = 0;
-    lastSavedPosition.current = 0;
 
-    const fetchResume = async () => {
-      try {
-        const res = await apiClient.get<ApiResponse<{ last_position: number }>>(
-          endpoints.video.resume(lessonId),
-        );
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
 
-        const position = res.data.data?.last_position;
-        if (!cancelled && position != null && position > 0) {
+    console.log("📡 Fetching resume for lessonId:", lessonId);
+
+    apiClient
+      .get<{
+        success: boolean;
+        message: string;
+        data: number | null;
+      }>(endpoints.video.resume(lessonId))
+      .then((res) => {
+        console.log("📥 Resume response:", {
+          raw: res.data,
+          position: res.data?.data,
+        });
+        if (cancelled) return;
+        const position = res.data?.data;
+        if (typeof position === "number" && position > 0) {
           setResumePosition(position);
         }
-      } catch {
-        // silent
-      } finally {
+      })
+      .catch((err) => {
+        console.error("❌ Resume fetch failed:", err);
+      })
+      .finally(() => {
         if (!cancelled) setResumeLoaded(true);
-      }
-    };
+      });
 
-    fetchResume();
     return () => {
       cancelled = true;
     };
   }, [lessonId]);
 
-  // ─── 2. Duration من onReady مباشرة ───────────
-  const handleReady = useCallback(
-    (player: any) => {
-      playerRef.current = player;
+  // 2) حفظ position + watched_seconds
+  const saveProgress = useCallback(
+    (position: number) => {
+      if (position <= 0) return;
+      if (position === lastSavedPositionRef.current) return;
 
-      // جلب duration مباشرة من ReactPlayer instance
-      try {
-        const duration = player.getDuration?.();
-        if (duration && duration > 0) {
-          durationRef.current = duration;
-        }
-      } catch {
-        // silent
-      }
+      lastSavedPositionRef.current = position;
+      console.log("💾 Saving progress:", position);
 
-      // Resume seek
-      if (resumeLoaded && resumePosition && resumePosition > 0) {
-        setTimeout(() => {
-          try {
-            player.seekTo?.(resumePosition, "seconds");
-          } catch {
-            // silent
-          }
-        }, 800);
-      }
-    },
-    [resumeLoaded, resumePosition],
-  );
-
-  // ─── 3. Duration callback ─────────────────────
-  const handleDuration = useCallback((duration: number) => {
-    if (duration > 0) {
-      durationRef.current = duration;
-    }
-  }, []);
-
-  // ─── 4. حفظ التقدم ───────────────────────────
-  const handleProgress = useCallback(
-    ({ playedSeconds }: { playedSeconds: number; played: number }) => {
-      if (!lessonId || playedSeconds <= 0) return;
-
-      // محاولة جلب duration إذا ما اتجلب بعد
-      if (!durationRef.current && playerRef.current) {
-        try {
-          const d = playerRef.current.getDuration?.();
-          if (d > 0) durationRef.current = d;
-        } catch {}
-      }
-
-      const now = Date.now();
-      if (now - lastProgressSave.current < 5000) return;
-      lastProgressSave.current = now;
-      lastSavedPosition.current = Math.floor(playedSeconds);
-
+      // ★ الـ backend يتطلب watched_seconds — نرسلها = position مؤقتاً
       apiClient
         .post(endpoints.video.progress(lessonId), {
-          position: Math.floor(playedSeconds),
-          watched_seconds: Math.floor(playedSeconds),
+          position,
+          watched_seconds: position,
         })
-        .catch(() => {});
+        .then(() => {
+          console.log("✅ Progress saved successfully");
+        })
+        .catch((err) => {
+          console.error("❌ Progress save failed:", err);
+        });
     },
     [lessonId],
   );
 
-  // ─── 5. markAsCompleted ───────────────────────
-  const markAsCompleted = useCallback(async () => {
-    if (completeCalledRef.current || !lessonId) return;
-
-    completeCalledRef.current = true;
+  // 3) إطلاق الإكمال
+  const triggerCompletion = useCallback(() => {
+    if (completionFiredRef.current) return;
+    completionFiredRef.current = true;
     setIsCompleted(true);
+    console.log("🎉 Video completed!");
 
-    try {
-      await apiClient.post(endpoints.video.complete(lessonId));
-      onVideoCompleted?.();
-    } catch {
-      completeCalledRef.current = false;
-      setIsCompleted(false);
-    }
-  }, [lessonId, onVideoCompleted]);
+    onVideoCompletedRef.current?.();
 
-  // ─── 6. فحص 90% ──────────────────────────────
-  const handleProgressCheck = useCallback(
-    ({ playedSeconds, played }: { played: number; playedSeconds: number }) => {
-      if (isCompleted || completeCalledRef.current) return;
+    apiClient.post(endpoints.video.complete(lessonId)).catch((err) => {
+      console.error("❌ Complete failed:", err);
+    });
+  }, [lessonId]);
 
-      const duration = durationRef.current;
+  // 4) handleReady — يبدأ الـ interval فقط (بدون resume)
+  const handleReady = useCallback(
+    (video: HTMLVideoElement) => {
+      console.log("✅ handleReady called — starting progress interval");
 
-      if (duration > 0) {
-        // إذا عندنا duration، نستخدمه
-        const percent = playedSeconds / duration;
-        const remaining = duration - playedSeconds;
-        if (percent >= 0.9 || remaining <= 5) {
-          markAsCompleted();
+      // ★ تم نقل كود تطبيق الـ resume إلى VideoPlayer.tsx
+      // ★ (useEffect منفصل يراقب resumeLoaded + resumePosition)
+
+      if (intervalRef.current) clearInterval(intervalRef.current);
+
+      intervalRef.current = setInterval(() => {
+        const currentTime = video.currentTime;
+        const duration = video.duration;
+
+        if (
+          !currentTime ||
+          !duration ||
+          isNaN(currentTime) ||
+          isNaN(duration) ||
+          duration === 0
+        ) {
           return;
         }
-      } else {
-        // Fallback: استخدم played من ReactPlayer مباشرة
-        if (played >= 0.9) {
-          markAsCompleted();
-          return;
+
+        const position = Math.floor(currentTime);
+
+        if (position > 0) {
+          saveProgress(position);
         }
-      }
+
+        if (
+          !completionFiredRef.current &&
+          currentTime / duration >= COMPLETION_THRESHOLD
+        ) {
+          triggerCompletion();
+        }
+      }, PROGRESS_INTERVAL_MS);
     },
-    [isCompleted, markAsCompleted],
+    [saveProgress, triggerCompletion], // ★ أزلنا resumeLoaded و resumePosition
   );
 
-  // ─── 7. onEnded fallback ──────────────────────
+  // 5) handleEnded
   const handleEnded = useCallback(() => {
-    if (!isCompleted && !completeCalledRef.current) {
-      markAsCompleted();
-    }
-  }, [isCompleted, markAsCompleted]);
+    console.log("🏁 Video ended event");
+    triggerCompletion();
+  }, [triggerCompletion]);
 
-  // ─── 8. Save on page leave ────────────────────
+  // 6) Cleanup
+  useEffect(() => {
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+    };
+  }, []);
+
+  // 7) حفظ عند مغادرة الصفحة
   useEffect(() => {
     const saveOnLeave = () => {
-      if (lastSavedPosition.current > 0 && lessonId) {
-        const payload = JSON.stringify({
-          position: lastSavedPosition.current,
-          watched_seconds: lastSavedPosition.current,
-        });
-        const url = `${process.env.NEXT_PUBLIC_API_URL}${endpoints.video.progress(lessonId)}`;
-        if (navigator.sendBeacon) {
-          const blob = new Blob([payload], { type: "application/json" });
-          navigator.sendBeacon(url, blob);
-        }
+      if (lastSavedPositionRef.current > 0) {
+        console.log("💾 Saving on leave:", lastSavedPositionRef.current);
+        apiClient
+          .post(endpoints.video.progress(lessonId), {
+            position: lastSavedPositionRef.current,
+            watched_seconds: lastSavedPositionRef.current,
+          })
+          .catch(() => {});
       }
     };
 
@@ -199,9 +197,6 @@ export function useLessonProgress({
     resumePosition,
     resumeLoaded,
     handleReady,
-    handleDuration,
-    handleProgress,
-    handleProgressCheck,
     handleEnded,
   };
 }

@@ -92,24 +92,49 @@ async function proxyRequest(
 
   // ─── 6) لو الـ response مش JSON ─────────
   let data: unknown;
-  try {
-    data = JSON.parse(responseText);
-  } catch {
-    console.error("[proxy] ❌ Non-JSON response:", {
-      status: response.status,
-      body: responseText.slice(0, 500),
-      contentType: response.headers.get("content-type"),
-    });
-    return NextResponse.json(
-      {
-        success: false,
-        message: "Backend returned non-JSON response.",
-        code: "INVALID_BACKEND_RESPONSE",
-        rawBody: responseText.slice(0, 200),
+  const responseContentType = response.headers.get("content-type") || "";
+  const isJson = responseContentType.includes("application/json");
+
+  if (isJson) {
+    try {
+      data = JSON.parse(responseText);
+    } catch {
+      // JSON parsing failed even though content-type says JSON
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Invalid JSON from backend",
+          code: "INVALID_JSON",
+        },
+        { status: 502 },
+      );
+    }
+  } else {
+    // Non-JSON response — pass it through or handle gracefully
+    // Case 1: Empty response (204 No Content)
+    if (response.status === 204 || responseText.trim() === "") {
+      data = { success: true, data: null };
+    }
+    // Case 2: HTML error page (404, 500, etc.)
+    else if (responseContentType.includes("text/html")) {
+      console.error("[proxy] Backend returned HTML:", {
         status: response.status,
-      },
-      { status: 502 },
-    );
+        body: responseText.slice(0, 200),
+      });
+      return NextResponse.json(
+        {
+          success: false,
+          message: `Backend returned HTML (status ${response.status}). Endpoint may not exist or auth failed.`,
+          code: "BACKEND_HTML_RESPONSE",
+          backendStatus: response.status,
+        },
+        { status: response.status }, // ← Pass the REAL status, not 502
+      );
+    }
+    // Case 3: Other content types
+    else {
+      data = { success: true, data: responseText };
+    }
   }
 
   // ─── 7) بناء الـ response النهائي ──────

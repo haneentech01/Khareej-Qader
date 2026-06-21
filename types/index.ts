@@ -357,3 +357,42 @@ export interface StudentPathData {
   current_video: CurrentVideo;
   videos: PathVideo[];
 }
+
+// ─── Video Progress Types ───────────────────────
+
+/**
+ * استجابة GET /videos/{id}/resume
+ * الـ backend يرجع: { success: true, message: "...", data: 100 }
+ *
+ * ★ ملاحظة مهمة: data هنا رقم مباشر (100)، وليس object!
+ */
+export type VideoResumeData = number;
+
+/**
+ * استجابة POST /videos/{id}/progress
+ * الـ backend يرجع: { success: true, message: "Progress updated", data: null }
+ */
+export interface VideoProgressResponse {
+  success: boolean;
+  message: string;
+  data: null;
+}
+
+/**
+ * استجابة POST /videos/{id}/complete
+ * الـ backend يرجع: { success: true, message: "Video completed", data: true }
+ */
+export interface VideoCompleteResponse {
+  success: boolean;
+  message: string;
+  data: boolean;
+}
+
+/**
+ * الـ payload الذي نرسله لـ POST /videos/{id}/progress
+ * ★ نرسل position فقط — الـ backend يحسب watched_seconds والـ completion
+ */
+export interface VideoProgressPayload {
+  position: number;
+  watched_seconds: number;
+}

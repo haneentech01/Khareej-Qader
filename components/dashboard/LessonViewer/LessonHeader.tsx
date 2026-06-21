@@ -1,9 +1,9 @@
 "use client";
 
-import React from "react";
 import { useTranslations } from "next-intl";
 import { PlayCircleIcon } from "lucide-react";
-import { useStudentPath } from "@/hooks/dashboard/useStudentPath";
+import { useLessonPath } from "@/providers/LessonPathProvider";
+import { notFound } from "next/navigation";
 
 interface LessonHeaderProps {
     lessonId: string;
@@ -11,53 +11,15 @@ interface LessonHeaderProps {
 
 export function LessonHeader({ lessonId }: LessonHeaderProps) {
     const t = useTranslations("Dashboard.LessonViewer");
-    const { data, loading, error } = useStudentPath();
+    const { data } = useLessonPath();
 
-    // ─── البحث عن الدرس الحالي ─────────────
-    const currentVideo = data?.videos.find(
-        (video) => String(video.id) === lessonId
-    );
+    if (!data) return null;
 
-    // ─── حالة التحميل ─────────────────────
-    if (loading) {
-        return (
-            <div className="flex items-center justify-center py-20">
-                <div className="animate-spin size-10 border-4 border-brand-primary border-t-transparent rounded-full" />
-            </div>
-        );
+    const currentVideo = data?.videos.find((v) => String(v.id) === lessonId);
+    if (!currentVideo) {
+        notFound();
     }
 
-    // ─── خطأ ──────────────────────────────
-    if (error) {
-        return (
-            <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
-                <p className="text-red-500 text-lg">
-                    {error}
-                </p>
-                <button
-                    onClick={() => window.location.reload()}
-                    className="text-brand-primary font-bold hover:underline"
-                >
-                    إعادة المحاولة
-                </button>
-            </div>
-        );
-    }
-
-    // ─── لا بيانات ──────────────────────────────
-    if (!data || !currentVideo) {
-        return (
-            <div className="flex items-center justify-center min-h-[60vh]">
-                <p className="text-brand-muted text-lg">
-                    لا توجد بيانات
-                </p>
-            </div>
-        );
-    }
-
-
-
-    // ─── عرض البيانات الحقيقية ─────────────
     return (
         <div className="flex flex-col items-start gap-2.5">
             <h1 className="text-3xl md:text-4xl font-bold text-black">
@@ -66,7 +28,7 @@ export function LessonHeader({ lessonId }: LessonHeaderProps) {
             <p className="flex items-center gap-2">
                 <PlayCircleIcon className="w-5 h-5 text-brand-primary" />
                 <span className="text-brand-muted">
-                    {t("subtitle", { lessonName: currentVideo?.title })}
+                    {t("subtitle", { lessonName: currentVideo.title })}
                 </span>
             </p>
         </div>
