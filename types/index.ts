@@ -393,6 +393,12 @@ export interface VideoCompleteResponse {
  * ★ نرسل position فقط — الـ backend يحسب watched_seconds والـ completion
  */
 export interface VideoProgressPayload {
+  [key: string]: unknown;
   position: number;
   watched_seconds: number;
+}
+
+/** Props مشتركة لكل الـ hooks */
+export interface VideoHookProps {
+  lessonId: string | number;
 }

@@ -1,7 +1,7 @@
 // components/dashboard/LessonViewer/VideoPlayer.tsx
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useCallback, memo } from "react";
 import {
     MediaController,
     MediaControlBar,
@@ -18,6 +18,7 @@ import {
 import "youtube-video-element";
 import { useLessonProgress } from "@/hooks/dashboard/videos/useLessonProgress";
 
+// ─── Types ──────────────────────────────────────
 interface VideoPlayerProps {
     lessonId?: string | number;
     videoUrl?: string;
@@ -25,7 +26,11 @@ interface VideoPlayerProps {
     onVideoCompleted?: () => void;
 }
 
-// استخراج YouTube ID من الـ URL
+// ─── Constants ──────────────────────────────────
+const RESUME_SEEK_DELAYS_MS = [300, 800, 1500, 2500, 4000];
+const READY_FALLBACK_DELAY_MS = 3000;
+
+// ─── Pure Functions ─────────────────────────────
 function extractYoutubeId(url?: string): string | null {
     if (!url) return null;
     const match = url.match(
@@ -34,7 +39,8 @@ function extractYoutubeId(url?: string): string | null {
     return match ? match[1] : null;
 }
 
-export function VideoPlayer({
+// ─── Component ──────────────────────────────────
+function VideoPlayerComponent({
     lessonId = "default",
     videoUrl,
     thumbnailUrl: _thumbnailUrl,
@@ -56,112 +62,73 @@ export function VideoPlayer({
         onVideoCompleted,
     });
 
-    // Debug logging
-    useEffect(() => {
-        console.log("🎬 VideoPlayer mounted/updated:", {
-            lessonId,
-            videoUrl,
-            youtubeId: extractYoutubeId(videoUrl),
-            resumePosition,
-            resumeLoaded,
-        });
-    }, [lessonId, videoUrl, resumePosition, resumeLoaded]);
-
     const youtubeId = extractYoutubeId(videoUrl);
 
-    // ★ Reset flags عند تغيير الدرس
+    // ─── Reset flags عند تغيير الدرس ────────────────
     useEffect(() => {
         readyFiredRef.current = false;
         seekAppliedRef.current = false;
     }, [lessonId, youtubeId]);
 
-    // ★ ربط الأحداث بـ youtube-video element
-    useEffect(() => {
-        const video = videoRef.current;
-        if (!video) {
-            console.warn("⚠️ video element not ready yet");
-            return;
-        }
-
-        console.log("🎧 Attaching listeners to youtube-video element");
-
-        const tryReady = (eventName: string) => {
-            if (readyFiredRef.current) return;
-            readyFiredRef.current = true;
-            console.log(`✅ ${eventName} fired — calling handleReady`);
-            handleReady(video);
-        };
-
-        const onCanPlay = () => tryReady("canplay");
-        const onLoadedData = () => tryReady("loadeddata");
-        const onLoadedMetadata = () => tryReady("loadedmetadata");
-        const onTimeUpdate = () => tryReady("timeupdate");
-        const onPlay = () => tryReady("play");
-        const onEnded = () => {
-            console.log("🏁 ended fired");
-            handleEnded();
-        };
-
-        video.addEventListener("canplay", onCanPlay);
-        video.addEventListener("loadeddata", onLoadedData);
-        video.addEventListener("loadedmetadata", onLoadedMetadata);
-        video.addEventListener("timeupdate", onTimeUpdate);
-        video.addEventListener("play", onPlay);
-        video.addEventListener("ended", onEnded);
-
-        // Fallback timer
-        const fallbackTimer = setTimeout(() => {
-            if (!readyFiredRef.current) {
-                console.warn("⏰ Fallback: forcing handleReady");
-                tryReady("fallback-timer");
-            }
-        }, 3000);
-
-        return () => {
-            video.removeEventListener("canplay", onCanPlay);
-            video.removeEventListener("loadeddata", onLoadedData);
-            video.removeEventListener("loadedmetadata", onLoadedMetadata);
-            video.removeEventListener("timeupdate", onTimeUpdate);
-            video.removeEventListener("play", onPlay);
-            video.removeEventListener("ended", onEnded);
-            clearTimeout(fallbackTimer);
-        };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [lessonId, youtubeId, resumeLoaded, resumePosition]);
-
-    // ★★★ تطبيق الـ resume عند توفر البيانات (الحل الجديد) ★★★
+    // ─── Event Listeners ────────────────────────────
     useEffect(() => {
         const video = videoRef.current;
         if (!video) return;
-        if (seekAppliedRef.current) return;
-        if (!resumeLoaded) return;
-        if (!resumePosition || resumePosition <= 0) return;
 
-        console.log("🎯 Resume data ready, attempting seek to:", resumePosition);
+        const tryReady = () => {
+            if (readyFiredRef.current) return;
+            readyFiredRef.current = true;
+            handleReady(video);
+        };
+
+        const events = [
+            "canplay",
+            "loadeddata",
+            "loadedmetadata",
+            "timeupdate",
+            "play",
+        ];
+
+        events.forEach((event) => video.addEventListener(event, tryReady));
+        video.addEventListener("ended", handleEnded);
+
+        // Fallback لو لم يُطلق أي حدث
+        const fallbackTimer = setTimeout(() => {
+            if (!readyFiredRef.current) tryReady();
+        }, READY_FALLBACK_DELAY_MS);
+
+        return () => {
+            events.forEach((event) => video.removeEventListener(event, tryReady));
+            video.removeEventListener("ended", handleEnded);
+            clearTimeout(fallbackTimer);
+        };
+    }, [lessonId, youtubeId, handleReady, handleEnded]);
+
+    // ─── تطبيق الـ resume عند توفر البيانات ──────────
+    useEffect(() => {
+        const video = videoRef.current;
+        if (!video || seekAppliedRef.current) return;
+        if (!resumeLoaded || !resumePosition || resumePosition <= 0) return;
 
         const trySeek = () => {
             if (seekAppliedRef.current) return;
             try {
                 video.currentTime = resumePosition;
                 seekAppliedRef.current = true;
-                console.log("▶️ Successfully seeked to:", resumePosition);
-            } catch (err) {
-                console.error("❌ Seek attempt failed:", err);
+            } catch {
+                // YouTube IFrame API قد يرفض seek إذا لم يكن جاهزاً
             }
         };
 
-        // محاولات متعددة لأن YouTube IFrame API يحتاج وقتاً
-        const timers = [300, 800, 1500, 2500, 4000].map((delay) =>
+        const timers = RESUME_SEEK_DELAYS_MS.map((delay) =>
             setTimeout(trySeek, delay),
         );
 
-        return () => {
-            timers.forEach(clearTimeout);
-        };
+        return () => timers.forEach(clearTimeout);
     }, [resumeLoaded, resumePosition, lessonId, youtubeId]);
 
+    // ─── Empty State ────────────────────────────────
     if (!youtubeId) {
-        console.warn("⚠️ No YouTube ID found for URL:", videoUrl);
         return (
             <div className="flex items-center justify-center w-full h-full bg-slate-900">
                 <p className="text-white">الفيديو غير متاح</p>
@@ -219,3 +186,6 @@ export function VideoPlayer({
         </MediaController>
     );
 }
+
+// ─── Memoized Export ────────────────────────────
+export const VideoPlayer = memo(VideoPlayerComponent);
