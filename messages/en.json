@@ -575,6 +575,7 @@
     "breadcrumbs": {
       "home": "Home",
       "tasks": "Tasks",
+      "track": "Track",
       "review": "Review Submission"
     },
     "header": {
@@ -842,5 +843,76 @@
     "review_notice": "Your request will be reviewed by our team and we will contact you as soon as possible.",
     "cancel": "Cancel",
     "submit": "Send Request"
+  },
+  "MentorTasks": {
+    "breadcrumbs": {
+      "home": "Home",
+      "tasks": "Tasks"
+    },
+    "header": {
+      "title": "Tasks",
+      "subtitle": "Manage track tasks and student submissions",
+      "new_task": "New Task"
+    },
+    "stats": {
+      "total_tasks": "Total Tasks",
+      "published": "Published",
+      "scheduled": "Scheduled",
+      "draft": "Draft",
+      "closed": "Closed",
+      "task": "Task"
+    },
+    "filters": {
+      "search_placeholder": "Search tasks...",
+      "sort_tasks": "Sort Tasks",
+      "all": "All"
+    },
+    "table": {
+      "task": "Task",
+      "related_lesson": "Related Lesson",
+      "due_date": "Due Date",
+      "progress": "Progress (Submissions)",
+      "status": "Status",
+      "actions": "Actions",
+      "students_progress": "{submitted} / {total} students",
+      "no_progress": "- / {total} students",
+      "view_submissions": "View Submissions",
+      "status_published": "Published",
+      "status_scheduled": "Scheduled",
+      "status_draft": "Draft",
+      "status_closed": "Closed"
+    },
+    "pagination": {
+      "showing": "Showing {start} to {end} of {total} tasks",
+      "prev": "Previous",
+      "next": "Next",
+      "show": "Show"
+    },
+    "newTaskModal": {
+      "title": "Add New Task",
+      "subtitle": "Create a new task linked to one of the training track lessons.",
+      "task_title": "Task Title",
+      "task_title_placeholder": "Enter task title",
+      "related_lesson": "Related Lesson",
+      "related_lesson_placeholder": "Select Lesson",
+      "description": "Task Description",
+      "description_placeholder": "Write task description and execution instructions...",
+      "due_date": "Due Date",
+      "due_date_placeholder": "Select date and time",
+      "file_zip": "ZIP File",
+      "link_github": "GitHub Link",
+      "file_pdf": "PDF",
+      "text": "Text",
+      "status": "Task Status",
+      "status_published": "Published",
+      "status_scheduled": "Scheduled",
+      "status_draft": "Draft",
+      "scheduled_info": "When selecting 'Scheduled', the task will not be available to students until the specified publish date",
+      "attachments": "Attachments (Optional)",
+      "dropzone_title": "Drag files here or click to upload",
+      "dropzone_subtitle": "Max size (20MB) for PDF, DOCX, ZIP files",
+      "cancel": "Cancel",
+      "submit": "Create Task"
+    }
   }
 }

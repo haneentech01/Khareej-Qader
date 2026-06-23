@@ -402,3 +402,15 @@ export interface VideoProgressPayload {
 export interface VideoHookProps {
   lessonId: string | number;
 }
+
+export type TaskStatus = "published" | "scheduled" | "draft" | "closed";
+
+export interface TaskType {
+  id: string;
+  title: string;
+  relatedLesson: string;
+  dueDate: string;
+  submittedStudents: number;
+  totalStudents: number;
+  status: TaskStatus;
+}

@@ -2,11 +2,11 @@ import React from "react";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 import { FileCheck2, ChevronLeft, ChevronRight } from "lucide-react";
-import { SubmissionHeader } from "@/components/dashboard/Mentor/Submissions/SubmissionHeader";
-import { TaskInfoCard } from "@/components/dashboard/Mentor/Submissions/TaskInfoCard";
-import { FilesCard } from "@/components/dashboard/Mentor/Submissions/FilesCard";
+import { SubmissionHeader } from "@/components/Mentor/Submissions/SubmissionHeader";
+import { TaskInfoCard } from "@/components/Mentor/Submissions/TaskInfoCard";
+import { FilesCard } from "@/components/Mentor/Submissions/FilesCard";
 import { SubmissionReviewPageProps } from "@/types";
-import { EvaluationForm } from "@/components/dashboard/Mentor/Submissions/Evaluation/EvaluationForm";
+import { EvaluationForm } from "@/components/Mentor/Submissions/Evaluation/EvaluationForm";
 
 export default async function SubmissionReviewPage({ params }: SubmissionReviewPageProps) {
   const { locale } = await params;

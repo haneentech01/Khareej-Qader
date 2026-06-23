@@ -1,10 +1,10 @@
 import React from "react";
 import { getTranslations } from "next-intl/server";
-import { MentorStats } from "@/components/dashboard/Mentor/MentorStats";
-import { LatestSubmissions } from "@/components/dashboard/Mentor/LatestSubmissions";
-import { LateStudents } from "@/components/dashboard/Mentor/LateStudents";
-import { LatestActivities } from "@/components/dashboard/Mentor/LatestActivities";
-import { QuickActions } from "@/components/dashboard/Mentor/QuickActions";
+import { MentorStats } from "@/components/Mentor/MentorStats";
+import { LatestSubmissions } from "@/components/Mentor/LatestSubmissions";
+import { LateStudents } from "@/components/Mentor/LateStudents";
+import { LatestActivities } from "@/components/Mentor/LatestActivities";
+import { QuickActions } from "@/components/Mentor/QuickActions";
 import { Code2 } from "lucide-react";
 
 interface MentorDashboardPageProps {

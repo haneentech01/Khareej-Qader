@@ -1,6 +1,6 @@
 import React from "react";
 import { getTranslations } from "next-intl/server";
-import { StudentProfilePageMentor } from "@/components/dashboard/Mentor/Students/StudentProfilePageMentor";
+import { StudentProfilePageMentor } from "@/components/Mentor/Students/StudentProfilePageMentor";
 
 interface StudentProfilePageProps {
   params: Promise<{
@@ -15,7 +15,7 @@ export async function generateMetadata({
   const { locale, studentId } = await params;
   const t = await getTranslations({ locale, namespace: "MentorStudentProfile" });
   const tMeta = await getTranslations({ locale, namespace: "Dashboard.metadata" });
-  
+
   // Here we can fetch the name based on the id or display a dynamic localized title.
   // For mock-up simplicity, we'll prefix it.
   const studentName = studentId === "2" ? "سارة أحمد" : "محمد خالد";

@@ -1,5 +1,5 @@
 import { getTranslations } from "next-intl/server";
-import { TrackPageMentor } from "@/components/dashboard/Mentor/Track/TrackPageMentor";
+import { TrackPageMentor } from "@/components/Mentor/Track/TrackPageMentor";
 
 interface MentorTrackPageProps {
   params: Promise<{

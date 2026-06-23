@@ -578,6 +578,7 @@
     "breadcrumbs": {
       "home": "الرئيسية",
       "tasks": "المهام",
+      "track": "المسار التدريبي",
       "review": "مراجعة التسليم"
     },
     "header": {
@@ -816,5 +817,76 @@
   "MentorRegisterForm": {
     "cancel": "إلغاء",
     "submit": "إرسال الطلب"
+  },
+  "MentorTasks": {
+    "breadcrumbs": {
+      "home": "الرئيسية",
+      "tasks": "المهام"
+    },
+    "header": {
+      "title": "المهام",
+      "subtitle": "إدارة مهام المسار وتسليمات الطلاب",
+      "new_task": "مهمة جديدة"
+    },
+    "stats": {
+      "total_tasks": "إجمالي المهام",
+      "published": "منشورة",
+      "scheduled": "مجدولة",
+      "draft": "مسودة",
+      "closed": "مغلقة",
+      "task": "مهمة"
+    },
+    "filters": {
+      "search_placeholder": "ابحث في المهام...",
+      "sort_tasks": "ترتيب المهام",
+      "all": "الكل"
+    },
+    "table": {
+      "task": "المهمة",
+      "related_lesson": "الدرس المرتبط",
+      "due_date": "موعد التسليم",
+      "progress": "التقدم (التسليمات)",
+      "status": "الحالة",
+      "actions": "الإجراءات",
+      "students_progress": "{submitted} / {total} طالب",
+      "no_progress": "- / {total} طالب",
+      "view_submissions": "عرض التسليمات",
+      "status_published": "منشورة",
+      "status_scheduled": "مجدولة",
+      "status_draft": "مسودة",
+      "status_closed": "مغلقة"
+    },
+    "pagination": {
+      "showing": "عرض {start} إلى {end} من {total} مهام",
+      "prev": "السابق",
+      "next": "التالي",
+      "show": "عرض"
+    },
+    "newTaskModal": {
+      "title": "إضافة مهمة جديدة",
+      "subtitle": "أنشئ مهمة جديدة مرتبطة بأحد دروس المسار التدريبي.",
+      "task_title": "عنوان المهمة",
+      "task_title_placeholder": "اكتب عنوان المهمة",
+      "related_lesson": "الدرس المرتبط",
+      "related_lesson_placeholder": "اختر الدرس",
+      "description": "وصف المهمة",
+      "description_placeholder": "اكتب وصف المهمة وتعليمات التنفيذ...",
+      "due_date": "موعد التسليم",
+      "due_date_placeholder": "اختر التاريخ والوقت",
+      "file_zip": "ملف ZIP",
+      "link_github": "رابط GitHub",
+      "file_pdf": "PDF",
+      "text": "نص",
+      "status": "حالة المهمة",
+      "status_published": "منشورة",
+      "status_scheduled": "مجدولة",
+      "status_draft": "مسودة",
+      "scheduled_info": "عند اختيار 'مجدولة' لن تكون المهمة متاحة للطلاب إلا في تاريخ النشر المحدد",
+      "attachments": "المرفقات (اختياري)",
+      "dropzone_title": "اسحب الملفات هنا <highlight>أو اضغط للرفع</highlight>",
+      "dropzone_subtitle": "الحد الأقصى (20MB) لملفات PDF, DOCX, ZIP",
+      "cancel": "إلغاء",
+      "submit": "إنشاء المهمة"
+    }
   }
 }
