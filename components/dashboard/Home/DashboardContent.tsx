@@ -75,12 +75,17 @@ export function DashboardContent() {
                         title={next_task.title}
                         context={next_task.lesson_name}
                         deadline={next_task.deadline}
+                        description={next_task.description}
+                        videoName={next_task.video_name}
+
                     />
                 ) : (
                     <TaskCard
                         title={t("tasks.title")}
                         context={t("tasks.lesson_name")}
                         deadline={"—"}
+                        description={t("tasks.description")}
+                        videoName={t("tasks.lesson_name")}
                     />
                 )}
 
@@ -89,12 +94,13 @@ export function DashboardContent() {
                     <MentorCard
                         name={mentor.name}
                         role={mentor.role}
-                        bio={mentor.bio}
+                        info={mentor.info}
+                        mobile={mentor.mobile}
                         avatarUrl={mentor.avatar}
                     />
                 ) : (
                     <div className="bg-white rounded-[30px] p-8 border border-slate-100
-            shadow-sm flex items-center justify-center h-full">
+                                   shadow-sm flex items-center justify-center h-full">
                         <p className="text-brand-muted">
                             {t("mentor.title")}
                         </p>
@@ -103,8 +109,8 @@ export function DashboardContent() {
             </div>
 
             {/* 3. Bottom Section: Announcements & Certificate */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
-                {/* الشهادة — تظهر بس لو فيه شهادة */}
+            {/* <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
+                {/* الشهادة — تظهر بس لو فيه شهادة 
                 {certificate ? (
                     <CertificateCard
                         progressValue={certificate.progress_percentage}
@@ -120,7 +126,8 @@ export function DashboardContent() {
                 )}
 
                 <Announcements announcements={announcements} />
-            </div>
+            </div> 
+            */}
         </div>
     );
 }

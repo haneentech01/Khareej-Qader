@@ -23,34 +23,34 @@ export const TasksStats = ({ stats }: TasksStatsProps) => {
       iconBg: 'bg-blue-50',
       desc: t("task"),
     },
-    {
-      title: t('published'),
-      value: stats.published,
-      icon: <CheckCircle2 className="w-5 h-5 text-green-500" />,
-      iconBg: 'bg-green-50',
-      desc: t("task"),
-    },
-    {
-      title: t('scheduled'),
-      value: stats.scheduled,
-      icon: <Clock className="w-5 h-5 text-orange-500" />,
-      iconBg: 'bg-orange-50',
-      desc: t("task"),
-    },
-    {
-      title: t('draft'),
-      value: stats.draft,
-      icon: <Edit3 className="w-5 h-5 text-purple-500" />,
-      iconBg: 'bg-purple-50',
-      desc: t("task"),
-    },
-    {
-      title: t('closed'),
-      value: stats.closed,
-      icon: <Lock className="w-5 h-5 text-red-500" />,
-      iconBg: 'bg-red-50',
-      desc: t("task"),
-    },
+    // {
+    //   title: t('published'),
+    //   value: stats.published,
+    //   icon: <CheckCircle2 className="w-5 h-5 text-green-500" />,
+    //   iconBg: 'bg-green-50',
+    //   desc: t("task"),
+    // },
+    // {
+    //   title: t('scheduled'),
+    //   value: stats.scheduled,
+    //   icon: <Clock className="w-5 h-5 text-orange-500" />,
+    //   iconBg: 'bg-orange-50',
+    //   desc: t("task"),
+    // },
+    // {
+    //   title: t('draft'),
+    //   value: stats.draft,
+    //   icon: <Edit3 className="w-5 h-5 text-purple-500" />,
+    //   iconBg: 'bg-purple-50',
+    //   desc: t("task"),
+    // },
+    // {
+    //   title: t('closed'),
+    //   value: stats.closed,
+    //   icon: <Lock className="w-5 h-5 text-red-500" />,
+    //   iconBg: 'bg-red-50',
+    //   desc: t("task"),
+    // },
   ];
 
   return (

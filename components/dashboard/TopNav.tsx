@@ -43,13 +43,13 @@ export function TopNav() {
 
       {/* Profile & Notifications */}
       <div className="flex items-center gap-7">
-        <button className="relative text-brand-muted hover:text-brand-base
+        {/* <button className="relative text-brand-muted hover:text-brand-base
           transition-colors p-2 rounded-full hover:bg-gray-50 cursor-pointer"
           aria-label={t("notifications")}>
           <Bell className="size-5" />
           <span className="absolute top-2 right-2 size-2
             bg-red-500 rounded-full border-2 border-white" />
-        </button>
+        </button> */}
 
         <div className="flex items-center gap-3">
           <div className="text-left hidden md:block">

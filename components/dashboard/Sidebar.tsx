@@ -32,7 +32,7 @@ export function Sidebar() {
     { title: t("home"), icon: LayoutDashboard, href: "/dashboard" },
     { title: t("track"), icon: BookOpenText, href: "/dashboard/my-track" },
     { title: t("tasks"), icon: ClipboardList, href: "/dashboard/tasks" },
-    { title: t("certificates"), icon: Award, href: "/dashboard/certificates" },
+    // { title: t("certificates"), icon: Award, href: "/dashboard/certificates" },
     { title: t("profile"), icon: User, href: "/dashboard/profile" },
   ];
 

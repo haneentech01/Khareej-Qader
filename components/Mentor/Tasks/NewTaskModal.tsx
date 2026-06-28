@@ -185,7 +185,7 @@ export const NewTaskModal = () => {
             </div> */}
 
             {/* Status */}
-            <div className="space-y-3">
+            {/* <div className="space-y-3">
               <label className="text-sm font-medium text-brand-muted mb-3 block">
                 {t('status')} <span className="text-red-500">*</span>
               </label>
@@ -235,10 +235,10 @@ export const NewTaskModal = () => {
                   <p>{t('scheduled_info')}</p>
                 </div>
               )}
-            </div>
+            </div> */}
 
             {/* Attachments Dropzone */}
-            <div className="space-y-2">
+            {/* <div className="space-y-2">
               <label className="text-sm font-semibold text-brand-muted mb-3 block">
                 {t('attachments')}
               </label>
@@ -255,20 +255,21 @@ export const NewTaskModal = () => {
                   {t('dropzone_subtitle')}
                 </p>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
 
         <DialogFooter className="p-6 border-t bg-gray-50 sm:justify-end gap-2 flex-row justify-end">
           {/* close btn */}
           <DialogClose asChild>
-            <Button variant="outline" className="w-full sm:w-auto">
+            <Button variant="outline" className="w-full sm:w-auto cursor-pointer">
               {t('cancel')}
             </Button>
           </DialogClose>
 
           {/* submit btn */}
-          <Button className="w-full sm:w-auto bg-[#1EB58E] hover:bg-[#199C7A] text-white" onClick={() => setOpen(false)}>
+          <Button className="cursor-pointer w-full sm:w-auto  
+          bg-brand-primary hover:bg-brand-base text-white" onClick={() => setOpen(false)}>
             {t('submit')}
           </Button>
         </DialogFooter>

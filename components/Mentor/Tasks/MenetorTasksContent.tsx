@@ -4,7 +4,7 @@ import { TasksFilter } from "@/components/Mentor/Tasks/TasksFilter";
 import { TasksHeader } from "@/components/Mentor/Tasks/TasksHeader";
 import { TasksStats } from "@/components/Mentor/Tasks/TasksStats";
 import { TasksTable } from "@/components/Mentor/Tasks/TasksTable";
-import { useTasks } from "@/hooks/menetor/useTasks";
+import { useTasks } from "@/hooks/mentor/useTasks";
 
 
 export default function MentorTasksContent() {
@@ -31,8 +31,8 @@ export default function MentorTasksContent() {
             <TasksFilter
                 searchQuery={searchQuery}
                 setSearchQuery={setSearchQuery}
-                statusFilter={statusFilter}
-                setStatusFilter={setStatusFilter}
+            // statusFilter={statusFilter}
+            // setStatusFilter={setStatusFilter}
             />
             <TasksTable
                 tasks={tasks}

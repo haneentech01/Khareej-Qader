@@ -285,12 +285,15 @@ export interface DashboardNextTask {
   title: string;
   deadline: string;
   lesson_name: string;
+  description: string;
+  video_name?: string;
 }
 
 export interface DashboardMentor {
   name: string;
   role: string;
-  bio: string;
+  info: string;
+  mobile: string;
   avatar: string;
 }
 

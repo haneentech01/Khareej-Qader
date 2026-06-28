@@ -7,10 +7,12 @@ import { useTranslations } from "next-intl";
 interface TaskCardProps {
   title: string;
   context: string;
-  deadline: string;
+  deadline?: string;
+  description: string;
+  videoName?: string;
 }
 
-export function TaskCard({ title, context, deadline }: TaskCardProps) {
+export function TaskCard({ title, context, deadline, description, videoName }: TaskCardProps) {
   const t = useTranslations("Dashboard.tasks");
 
   return (
@@ -27,29 +29,37 @@ export function TaskCard({ title, context, deadline }: TaskCardProps) {
             </span>
           </div>
           {/* Deadline */}
-          <div className="flex items-center gap-2 text-[#93000A]">
-            <Calendar className="size-4" />
-            <span className="text-sm">
-              {t("deadline", { date: deadline })}
-            </span>
-          </div>
+
+          {deadline ? (
+            <div className="flex items-center gap-2 text-[#93000A]">
+              <Calendar className="size-4" />
+              <span className="text-sm">
+                {t("deadline", { date: deadline })}
+              </span>
+            </div>
+          ) : null}
         </div>
 
         {/* Task Title */}
-        <h3 className="text-xl font-bold text-[#191C1B] mb-2.5">
+        <h3 className="text-xl font-bold text-black mb-1">
           {title}
         </h3>
 
+        <p className="text-brand-muted mb-7">
+          {description}
+        </p>
+
         {/* Task Context */}
-        <p className="text-brand-muted">
+        <p className="text-brand-primary font-bold">
           {t("context", { lesson: context })}
+          {videoName}
         </p>
       </div>
 
-      <Button className="w-full bg-brand-primary hover:bg-brand-hover/90
+      {/* <Button className="w-full bg-brand-primary hover:bg-brand-hover/90
       cursor-pointer text-white rounded-[10px] h-12 font-semibold">
         {t("start")}
-      </Button>
+      </Button> */}
     </div>
   );
 }

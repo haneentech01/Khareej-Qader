@@ -25,12 +25,12 @@ export const TasksTable = ({ tasks, currentPage, totalPages, onPageChange }: Tas
         <Table>
           <TableHeader className="bg-gray-50/50">
             <TableRow>
-              <TableHead className="py-4 text-gray-500 font-medium">{t('task')}</TableHead>
-              <TableHead className="py-4 text-gray-500 font-medium">{t('related_lesson')}</TableHead>
-              <TableHead className="py-4 text-gray-500 font-medium">{t('due_date')}</TableHead>
-              <TableHead className="py-4 text-gray-500 font-medium">{t('progress')}</TableHead>
+              <TableHead className="text-start py-4 text-gray-500 font-medium">{t('task')}</TableHead>
+              <TableHead className="text-start py-4 text-gray-500 font-medium">{t('related_lesson')}</TableHead>
+              <TableHead className="text-start py-4 text-gray-500 font-medium">{t('due_date')}</TableHead>
+              {/* <TableHead className="py-4 text-gray-500 font-medium">{t('progress')}</TableHead>
               <TableHead className="py-4 text-gray-500 font-medium">{t('status')}</TableHead>
-              <TableHead className="py-4 text-gray-500 font-medium">{t('actions')}</TableHead>
+              <TableHead className="py-4 text-gray-500 font-medium">{t('actions')}</TableHead> */}
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -44,7 +44,7 @@ export const TasksTable = ({ tasks, currentPage, totalPages, onPageChange }: Tas
                   <TableCell className="py-4 font-medium text-gray-900">{task.title}</TableCell>
                   <TableCell className="py-4 text-gray-600">{task.relatedLesson}</TableCell>
                   <TableCell className="py-4 text-gray-600">{task.dueDate}</TableCell>
-                  <TableCell className="py-4 min-w-[200px]">
+                  {/* <TableCell className="py-4 min-w-[200px]">
                     <div className="flex flex-col gap-2">
                       <span className="text-sm font-medium text-gray-600">
                         {task.submittedStudents === 0 && task.status !== 'published'
@@ -59,8 +59,8 @@ export const TasksTable = ({ tasks, currentPage, totalPages, onPageChange }: Tas
                   </TableCell>
                   <TableCell className="py-4">
                     <StatusBadge status={task.status} />
-                  </TableCell>
-                  <TableCell className="py-4">
+                  </TableCell> */}
+                  {/* <TableCell className="py-4">
                     <div className="flex items-center gap-2">
                       <Button variant="outline" size="sm" className="h-8 gap-2 text-gray-600 border-gray-200">
                         <Eye className="w-4 h-4" />
@@ -70,7 +70,7 @@ export const TasksTable = ({ tasks, currentPage, totalPages, onPageChange }: Tas
                         <MoreVertical className="w-4 h-4" />
                       </Button>
                     </div>
-                  </TableCell>
+                  </TableCell> */}
                 </TableRow>
               );
             })}
