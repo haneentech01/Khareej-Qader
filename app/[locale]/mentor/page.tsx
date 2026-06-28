@@ -6,6 +6,19 @@ import { LateStudents } from "@/components/Mentor/LateStudents";
 import { LatestActivities } from "@/components/Mentor/LatestActivities";
 import { QuickActions } from "@/components/Mentor/QuickActions";
 import { Code2 } from "lucide-react";
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "Dashboard.metadata.mentor_dashboard.home" });
+  return {
+    title: t("title"),
+    description: t("description"),
+  };
+}
+
 
 interface MentorDashboardPageProps {
   params: Promise<{

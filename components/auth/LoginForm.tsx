@@ -8,7 +8,11 @@ import { motion } from "framer-motion";
 import { useLoginForm } from "@/hooks/auth/useLoginForm";
 import { Loader2 } from "lucide-react";
 
-export function LoginForm() {
+interface LoginFormProps {
+  showActivationMessage?: boolean;
+}
+
+export function LoginForm({ showActivationMessage = false }: LoginFormProps) {
   const t = useTranslations("Auth");
 
   // ─── Hook للتسجيل (POST) ──────────────────────
@@ -33,6 +37,45 @@ export function LoginForm() {
           {t("subtitle")}
         </p>
       </div>
+
+      {/* ─── رسالة التفعيل عند الحاجة ─────────────── */}
+      {showActivationMessage && (
+        <motion.div
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: "auto" }}
+          transition={{ duration: 0.4 }}
+          className="mb-6 p-4 rounded-2xl border border-green-100 bg-green-50"
+        >
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-600 shrink-0">
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+            </div>
+            <div className="flex-1">
+              <h4 className="text-base font-semibold text-green-900">
+                {t("activation_required_title")}
+              </h4>
+              <p className="text-sm text-green-800 mt-1">
+                {t("activation_required_message")}
+              </p>
+              <p className="text-xs text-green-700 mt-2">
+                {t("check_spam")}
+              </p>
+            </div>
+          </div>
+        </motion.div>
+      )}
 
       <form className="space-y-6" onSubmit={handleSubmit}>
         {/* username */}

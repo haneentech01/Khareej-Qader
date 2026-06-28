@@ -9,6 +9,8 @@ const endpoints = {
       me: "/students/auth/me", // جيب بيانات المستخدم الحالي
     },
     mentor: {
+      register: "/mentor/auth/register",
+      activation: (id: string) => `/mentor/enable-account/${id}`,
       login: "/mentor/auth/login",
       logout: "/mentor/auth/logout",
       me: "/mentor/auth/me",
@@ -43,6 +45,9 @@ const endpoints = {
     submissions: "/mentor/submissions",
     submission: (id: string) => `/mentor/submissions/${id}`,
     students: "/mentor/students",
+    task: {
+      create: "/tasks/new-task",
+    },
   },
 
   // ─── روابط الأدمن ───────────────────────────

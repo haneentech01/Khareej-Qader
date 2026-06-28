@@ -417,3 +417,26 @@ export interface TaskType {
   totalStudents: number;
   status: TaskStatus;
 }
+
+// ─── Create Task (Mentor) ──────────────────
+
+export interface CreateTaskPayload {
+  [key: string]: unknown;
+  video_id: number;
+  title: string;
+  description: string;
+  dead_line: string;
+  passing_grade: number;
+}
+
+export interface CreateTaskResponse {
+  id: number;
+  course_id: number;
+  video_id: number;
+  title: string;
+  description: string;
+  passing_grade: number;
+  order: number;
+  created_at: string;
+  updated_at: string;
+}

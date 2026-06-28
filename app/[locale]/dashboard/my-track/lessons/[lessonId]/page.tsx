@@ -2,6 +2,23 @@ import { LessonViewerSidebar } from "@/components/dashboard/LessonViewer/LessonV
 import { LessonViewerContent } from "@/components/dashboard/LessonViewer/LessonViewerContent";
 import { LessonHeader } from "@/components/dashboard/LessonViewer/LessonHeader";
 import { LessonBreadcrumbs } from "@/components/dashboard/LessonViewer/LessonBreadcrumbs";
+import { getTranslations } from "next-intl/server";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; lessonId: string }>;
+}) {
+  const { locale, lessonId } = await params;
+  const t = await getTranslations({
+    locale,
+    namespace: "Dashboard.metadata.student_dashboard.lesson"
+  });
+  return {
+    title: t("title", { lessonId }),
+    description: t("description", { lessonId }),
+  };
+}
 
 export default async function LessonPage({ params }:
   {

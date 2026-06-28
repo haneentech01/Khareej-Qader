@@ -6,10 +6,19 @@ export const metadata: Metadata = {
   title: "تسجيل الدخول - خريج قادر",
 };
 
-export default function LoginPage() {
+interface LoginPageProps {
+  searchParams: Promise<{
+    registered?: string;
+  }>;
+}
+
+export default async function LoginPage({ searchParams }: LoginPageProps) {
+  const params = await searchParams;
+  const showActivationMessage = params.registered === "true";
+
   return (
     <AuthLayout>
-      <LoginForm />
+      <LoginForm showActivationMessage={showActivationMessage} />
     </AuthLayout>
   );
 }

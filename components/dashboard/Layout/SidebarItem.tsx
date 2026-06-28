@@ -4,7 +4,9 @@ import Link from "next/link";
 import { usePathname } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 import { LucideIcon } from "lucide-react";
-import { useSidebar } from "../ui/sidebar";
+import { useSidebar } from "@/components/ui/sidebar";
+
+
 
 interface SidebarItemProps {
   title: string;

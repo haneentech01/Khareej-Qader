@@ -2,10 +2,8 @@ import createMiddleware from "next-intl/middleware";
 import { NextRequest, NextResponse } from "next/server";
 
 const PROTECTED_ROUTES = ["/dashboard", "/mentor", "/admin"];
-// ─── المسارات المخصصة للمستخدمين المسجلين فقط (لا يدخلونها بعد الـ login) ──
-const AUTH_ONLY_ROUTES = ["/login", "/register"];
+const AUTH_ONLY_ROUTES = ["/login", "/register", "/register-mentor"];
 
-// ─── أسماء الـ cookies اللي ممكن تحمل التوكن ─
 const AUTH_COOKIE_NAMES = [
   "token",
   "access_token",

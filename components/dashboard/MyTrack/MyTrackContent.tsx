@@ -1,43 +1,39 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useStudentPath } from "@/hooks/dashboard/useStudentPath";
-import { ProgressHero } from "@/components/dashboard/Home/ProgressHero";
 import { LessonTimeline } from "@/components/dashboard/MyTrack/LessonTimeline";
-
+import { MyTrackSkeleton } from "./MyTrackSkeleton";
+import { ProgressHero } from "../Home/ProgressHero";
 
 export function MyTrackContent() {
-    const { data, loading, error } = useStudentPath();
+    const t = useTranslations("Dashboard.MyTrack");
+    const { data, loading, error, refetch } = useStudentPath();
 
-    // ─── Loading state ──────────────────────
+    // ─── Loading: Skeleton يطابق شكل الصفحة ──────
     if (loading) {
-        return (
-            <div className="flex items-center justify-center py-20">
-                <div className="animate-spin size-10 border-4 border-brand-primary border-t-transparent rounded-full" />
-            </div>
-        );
+        return <MyTrackSkeleton />;
     }
 
-    // ─── Error state ────────────────────────
+    // ─── Error ──────────────────────────────────
     if (error) {
         return (
-            <div className="text-center py-20">
+            <div className="text-center py-20 space-y-4">
                 <p className="text-red-500 text-lg">{error}</p>
+                <button
+                    onClick={() => refetch()}
+                    className="text-brand-primary font-bold hover:underline"
+                >
+                    {t("retry", { defaultValue: "إعادة المحاولة" })}
+                </button>
             </div>
         );
     }
 
-    // ─── No data ────────────────────────────
-    if (!data) {
-        return (
-            <div className="text-center py-20">
-                <p className="text-brand-muted text-lg">
-                    لا توجد بيانات للمسار حالياً
-                </p>
-            </div>
-        );
-    }
+    // ─── No Data ───────────────────────────────
+    if (!data) return null;
 
-    // ─── Map API data to component props ────
+    // ─── Render ────────────────────────────────
     const { path, progress, current_video, videos } = data;
 
     return (

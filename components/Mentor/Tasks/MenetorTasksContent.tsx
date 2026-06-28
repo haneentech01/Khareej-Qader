@@ -5,6 +5,7 @@ import { TasksHeader } from "@/components/Mentor/Tasks/TasksHeader";
 import { TasksStats } from "@/components/Mentor/Tasks/TasksStats";
 import { TasksTable } from "@/components/Mentor/Tasks/TasksTable";
 import { useTasks } from "@/hooks/mentor/useTasks";
+import { CreateTaskDialog } from "./CreateTaskDialog";
 
 
 export default function MentorTasksContent() {
@@ -27,7 +28,7 @@ export default function MentorTasksContent() {
         <div className=" w-full max-w-7xl mx-auto px-4 md:px-0 pb-12 space-y-6 md:space-y-8 
         animate-in fade-in slide-in-from-bottom-4 duration-500">
             <TasksHeader />
-            <TasksStats stats={stats} />
+            {/* <TasksStats stats={stats} />
             <TasksFilter
                 searchQuery={searchQuery}
                 setSearchQuery={setSearchQuery}
@@ -39,7 +40,11 @@ export default function MentorTasksContent() {
                 currentPage={currentPage}
                 totalPages={totalPages || 1}
                 onPageChange={setCurrentPage}
-            />
+            /> */}
+
+            <CreateTaskDialog onClose={function (): void {
+                throw new Error("Function not implemented.");
+            }} open={false} />
         </div>
     );
 }

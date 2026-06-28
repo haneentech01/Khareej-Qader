@@ -5,10 +5,8 @@ import { Button } from "@/components/ui/button";
 import { PlayCircle, Route } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
-import { useParams } from "next/navigation";
 
 interface ProgressHeroProps {
-  userName?: string;
   trackName: string;
   currentLesson?: string;
   currentLessonId?: string | number;
@@ -19,7 +17,6 @@ interface ProgressHeroProps {
 }
 
 export function ProgressHero({
-  userName,
   trackName,
   currentLesson,
   currentLessonId,
@@ -34,22 +31,6 @@ export function ProgressHero({
 
   return (
     <div className={isStandalone ? "" : "mb-10"}>
-      {!isStandalone && userName && (
-        <>
-          <div className="flex items-center mb-2">
-            {/* title */}
-            <h1 className="text-3xl lg:text-4xl font-bold text-black">
-              {t("welcome", { name: userName })}
-            </h1>
-          </div>
-
-          {/* subtitle */}
-          <p className="text-brand-muted lg:text-lg mb-8">
-            {t("subtitle")}
-          </p>
-        </>
-      )}
-
       {/* progress hero */}
       <div
         className={`bg-white rounded-[20px] 

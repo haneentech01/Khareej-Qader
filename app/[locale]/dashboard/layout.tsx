@@ -1,7 +1,6 @@
 import React from "react";
-import { Sidebar } from "@/components/dashboard/Sidebar";
-import { TopNav } from "@/components/dashboard/TopNav";
-import { DashboardMain } from "@/components/dashboard/DashboardMain";
+import { Sidebar } from "@/components/dashboard/Layout/Sidebar";
+import { TopNav } from "@/components/dashboard/Layout/TopNav";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { getTranslations } from "next-intl/server";
 
@@ -11,7 +10,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "Dashboard.metadata" });
+  const t = await getTranslations({ locale, namespace: "Dashboard.metadata.student_dashboard.home" });
   return {
     title: t("title"),
     description: t("description"),
@@ -27,12 +26,12 @@ export default function DashboardLayout({
     <SidebarProvider>
       <div className="min-h-screen bg-[#F6FBFA] flex overflow-x-hidden w-full">
         <Sidebar />
-        <DashboardMain>
+        <div className="flex-1 transition-all duration-300 ease-in-out min-h-screen">
           <TopNav />
           <div className="p-4 md:p-8">
             {children}
           </div>
-        </DashboardMain>
+        </div>
       </div>
     </SidebarProvider>
   );

@@ -3,6 +3,7 @@ import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { CertificateProgressCard } from "@/components/dashboard/Certificates/CertificateProgressCard";
 import { CertificatePreview } from "@/components/dashboard/Certificates/CertificatePreview";
 import { CertificateDetails } from "@/components/dashboard/Certificates/CertificateDetails";
+import { PageHeader } from "@/components/dashboard/Layout/PageHeader";
 
 export default async function CertificatesPage({
   params,
@@ -31,12 +32,10 @@ export default async function CertificatesPage({
       {/* Header & Breadcrumbs */}
       <div className="flex flex-col gap-3.5">
         <Breadcrumbs items={breadcrumbItems} locale={locale} />
-        <h1 className="text-3xl md:text-4xl font-bold text-black">
-          {t("title")}
-        </h1>
-        <p className="text-brand-muted md:text-lg">
-          {t("subtitle")}
-        </p>
+        <PageHeader
+          title={t("title")}
+          subtitle={t("subtitle")}
+        />
       </div>
 
       {/* Progress Card */}

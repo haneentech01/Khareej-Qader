@@ -4,72 +4,59 @@ import { useTranslations } from "next-intl";
 import { ProgressHero } from "@/components/dashboard/Home/ProgressHero";
 import { MentorCard } from "@/components/dashboard/Home/MentorCard";
 import { TaskCard } from "@/components/dashboard/Home/TaskCard";
-import { Announcements } from "@/components/dashboard/Home/Announcements";
-import { CertificateCard } from "@/components/dashboard/Home/CertificateCard";
 import { useDashboard } from "@/hooks/dashboard/useDashboard";
-import { Loader2 } from "lucide-react";
+import { DashboardSkeleton } from "./DashboardSkeleton";
+import { WelcomeHeader } from "./WelcomeHeader";
 
 export function DashboardContent() {
     const t = useTranslations("Dashboard");
-    const { dashboard, loading, error } = useDashboard();
+    const { dashboard, loading, error, refetch } = useDashboard();
 
-    // ─── تحميل ──────────────────────────────
+    // ─── Loading: Skeleton يطابق شكل الصفحة ──────
     if (loading) {
-        return (
-            <div className="flex items-center justify-center min-h-[60vh]">
-                <Loader2 className="w-10 h-10 animate-spin text-brand-primary" />
-            </div>
-        );
+        return <DashboardSkeleton />;
     }
 
-    // ─── خطأ ──────────────────────────────
+    // ─── Error ──────────────────────────────────
     if (error) {
         return (
             <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
-                <p className="text-red-500 text-lg">
-                    {error}
-                </p>
+                <p className="text-red-500 text-lg">{error}</p>
                 <button
-                    onClick={() => window.location.reload()}
+                    onClick={() => refetch()}
                     className="text-brand-primary font-bold hover:underline"
                 >
-                    إعادة المحاولة
+                    {t("retry", { defaultValue: "إعادة المحاولة" })}
                 </button>
             </div>
         );
     }
 
-    // ─── لا بيانات ──────────────────────────────
-    if (!dashboard) {
-        return (
-            <div className="flex items-center justify-center min-h-[60vh]">
-                <p className="text-brand-muted text-lg">
-                    لا توجد بيانات
-                </p>
-            </div>
-        );
-    }
+    // ─── No Data ───────────────────────────────
+    if (!dashboard) return null;
 
-    const { student, course, progress, current_lesson, next_task, mentor, certificate, announcements } = dashboard;
+    const { student, course, progress, current_lesson, next_task, mentor } = dashboard;
 
     return (
         <div className="max-w-7xl mx-auto space-y-8">
-            {/* 1. Top Section: Progress Hero */}
-            <div>
-                <ProgressHero
-                    userName={student?.name || ""}
-                    trackName={course?.name || t("hero.track_name")}
-                    currentLesson={current_lesson?.title || undefined}
-                    currentLessonId={current_lesson?.id || undefined}
-                    progressValue={progress?.percentage || 0}
-                    totalLessons={progress?.total_lessons || 0}
-                    completedLessons={progress?.completed_lessons || 0}
-                />
-            </div>
+            {/* ─── Wellcome User Name ─────────────────── */}
+            <WelcomeHeader
+                userName={student?.name || ""}
+                subtitleMessage={t("WelcomeHeader.subtitle")}
+            />
 
-            {/* 2. Middle Section: Mentor & Task */}
+            {/* ─── Progress Hero ─────────────────── */}
+            <ProgressHero
+                trackName={course?.name || t("hero.track_name")}
+                currentLesson={current_lesson?.title || undefined}
+                currentLessonId={current_lesson?.id || undefined}
+                progressValue={progress?.percentage || 0}
+                totalLessons={progress?.total_lessons || 0}
+                completedLessons={progress?.completed_lessons || 0}
+            />
+
+            {/* ─── Task & Mentor ─────────────────── */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                {/* المهمة القادمة — تظهر بس لو فيه مهمة */}
                 {next_task ? (
                     <TaskCard
                         title={next_task.title}
@@ -77,19 +64,17 @@ export function DashboardContent() {
                         deadline={next_task.deadline}
                         description={next_task.description}
                         videoName={next_task.video_name}
-
                     />
                 ) : (
                     <TaskCard
                         title={t("tasks.title")}
                         context={t("tasks.lesson_name")}
-                        deadline={"—"}
+                        deadline="—"
                         description={t("tasks.description")}
                         videoName={t("tasks.lesson_name")}
                     />
                 )}
 
-                {/* المدرب — تظهر بس لو فيه مدرب */}
                 {mentor ? (
                     <MentorCard
                         name={mentor.name}
@@ -99,11 +84,8 @@ export function DashboardContent() {
                         avatarUrl={mentor.avatar}
                     />
                 ) : (
-                    <div className="bg-white rounded-[30px] p-8 border border-slate-100
-                                   shadow-sm flex items-center justify-center h-full">
-                        <p className="text-brand-muted">
-                            {t("mentor.title")}
-                        </p>
+                    <div className="bg-white rounded-[30px] p-8 border border-slate-100 shadow-sm flex items-center justify-center h-full">
+                        <p className="text-brand-muted">{t("mentor.title")}</p>
                     </div>
                 )}
             </div>

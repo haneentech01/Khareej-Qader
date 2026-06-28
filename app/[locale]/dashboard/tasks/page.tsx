@@ -4,6 +4,20 @@ import { FileUpload } from "@/components/dashboard/Tasks/FileUpload";
 import { PreviousTaskItem } from "@/components/dashboard/Tasks/PreviousTaskItem";
 import { Button } from "@/components/ui/button";
 import { AlertCircle } from "lucide-react";
+import { PageHeader } from "@/components/dashboard/Layout/PageHeader";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "Dashboard.metadata.student_dashboard.tasks" });
+  return {
+    title: t("title"),
+    description: t("description"),
+  };
+}
 
 export default async function TasksPage({
   params,
@@ -23,12 +37,11 @@ export default async function TasksPage({
       {/* Header & Breadcrumbs */}
       <div className="flex flex-col gap-3.5">
         <Breadcrumbs items={breadcrumbItems} locale={locale} />
-        <h1 className="text-4xl font-bold text-black">
-          {t("title")}
-        </h1>
-        <p className="text-brand-muted text-lg">
-          {t("subtitle")}
-        </p>
+
+        <PageHeader
+          title={t("title")}
+          subtitle={t("subtitle")}
+        />
       </div>
 
       {/* Main Task Card */}

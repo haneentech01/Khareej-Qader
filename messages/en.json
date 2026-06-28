@@ -179,6 +179,7 @@
     "contact_us": "Contact Us",
     "rights": "All rights reserved © 2026 Areisto Academy"
   },
+
   "Auth": {
     "login_title": "Login",
     "register_title": "Register Now",
@@ -208,8 +209,14 @@
     "benefit1": "Certified Certificate",
     "benefit2": "Practical Training",
     "benefit3": "Real Projects",
-    "benefit4": "Direct Supervision"
+    "benefit4": "Direct Supervision",
+    "activation_required_title": "Your Account Has Been Created Successfully",
+    "activation_required_message": "An account activation link has been sent to your email address. Please check your inbox and spam folder, then activate your account to log in.",
+    "activation_email_sent": "The activation link has been sent to your email",
+    "account_not_activated": "Your account has not been activated yet. Please check your email and click the activation link.",
+    "check_spam": "If you don't find the email, please check your spam folder."
   },
+
   "HeroStats": {
     "students": "Students",
     "graduates": "Graduates",
@@ -276,6 +283,11 @@
     "subtitle": "We are proud to collaborate with major universities and educational institutions to provide students with the best skills."
   },
   "Dashboard": {
+    "retry": "Retry",
+    "WelcomeHeader": {
+      "welcome": "Welcome, {name} 👋",
+      "subtitle": "Continue progressing toward your professional goal"
+    },
     "metadata": {
       "title": "Dashboard | Khareej Qader",
       "description": "Follow your training track, complete your tasks, and verify your certificate in the Khareej Qader program."
@@ -337,6 +349,7 @@
       "details": "View Details"
     },
     "MyTrack": {
+      "retry": "Retry",
       "title": "My Track",
       "subtitle": "Follow your educational journey within the current track",
       "breadcrumb_home": "Home",

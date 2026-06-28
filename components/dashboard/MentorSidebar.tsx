@@ -21,7 +21,8 @@ import {
   SidebarRail,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { SidebarItem } from "./SidebarItem";
+import { SidebarItem } from "./Layout/SidebarItem";
+
 
 export function MentorSidebar() {
   const t = useTranslations("MentorDashboard.sidebar");
@@ -66,7 +67,7 @@ export function MentorSidebar() {
         {sidebarLinks.map((link) => (
           <SidebarItem key={link.href} {...link} isRTL={isRTL} />
         ))}
-        
+
         <div className="py-1">
           <button
             onClick={() => console.log("Logout")}
