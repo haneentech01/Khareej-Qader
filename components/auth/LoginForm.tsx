@@ -1,35 +1,118 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/routing";
+import { Link, useRouter } from "@/i18n/routing";
+import { useSearchParams as useNextSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { motion } from "framer-motion";
 import { useLoginForm } from "@/hooks/auth/useLoginForm";
-import { Loader2 } from "lucide-react";
+import { Loader2, GraduationCap, Briefcase } from "lucide-react";
+import { LoginRole } from "@/types";
+import { cn } from "@/lib/utils";
 
 interface LoginFormProps {
   showActivationMessage?: boolean;
+  role?: LoginRole;
 }
 
-export function LoginForm({ showActivationMessage = false }: LoginFormProps) {
-  const t = useTranslations("Auth");
+/**
+ * يستخرج الـ role من الـ URL query param.
+ * مثال: /ar/login?role=mentor → "mentor"
+ * لو الـ query مش موجود أو قيمته مش صحيحة → "student"
+ */
+function useLoginRole(propRole?: LoginRole): LoginRole {
+  const searchParams = useNextSearchParams();
+  const queryRole = searchParams.get("role");
 
-  // ─── Hook للتسجيل (POST) ──────────────────────
+  if (propRole) return propRole;
+  if (queryRole === "mentor" || queryRole === "student" || queryRole === "admin") {
+    return queryRole;
+  }
+  return "student";
+}
+
+/**
+ * تبويبات اختيار الـ role (طالب / مدرب).
+ *
+ * لما المستخدم يضغط على تبويب، نحدّث الـ URL query param ?role=X
+ * بدل ما نعدّل state محلي — عشان:
+ *  1. الـ role يفضل متزامن مع الـ URL (يمكن مشاركته أو عمل bookmark)
+ *  2. لو المستخدم عمل reload، الـ role يفضل محفوظ
+ *  3. الـ LoginForm يقرأ الـ role من الـ URL تلقائياً
+ */
+function RoleTabs({ currentRole }: { currentRole: LoginRole }) {
+  const t = useTranslations("Auth");
+  const router = useRouter();
+  const searchParams = useNextSearchParams();
+
+  const handleRoleChange = (newRole: LoginRole) => {
+    if (newRole === currentRole) return;
+
+    // حدّث الـ URL query param
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("role", newRole);
+    // امسح الـ redirect لو موجود عشان ما يرجّعوش المستخدم لمكان غلط
+    params.delete("redirect");
+
+    router.push(`/login?${params.toString()}`);
+  };
+
+  const tabs: { role: LoginRole; label: string; desc: string; icon: typeof GraduationCap }[] = [
+    { role: "student", label: t("role_student"), desc: t("role_student_desc"), icon: GraduationCap },
+    { role: "mentor", label: t("role_mentor"), desc: t("role_mentor_desc"), icon: Briefcase },
+  ];
+
+  return (
+    <div className="grid grid-cols-2 gap-3 mb-8">
+      {tabs.map((tab) => {
+        const isActive = currentRole === tab.role;
+        const Icon = tab.icon;
+
+        return (
+          <button
+            key={tab.role}
+            type="button"
+            onClick={() => handleRoleChange(tab.role)}
+            className={cn(
+              "flex flex-col items-center gap-2 p-4 rounded-2xl border-2 transition-all duration-200 cursor-pointer",
+              isActive
+                ? "border-brand-primary bg-brand-primary/5 text-brand-primary"
+                : "border-gray-200 text-gray-500 hover:border-brand-primary/40 hover:bg-gray-50",
+            )}
+            aria-pressed={isActive}
+          >
+            <Icon className={cn("size-6", isActive ? "text-brand-primary" : "text-gray-400")} />
+            <span className={cn("text-sm font-bold", isActive ? "text-brand-primary" : "text-gray-600")}>
+              {tab.label}
+            </span>
+            <span className="text-[10px] text-gray-400 text-center leading-tight">
+              {tab.desc}
+            </span>
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+export function LoginForm({ showActivationMessage = false, role: propRole }: LoginFormProps) {
+  const t = useTranslations("Auth");
+  const role = useLoginRole(propRole);
   const { formData, fieldErrors, loading, handleChange, handleSubmit } =
-    useLoginForm();
+    useLoginForm({ role });
 
   return (
     <motion.div
       initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5 }}
-      className="bg-white rounded-[10px] 
-      shadow-[0_20px_40px_0px_#0000000D] 
+      className="bg-white rounded-[10px]
+      shadow-[0_20px_40px_0px_#0000000D]
       p-8 md:p-12 border border-slate-50 mt-28"
     >
       {/* title + subtitle */}
-      <div className="text-center mb-10">
+      <div className="text-center mb-8">
         <h1 className="text-3xl font-bold text-black mb-4">
           {t("login_title")}
         </h1>
@@ -37,6 +120,9 @@ export function LoginForm({ showActivationMessage = false }: LoginFormProps) {
           {t("subtitle")}
         </p>
       </div>
+
+      {/* ─── تبويبات اختيار الـ role (طالب / مدرب) ─── */}
+      <RoleTabs currentRole={role} />
 
       {/* ─── رسالة التفعيل عند الحاجة ─────────────── */}
       {showActivationMessage && (

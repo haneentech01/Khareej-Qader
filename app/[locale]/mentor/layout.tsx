@@ -12,8 +12,8 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Dashboard.metadata.mentor_dashboard.home" });
   return {
-    title: { ts: `${t("title")}` },
-    description: { ts: `${t("description")}` },
+    title: t("title"),
+    description: t("description"),
   };
 }
 
@@ -27,7 +27,7 @@ export default function MentorLayout({
       <div className="min-h-screen bg-[#F6FBFA] flex overflow-x-hidden w-full">
         <MentorSidebar />
         <div className="flex-1 transition-all duration-300 ease-in-out min-h-screen">
-          <TopNav />
+          <TopNav variant="mentor" />
           <div className="p-4 md:p-8">
             {children}
           </div>

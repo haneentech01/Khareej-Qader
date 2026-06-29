@@ -6,11 +6,11 @@ import { CreateTaskPayload, CreateTaskResponse } from "@/types";
 
 /**
  * Hook لإضافة مهمة جديدة من المنتور.
- * يستخدم useInsertData + endpoints — بدون apiClient مباشرة.
+ * يستخدم useInsertData + endpoints
  */
 export function useCreateTask() {
   const { loading, insertData } = useInsertData<CreateTaskResponse>(
-    endpoints.mentor.task.create,
+    endpoints.mentor.tasks.create,
   );
 
   const createTask = async (

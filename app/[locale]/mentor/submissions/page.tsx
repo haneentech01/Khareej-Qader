@@ -1,6 +1,6 @@
 import React from "react";
 import { getTranslations } from "next-intl/server";
-import { SubmissionsPageMentor } from "@/components/Mentor/Submissions/List/SubmissionsPageMentor";
+import { SubmissionsPageMentor } from "@/components/mentor/Submissions/List/SubmissionsPageMentor";
 
 interface MentorSubmissionsPageProps {
   params: Promise<{

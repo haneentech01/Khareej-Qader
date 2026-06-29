@@ -3,9 +3,10 @@
 import { useRouter } from "@/i18n/routing";
 import endpoints from "@/lib/api/endpoints";
 import { useForm } from "../forms/useForm";
-import { LoginFormData, ValidationErrors } from "@/types";
+import { LoginFormData, LoginRole, ValidationErrors } from "@/types";
 import { useLocale } from "next-intl";
 import { toast } from "react-toastify";
+import { setRoleCookie } from "@/lib/auth/roleCookie";
 
 // ─── قواعد الفحص المحلي ──────────────────────────
 const validate = (values: LoginFormData): ValidationErrors => {
@@ -14,23 +15,62 @@ const validate = (values: LoginFormData): ValidationErrors => {
   return errors;
 };
 
-export function useLoginForm() {
+/**
+ * خريطة: role → endpoint + صفحة التوجيه بعد النجاح.
+ *
+ * فصلناها هنا عشان useLoginForm يفضل generic ويقبل أي role،
+ * والـ LoginForm يختار الـ role بناءً على props أو query params.
+ */
+const LOGIN_CONFIG: Record<
+  LoginRole,
+  {
+    endpoint: string;
+    redirectPath: string;
+  }
+> = {
+  student: {
+    endpoint: endpoints.auth.student.login,
+    redirectPath: "/dashboard",
+  },
+  mentor: {
+    endpoint: endpoints.auth.mentor.login,
+    redirectPath: "/mentor",
+  },
+  admin: {
+    endpoint: endpoints.auth.admin.login,
+    redirectPath: "/admin",
+  },
+};
+
+interface UseLoginFormOptions {
+  /** نوع المستخدم اللي بيسجّل دخول — يحدد الـ endpoint + صفحة التوجيه */
+  role?: LoginRole;
+}
+
+export function useLoginForm({ role = "student" }: UseLoginFormOptions = {}) {
   const router = useRouter();
   const locale = useLocale();
+
+  const config = LOGIN_CONFIG[role];
 
   return useForm<LoginFormData>({
     initialValues: {
       username: "",
     },
 
-    endpoint: endpoints.auth.student.login,
+    endpoint: config.endpoint,
 
     validate,
 
     successMessage: "تم تسجيل الدخول بنجاح",
 
     onSuccess: () => {
-      router.push("/dashboard");
+      // خزّن الـ role في cookie عشان الـ middleware يقدر يحمي المسارات
+      // (mentor routes للمدراء فقط، dashboard routes للطلاب فقط)
+      setRoleCookie(role);
+
+      // وجّه المستخدم للصفحة المناسبة حسب الـ role
+      router.push(config.redirectPath);
     },
 
     // ─── معالجة خطأ الحساب غير المفعّل ───────────────
@@ -49,6 +89,7 @@ export function useLoginForm() {
         "email verification",
         "حسابك غير نشط",
         "inactive",
+        "enable-account",
       ];
 
       const isActivationError = activationKeywords.some((keyword) =>

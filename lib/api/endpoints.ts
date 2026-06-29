@@ -37,6 +37,8 @@ const endpoints = {
     resume: (id: string | number) => `/videos/${id}/resume`,
     progress: (id: string | number) => `/videos/${id}/progress`,
     complete: (id: string | number) => `/videos/${id}/complete`,
+    // دروس/فيديوهات المسار الخاص بالمنتور (للقائمة المنسدلة في صفحة المهام)
+    mentorCourses: "/videos/mentor/course",
   },
 
   // ─── روابط المنتور ──────────────────────────
@@ -45,8 +47,10 @@ const endpoints = {
     submissions: "/mentor/submissions",
     submission: (id: string) => `/mentor/submissions/${id}`,
     students: "/mentor/students",
-    task: {
-      create: "/tasks/new-task",
+    tasks: {
+      create: "/tasks/new-task", // POST - إنشاء مهمة جديدة
+      list: "/tasks/list", // GET  - قائمة المهام
+      count: "/tasks/count", // GET  - إجمالي عدد المهام
     },
   },
 

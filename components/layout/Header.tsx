@@ -101,6 +101,18 @@ export function Header() {
                                     {t("login")}
                                 </Button>
                             </Link>
+                            {/* Mentor login — يوجّه لصفحة login مع role=mentor */}
+                            <Link href="/login?role=mentor" aria-label="mentor login">
+                                <Button
+                                    variant="ghost"
+                                    className="text-brand-primary border-2 border-brand-primary/30 font-medium
+                                     hover:bg-brand-surface transition-colors text-lg
+                                     w-32 lg:w-44 h-12"
+                                    aria-label="mentor login"
+                                >
+                                    {t("mentor_login")}
+                                </Button>
+                            </Link>
 
                         </div>
 
@@ -170,6 +182,22 @@ export function Header() {
                                         aria-label="login"
                                     >
                                         {t("login")}
+                                    </Button>
+                                </Link>
+                                {/* Mentor login — mobile */}
+                                <Link href="/login?role=mentor"
+                                    aria-label="mentor login"
+                                    onClick={closeMenu}
+                                    className="w-full sm:w-[270px]">
+                                    <Button
+                                        variant="ghost"
+                                        className="border-2 border-brand-primary/30
+                                         text-brand-primary hover:text-brand-dark
+                                         hover:bg-brand-surface text-lg h-[55px] 
+                                         w-full rounded-xl font-bold transition-all"
+                                        aria-label="mentor login"
+                                    >
+                                        {t("mentor_login")}
                                     </Button>
                                 </Link>
                             </div>

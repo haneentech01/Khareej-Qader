@@ -1,22 +1,59 @@
-import { useTranslations, useLocale } from 'next-intl';
-import { Eye, MoreVertical } from 'lucide-react';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Button } from '@/components/ui/button';
-import { Progress } from '@/components/ui/progress';
-import { Pagination } from '@/components/ui/Pagination';
-import { StatusBadge } from './StatusBadge';
-import { TaskType } from '@/types';
+"use client";
 
+import { useTranslations, useLocale } from "next-intl";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Pagination } from "@/components/ui/Pagination";
+import { Loader2, Inbox } from "lucide-react";
+import { MentorTaskListItem } from "@/types";
 
 interface TasksTableProps {
-  tasks: TaskType[];
+  /** قائمة المهام القادمة من endpoint /tasks/list */
+  tasks: MentorTaskListItem[];
+  /** هل الـ request لسه شغّال؟ */
+  loading?: boolean;
+  /** نص الخطأ لو فشل الـ request */
+  error?: string | null;
   currentPage: number;
   totalPages: number;
   onPageChange: (page: number) => void;
 }
 
-export const TasksTable = ({ tasks, currentPage, totalPages, onPageChange }: TasksTableProps) => {
-  const t = useTranslations('MentorTasks.table');
+/**
+ * تنسيق تاريخ التسليم بصيغة locale-aware.
+ *
+ * مثال: "2026-07-01T00:00:00.000000Z" → "1 يوليو 2026" (ar)
+ *
+ * نفصل الـ formatting في دالة pure لتسهيل الاختبار وإعادة الاستخدام.
+ */
+function formatDeadline(isoDate: string, locale: string): string {
+  if (!isoDate) return "—";
+  try {
+    const date = new Date(isoDate);
+    return new Intl.DateTimeFormat(locale === "ar" ? "ar-EG" : "en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    }).format(date);
+  } catch {
+    return isoDate;
+  }
+}
+
+/**
+ * جدول عرض المهام في صفحة /mentor/tasks.
+ *
+ * المكوّن presentational: يستقبل `tasks` و `loading` و `error` كـ props
+ * ولا يجلب الداتا بنفسه — هذا من مسؤولية الـ container (MenetorTasksContent).
+ */
+export const TasksTable = ({
+  tasks,
+  loading = false,
+  error = null,
+  currentPage,
+  totalPages,
+  onPageChange,
+}: TasksTableProps) => {
+  const t = useTranslations("MentorTasks.table");
   const locale = useLocale();
 
   return (
@@ -25,55 +62,72 @@ export const TasksTable = ({ tasks, currentPage, totalPages, onPageChange }: Tas
         <Table>
           <TableHeader className="bg-gray-50/50">
             <TableRow>
-              <TableHead className="text-start py-4 text-gray-500 font-medium">{t('task')}</TableHead>
-              <TableHead className="text-start py-4 text-gray-500 font-medium">{t('related_lesson')}</TableHead>
-              <TableHead className="text-start py-4 text-gray-500 font-medium">{t('due_date')}</TableHead>
-              {/* <TableHead className="py-4 text-gray-500 font-medium">{t('progress')}</TableHead>
-              <TableHead className="py-4 text-gray-500 font-medium">{t('status')}</TableHead>
-              <TableHead className="py-4 text-gray-500 font-medium">{t('actions')}</TableHead> */}
+              <TableHead className="text-start py-4 text-gray-500 font-medium">
+                {t("task")}
+              </TableHead>
+              <TableHead className="text-start py-4 text-gray-500 font-medium">
+                {t("related_lesson")}
+              </TableHead>
+              <TableHead className="text-start py-4 text-gray-500 font-medium">
+                {t("due_date")}
+              </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {tasks.map((task) => {
-              const progressPercentage = task.totalStudents > 0
-                ? (task.submittedStudents / task.totalStudents) * 100
-                : 0;
+            {/* Loading state */}
+            {loading && (
+              <TableRow>
+                <TableCell colSpan={3} className="py-12 text-center">
+                  <div className="flex items-center justify-center gap-2 text-brand-muted">
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                    <span className="text-sm">{t("loading", { defaultValue: "جاري التحميل..." })}</span>
+                  </div>
+                </TableCell>
+              </TableRow>
+            )}
 
-              return (
-                <TableRow key={task.id} className="hover:bg-gray-50/50 transition-colors">
-                  <TableCell className="py-4 font-medium text-gray-900">{task.title}</TableCell>
-                  <TableCell className="py-4 text-gray-600">{task.relatedLesson}</TableCell>
-                  <TableCell className="py-4 text-gray-600">{task.dueDate}</TableCell>
-                  {/* <TableCell className="py-4 min-w-[200px]">
-                    <div className="flex flex-col gap-2">
-                      <span className="text-sm font-medium text-gray-600">
-                        {task.submittedStudents === 0 && task.status !== 'published'
-                          ? t('no_progress', { total: task.totalStudents })
-                          : t('students_progress', { submitted: task.submittedStudents, total: task.totalStudents })}
-                      </span>
-                      <Progress
-                        value={progressPercentage}
-                        className="h-1.5 [&>div]:bg-[#1EB58E]"
-                      />
-                    </div>
+            {/* Error state */}
+            {!loading && error && (
+              <TableRow>
+                <TableCell colSpan={3} className="py-12 text-center">
+                  <p className="text-sm text-red-500">{error}</p>
+                </TableCell>
+              </TableRow>
+            )}
+
+            {/* Empty state */}
+            {!loading && !error && tasks.length === 0 && (
+              <TableRow>
+                <TableCell colSpan={3} className="py-12 text-center">
+                  <div className="flex flex-col items-center gap-2 text-brand-muted">
+                    <Inbox className="w-8 h-8" />
+                    <span className="text-sm">
+                      {t("empty", { defaultValue: "لا توجد مهام بعد" })}
+                    </span>
+                  </div>
+                </TableCell>
+              </TableRow>
+            )}
+
+            {/* Data rows */}
+            {!loading &&
+              !error &&
+              tasks.map((task, index) => (
+                <TableRow
+                  key={`${task.title}-${index}`}
+                  className="hover:bg-gray-50/50 transition-colors"
+                >
+                  <TableCell className="py-4 font-medium text-gray-900">
+                    {task.title}
                   </TableCell>
-                  <TableCell className="py-4">
-                    <StatusBadge status={task.status} />
-                  </TableCell> */}
-                  {/* <TableCell className="py-4">
-                    <div className="flex items-center gap-2">
-                      <Button variant="outline" size="sm" className="h-8 gap-2 text-gray-600 border-gray-200">
-                        <Eye className="w-4 h-4" />
-                        {t('view_submissions')}
-                      </Button>
-                      <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400">
-                        <MoreVertical className="w-4 h-4" />
-                      </Button>
-                    </div>
-                  </TableCell> */}
+                  <TableCell className="py-4 text-gray-600">
+                    {task.video_title}
+                  </TableCell>
+                  <TableCell className="py-4 text-gray-600">
+                    {formatDeadline(task.dead_line, locale)}
+                  </TableCell>
                 </TableRow>
-              );
-            })}
+              ))}
           </TableBody>
         </Table>
       </div>

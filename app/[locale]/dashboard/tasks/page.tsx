@@ -4,7 +4,7 @@ import { FileUpload } from "@/components/dashboard/Tasks/FileUpload";
 import { PreviousTaskItem } from "@/components/dashboard/Tasks/PreviousTaskItem";
 import { Button } from "@/components/ui/button";
 import { AlertCircle } from "lucide-react";
-import { PageHeader } from "@/components/dashboard/Layout/PageHeader";
+import { PageHeader } from "@/components/layout/PageHeader";
 
 export async function generateMetadata({
   params,

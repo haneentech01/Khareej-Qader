@@ -3,7 +3,7 @@ import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { CertificateProgressCard } from "@/components/dashboard/Certificates/CertificateProgressCard";
 import { CertificatePreview } from "@/components/dashboard/Certificates/CertificatePreview";
 import { CertificateDetails } from "@/components/dashboard/Certificates/CertificateDetails";
-import { PageHeader } from "@/components/dashboard/Layout/PageHeader";
+import { PageHeader } from "@/components/layout/PageHeader";
 
 export default async function CertificatesPage({
   params,

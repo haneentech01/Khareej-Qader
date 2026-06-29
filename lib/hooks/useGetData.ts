@@ -7,15 +7,24 @@ interface UseGetDataOptions {
   immediate?: boolean; // هل نجيب البيانات فوراً لما يفتح الصفحة؟
 }
 
+/**
+ * Hook لجلب بيانات من الـ backend (GET).
+ *
+ * التحسين: لما الـ request يفشل، الـ interceptor بياخد رسالة واضحة من
+ * extractErrorMessage (في interceptors.ts) ويحطها في err.message.
+ * فنستخدم err.message مباشرة.
+ *
+ * كمان عالجنا حالة "data = null": إذا رجع null، نحط رسالة مناسبة بدل
+ * رسالة null الفاضية.
+ */
 export function useGetData<T>(
   url: string,
   { immediate = true }: UseGetDataOptions = {},
 ) {
   const [data, setData] = useState<T | null>(null);
-  const [loading, setLoading] = useState(immediate); // لو immediate=true ابدأ بـ loading
+  const [loading, setLoading] = useState(immediate);
   const [error, setError] = useState<string | null>(null);
 
-  // useCallback يمنع إعادة إنشاء الـ function في كل render
   const fetchData = useCallback(async () => {
     setLoading(true);
     setError(null);
@@ -24,27 +33,35 @@ export function useGetData<T>(
       const res = await apiClient.get<ApiResponse<T>>(url);
       const { data: responseData, message } = res.data;
 
-      // لو data فيها بيانات → احفظها
-      // لو data = null     → احفظ الـ message في error
       if (responseData !== null && responseData !== undefined) {
         setData(responseData);
+        setError(null);
       } else {
-        setError(message);
+        // الـ backend رجع success=true لكن data=null
+        // هذا يعني "ما فيش بيانات" — نحط رسالة واضحة
+        setError(message || "لا توجد بيانات متاحة");
       }
       return responseData;
     } catch (err) {
-      const e = err as { message?: string };
-      setError(e.message || "حدث خطأ");
+      // الـ interceptor ضاف رسالة واضحة في err.message
+      const e = err as { message?: string; response?: { status?: number } };
+      const errMsg = e.message || "حدث خطأ أثناء جلب البيانات";
+      setError(errMsg);
+
+      // لوج إضافي للديباج
+      console.error("[useGetData] ❌ Failed:", {
+        url,
+        status: e.response?.status,
+        message: errMsg,
+      });
     } finally {
-      setLoading(false); // دايماً وقف الـ loading سواء نجح أو فشل
+      setLoading(false);
     }
   }, [url]);
 
-  // useEffect يشتغل لما الـ component يفتح
   useEffect(() => {
     if (immediate) fetchData();
   }, [immediate, fetchData]);
 
-  // بنرجع كل اللي محتاجه الـ component
   return { data, loading, error, refetch: fetchData };
 }

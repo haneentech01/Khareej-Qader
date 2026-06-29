@@ -1,22 +1,16 @@
 import { useTranslations } from 'next-intl';
-import { Search, Filter, ArrowDownUp } from 'lucide-react';
+import { Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { TaskStatus } from '@/types';
 
 
 interface TasksFilterProps {
   searchQuery: string;
   setSearchQuery: (query: string) => void;
-  // statusFilter: TaskStatus | 'all';
-  // setStatusFilter: (status: TaskStatus | 'all') => void;
 }
 
 export const TasksFilter = ({
   searchQuery,
   setSearchQuery,
-  // statusFilter,
-  // setStatusFilter,
 }: TasksFilterProps) => {
   const t = useTranslations('MentorTasks.filters');
 
@@ -32,17 +26,6 @@ export const TasksFilter = ({
           className="pl-4 pr-10 border-0 bg-gray-50 focus-visible:ring-0 focus-visible:bg-white"
         />
       </div>
-
-      {/* <div className="flex items-center gap-2 w-full md:w-auto">
-        <Button variant="outline" className="flex items-center gap-2 text-gray-600 border-gray-200 w-full md:w-auto">
-          <ArrowDownUp className="w-4 h-4" />
-          {t('sort_tasks')}
-        </Button>
-        <Button variant="outline" className="flex items-center gap-2 text-gray-600 border-gray-200 w-full md:w-auto">
-          <Filter className="w-4 h-4" />
-          {t('all')}
-        </Button>
-      </div> */}
     </div>
   );
 };

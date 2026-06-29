@@ -11,19 +11,41 @@ import {
 } from "@/components/ui/avatar";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { useDashboard } from "@/hooks/dashboard/useDashboard";
+import { useMentorProfile } from "@/hooks/mentor/useMentorProfile";
+import { TopNavVariant } from "@/types";
 
-export function TopNav() {
+interface TopNavProps {
+  variant?: TopNavVariant;
+}
+
+export function TopNav({ variant = "student" }: TopNavProps) {
   const t = useTranslations("Dashboard.topNav");
-  const { dashboard } = useDashboard();
 
-  const studentName = dashboard?.student?.name || t("userName");
-  const studentEmail = dashboard?.student?.email || t("userMajor");
-  const _studentImage = dashboard?.student?.avatar || "/images/default-avatar.svg";
+  const { dashboard } = useDashboard();
+  const { mentor } = useMentorProfile();
+
+  // نحدد الاسم/البريد/الصورة بناءً على الـ variant
+  const displayName =
+    variant === "mentor"
+      ? mentor?.name || t("mentorName")
+      : dashboard?.student?.name || t("userName");
+
+
+  const displayEmail =
+    variant === "mentor"
+      ? mentor?.email || mentor?.major || t("mentorMajor")
+      : dashboard?.student?.email || t("userMajor");
+
+  const displayAvatar =
+    variant === "mentor"
+      ? mentor?.avatar || "/images/default-avatar.svg"
+      : dashboard?.student?.avatar || "/images/default-avatar.svg";
 
   return (
     <header className="sticky top-0 z-40 bg-white backdrop-blur-md
       border-b border-gray-100
-      px-4 md:px-8 h-20 flex justify-between items-center gap-4">
+      px-4 md:px-8 h-20 flex justify-between items-center gap-4"
+    >
       {/* Trigger for mobile sidebar */}
       <div className="flex items-center gap-3 lg:hidden">
         <SidebarTrigger className="text-brand-muted hover:text-brand-primary transition-colors" />
@@ -54,15 +76,15 @@ export function TopNav() {
         <div className="flex items-center gap-3">
           <div className="text-left hidden md:block">
             <p className="text-sm font-semibold text-black leading-tight">
-              {studentName}
+              {displayName}
             </p>
             <p className="text-xs text-brand-muted">
-              {studentEmail}
+              {displayEmail}
             </p>
           </div>
           <Avatar className="size-10 border border-brand-surface">
-            <AvatarImage src={dashboard?.student?.avatar || "/images/default-avatar.svg"} />
-            <AvatarFallback>{studentName?.[0] || "U"}</AvatarFallback>
+            <AvatarImage src={displayAvatar} />
+            <AvatarFallback>{displayName?.[0] || "A"}</AvatarFallback>
             <AvatarBadge className="bg-green-600 dark:bg-green-800" />
           </Avatar>
         </div>

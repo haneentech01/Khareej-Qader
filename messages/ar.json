@@ -198,6 +198,12 @@
     "login_title": "تسجيل الدخول",
     "register_title": "سجل الآن",
     "subtitle": "ابدأ رحلتك المهنية مع برنامج خريج قادر",
+    "role_student": "طالب",
+    "role_mentor": "مدرب",
+    "role_admin": "مشرف",
+    "role_student_desc": "تسجيل دخول الطلاب",
+    "role_mentor_desc": "تسجيل دخول المدربين",
+    "role_admin_desc": "تسجيل دخول المشرفين",
     "full_name": "الإسم كامل",
     "email": "البريد الإلكتروني",
     "password": "كلمة المرور",
@@ -347,6 +353,8 @@
       "search": "ابحث داخل المسار",
       "userName": "اسم المستخدم",
       "userMajor": "التخصص",
+      "mentorName": "اسم المنتور",
+      "mentorMajor": "منتور",
       "notifications": "الإشعارات"
     },
 
@@ -916,25 +924,34 @@
       "status_published": "منشورة",
       "status_scheduled": "مجدولة",
       "status_draft": "مسودة",
-      "status_closed": "مغلقة"
+      "status_closed": "مغلقة",
+      "loading": "جاري تحميل المهام...",
+      "empty": "لا توجد مهام بعد"
     },
+
     "pagination": {
       "showing": "عرض {start} إلى {end} من {total} مهام",
       "prev": "السابق",
       "next": "التالي",
       "show": "عرض"
     },
+
     "newTaskModal": {
       "title": "إضافة مهمة جديدة",
       "subtitle": "أنشئ مهمة جديدة مرتبطة بأحد دروس المسار التدريبي.",
       "task_title": "عنوان المهمة",
       "task_title_placeholder": "اكتب عنوان المهمة",
+      "error_title_required": "عنوان المهمة مطلوب",
       "related_lesson": "الدرس المرتبط",
+      "error_lesson_required": "الرجاء اختيار الدرس المرتبط",
       "related_lesson_placeholder": "اختر الدرس",
+      "loading_lessons": "جاري تحميل الدروس...",
       "description": "وصف المهمة",
       "description_placeholder": "اكتب وصف المهمة وتعليمات التنفيذ...",
       "due_date": "موعد التسليم",
+      "error_deadline_required": "الرجاء تحديد موعد التسليم",
       "due_date_placeholder": "اختر التاريخ والوقت",
+      "passing_grade": "درجة النجاح",
       "file_zip": "ملف ZIP",
       "link_github": "رابط GitHub",
       "file_pdf": "PDF",
@@ -948,7 +965,8 @@
       "dropzone_title": "اسحب الملفات هنا <highlight>أو اضغط للرفع</highlight>",
       "dropzone_subtitle": "الحد الأقصى (20MB) لملفات PDF, DOCX, ZIP",
       "cancel": "إلغاء",
-      "submit": "إنشاء المهمة"
+      "submit": "إنشاء المهمة",
+      "submitting": "جاري الإنشاء..."
     }
   }
 }

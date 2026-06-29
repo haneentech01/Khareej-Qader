@@ -1,6 +1,6 @@
 import React from "react";
 import { getTranslations } from "next-intl/server";
-import { LessonEditPageMentor } from "@/components/Mentor/Track/LessonEditPageMentor";
+import { LessonEditPageMentor } from "@/components/mentor/Track/LessonEditPageMentor";
 
 interface MentorLessonEditPageProps {
   params: Promise<{

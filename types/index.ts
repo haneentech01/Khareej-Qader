@@ -250,6 +250,7 @@ export interface LoginFormData {
   username: string;
 }
 
+export type LoginRole = "student" | "mentor" | "admin";
 // ─── Dashboard Types ────────────────────────────
 
 export interface DashboardStudent {
@@ -440,3 +441,53 @@ export interface CreateTaskResponse {
   created_at: string;
   updated_at: string;
 }
+
+// ─── Mentor Tasks Page (count / list / courses / profile) ───
+
+/**
+ * استجابة GET /tasks/count
+ * الـ backend يرجع: { success, message, data: { total: number } }
+ */
+export interface MentorTasksCountData {
+  total: number;
+}
+
+/**
+ * عنصر من استجابة GET /tasks/list
+ * كل مهمة تحتوي على العنوان، اسم الدرس المرتبط، وتاريخ التسليم.
+ */
+export interface MentorTaskListItem {
+  title: string;
+  video_title: string;
+  dead_line: string; // ISO date string
+}
+
+/**
+ * استجابة GET /videos/mentor/course
+ * كل عنصر يمثل درس/فيديو داخل مسار المنتور (يُستخدم في القائمة المنسدلة بنموذج إضافة مهمة).
+ */
+export interface MentorCourseItem {
+  id: number;
+  video_title: string;
+}
+
+/**
+ * بيانات المنتور المستخدمة في الـ TopNav (الاسم + البريد + الصورة).
+ * يستجيب لها endpoint /mentor/auth/me (أو /mentor/profile).
+ * نأخذ فقط الحقول المعروضة في الـ navbar لتجنب coupling مع schema الـ backend كاملاً.
+ */
+export interface MentorProfile {
+  id?: number;
+  name: string;
+  email?: string;
+  avatar?: string;
+  // حقول اختيارية إضافية لو رجعها الـ backend
+  major?: string;
+  role?: string;
+}
+
+/**
+ * شكل بيانات الـ navbar بناءً على نوع المستخدم (طالب / منتور).
+ * يستخدمه TopNav ليعرض الاسم/البريد/الصورة الصحيحة.
+ */
+export type TopNavVariant = "student" | "mentor" | "admin";
