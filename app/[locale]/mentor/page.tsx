@@ -31,7 +31,7 @@ export default async function MentorDashboardPage({ params }: MentorDashboardPag
   const t = await getTranslations("MentorDashboard");
 
   return (
-    <div className="max-w-7xl mx-auto space-y-8 pb-12 px-4 md:px-0">
+    <div className="max-w-7xl mx-auto space-y-8 pb-8 px-4 md:px-0">
       {/* Welcome Greeting Row */}
       <MentorWelcomeHeader />
 
@@ -43,20 +43,22 @@ export default async function MentorDashboardPage({ params }: MentorDashboardPag
         <div className="lg:col-span-8 flex">
           <LatestSubmissions />
         </div>
-        <div className="lg:col-span-4 flex">
-          <LateStudents />
-        </div>
-      </div>
 
-      {/* Bottom Section: Activities & Quick Actions */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-        <div className="lg:col-span-8 flex">
-          <LatestActivities />
-        </div>
         <div className="lg:col-span-4 flex">
           <QuickActions />
         </div>
+
+        {/* <div className="lg:col-span-4 flex">
+          <LateStudents />
+        </div> */}
       </div>
+
+      {/* Bottom Section: Activities & Quick Actions */}
+      {/* <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+         <div className="lg:col-span-8 flex">
+          <LatestActivities />
+        </div> 
+      </div>*/}
     </div>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import apiClient from "@/lib/api/client";
 import endpoints from "@/lib/api/endpoints";
 import type { VideoProgressPayload } from "@/types";

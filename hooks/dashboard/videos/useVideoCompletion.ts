@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useInsertData } from "@/lib/hooks/useInsertData";
 import endpoints from "@/lib/api/endpoints";
 import type { VideoCompleteResponse } from "@/types";
@@ -20,7 +20,10 @@ export function useVideoCompletion({
   const completionFiredRef = useRef(false);
 
   const onVideoCompletedRef = useRef(onVideoCompleted);
-  onVideoCompletedRef.current = onVideoCompleted;
+  
+  useEffect(() => {
+    onVideoCompletedRef.current = onVideoCompleted;
+  }, [onVideoCompleted]);
 
   const { insertData } = useInsertData<VideoCompleteResponse>(
     endpoints.video.complete(lessonId),

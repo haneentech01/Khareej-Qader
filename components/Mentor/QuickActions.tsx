@@ -1,8 +1,7 @@
 "use client";
 
-import React from "react";
 import { useTranslations } from "next-intl";
-import { Zap, FilePlus, Mail } from "lucide-react";
+import { Zap, FilePlus } from "lucide-react";
 
 export function QuickActions() {
   const t = useTranslations("MentorDashboard.quick_actions");
@@ -15,13 +14,13 @@ export function QuickActions() {
       hoverColor: "hover:border-brand-primary hover:shadow-emerald-50",
       onClick: () => console.log("Add task"),
     },
-    {
-      title: t("send_email"),
-      icon: Mail,
-      color: "text-brand-primary bg-white border border-gray-100",
-      hoverColor: "hover:border-brand-primary hover:shadow-blue-50",
-      onClick: () => console.log("Send email"),
-    },
+    // {
+    //   title: t("send_email"),
+    //   icon: Mail,
+    //   color: "text-brand-primary bg-white border border-gray-100",
+    //   hoverColor: "hover:border-brand-primary hover:shadow-blue-50",
+    //   onClick: () => console.log("Send email"),
+    // },
   ];
 
   return (
@@ -37,7 +36,7 @@ export function QuickActions() {
       </div>
 
       {/* Grid of Actions */}
-      <div className="grid grid-cols-2 gap-3 md:gap-7 my-auto">
+      <div className="grid grid-cols-1 gap-3 md:gap-7 my-auto">
         {actions.map((action, idx) => {
           const Icon = action.icon;
           return (

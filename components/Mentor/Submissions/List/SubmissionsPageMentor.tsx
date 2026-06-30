@@ -1,31 +1,31 @@
 "use client";
 
 import React from "react";
-import { SubmissionsHeader } from "./SubmissionsHeader";
-import { SubmissionsStats } from "./SubmissionsStats";
-import { SubmissionsSearchFilters } from "./SubmissionsSearchFilters";
 import { SubmissionsTable } from "./SubmissionsTable";
-import { SubmissionsPagination } from "./SubmissionsPagination";
+import { SubmissionsHeader } from "./SubmissionsHeader";
+// import { SubmissionsPagination } from "./SubmissionsPagination";
+// import { SubmissionsSearchFilters } from "./SubmissionsSearchFilters";
 import { useMentorSubmissions } from "@/hooks/useMentorSubmissions";
+
 
 export function SubmissionsPageMentor() {
   const {
-    searchQuery,
-    setSearchQuery,
-    statusFilter,
-    setStatusFilter,
-    sortBy,
-    setSortBy,
-    currentPage,
-    setCurrentPage,
-    itemsPerPage,
-    setItemsPerPage,
+    // searchQuery,
+    // setSearchQuery,
+    // statusFilter,
+    // setStatusFilter,
+    // sortBy,
+    // setSortBy,
+    // currentPage,
+    // setCurrentPage,
+    // itemsPerPage,
+    // setItemsPerPage,
     submissions,
-    totalItems,
-    totalPages,
-    startIndex,
-    endIndex,
-    stats,
+    // totalItems,
+    // totalPages,
+    // startIndex,
+    // endIndex,
+    // stats,
   } = useMentorSubmissions();
 
   return (
@@ -34,26 +34,26 @@ export function SubmissionsPageMentor() {
       <SubmissionsHeader />
 
       {/* Submissions Stats Cards */}
-      <SubmissionsStats stats={stats} />
+      {/* <SubmissionsStats stats={stats} /> */}
 
       {/* Table & Filters Card wrapper */}
       <div className="w-full flex flex-col gap-6 bg-white py-6 px-6 md:px-8 rounded-3xl border border-slate-100 shadow-[0_8px_30px_rgba(0,0,0,0.01)]">
         {/* Search Input & Dropdown Filters */}
-        <SubmissionsSearchFilters
+        {/* <SubmissionsSearchFilters
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
           statusFilter={statusFilter}
           setStatusFilter={setStatusFilter}
           sortBy={sortBy}
           setSortBy={setSortBy}
-        />
+        /> */}
 
         {/* Dynamic Data Table (using Tanstack Table) */}
         <SubmissionsTable submissions={submissions} />
       </div>
 
       {/* Pagination Controls */}
-      <SubmissionsPagination
+      {/* <SubmissionsPagination
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
         itemsPerPage={itemsPerPage}
@@ -62,7 +62,7 @@ export function SubmissionsPageMentor() {
         totalPages={totalPages}
         startIndex={startIndex}
         endIndex={endIndex}
-      />
+      /> */}
     </div>
   );
 }

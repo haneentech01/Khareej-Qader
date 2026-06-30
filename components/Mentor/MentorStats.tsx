@@ -2,19 +2,19 @@
 
 import React from "react";
 import { useTranslations } from "next-intl";
-import { TrendingUp, Users, ClipboardCheck, Clock } from "lucide-react";
+import { Users, ClipboardCheck } from "lucide-react";
 
 export function MentorStats() {
   const t = useTranslations("MentorDashboard.stats");
 
   const cards = [
-    {
-      title: t("average_progress"),
-      value: "68%",
-      desc: t("average_progress_desc"),
-      icon: TrendingUp,
-      progress: 68,
-    },
+    // {
+    //   title: t("average_progress"),
+    //   value: "68%",
+    //   desc: t("average_progress_desc"),
+    //   icon: TrendingUp,
+    //   progress: 68,
+    // },
     {
       title: t("students_count"),
       value: "42",
@@ -32,14 +32,14 @@ export function MentorStats() {
       subDesc: t("submissions"),
       icon: ClipboardCheck,
     },
-    {
-      title: t("late_students"),
-      value: "5",
-      desc: t("late_students_desc"),
-      descClass: "text-brand-primary",
-      subDesc: t("student"),
-      icon: Clock,
-    },
+    // {
+    //   title: t("late_students"),
+    //   value: "5",
+    //   desc: t("late_students_desc"),
+    //   descClass: "text-brand-primary",
+    //   subDesc: t("student"),
+    //   icon: Clock,
+    // },
   ];
 
   return (
@@ -56,7 +56,7 @@ export function MentorStats() {
           >
             <div className="flex flex-col items-center gap-2 px-6 w-full">
               {/* Header Row */}
-              <div className="flex justify-start items-center gap-2.5 w-full">
+              <div className="flex justify-center items-center gap-2.5 w-full">
                 <div className="size-11 rounded-xl bg-brand-light-green border border-[#A7F3D0]/60 flex items-center justify-center shrink-0">
                   <Icon className="size-5.5 text-brand-primary" />
                 </div>
@@ -75,7 +75,7 @@ export function MentorStats() {
 
               {/* Bottom Row / Custom visuals */}
               <div className="text-center">
-                {card.progress !== undefined ? (
+                {/* {card.progress !== undefined ? (
                   <div className="space-y-4">
                     <span className={`text-xs md:text-sm font-medium block ${card.descClass}`}>
                       {card.desc}
@@ -88,15 +88,16 @@ export function MentorStats() {
                     </div>
                   </div>
                 ) : (
-                  <div className="space-y-2">
-                    <span className={`text-xs md:text-sm font-medium block ${card.subDescClass}`}>
-                      {card.subDesc}
-                    </span>
-                    <span className={`text-xs md:text-sm font-medium block ${card.descClass}`}>
-                      {card.desc}
-                    </span>
-                  </div>
-                )}
+                )} */}
+
+                <div className="space-y-2">
+                  <span className={`text-xs md:text-sm font-medium block ${card.subDescClass}`}>
+                    {card.subDesc}
+                  </span>
+                  {/* <span className={`text-xs md:text-sm font-medium block ${card.descClass}`}>
+                    {card.desc}
+                  </span> */}
+                </div>
               </div>
             </div>
           </div>

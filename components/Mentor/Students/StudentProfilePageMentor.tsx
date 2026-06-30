@@ -1,11 +1,10 @@
 "use client";
 
-import React from "react";
+import { useMentorStudentProfile } from "@/hooks/useMentorStudentProfile";
 import { StudentProfileHeader } from "./StudentProfileHeader";
 import { StudentProfileStats } from "./StudentProfileStats";
 import { StudentPersonalInfo } from "./StudentPersonalInfo";
 import { StudentSubmissionsTable } from "./StudentSubmissionsTable";
-import { useMentorStudentProfile } from "@/hooks/useMentorStudentProfile";
 
 interface StudentProfilePageMentorProps {
   studentId: string;

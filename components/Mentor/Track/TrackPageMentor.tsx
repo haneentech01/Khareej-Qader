@@ -2,28 +2,28 @@
 
 import React from "react";
 import { TrackHeader } from "./TrackHeader";
-import { TrackSearchFilters } from "./TrackSearchFilters";
+// import { TrackSearchFilters } from "./TrackSearchFilters";
 import { TrackLessonsTable } from "./TrackLessonsTable";
-import { TrackPagination } from "./TrackPagination";
+// import { TrackPagination } from "./TrackPagination";
 import { useMentorTrack } from "@/hooks/useMentorTrack";
 
 export function TrackPageMentor() {
   const {
-    searchQuery,
-    setSearchQuery,
-    statusFilter,
-    setStatusFilter,
-    sortBy,
-    setSortBy,
-    currentPage,
-    setCurrentPage,
-    itemsPerPage,
-    setItemsPerPage,
+    // searchQuery,
+    // setSearchQuery,
+    // statusFilter,
+    // setStatusFilter,
+    // sortBy,
+    // setSortBy,
+    // currentPage,
+    // setCurrentPage,
+    // itemsPerPage,
+    // setItemsPerPage,
     lessons,
-    totalItems,
-    totalPages,
-    startIndex,
-    endIndex,
+    // totalItems,
+    // totalPages,
+    // startIndex,
+    // endIndex,
   } = useMentorTrack();
 
   return (
@@ -33,21 +33,21 @@ export function TrackPageMentor() {
 
       <div className="w-full flex flex-col gap-6 bg-white py-4 px-8 rounded-3xl">
         {/* Search and Filters */}
-        <TrackSearchFilters
+        {/* <TrackSearchFilters
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
           statusFilter={statusFilter}
           setStatusFilter={setStatusFilter}
           sortBy={sortBy}
           setSortBy={setSortBy}
-        />
+        /> */}
 
         {/* Lessons Table */}
         <TrackLessonsTable lessons={lessons} />
       </div>
 
       {/* Pagination Controls */}
-      <TrackPagination
+      {/* <TrackPagination
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
         itemsPerPage={itemsPerPage}
@@ -56,7 +56,7 @@ export function TrackPageMentor() {
         totalPages={totalPages}
         startIndex={startIndex}
         endIndex={endIndex}
-      />
+      /> */}
     </div>
   );
 }

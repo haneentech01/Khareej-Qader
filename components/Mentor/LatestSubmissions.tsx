@@ -130,47 +130,47 @@ export function LatestSubmissions() {
           </span>
         ),
       },
-      {
-        accessorKey: "time",
-        header: t("time"),
-        cell: ({ getValue }) => (
-          <span className="text-brand-muted text-xs md:text-sm">
-            {getValue<string>()}
-          </span>
-        ),
-      },
-      {
-        accessorKey: "status",
-        header: t("status"),
-        cell: ({ getValue }) => (
-          <StatusBadge
-            status={getValue<Submission["status"]>()}
-            evaluated={t("status_evaluated")}
-            pending={t("status_pending")}
-          />
-        ),
-      },
-      {
-        id: "action",
-        header: () => (
-          <span className="block text-center">{t("action")}</span>
-        ),
-        cell: ({ row }) => (
-          <div className="flex justify-center">
-            <Link
-              href={`/mentor/submissions/${row.original.id}`}
-              className="border border-brand-primary text-brand-primary hover:bg-brand-light active:bg-brand-light rounded-xl px-3 py-1.5 font-bold text-xs md:text-sm inline-flex items-center gap-1 transition-all shadow-xs"
-            >
-              {t("review_btn")}
-              {isRtl ? (
-                <ChevronLeft className="size-3.5" />
-              ) : (
-                <ChevronRight className="size-3.5" />
-              )}
-            </Link>
-          </div>
-        ),
-      },
+      // {
+      //   accessorKey: "time",
+      //   header: t("time"),
+      //   cell: ({ getValue }) => (
+      //     <span className="text-brand-muted text-xs md:text-sm">
+      //       {getValue<string>()}
+      //     </span>
+      //   ),
+      // },
+      // {
+      //   accessorKey: "status",
+      //   header: t("status"),
+      //   cell: ({ getValue }) => (
+      //     <StatusBadge
+      //       status={getValue<Submission["status"]>()}
+      //       evaluated={t("status_evaluated")}
+      //       pending={t("status_pending")}
+      //     />
+      //   ),
+      // },
+      // {
+      //   id: "action",
+      //   header: () => (
+      //     <span className="block text-center">{t("action")}</span>
+      //   ),
+      //   cell: ({ row }) => (
+      //     <div className="flex justify-center">
+      //       <Link
+      //         href={`/mentor/submissions/${row.original.id}`}
+      //         className="border border-brand-primary text-brand-primary hover:bg-brand-light active:bg-brand-light rounded-xl px-3 py-1.5 font-bold text-xs md:text-sm inline-flex items-center gap-1 transition-all shadow-xs"
+      //       >
+      //         {t("review_btn")}
+      //         {isRtl ? (
+      //           <ChevronLeft className="size-3.5" />
+      //         ) : (
+      //           <ChevronRight className="size-3.5" />
+      //         )}
+      //       </Link>
+      //     </div>
+      //   ),
+      // },
     ],
     [t, isRtl]
   );
@@ -218,7 +218,7 @@ export function LatestSubmissions() {
                 {headerGroup.headers.map((header) => (
                   <TableHead
                     key={header.id}
-                    className="text-black text-xs md:text-sm font-extrabold uppercase tracking-wider py-3 px-4 rtl:text-right ltr:text-left"
+                    className="text-black text-xs md:text-sm font-extrabold uppercase tracking-wider py-3 px-4 text-center"
                   >
                     {header.isPlaceholder
                       ? null
@@ -242,7 +242,7 @@ export function LatestSubmissions() {
                   {row.getVisibleCells().map((cell) => (
                     <TableCell
                       key={cell.id}
-                      className="py-4 px-4 rtl:text-right ltr:text-left"
+                      className="py-4 px-4 text-center"
                     >
                       {flexRender(
                         cell.column.columnDef.cell,
