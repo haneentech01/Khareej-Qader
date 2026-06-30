@@ -1,11 +1,13 @@
+
+import { LateStudents } from "@/components/mentor/LateStudents";
+import { LatestActivities } from "@/components/mentor/LatestActivities";
+
+import { Code2 } from "lucide-react";
+import { MentorWelcomeHeader } from "@/components/mentor/Layout/MentorWelcomeHeader";
 import { getTranslations } from "next-intl/server";
 import { MentorStats } from "@/components/mentor/MentorStats";
 import { LatestSubmissions } from "@/components/mentor/LatestSubmissions";
-import { LateStudents } from "@/components/mentor/LateStudents";
-import { LatestActivities } from "@/components/mentor/LatestActivities";
 import { QuickActions } from "@/components/mentor/QuickActions";
-import { Code2 } from "lucide-react";
-import { MentorWelcomeHeader } from "@/components/mentor/Layout/MentorWelcomeHeader";
 export async function generateMetadata({
   params,
 }: {
