@@ -250,7 +250,7 @@ export interface LoginFormData {
   username: string;
 }
 
-export type LoginRole = "student" | "mentor" | "admin";
+export type Role = "student" | "mentor" | "admin";
 // ─── Dashboard Types ────────────────────────────
 
 export interface DashboardStudent {

@@ -2,11 +2,11 @@
 
 import { useRouter } from "@/i18n/routing";
 import endpoints from "@/lib/api/endpoints";
+import { setRoleCookie } from "@/lib/auth/roleCookie";
 import { useForm } from "../forms/useForm";
-import { LoginFormData, LoginRole, ValidationErrors } from "@/types";
+import { LoginFormData, Role, ValidationErrors } from "@/types";
 import { useLocale } from "next-intl";
 import { toast } from "react-toastify";
-import { setRoleCookie } from "@/lib/auth/roleCookie";
 
 // ─── قواعد الفحص المحلي ──────────────────────────
 const validate = (values: LoginFormData): ValidationErrors => {
@@ -15,69 +15,97 @@ const validate = (values: LoginFormData): ValidationErrors => {
   return errors;
 };
 
-/**
- * خريطة: role → endpoint + صفحة التوجيه بعد النجاح.
- *
- * فصلناها هنا عشان useLoginForm يفضل generic ويقبل أي role،
- * والـ LoginForm يختار الـ role بناءً على props أو query params.
- */
-const LOGIN_CONFIG: Record<
-  LoginRole,
-  {
-    endpoint: string;
-    redirectPath: string;
-  }
-> = {
-  student: {
-    endpoint: endpoints.auth.student.login,
-    redirectPath: "/dashboard",
-  },
-  mentor: {
-    endpoint: endpoints.auth.mentor.login,
-    redirectPath: "/mentor",
-  },
-  admin: {
-    endpoint: endpoints.auth.admin.login,
-    redirectPath: "/admin",
-  },
+const LOGIN_ENDPOINTS: Record<Role, string> = {
+  student: endpoints.auth.student.login,
+  mentor: endpoints.auth.mentor.login,
+  admin: endpoints.auth.admin.login,
+};
+
+/** صفحة التوجيه الافتراضية لكل role (تُستخدم كـ fallback لو الـ backend ما رجّعش role) */
+const DEFAULT_REDIRECT_PATHS: Record<Role, string> = {
+  student: "/dashboard",
+  mentor: "/mentor",
+  admin: "/admin",
 };
 
 interface UseLoginFormOptions {
-  /** نوع المستخدم اللي بيسجّل دخول — يحدد الـ endpoint + صفحة التوجيه */
-  role?: LoginRole;
+  role?: Role;
 }
 
-export function useLoginForm({ role = "student" }: UseLoginFormOptions = {}) {
+/**
+ * يستخرج الـ role من استجابة الـ backend.
+ *
+ * الـ backend بيرجع:
+ * {
+ *   success: true,
+ *   message: null,
+ *   data: {
+ *     user: {
+ *       slug, name, email, mentor, role: "student" | "mentor" | ...
+ *     }
+ *   }
+ * }
+ *
+ * نستخرج `data.user.role` ونتأكد إنه قيمة صحيحة.
+ * لو الـ backend رجّع role مش صحيح، نرجّع null ونعتمد على الـ role اللي اختاره المستخدم.
+ */
+function extractRoleFromResponse(data: unknown): Role | null {
+  if (!data || typeof data !== "object") return null;
+
+  const response = data as { data?: { user?: { role?: string } } };
+  const role = response?.data?.user?.role;
+
+  if (role === "student" || role === "mentor" || role === "admin") {
+    return role;
+  }
+
+  return null;
+}
+
+export function useLoginForm({
+  role: selectedRole = "student",
+}: UseLoginFormOptions = {}) {
   const router = useRouter();
   const locale = useLocale();
 
-  const config = LOGIN_CONFIG[role];
+  const endpoint = LOGIN_ENDPOINTS[selectedRole];
 
   return useForm<LoginFormData>({
     initialValues: {
       username: "",
     },
 
-    endpoint: config.endpoint,
+    endpoint,
 
     validate,
 
     successMessage: "تم تسجيل الدخول بنجاح",
 
-    onSuccess: () => {
-      // خزّن الـ role في cookie عشان الـ middleware يقدر يحمي المسارات
-      // (mentor routes للمدراء فقط، dashboard routes للطلاب فقط)
-      setRoleCookie(role);
+    onSuccess: (responseData) => {
+      const backendRole = extractRoleFromResponse(responseData);
 
-      // وجّه المستخدم للصفحة المناسبة حسب الـ role
-      router.push(config.redirectPath);
+      // لو الـ backend رجّع role صحيح، نستخدمه.
+      // لو لأ (نادر)، نستخدم الـ role اللي اختاره المستخدم كـ fallback.
+      const finalRole: Role = backendRole ?? selectedRole;
+
+      setRoleCookie(finalRole);
+
+      // وجّه المستخدم للصفحة المناسبة حسب الـ role الحقيقي
+      const redirectPath = DEFAULT_REDIRECT_PATHS[finalRole];
+      router.push(redirectPath);
+
+      // لوج للديباج (مفيد لو فيه mismatch بين الـ selected role والـ backend role)
+      if (backendRole && backendRole !== selectedRole) {
+        console.warn(
+          `[login] Role mismatch: user selected "${selectedRole}" but backend returned "${backendRole}". Using backend role.`,
+        );
+      }
     },
 
     // ─── معالجة خطأ الحساب غير المفعّل ───────────────
     onError: (_errors, message) => {
       const lowerMessage = message.toLowerCase();
 
-      // الباك إند ممكن يرجع رسالة فيها كلمات تدل إن الحساب غير مفعّل
       const activationKeywords = [
         "activate",
         "activation",
@@ -89,7 +117,6 @@ export function useLoginForm({ role = "student" }: UseLoginFormOptions = {}) {
         "email verification",
         "حسابك غير نشط",
         "inactive",
-        "enable-account",
       ];
 
       const isActivationError = activationKeywords.some((keyword) =>

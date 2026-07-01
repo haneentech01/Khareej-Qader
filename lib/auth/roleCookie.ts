@@ -1,21 +1,6 @@
-/**
- * إدارة role cookie — يخزّن نوع المستخدم المسجّل دخوله (student / mentor / admin).
- *
- * ليه محتاجين هذا؟
- * الـ middleware يقدر يقرأ هذا الـ cookie و يقرر هل المستخدم يقدر يوصل لـ
- * /mentor/* أو /dashboard/* بناءً على دوره. الـ backend token cookie عادةً
- * يكون httpOnly ومش نقدر نقرأه من الـ middleware بسهولة، فعشان كده بنخزّن
- * الـ role في cookie منفصل (مش httpOnly) عشان الـ middleware يقرأه.
- *
- * الـ cookie اسمه: khareej_user_role
- * قيمه: "student" | "mentor" | "admin"
- * مدة الصلاحية: 7 أيام (نفس مدة الـ session تقريباً)
- */
+import { Role } from "@/types";
 
 export const ROLE_COOKIE_NAME = "khareej_user_role";
-
-/** نوع المستخدم المخزّن في الـ cookie */
-export type UserRole = "student" | "mentor" | "admin";
 
 const ROLE_COOKIE_MAX_AGE_SECONDS = 7 * 24 * 60 * 60; // 7 أيام
 
@@ -26,7 +11,7 @@ const ROLE_COOKIE_MAX_AGE_SECONDS = 7 * 24 * 60 * 60; // 7 أيام
  * @example
  * setRoleCookie("mentor"); // بعد نجاح login المنتور
  */
-export function setRoleCookie(role: UserRole): void {
+export function setRoleCookie(role: Role): void {
   if (typeof document === "undefined") return;
 
   const secure = window.location.protocol === "https:" ? "; Secure" : "";
@@ -39,7 +24,7 @@ export function setRoleCookie(role: UserRole): void {
  *
  * @returns الـ role أو null لو مش مسجّل
  */
-export function getRoleCookie(): UserRole | null {
+export function getRoleCookie(): Role | null {
   if (typeof document === "undefined") return null;
 
   const match = document.cookie
@@ -48,7 +33,7 @@ export function getRoleCookie(): UserRole | null {
 
   if (!match) return null;
 
-  const value = match.split("=")[1] as UserRole;
+  const value = match.split("=")[1] as Role;
   if (value === "student" || value === "mentor" || value === "admin") {
     return value;
   }
@@ -69,9 +54,9 @@ export function clearRoleCookie(): void {
  */
 export function getRoleFromRequestCookies(cookies: {
   get: (name: string) => { value?: string } | undefined;
-}): UserRole | null {
+}): Role | null {
   const cookie = cookies.get(ROLE_COOKIE_NAME);
-  const value = cookie?.value as UserRole | undefined;
+  const value = cookie?.value as Role | undefined;
 
   if (value === "student" || value === "mentor" || value === "admin") {
     return value;
