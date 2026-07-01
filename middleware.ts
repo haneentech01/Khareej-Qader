@@ -2,8 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import {
   getRoleFromRequestCookies,
   ROLE_COOKIE_NAME,
-  UserRole,
 } from "@/lib/auth/roleCookie";
+import { Role } from "./types";
 
 const PROTECTED_ROUTES = ["/dashboard", "/mentor", "/admin"];
 const AUTH_ONLY_ROUTES = ["/login", "/register", "/register-mentor"];
@@ -27,7 +27,7 @@ const AUTH_COOKIE_NAMES = [
  *
  * نرجّع أول match فقط عشان نتجنب التداخل (مثلاً /mentor/dashboard).
  */
-function getRequiredRoleForPath(pathname: string): UserRole | null {
+function getRequiredRoleForPath(pathname: string): Role | null {
   // نستخدم startsWith عشان نطابق كل المسارات الفرعية
   // ترتيب الفحص مهم: نبدأ بـ /mentor قبل /dashboard لو في تداخل
   // (في هذا المشروع ما فيش تداخل فعلي، بس نحافظ على الترتيب للأمان)
