@@ -24,18 +24,20 @@ export function TopNav({ variant = "student" }: TopNavProps) {
   const { dashboard } = useDashboard();
   const { mentor } = useMentorProfile();
 
-  // نحدد الاسم/البريد/الصورة بناءً على الـ variant
+  // Name of the current user
   const displayName =
     variant === "mentor"
       ? mentor?.name || t("mentorName")
       : dashboard?.student?.name || t("userName");
 
 
+  // Email or Major of the current user
   const displayEmail =
     variant === "mentor"
       ? mentor?.email || mentor?.major || t("mentorMajor")
       : dashboard?.student?.email || t("userMajor");
 
+  // Avatar of the current user
   const displayAvatar =
     variant === "mentor"
       ? mentor?.avatar || "/images/default-avatar.svg"

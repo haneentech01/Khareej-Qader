@@ -6,7 +6,8 @@ import { MentorCard } from "@/components/dashboard/Home/MentorCard";
 import { TaskCard } from "@/components/dashboard/Home/TaskCard";
 import { useDashboard } from "@/hooks/dashboard/useDashboard";
 import { DashboardSkeleton } from "./DashboardSkeleton";
-import { WelcomeHeader } from "./WelcomeHeader";
+import { WelcomeHeader } from "@/components/layout/WelcomeHeader";
+
 
 export function DashboardContent() {
     const t = useTranslations("Dashboard");

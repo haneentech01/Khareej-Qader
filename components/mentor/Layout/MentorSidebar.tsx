@@ -23,7 +23,7 @@ import {
   SidebarRail,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { SidebarItem } from "./Layout/SidebarItem";
+import { SidebarItem } from "../../dashboard/Layout/SidebarItem";
 import endpoints from "@/lib/api/endpoints";
 import apiClient from "@/lib/api/client";
 

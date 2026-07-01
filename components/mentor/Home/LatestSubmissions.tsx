@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useMemo } from "react";
@@ -19,6 +20,17 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useMentorDashboard } from "@/hooks/mentor/useMentorDashboard";
+import type { MentorDashboardLastSubmission } from "@/types";
+
+// ─── Constants ───────────────────────────────────────────────────────────────
+
+/** الحد الأقصى لعدد التسليمات المعروضة في الجدول (الباقي يظهر عبر "عرض الكل"). */
+const MAX_VISIBLE_SUBMISSIONS = 5;
+
+/** صورة افتراضية للطالب لأن الـ dashboard endpoint لا يُرجع صورة الطالب. */
+const DEFAULT_STUDENT_AVATAR =
+  "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -27,35 +39,25 @@ interface Submission {
   studentName: string;
   studentAvatar: string;
   task: string;
-  time: string;
-  status: "evaluated" | "pending";
 }
 
-// ─── Sub-components ──────────────────────────────────────────────────────────
+// ─── Helpers ─────────────────────────────────────────────────────────────────
 
-function StatusBadge({
-  status,
-  evaluated,
-  pending,
-}: {
-  status: "evaluated" | "pending";
-  evaluated: string;
-  pending: string;
-}) {
-  if (status === "evaluated") {
-    return (
-      <span className="bg-brand-light text-brand-base text-xs font-bold px-3 py-1 rounded-lg inline-flex items-center gap-1.5">
-        <span className="size-1.5 rounded-full bg-brand-base" />
-        {evaluated}
-      </span>
-    );
-  }
-  return (
-    <span className="bg-brand-light-orange text-brand-orange text-xs font-bold px-3 py-1 rounded-lg inline-flex items-center gap-1.5">
-      <span className="size-1.5 rounded-full bg-brand-orange animate-pulse" />
-      {pending}
-    </span>
-  );
+/**
+ * يحوّل عنصر التسليم القادم من /mentor/dashboard إلى الـ shape الذي يستهلكه
+ * الجدول (Submission) — نأخذ فقط: student_name + task_title.
+ * الصورة placeholder محايد لأن الـ dashboard endpoint لا يُرجعها.
+ */
+function mapDashboardSubmission(
+  item: MentorDashboardLastSubmission,
+  index: number,
+): Submission {
+  return {
+    id: `dash-${index}-${item.student_name}-${item.submitted_at}`,
+    studentName: item.student_name || "—",
+    studentAvatar: DEFAULT_STUDENT_AVATAR,
+    task: item.task_title || "—",
+  };
 }
 
 // ─── Main Component ──────────────────────────────────────────────────────────
@@ -64,42 +66,21 @@ export function LatestSubmissions() {
   const t = useTranslations("MentorDashboard.submissions_table");
   const locale = useLocale();
   const isRtl = locale === "ar";
+  const { dashboard, loading } = useMentorDashboard();
 
   // ── Data ──────────────────────────────────────────────────────────────────
-  const submissions: Submission[] = useMemo(
-    () => [
-      {
-        id: "1",
-        studentName: "محمد خالد",
-        studentAvatar:
-          "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100",
-        task: "مهمة React (الجزء 2)",
-        time: isRtl ? "قبل ساعة" : "An hour ago",
-        status: "evaluated",
-      },
-      {
-        id: "2",
-        studentName: "آية أحمد",
-        studentAvatar:
-          "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100",
-        task: "تصميم Landing Page",
-        time: isRtl ? "أمس 10:30 م" : "Yesterday 10:30 PM",
-        status: "pending",
-      },
-      {
-        id: "3",
-        studentName: "سارة محمود",
-        studentAvatar:
-          "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100",
-        task: "ربط API بالمشروع",
-        time: isRtl ? "أمس 08:15 ص" : "Yesterday 08:15 AM",
-        status: "evaluated",
-      },
-    ],
-    [isRtl]
-  );
+  // نأخذ آخر MAX_VISIBLE_SUBMISSIONS تسليمات فقط — الباقي يصل له المستخدم
+  // عبر زر "عرض الكل" الذي يوجّه لصفحة /mentor/submissions الكاملة.
+  const submissions: Submission[] = useMemo(() => {
+    const all = dashboard?.last_task_submissions_count ?? [];
+    return all.slice(0, MAX_VISIBLE_SUBMISSIONS).map((item, index) =>
+      mapDashboardSubmission(item, index),
+    );
+  }, [dashboard]);
 
   // ── Column Definitions ────────────────────────────────────────────────────
+  // عمودان فقط: الطالب (صورة + اسم) + المهمة.
+  // تم حذف عمود time و status بناءً على الطلب.
   const columns: ColumnDef<Submission>[] = useMemo(
     () => [
       {
@@ -130,49 +111,8 @@ export function LatestSubmissions() {
           </span>
         ),
       },
-      // {
-      //   accessorKey: "time",
-      //   header: t("time"),
-      //   cell: ({ getValue }) => (
-      //     <span className="text-brand-muted text-xs md:text-sm">
-      //       {getValue<string>()}
-      //     </span>
-      //   ),
-      // },
-      // {
-      //   accessorKey: "status",
-      //   header: t("status"),
-      //   cell: ({ getValue }) => (
-      //     <StatusBadge
-      //       status={getValue<Submission["status"]>()}
-      //       evaluated={t("status_evaluated")}
-      //       pending={t("status_pending")}
-      //     />
-      //   ),
-      // },
-      // {
-      //   id: "action",
-      //   header: () => (
-      //     <span className="block text-center">{t("action")}</span>
-      //   ),
-      //   cell: ({ row }) => (
-      //     <div className="flex justify-center">
-      //       <Link
-      //         href={`/mentor/submissions/${row.original.id}`}
-      //         className="border border-brand-primary text-brand-primary hover:bg-brand-light active:bg-brand-light rounded-xl px-3 py-1.5 font-bold text-xs md:text-sm inline-flex items-center gap-1 transition-all shadow-xs"
-      //       >
-      //         {t("review_btn")}
-      //         {isRtl ? (
-      //           <ChevronLeft className="size-3.5" />
-      //         ) : (
-      //           <ChevronRight className="size-3.5" />
-      //         )}
-      //       </Link>
-      //     </div>
-      //   ),
-      // },
     ],
-    [t, isRtl]
+    [t]
   );
 
   // ── Table Instance ────────────────────────────────────────────────────────
@@ -233,7 +173,18 @@ export function LatestSubmissions() {
           </TableHeader>
 
           <TableBody>
-            {table.getRowModel().rows.length ? (
+            {loading ? (
+              // skeleton بسيط أثناء التحميل
+              <TableRow>
+                <TableCell
+                  colSpan={columns.length}
+                  className="text-center py-10 text-brand-muted"
+                >
+                  <span className="inline-block size-5 border-2 border-brand-primary border-t-transparent rounded-full animate-spin align-middle ml-2" />
+                  {isRtl ? "جاري التحميل..." : "Loading..."}
+                </TableCell>
+              </TableRow>
+            ) : table.getRowModel().rows.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
@@ -258,7 +209,7 @@ export function LatestSubmissions() {
                   colSpan={columns.length}
                   className="text-center py-10 text-brand-muted"
                 >
-                  لا توجد بيانات
+                  {isRtl ? "لا توجد بيانات" : "No data"}
                 </TableCell>
               </TableRow>
             )}

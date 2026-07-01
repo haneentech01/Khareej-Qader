@@ -19,7 +19,7 @@ import { MentorProfile } from "@/types";
  */
 export function useMentorProfile() {
   const { data, loading, error, refetch } = useGetData<MentorProfile>(
-    endpoints.auth.mentor.me,
+    endpoints.mentor.dashboard,
   );
 
   return {

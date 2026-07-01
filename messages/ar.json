@@ -327,6 +327,10 @@
         "home": {
           "title": "لوحة تحكم المنتور | خريج قادر",
           "description": "استعرض مهام طلابك، تابع تقدمهم، وقدم الدعم اللازم."
+        },
+        "profile": {
+          "title": "ملفي الشخصي | خريج قادر",
+          "description": "عرض وإدارة بياناتك الشخصية كمنتور."
         }
       }
     },
@@ -967,6 +971,39 @@
       "cancel": "إلغاء",
       "submit": "إنشاء المهمة",
       "submitting": "جاري الإنشاء..."
+    }
+  },
+  "MentorProfilePage": {
+    "metadata": {
+      "title": "ملفي الشخصي | خريج قادر",
+      "description": "عرض وإدارة بياناتك الشخصية كمنتور في برنامج خريج قادر."
+    },
+    "breadcrumbs": {
+      "home": "الرئيسية",
+      "profile": "ملفي الشخصي"
+    },
+    "default_role": "منتور",
+    "stats": {
+      "students_count": "عدد الطلاب",
+      "students_unit": "طالب",
+      "new_submissions": "التسليمات الأخيرة",
+      "submissions_unit": "تسليم",
+      "track_lessons": "دروس المسار",
+      "lessons_unit": "درس",
+      "avg_rating": "متوسط التقييم",
+      "rating_unit": "تقييم"
+    },
+    "info": {
+      "title": "المعلومات الشخصية",
+      "full_name": "الاسم الكامل",
+      "email": "البريد الإلكتروني",
+      "major": "التخصص",
+      "track": "المسار التدريبي"
+    },
+    "recent_submissions": {
+      "title": "آخر التسليمات",
+      "view_all": "عرض الكل",
+      "empty": "لا توجد تسليمات حتى الآن."
     }
   }
 }

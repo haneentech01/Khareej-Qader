@@ -10,7 +10,7 @@ const endpoints = {
     },
     mentor: {
       register: "/mentor/auth/register",
-      activation: (id: string) => `/mentor/enable-account/${id}`,
+      activation: (id: string | number) => `/mentor/enable-account/${id}`,
       login: "/mentor/auth/login",
       logout: "/mentor/auth/logout",
       me: "/mentor/auth/me",
@@ -27,7 +27,7 @@ const endpoints = {
     profile: "/students/student-profile",
     track: "/students/track",
     tasks: "/students/tasks",
-    task: (id: string) => `/students/tasks/${id}`,
+    task: (id: string | number) => `/students/tasks/${id}`,
     certificates: "/students/certificates",
     studentPath: "/students/student-path",
   },
@@ -43,14 +43,16 @@ const endpoints = {
 
   // ─── روابط المنتور ──────────────────────────
   mentor: {
-    profile: "/mentor/profile",
+    dashboard: "/mentor/dashboard",
     submissions: "/mentor/submissions",
-    submission: (id: string) => `/mentor/submissions/${id}`,
+    submission: (id: string | number) => `/mentor/submissions/${id}`,
     students: "/mentor/students",
     tasks: {
       create: "/tasks/new-task", // POST - إنشاء مهمة جديدة
       list: "/tasks/list", // GET  - قائمة المهام
       count: "/tasks/count", // GET  - إجمالي عدد المهام
+      reviewSubmission: (id: string | number) =>
+        `/tasks/submissions/${id}/review`, // تقييم تسليم طالب (PATCH)
     },
   },
 

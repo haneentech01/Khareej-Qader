@@ -1,5 +1,5 @@
 import React from "react";
-import { MentorSidebar } from "@/components/dashboard/MentorSidebar";
+import { MentorSidebar } from "@/components/mentor/Layout/MentorSidebar";
 import { TopNav } from "@/components/dashboard/Layout/TopNav";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { getTranslations } from "next-intl/server";

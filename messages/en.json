@@ -292,6 +292,31 @@
       "title": "Dashboard | Khareej Qader",
       "description": "Follow your training track, complete your tasks, and verify your certificate in the Khareej Qader program."
     },
+    "mentor_dashboard": {
+      "metadata": {
+        "title": "Mentor Dashboard | Khareej Qader",
+        "description": "Manage your students, track their progress, and review submitted tasks."
+      },
+      "profile": {
+        "title": "Profile",
+        "subtitle": "Update your mentor information and manage your public profile",
+        "breadcrumb_home": "Home",
+        "breadcrumb_profile": "Profile",
+        "account_info": "Account Information",
+        "personal_info": "Personal Information",
+        "professional_info": "Professional Information",
+        "username": "Username",
+        "avatar": "Profile Picture",
+        "avatar_hint": "Choose a professional image",
+        "full_name": "Full Name",
+        "email": "Email Address",
+        "phone": "Phone Number",
+        "bio": "Bio",
+        "bio_placeholder": "Write a brief description about your expertise...",
+        "specialization": "Specialization",
+        "save_btn": "Save Changes"
+      }
+    },
     "sidebar": {
       "home": "Dashboard",
       "track": "My Track",
@@ -926,6 +951,39 @@
       "dropzone_subtitle": "Max size (20MB) for PDF, DOCX, ZIP files",
       "cancel": "Cancel",
       "submit": "Create Task"
+    }
+  },
+  "MentorProfilePage": {
+    "metadata": {
+      "title": "My Profile | Khareej Qader",
+      "description": "View and manage your personal information as a mentor in the Khareej Qader program."
+    },
+    "breadcrumbs": {
+      "home": "Home",
+      "profile": "My Profile"
+    },
+    "default_role": "Mentor",
+    "stats": {
+      "students_count": "Students Count",
+      "students_unit": "students",
+      "new_submissions": "Recent Submissions",
+      "submissions_unit": "submissions",
+      "track_lessons": "Track Lessons",
+      "lessons_unit": "lessons",
+      "avg_rating": "Average Rating",
+      "rating_unit": "rating"
+    },
+    "info": {
+      "title": "Personal Information",
+      "full_name": "Full Name",
+      "email": "Email Address",
+      "major": "Major",
+      "track": "Training Track"
+    },
+    "recent_submissions": {
+      "title": "Recent Submissions",
+      "view_all": "View All",
+      "empty": "No submissions yet."
     }
   }
 }
