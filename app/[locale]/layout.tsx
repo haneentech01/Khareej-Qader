@@ -8,6 +8,7 @@ import { ScrollToTopButton } from "@/components/ui/ScrollToTopButton";
 import { getTranslations } from "next-intl/server";
 import { ToastContainer, toast } from 'react-toastify';
 import Script from "next/script";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

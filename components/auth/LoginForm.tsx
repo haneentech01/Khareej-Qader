@@ -8,12 +8,13 @@ import { Input } from "@/components/ui/input";
 import { motion } from "framer-motion";
 import { useLoginForm } from "@/hooks/auth/useLoginForm";
 import { Loader2, GraduationCap, Briefcase } from "lucide-react";
-import { LoginRole } from "@/types";
+
 import { cn } from "@/lib/utils";
+import { Role } from "@/types";
 
 interface LoginFormProps {
   showActivationMessage?: boolean;
-  role?: LoginRole;
+  role?: Role;
 }
 
 /**
@@ -21,7 +22,7 @@ interface LoginFormProps {
  * مثال: /ar/login?role=mentor → "mentor"
  * لو الـ query مش موجود أو قيمته مش صحيحة → "student"
  */
-function useLoginRole(propRole?: LoginRole): LoginRole {
+function useLoginRole(propRole?: Role): Role {
   const searchParams = useNextSearchParams();
   const queryRole = searchParams.get("role");
 
@@ -41,12 +42,12 @@ function useLoginRole(propRole?: LoginRole): LoginRole {
  *  2. لو المستخدم عمل reload، الـ role يفضل محفوظ
  *  3. الـ LoginForm يقرأ الـ role من الـ URL تلقائياً
  */
-function RoleTabs({ currentRole }: { currentRole: LoginRole }) {
+function RoleTabs({ currentRole }: { currentRole: Role }) {
   const t = useTranslations("Auth");
   const router = useRouter();
   const searchParams = useNextSearchParams();
 
-  const handleRoleChange = (newRole: LoginRole) => {
+  const handleRoleChange = (newRole: Role) => {
     if (newRole === currentRole) return;
 
     // حدّث الـ URL query param
@@ -58,7 +59,7 @@ function RoleTabs({ currentRole }: { currentRole: LoginRole }) {
     router.push(`/login?${params.toString()}`);
   };
 
-  const tabs: { role: LoginRole; label: string; desc: string; icon: typeof GraduationCap }[] = [
+  const tabs: { role: Role; label: string; desc: string; icon: typeof GraduationCap }[] = [
     { role: "student", label: t("role_student"), desc: t("role_student_desc"), icon: GraduationCap },
     { role: "mentor", label: t("role_mentor"), desc: t("role_mentor_desc"), icon: Briefcase },
   ];
