@@ -1,10 +1,8 @@
-
 "use client";
 
 import React, { useMemo } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { Building, ChevronLeft, ChevronRight } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import {
   ColumnDef,
@@ -20,34 +18,43 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/components/ui/avatar";
 import { useMentorDashboard } from "@/hooks/mentor/useMentorDashboard";
 import type { MentorDashboardLastSubmission } from "@/types";
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
-/** الحد الأقصى لعدد التسليمات المعروضة في الجدول (الباقي يظهر عبر "عرض الكل"). */
+/** الحد الأقصى لعدد التسليمات المعروضة في الجدول. */
 const MAX_VISIBLE_SUBMISSIONS = 5;
 
-/** صورة افتراضية للطالب لأن الـ dashboard endpoint لا يُرجع صورة الطالب. */
-const DEFAULT_STUDENT_AVATAR =
-  "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100";
-
 // ─── Types ───────────────────────────────────────────────────────────────────
-
 interface Submission {
   id: string;
   studentName: string;
-  studentAvatar: string;
+  studentAvatar: string | null;
   task: string;
 }
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
 /**
- * يحوّل عنصر التسليم القادم من /mentor/dashboard إلى الـ shape الذي يستهلكه
- * الجدول (Submission) — نأخذ فقط: student_name + task_title.
- * الصورة placeholder محايد لأن الـ dashboard endpoint لا يُرجعها.
+ * يستخرج أول حرف صالح من اسم الطالب (بعد trim) لاستخدامه كـ fallback
+ * داخل AvatarFallback. لو الاسم فارغ أو "—" نُرجع "؟".
+ *
+ * نستخدم Array.from بدل name[0] لتفادي مشكلة الـ surrogates في الـ emoji
+ * أو الحروف العربية المركّبة (مثل "أ").
  */
+function getInitial(name: string | null | undefined): string {
+  if (!name) return "";
+  const chars = Array.from(name.trim());
+  const first = chars.find((c) => c.trim().length > 0);
+  return first ? first.toUpperCase() : "";
+}
+
 function mapDashboardSubmission(
   item: MentorDashboardLastSubmission,
   index: number,
@@ -55,7 +62,7 @@ function mapDashboardSubmission(
   return {
     id: `dash-${index}-${item.student_name}-${item.submitted_at}`,
     studentName: item.student_name || "—",
-    studentAvatar: DEFAULT_STUDENT_AVATAR,
+    studentAvatar: null,
     task: item.task_title || "—",
   };
 }
@@ -79,28 +86,30 @@ export function LatestSubmissions() {
   }, [dashboard]);
 
   // ── Column Definitions ────────────────────────────────────────────────────
-  // عمودان فقط: الطالب (صورة + اسم) + المهمة.
-  // تم حذف عمود time و status بناءً على الطلب.
+  // الطالب (صورة + اسم) + المهمة
   const columns: ColumnDef<Submission>[] = useMemo(
     () => [
       {
         id: "student",
         header: t("student"),
-        cell: ({ row }) => (
-          <div className="flex items-center gap-3">
-            <div className="relative size-8 rounded-full overflow-hidden border border-gray-100 shrink-0">
-              <Image
-                src={row.original.studentAvatar}
-                alt={row.original.studentName}
-                fill
-                className="object-cover"
-              />
+        cell: ({ row }) => {
+          const { studentName, studentAvatar } = row.original;
+          return (
+            <div className="flex items-center gap-3">
+              <Avatar className="size-8 border border-gray-100 shrink-0">
+                {studentAvatar && (
+                  <AvatarImage src={studentAvatar} alt={studentName} />
+                )}
+                <AvatarFallback className="bg-brand-light-green text-brand-primary text-xs font-bold">
+                  {getInitial(studentName)}
+                </AvatarFallback>
+              </Avatar>
+              <span className="font-semibold text-black text-xs md:text-sm">
+                {studentName}
+              </span>
             </div>
-            <span className="font-semibold text-black text-xs md:text-sm">
-              {row.original.studentName}
-            </span>
-          </div>
-        ),
+          );
+        },
       },
       {
         accessorKey: "task",

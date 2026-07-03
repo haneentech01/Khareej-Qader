@@ -100,34 +100,34 @@ export function StudentSubmissionsTable({ submissions }: StudentSubmissionsTable
             <span className="text-slate-300 font-medium">—</span>
           ),
       },
-      {
-        id: "status",
-        header: () => (
-          <span className="font-extrabold">{t("recent_submissions.status")}</span>
-        ),
-        cell: ({ row }) => (
-          <SubmissionStatusBadge status={row.original.status} />
-        ),
-      },
-      {
-        id: "action",
-        header: () => (
-          <span className="font-extrabold block text-center">
-            {t("recent_submissions.action")}
-          </span>
-        ),
-        cell: ({ row }) => (
-          <div className="flex justify-center">
-            <Link
-              href={`/mentor/submissions/${row.original.id}`}
-              className="border border-brand-primary/40 text-brand-primary hover:text-white hover:bg-brand-primary/90 rounded-xl px-4 py-1.5 font-bold text-xs md:text-sm inline-flex items-center gap-1.5 transition-all shadow-2xs hover:border-brand-primary cursor-pointer whitespace-nowrap"
-            >
-              <Eye className="size-4 shrink-0" />
-              <span>{t("recent_submissions.view")}</span>
-            </Link>
-          </div>
-        ),
-      },
+      // {
+      //   id: "status",
+      //   header: () => (
+      //     <span className="font-extrabold">{t("recent_submissions.status")}</span>
+      //   ),
+      //   cell: ({ row }) => (
+      //     <SubmissionStatusBadge status={row.original.status} />
+      //   ),
+      // },
+      // {
+      //   id: "action",
+      //   header: () => (
+      //     <span className="font-extrabold block text-center">
+      //       {t("recent_submissions.action")}
+      //     </span>
+      //   ),
+      //   cell: ({ row }) => (
+      //     <div className="flex justify-center">
+      //       <Link
+      //         href={`/mentor/submissions/${row.original.id}`}
+      //         className="border border-brand-primary/40 text-brand-primary hover:text-white hover:bg-brand-primary/90 rounded-xl px-4 py-1.5 font-bold text-xs md:text-sm inline-flex items-center gap-1.5 transition-all shadow-2xs hover:border-brand-primary cursor-pointer whitespace-nowrap"
+      //       >
+      //         <Eye className="size-4 shrink-0" />
+      //         <span>{t("recent_submissions.view")}</span>
+      //       </Link>
+      //     </div>
+      //   ),
+      // },
     ],
     [t]
   );
