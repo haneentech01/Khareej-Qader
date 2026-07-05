@@ -21,8 +21,11 @@ interface TopNavProps {
 export function TopNav({ variant = "student" }: TopNavProps) {
   const t = useTranslations("Dashboard.topNav");
 
-  const { dashboard } = useDashboard();
-  const { mentor } = useMentorProfile();
+  const isMentor = variant === "mentor";
+  const isStudent = variant === "student";
+
+  const { dashboard } = useDashboard({ enabled: isStudent });
+  const { mentor } = useMentorProfile({ enabled: isMentor });
 
   // Name of the current user
   const displayName =
@@ -67,14 +70,6 @@ export function TopNav({ variant = "student" }: TopNavProps) {
 
       {/* Profile & Notifications */}
       <div className="flex items-center gap-7">
-        {/* <button className="relative text-brand-muted hover:text-brand-base
-          transition-colors p-2 rounded-full hover:bg-gray-50 cursor-pointer"
-          aria-label={t("notifications")}>
-          <Bell className="size-5" />
-          <span className="absolute top-2 right-2 size-2
-            bg-red-500 rounded-full border-2 border-white" />
-        </button> */}
-
         <div className="flex items-center gap-3">
           <div className="text-left hidden md:block">
             <p className="text-sm font-semibold text-black leading-tight">

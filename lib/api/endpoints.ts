@@ -6,19 +6,16 @@ const endpoints = {
       login: "/students/auth/login",
       logout: "/students/auth/logout",
       countries: "/code-number",
-      me: "/students/auth/me", // جيب بيانات المستخدم الحالي
     },
     mentor: {
       register: "/mentor/auth/register",
       activation: (id: string | number) => `/mentor/enable-account/${id}`,
       login: "/mentor/auth/login",
       logout: "/mentor/auth/logout",
-      me: "/mentor/auth/me",
     },
     admin: {
       login: "/admin/auth/login",
       logout: "/admin/auth/logout",
-      me: "/admin/auth/me",
     },
   },
 

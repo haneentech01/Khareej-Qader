@@ -4,9 +4,9 @@ import Link from "next/link";
 import { FileCheck2, ChevronLeft, ChevronRight } from "lucide-react";
 import { SubmissionHeader } from "@/components/mentor/Submissions/SubmissionHeader";
 import { TaskInfoCard } from "@/components/mentor/Submissions/TaskInfoCard";
-import { FilesCard } from "@/components/mentor/Submissions/FilesCard";
 import { SubmissionReviewPageProps } from "@/types";
 import { EvaluationForm } from "@/components/mentor/Submissions/Evaluation/EvaluationForm";
+import { UploadedFilesCard } from "@/components/dashboard/Tasks/TaskDetails/UploadedFilesCard";
 
 export default async function SubmissionReviewPage({ params }: SubmissionReviewPageProps) {
   const { locale } = await params;
@@ -62,7 +62,7 @@ export default async function SubmissionReviewPage({ params }: SubmissionReviewP
 
         {/* Uploaded Files Card (Takes 1/3 width) */}
         <div className="lg:col-span-5 flex">
-          <FilesCard />
+          <UploadedFilesCard />
         </div>
       </div>
 

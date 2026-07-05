@@ -55,11 +55,6 @@ export function TaskCard({ title, context, deadline, description, videoName }: T
           {videoName}
         </p>
       </div>
-
-      {/* <Button className="w-full bg-brand-primary hover:bg-brand-hover/90
-      cursor-pointer text-white rounded-[10px] h-12 font-semibold">
-        {t("start")}
-      </Button> */}
     </div>
   );
 }

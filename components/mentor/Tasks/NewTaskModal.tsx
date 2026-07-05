@@ -20,28 +20,11 @@ import { CreateTaskPayload } from "@/types";
 import { useMentorCourses } from "@/hooks/mentor/useMentorCourses";
 
 interface NewTaskModalProps {
-  /** يُستدعى بعد نجاح إنشاء المهمة (لتحديث القائمة/العدد) */
   onSuccess?: () => void;
 }
 
-/**
- * نموذج "إضافة مهمة جديدة" في صفحة /mentor/tasks.
- *
- * المسؤوليات:
- *  - يعرض زر "إضافة مهمة جديدة" ويفتح Dialog عند الضغط عليه.
- *  - يجلب قائمة الدروس من /videos/mentor/course لعرضها في الـ dropdown.
- *  - يجمع بيانات النموذج ويرسلها لـ /tasks/new-task عبر useCreateTask.
- *  - يعطي feedback فوري (loading / error) داخل النموذج.
- *
- * فصل المسؤوليات:
- *  - الـ data fetching (الدروس) → useMentorCourses
- *  - الـ mutation (إنشاء المهمة) → useCreateTask
- *  - الـ UI state (قيم النموذج) → useState محلي
- *  - الـ UI rendering → هذا المكوّن
- */
 export const NewTaskModal = ({ onSuccess }: NewTaskModalProps) => {
   const t = useTranslations("MentorTasks.newTaskModal");
-
 
   // ─── Data sources ──────────────────────────
   const { courses, loading: coursesLoading } = useMentorCourses();
@@ -89,8 +72,6 @@ export const NewTaskModal = ({ onSuccess }: NewTaskModalProps) => {
       return;
     }
 
-    // نحوّل التاريخ إلى ISO string متوافق مع الـ backend
-    // الـ backend يتوقع: "2026-07-01T00:00:00.000000Z"
     const deadLineIso = new Date(deadLine).toISOString();
 
     const payload: CreateTaskPayload = {

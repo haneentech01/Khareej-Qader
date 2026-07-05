@@ -12,14 +12,6 @@ import { NewTaskModal } from "./NewTaskModal";
 /** عدد المهام المعروضة في كل صفحة من الجدول */
 const ITEMS_PER_PAGE = 10;
 
-/**
- * يربط بين الـ data hooks والـ presentational components:
- *  - useMentorTasksCount → TasksStats (كارد "إجمالي المهام")
- *  - useMentorTasksList  → TasksFilter + TasksTable (بحث + جدول)
- *
- * عند إنشاء مهمة جديدة (عبر NewTaskModal) نُعيد تحميل القائمة والعدد.
- *
- */
 export default function MentorTasksContent() {
     // ─── Data hooks ────────────────────────────
     const {
@@ -63,13 +55,10 @@ export default function MentorTasksContent() {
     }, [filteredTasks, currentPage]);
 
     // ─── Handlers ──────────────────────────────
-    // عند البحث نرجّع المستخدم للصفحة الأولى (لأن النتائج تغيّرت)
     const handleSearchChange = useCallback((query: string) => {
         setSearchQuery(query);
         setCurrentPage(1);
     }, []);
-
-    // بعد إنشاء مهمة جديدة بنجاح، نُعيد تحميل القائمة + العدد معاً
     const handleTaskCreated = useCallback(() => {
         refetchCount();
         refetchList();

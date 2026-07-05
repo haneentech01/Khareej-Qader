@@ -17,43 +17,6 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 
-// interface StatusBadgeProps {
-//   status: SubmissionStatus;
-//   t: (key: string) => string;
-// }
-
-// export function StatusBadge({ status, t }: StatusBadgeProps) {
-//   switch (status) {
-//     case "pending":
-//       return (
-//         <span className="bg-[#fef3c7] text-[#d97706] text-xs font-bold px-3 py-1.5 rounded-lg inline-flex items-center gap-1.5">
-//           <span className="size-1.5 rounded-full bg-[#d97706] animate-pulse" />
-//           {t("stats.awaiting_evaluation")}
-//         </span>
-//       );
-//     case "evaluated":
-//       return (
-//         <span className="bg-brand-light text-brand-primary text-xs font-bold px-3 py-1.5 rounded-lg inline-flex items-center gap-1.5">
-//           <span className="size-1.5 rounded-full bg-brand-primary" />
-//           {t("stats.evaluated")}
-//         </span>
-//       );
-//     case "late":
-//       return (
-//         <span className="bg-red-50 text-red-500 text-xs font-bold px-3 py-1.5 rounded-lg inline-flex items-center gap-1.5">
-//           <span className="size-1.5 rounded-full bg-red-500" />
-//           {t("stats.late")}
-//         </span>
-//       );
-//     case "not_submitted":
-//       return (
-//         <span className="bg-slate-100 text-slate-500 text-xs font-bold px-3 py-1.5 rounded-lg inline-flex items-center gap-1.5">
-//           <span className="size-1.5 rounded-full bg-slate-400" />
-//           {t("stats.not_submitted")}
-//         </span>
-//       );
-//   }
-// }
 
 interface FileCellProps {
   fileType: SubmissionFileType;
@@ -171,38 +134,7 @@ export function SubmissionsTable({ submissions }: SubmissionsTableProps) {
             <span className="text-slate-300 font-medium">-</span>
           ),
       },
-      // {
-      //   id: "file",
-      //   header: () => <span className="font-extrabold">{t("table.file_link")}</span>,
-      //   cell: ({ row }) => (
-      //     <FileCell
-      //       fileType={row.original.fileType}
-      //       name={row.original.fileName}
-      //       size={row.original.fileSize}
-      //     />
-      //   ),
-      // },
-      // {
-      //   id: "status",
-      //   header: () => <span className="font-extrabold">{t("table.status")}</span>,
-      //   cell: ({ row }) => <StatusBadge status={row.original.status} t={t} />,
-      // },
 
-      // {
-      //   id: "action",
-      //   header: () => <span className="block text-center font-extrabold">{t("table.action")}</span>,
-      //   cell: ({ row }) => (
-      //     <div className="flex justify-center">
-      //       <Link
-      //         href={`/mentor/submissions/${row.original.id}`}
-      //         className="border border-brand-primary/40 text-brand-primary hover:text-white hover:bg-brand-primary/90 active:bg-brand-primary rounded-xl px-4 py-1.5 font-bold text-xs md:text-sm inline-flex items-center gap-1.5 transition-all shadow-2xs hover:border-brand-primary cursor-pointer"
-      //       >
-      //         <Eye className="size-4" />
-      //         <span>{t("table.review")}</span>
-      //       </Link>
-      //     </div>
-      //   ),
-      // },
     ],
     [t]
   );

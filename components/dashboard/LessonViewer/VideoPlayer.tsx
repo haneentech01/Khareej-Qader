@@ -92,7 +92,7 @@ function VideoPlayerComponent({
         events.forEach((event) => video.addEventListener(event, tryReady));
         video.addEventListener("ended", handleEnded);
 
-        // Fallback لو لم يُطلق أي حدث
+        // Fallback if no event is triggered
         const fallbackTimer = setTimeout(() => {
             if (!readyFiredRef.current) tryReady();
         }, READY_FALLBACK_DELAY_MS);
@@ -104,7 +104,7 @@ function VideoPlayerComponent({
         };
     }, [lessonId, youtubeId, handleReady, handleEnded]);
 
-    // ─── تطبيق الـ resume عند توفر البيانات ──────────
+    //  Apply resume when data is available 
     useEffect(() => {
         const video = videoRef.current;
         if (!video || seekAppliedRef.current) return;

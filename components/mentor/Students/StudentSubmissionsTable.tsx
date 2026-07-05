@@ -1,10 +1,9 @@
 "use client";
 
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/routing";
-import { Eye, AlertTriangle } from "lucide-react";
-import { StudentSubmissionSummary, SubmissionStatus } from "@/types";
+import { AlertTriangle } from "lucide-react";
+import { StudentSubmissionSummary } from "@/types";
 import {
   ColumnDef,
   flexRender,
@@ -16,38 +15,6 @@ interface StudentSubmissionsTableProps {
   submissions: StudentSubmissionSummary[];
 }
 
-function SubmissionStatusBadge({ status }: { status: SubmissionStatus }) {
-  switch (status) {
-    case "pending":
-      return (
-        <span className="bg-[#fef3c7] text-[#d97706] text-xs font-bold px-3 py-1.5 rounded-lg inline-flex items-center gap-1.5 whitespace-nowrap">
-          <span className="size-1.5 rounded-full bg-[#d97706] animate-pulse" />
-          بانتظار التقييم
-        </span>
-      );
-    case "evaluated":
-      return (
-        <span className="bg-brand-light text-brand-primary text-xs font-bold px-3 py-1.5 rounded-lg inline-flex items-center gap-1.5 whitespace-nowrap">
-          <span className="size-1.5 rounded-full bg-brand-primary" />
-          تم تقييمها
-        </span>
-      );
-    case "late":
-      return (
-        <span className="bg-red-50 text-red-500 text-xs font-bold px-3 py-1.5 rounded-lg inline-flex items-center gap-1.5 whitespace-nowrap">
-          <span className="size-1.5 rounded-full bg-red-500" />
-          متأخرة
-        </span>
-      );
-    case "not_submitted":
-      return (
-        <span className="bg-slate-100 text-slate-500 text-xs font-bold px-3 py-1.5 rounded-lg inline-flex items-center gap-1.5 whitespace-nowrap">
-          <span className="size-1.5 rounded-full bg-slate-400" />
-          لم يتم التسليم
-        </span>
-      );
-  }
-}
 
 export function StudentSubmissionsTable({ submissions }: StudentSubmissionsTableProps) {
   const t = useTranslations("MentorStudentProfile");
@@ -99,35 +66,7 @@ export function StudentSubmissionsTable({ submissions }: StudentSubmissionsTable
           ) : (
             <span className="text-slate-300 font-medium">—</span>
           ),
-      },
-      // {
-      //   id: "status",
-      //   header: () => (
-      //     <span className="font-extrabold">{t("recent_submissions.status")}</span>
-      //   ),
-      //   cell: ({ row }) => (
-      //     <SubmissionStatusBadge status={row.original.status} />
-      //   ),
-      // },
-      // {
-      //   id: "action",
-      //   header: () => (
-      //     <span className="font-extrabold block text-center">
-      //       {t("recent_submissions.action")}
-      //     </span>
-      //   ),
-      //   cell: ({ row }) => (
-      //     <div className="flex justify-center">
-      //       <Link
-      //         href={`/mentor/submissions/${row.original.id}`}
-      //         className="border border-brand-primary/40 text-brand-primary hover:text-white hover:bg-brand-primary/90 rounded-xl px-4 py-1.5 font-bold text-xs md:text-sm inline-flex items-center gap-1.5 transition-all shadow-2xs hover:border-brand-primary cursor-pointer whitespace-nowrap"
-      //       >
-      //         <Eye className="size-4 shrink-0" />
-      //         <span>{t("recent_submissions.view")}</span>
-      //       </Link>
-      //     </div>
-      //   ),
-      // },
+      }
     ],
     [t]
   );

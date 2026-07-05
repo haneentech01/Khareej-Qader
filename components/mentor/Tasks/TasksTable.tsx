@@ -39,12 +39,6 @@ function formatDeadline(isoDate: string, locale: string): string {
   }
 }
 
-/**
- * جدول عرض المهام في صفحة /mentor/tasks.
- *
- * المكوّن presentational: يستقبل `tasks` و `loading` و `error` كـ props
- * ولا يجلب الداتا بنفسه — هذا من مسؤولية الـ container (MenetorTasksContent).
- */
 export const TasksTable = ({
   tasks,
   loading = false,

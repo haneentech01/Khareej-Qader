@@ -26,7 +26,6 @@ export function LessonViewerContent({ lessonId }: LessonViewerContentProps) {
   const isRtl = locale === "ar";
   const { data, loading, error, refetch, markVideoCompleted } = useLessonPath();
 
-  // ★ أضف هذه
   console.log("📺 LessonViewerContent state:", {
     lessonId,
     loading,
@@ -89,7 +88,6 @@ export function LessonViewerContent({ lessonId }: LessonViewerContentProps) {
   };
 
   const tabs = [
-    { id: "about", label: t("tab_about") },
     { id: "notes", label: t("tab_notes") },
     { id: "attachments", label: t("tab_attachments") },
     { id: "questions", label: t("tab_questions") },

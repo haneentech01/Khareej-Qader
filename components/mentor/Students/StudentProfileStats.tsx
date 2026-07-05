@@ -80,20 +80,6 @@ export function StudentProfileStats({ student }: StudentProfileStatsProps) {
           <p className="text-slate-400 text-xs font-semibold">{t("stats.task")}</p>
         </div>
       </div>
-
-      {/* Average Rating */}
-      {/* <div className="bg-white border border-slate-100/80 rounded-3xl p-5 
-      shadow-[0_4px_20px_rgba(0,0,0,0.015)] flex items-center justify-center gap-3">
-        <div className="size-12 rounded-2xl bg-amber-50 flex items-center justify-center shrink-0">
-          <Star className="size-5 text-amber-400 fill-amber-400" />
-        </div>
-        <div className="text-right">
-          <p className="text-slate-400 text-xs font-bold">{t("stats.avg_rating")}</p>
-          <p className="text-black font-extrabold text-xl md:text-2xl leading-tight">
-            {student.averageRating}
-          </p>
-        </div>
-      </div> */}
     </div>
   );
 }

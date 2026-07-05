@@ -4,25 +4,11 @@ import { useTranslations } from "next-intl";
 import { FileText, Loader2 } from "lucide-react";
 
 interface TasksStatsProps {
-  /**
-   * إجمالي عدد المهام (يأتي من endpoint /tasks/count).
-   * لو null => الـ data لسه بتنزل، نعرض skeleton.
-   */
   totalTasksCount: number;
-  /** هل الـ request لسه شغّال؟ */
   loading?: boolean;
-  /** نص الخطأ لو فشل الـ request */
   error?: string | null;
 }
 
-/**
- * كارد "إجمالي المهام" في صفحة /mentor/tasks.
- *
- * البيانات تأتي من endpoint /tasks/count عبر hook ‏useMentorTasksCount.
- * المكوّن presentational فقط — لا يجيب الداتا بنفسه (فصل المسؤوليات).
- *
- * لو `loading` نعرض spinner، ولو `error` نعرض رسالة خطأ بدل الرقم.
- */
 export const TasksStats = ({
   totalTasksCount,
   loading = false,

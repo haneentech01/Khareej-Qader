@@ -2,7 +2,6 @@
 
 import { MentorStats } from './MentorStats'
 import { LatestSubmissions } from './LatestSubmissions'
-import { QuickActions } from './QuickActions'
 import { WelcomeHeader } from '@/components/layout/WelcomeHeader';
 import { useTranslations } from 'next-intl';
 import { useMentorDashboard } from '@/hooks/mentor/useMentorDashboard';
@@ -38,8 +37,6 @@ export default function MentorDashboardContent() {
     // ─── No Data ───────────────────────────────
     if (!dashboard) return null;
 
-    const { name, email, course_name, student_count, last_task_submissions_count } = dashboard;
-
     return (
         <div className='max-w-7xl mx-auto space-y-8 pb-8 px-4 md:px-0'>
             {/* Welcome Greeting Row */}
@@ -59,27 +56,11 @@ export default function MentorDashboardContent() {
                 lastTaskSubmissionsCount={dashboard?.last_task_submissions_count}
             />
 
-            {/* Middle Section: Latest Submissions & Late Students */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
                 <div className="lg:col-span-12 flex">
                     <LatestSubmissions />
                 </div>
-
-                {/* <div className="lg:col-span-4 flex">
-                    <QuickActions />
-                </div> */}
-
-                {/* <div className="lg:col-span-4 flex">
-          <LateStudents />
-        </div> */}
             </div>
-
-            {/* Bottom Section: Activities & Quick Actions */}
-            {/* <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-         <div className="lg:col-span-8 flex">
-          <LatestActivities />
-        </div> 
-      </div>*/}
         </div>
     )
 }

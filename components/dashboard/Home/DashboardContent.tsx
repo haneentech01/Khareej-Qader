@@ -90,27 +90,6 @@ export function DashboardContent() {
                     </div>
                 )}
             </div>
-
-            {/* 3. Bottom Section: Announcements & Certificate */}
-            {/* <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
-                {/* الشهادة — تظهر بس لو فيه شهادة 
-                {certificate ? (
-                    <CertificateCard
-                        progressValue={certificate.progress_percentage}
-                        completedSteps={certificate.completed_steps}
-                        totalSteps={certificate.total_steps}
-                    />
-                ) : (
-                    <CertificateCard
-                        progressValue={progress?.percentage || 0}
-                        completedSteps={progress?.completed_lessons || 0}
-                        totalSteps={progress?.total_lessons || 0}
-                    />
-                )}
-
-                <Announcements announcements={announcements} />
-            </div> 
-            */}
         </div>
     );
 }

@@ -129,9 +129,6 @@ export default async function ProfilePage({
         </div>
       </ProfileFieldSection>
 
-      {/* CV Section */}
-      {/* <ProfileCVDisplay /> */}
-
       {/* Footer Actions */}
       <div className="flex flex-col md:flex-row items-center justify-between gap-6 pt-4">
         <div className="bg-[#BCCAC31A] px-8 py-3 rounded-full 

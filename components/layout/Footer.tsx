@@ -7,10 +7,6 @@ import { FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa";
 import { motion, Variants } from "framer-motion";
 import { useScrollAnimation } from "@/hooks/layout/useScrollAnimation";
 
-/**
- * Footer component providing site navigation, contact information,
- * and social media links with a high-end branding consistent with the landing page.
- */
 export function Footer() {
   const t = useTranslations("Footer");
   const h = useTranslations("Header");

@@ -1,11 +1,5 @@
 "use client";
 
-/**
- * Skeleton لصفحة المسار التدريبي.
- * يطابق شكل MyTrackContent (ProgressHero standalone + LessonTimeline).
- */
-
-/** Skeleton لبطاقة تقدم المسار (variant=standalone) */
 function TrackProgressSkeleton() {
     return (
         <div className="bg-white rounded-[20px] p-10 border border-slate-100 shadow-sm space-y-6">

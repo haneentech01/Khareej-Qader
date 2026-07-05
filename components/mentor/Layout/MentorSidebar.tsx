@@ -45,15 +45,6 @@ export function MentorSidebar() {
     { title: t("profile"), icon: User, href: "/mentor/profile" },
   ];
 
-  /**
-   * تسجيل الخروج:
-   *  1. نطلب من الـ backend يسجّل خروج (يمسح الـ token cookie)
-   *  2. نمسح الـ role cookie محلياً
-   *  3. نوجّه المستخدم لصفحة الـ login
-   *
-   * لو الـ backend request فشل، نمسح الـ role cookie ونوجّه للـ login برضو
-   * (عشان ما نلصقش المستخدم في الصفحة).
-   */
   const handleLogout = async () => {
     try {
       await apiClient.post(endpoints.auth.mentor.logout);

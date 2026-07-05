@@ -100,15 +100,10 @@ export function useReviewSubmission() {
   };
 
   return {
-    /** نتيجة آخر تقييم ناجح */
     reviewedSubmission: data,
-    /** true أثناء إرسال طلب التقييم — يُستخدم لتعطيل زر الإرسال وإظهار spinner */
     loading,
-    /** رسالة الخطأ الأخيرة (إن وُجدت) */
     error,
-    /** الدالة التي تستدعيها الـ UI لإرسال التقييم */
     reviewSubmission,
-    /** إعادة تعيين الحالة (مثلاً بعد إغلاق الـ modal أو التنقل) */
     reset: () => {
       setData(null);
       setError(null);

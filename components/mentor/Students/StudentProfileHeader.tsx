@@ -35,13 +35,6 @@ export function StudentProfileHeader({ student }: StudentProfileHeaderProps) {
 
       {/* Profile Hero Card */}
       <div className="bg-white rounded-3xl border border-slate-100 shadow-[0_8px_30px_rgba(0,0,0,0.02)] px-6 py-5 flex flex-col md:flex-row items-center md:items-start gap-5 md:justify-between">
-        {/* Send Note button (Left in RTL)
-        <div className="order-3 md:order-1 w-full md:w-auto flex md:items-start md:pt-1">
-          <button className="flex items-center gap-2 bg-brand-primary hover:bg-brand-primary/90 active:bg-brand-primary text-white font-bold text-sm px-5 py-2.5 rounded-xl transition-all shadow-md shadow-brand-primary/20 cursor-pointer">
-            <Mail className="size-4 shrink-0" />
-            <span>{t("send_note")}</span>
-          </button>
-        </div> */}
 
         {/* Name & University (Center) */}
         <div className="order-2 flex flex-col items-center md:items-start text-center md:text-start gap-1 flex-1">

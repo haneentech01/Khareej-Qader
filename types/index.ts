@@ -101,14 +101,6 @@ export interface TaskDetailsViewProps {
   switcherPending: string;
 }
 
-// export interface Lesson {
-//   id: string;
-//   number: number;
-//   title: string;
-//   duration?: string;
-//   status: LessonStatus;
-// }
-
 export interface SubmissionInfoCardProps {
   status: "pending" | "completed";
 }
@@ -251,8 +243,8 @@ export interface LoginFormData {
 }
 
 export type Role = "student" | "mentor" | "admin";
-// ─── Dashboard Types ────────────────────────────
 
+// ─── Dashboard Types ────────────────────────────
 export interface DashboardStudent {
   name: string;
   slug: string;
@@ -364,38 +356,24 @@ export interface StudentPathData {
 
 // ─── Video Progress Types ───────────────────────
 
-/**
- * استجابة GET /videos/{id}/resume
- * الـ backend يرجع: { success: true, message: "...", data: 100 }
- *
- * ★ ملاحظة مهمة: data هنا رقم مباشر (100)، وليس object!
- */
+//  استجابة GET /videos/{id}/resume
 export type VideoResumeData = number;
 
-/**
- * استجابة POST /videos/{id}/progress
- * الـ backend يرجع: { success: true, message: "Progress updated", data: null }
- */
+// استجابة POST /videos/{id}/progress
 export interface VideoProgressResponse {
   success: boolean;
   message: string;
   data: null;
 }
 
-/**
- * استجابة POST /videos/{id}/complete
- * الـ backend يرجع: { success: true, message: "Video completed", data: true }
- */
+//  استجابة POST /videos/{id}/complete
 export interface VideoCompleteResponse {
   success: boolean;
   message: string;
   data: boolean;
 }
 
-/**
- * الـ payload الذي نرسله لـ POST /videos/{id}/progress
- * ★ نرسل position فقط — الـ backend يحسب watched_seconds والـ completion
- */
+//  الـ payload الذي ارسله لـ POST /videos/{id}/progress
 export interface VideoProgressPayload {
   [key: string]: unknown;
   position: number;
@@ -471,25 +449,15 @@ export interface MentorCourseItem {
   video_title: string;
 }
 
-/**
- * بيانات المنتور المستخدمة في الـ TopNav (الاسم + البريد + الصورة).
- * يستجيب لها endpoint /mentor/auth/me (أو /mentor/profile).
- * نأخذ فقط الحقول المعروضة في الـ navbar لتجنب coupling مع schema الـ backend كاملاً.
- */
 export interface MentorProfile {
   id?: number;
   name: string;
   email?: string;
   avatar?: string;
-  // حقول اختيارية إضافية لو رجعها الـ backend
   major?: string;
   role?: string;
 }
 
-/**
- * شكل بيانات الـ navbar بناءً على نوع المستخدم (طالب / منتور).
- * يستخدمه TopNav ليعرض الاسم/البريد/الصورة الصحيحة.
- */
 export type TopNavVariant = "student" | "mentor" | "admin";
 
 // ─── Mentor Dashboard (GET /mentor/dashboard) ───────────────────────────────
@@ -508,23 +476,12 @@ export interface MentorDashboardData {
 }
 
 // ─── Review Task Submission (PATCH /tasks/submissions/{id}/review) ──────────
-
-/**
- * الـ payload الذي نرسله لـ PATCH /tasks/submissions/{id}/review.
- *
- *  - grade:         درجة الطالب من 0 إلى 100.
- *  - review_notes:  ملاحظات المنتور النصية على التسليم.
- */
 export interface ReviewSubmissionPayload {
   [key: string]: unknown;
   grade: number;
   review_notes: string;
 }
 
-/**
- * كائن الطالب المُضمَّن في استجابة review.
- * يُرجَع من الـ backend ضمن data.student.
- */
 export interface TaskSubmissionStudent {
   id: number;
   slug: string;
@@ -547,10 +504,6 @@ export interface TaskSubmissionStudent {
   project_season: string | null;
 }
 
-/**
- * كائن المنتور (المُقيِّم) المُضمَّن في استجابة review.
- * يُرجَع من الـ backend ضمن data.reviewer.
- */
 export interface TaskSubmissionReviewer {
   id: number;
   name: string;
@@ -574,14 +527,6 @@ export interface TaskSubmissionReviewer {
   updated_at: string;
 }
 
-/**
- * استجابة PATCH /tasks/submissions/{id}/review.
- *
- * الـ backend يرجع:
- *   { success: true, message: "Task reviewed successfully", data: TaskSubmission }
- *
- * ملاحظة: الحقول reviewed_by / reviewed_at تُملأ من الـ backend بعد التقييم.
- */
 export interface TaskSubmission {
   id: number;
   task_id: number;
@@ -598,9 +543,4 @@ export interface TaskSubmission {
   reviewer: TaskSubmissionReviewer | null;
 }
 
-/**
- * الـ shape الكامل لاستجابة review endpoint، بحيث data = TaskSubmission.
- * نستخدم ApiResponse<TaskSubmission> مباشرة في الـ hook، لكن نُعرّف هذا
- * الـ alias لتسهيل القراءة في الـ components.
- */
 export type ReviewSubmissionResponse = TaskSubmission;
