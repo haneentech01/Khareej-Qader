@@ -24,7 +24,7 @@ interface MentorDashboardPageProps {
 
 export default async function MentorDashboardPage({ params }: MentorDashboardPageProps) {
   await params;
-  const t = await getTranslations("MentorDashboard");
+
 
   return (
     <div>

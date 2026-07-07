@@ -1,6 +1,5 @@
 import { AuthLayout } from "@/components/auth/AuthLayout";
 import { RegisterForm } from "@/components/auth/RegisterForm";
-import { Metadata } from "next";
 
 import { getTranslations } from "next-intl/server";
 

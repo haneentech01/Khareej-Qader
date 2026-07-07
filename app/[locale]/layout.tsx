@@ -6,9 +6,9 @@ import { routing } from "@/i18n/routing";
 import { notFound } from "next/navigation";
 import { ScrollToTopButton } from "@/components/ui/ScrollToTopButton";
 import { getTranslations } from "next-intl/server";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import Script from "next/script";
-import { SpeedInsights } from "@vercel/speed-insights/next"
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

@@ -623,7 +623,8 @@
       "submissions": "التسليمات",
       "students": "الطلاب",
       "profile": "الملف الشخصي",
-      "logout": "تسجيل الخروج"
+      "logout": "تسجيل الخروج",
+      "logging_out": "جاري الخروج..."
     },
     "header": {
       "welcome": "مرحباً، {name} 👋",

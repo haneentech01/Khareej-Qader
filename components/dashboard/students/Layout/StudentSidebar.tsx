@@ -1,28 +1,18 @@
 "use client";
 
+import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
-import {
-  LayoutDashboard,
-  ClipboardList,
-  Award,
-  LogOut,
-  User,
-  BookOpenText,
-} from "lucide-react";
-import {
-  Sidebar as ShadcnSidebar,
-  SidebarContent,
-  SidebarHeader,
-  SidebarRail,
-  useSidebar,
-} from "@/components/ui/sidebar";
-import { SidebarItem } from "./SidebarItem";
+import { LayoutDashboard, ClipboardList, BookOpenText, User } from "lucide-react";
+import { Sidebar as ShadcnSidebar, SidebarContent, SidebarHeader, SidebarRail, useSidebar } from "@/components/ui/sidebar";
+import { SidebarItem } from "../../Layout/SidebarItem";
+import LogoutButton from "../../Layout/LogoutButton";
 
-export function Sidebar() {
-  const t = useTranslations("Dashboard.sidebar");
+
+export function StudentSidebar() {
+  const t = useTranslations("MentorDashboard.sidebar");
   const locale = useLocale();
   const isRTL = locale === "ar";
   const { state } = useSidebar();
@@ -32,7 +22,6 @@ export function Sidebar() {
     { title: t("home"), icon: LayoutDashboard, href: "/dashboard" },
     { title: t("track"), icon: BookOpenText, href: "/dashboard/my-track" },
     { title: t("tasks"), icon: ClipboardList, href: "/dashboard/tasks" },
-    // { title: t("certificates"), icon: Award, href: "/dashboard/certificates" },
     { title: t("profile"), icon: User, href: "/dashboard/profile" },
   ];
 
@@ -62,28 +51,16 @@ export function Sidebar() {
 
       {/* ── Navigation + Logout ── */}
       <SidebarContent className="space-y-1">
-        {/* روابط التنقل */}
         {sidebarLinks.map((link) => (
           <SidebarItem key={link.href} {...link} isRTL={isRTL} />
         ))}
-        <div className=" py-1">
-          <button
-            onClick={() => console.log("Logout")}
-            className={cn(
-              "flex items-center gap-3 w-full px-6 py-3 rounded-e-lg",
-              "transition-all duration-300 text-red-500 hover:bg-red-50",
-              isCollapsed && "justify-center"
-            )}
-          >
-            <div className="shrink-0">
-              <LogOut size={20} />
-            </div>
-            {!isCollapsed && (
-              <span className="font-semibold text-sm">
-                {t("logout")}
-              </span>
-            )}
-          </button>
+
+        <div className="py-1">
+          <LogoutButton
+            role="student"
+            inCollapsibleSidebar
+            translationNamespace="Dashboard.sidebar"
+          />
         </div>
       </SidebarContent>
 
