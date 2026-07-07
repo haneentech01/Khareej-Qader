@@ -29,6 +29,9 @@
   --color-brand-light-orange: #fef3c7;
   --color-brand-light-green: #f0fdf4;
 
+  --color-brand-muted-text: #8C8D8D;
+  --color-brand-outline: #BCCAC3;
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-cairo);

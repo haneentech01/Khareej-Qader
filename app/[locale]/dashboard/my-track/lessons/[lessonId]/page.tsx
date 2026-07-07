@@ -1,7 +1,7 @@
-import { LessonViewerSidebar } from "@/components/dashboard/LessonViewer/LessonViewerSidebar";
-import { LessonViewerContent } from "@/components/dashboard/LessonViewer/LessonViewerContent";
-import { LessonHeader } from "@/components/dashboard/LessonViewer/LessonHeader";
-import { LessonBreadcrumbs } from "@/components/dashboard/LessonViewer/LessonBreadcrumbs";
+import { LessonViewerSidebar } from "@/components/dashboard/students/LessonViewer/LessonViewerSidebar";
+import { LessonViewerContent } from "@/components/dashboard/students/LessonViewer/LessonViewerContent";
+import { LessonHeader } from "@/components/dashboard/students/LessonViewer/LessonHeader";
+import { LessonBreadcrumbs } from "@/components/dashboard/students/LessonViewer/LessonBreadcrumbs";
 import { getTranslations } from "next-intl/server";
 
 export async function generateMetadata({

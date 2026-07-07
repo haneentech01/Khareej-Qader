@@ -3,11 +3,8 @@ import type { LucideIcon } from "lucide-react";
 import { Code2 } from "lucide-react";
 
 export interface TrackInfo {
-    /**  (مثال: "المسار التعليمي") */
     label?: string;
-    /** اسم المسار (مثال: "تطوير الويب") */
     name?: string | string[];
-    /** الأيقونة اللي بتظهر في البوكس — default: Code2 */
     icon?: LucideIcon;
 }
 
@@ -75,7 +72,7 @@ export function WelcomeHeader({
                     : "mb-10"
             }
         >
-            {/* ─── الترحيب + الـ subtitle ─── */}
+            {/* ─── welcome + subtitle ─── */}
             {userName && (
                 <div className="space-y-2">
                     <div className="flex items-center">
@@ -89,7 +86,7 @@ export function WelcomeHeader({
                 </div>
             )}
 
-            {/* ─── بوكس "المسار التعليمي" (اختياري) ─── */}
+            {/* ─── بوكس "المسار التعليمي" ─── */}
             {trackInfo && <TrackInfoBox info={trackInfo} />}
         </div>
     );

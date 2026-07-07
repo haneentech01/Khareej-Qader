@@ -953,6 +953,46 @@
       "submit": "Create Task"
     }
   },
+  "MentorStudents": {
+    "breadcrumbs": {
+      "home": "Home",
+      "students": "Students"
+    },
+    "header": {
+      "title": "Students",
+      "subtitle": "Review your students' data and track their activity in the training track"
+    },
+    "stats": {
+      "total_students": "Total Students",
+      "active_students": "Recently Active",
+      "inactive_students": "Inactive",
+      "student": "Student"
+    },
+    "filters": {
+      "search_placeholder": "Search students (name or email)...",
+      "sort_students": "Sort Students",
+      "all": "All"
+    },
+    "table": {
+      "student": "Student",
+      "email": "Email",
+      "major": "Major",
+      "status": "Status",
+      "last_active": "Last Active",
+      "actions": "Actions",
+      "view_profile": "View Profile",
+      "status_active": "Active",
+      "status_inactive": "Inactive",
+      "loading": "Loading students...",
+      "empty": "No students found"
+    },
+    "pagination": {
+      "showing": "Showing {start} to {end} of {total} students",
+      "prev": "Previous",
+      "next": "Next",
+      "show": "Show"
+    }
+  },
   "MentorProfilePage": {
     "metadata": {
       "title": "My Profile | Khareej Qader",

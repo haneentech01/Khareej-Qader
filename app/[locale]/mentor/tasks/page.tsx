@@ -1,7 +1,20 @@
-import MentorTasksContent from '@/components/mentor/Tasks/MenetorTasksContent'
+import MentorTasksContent from '@/components/dashboard/mentor/Tasks/MenetorTasksContent'
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
-import { PageHeader } from "@/components/layout/PageHeader";
+import { PageHeader } from "@/components/dashboard/Layout/PageHeader";
 import { getLocale, getTranslations } from "next-intl/server";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "Dashboard.metadata.mentor_dashboard.tasks" });
+  return {
+    title: t("title"),
+    description: t("description"),
+  };
+}
 
 export default async function MentorTaskspage() {
   const t = await getTranslations("MentorTasks");

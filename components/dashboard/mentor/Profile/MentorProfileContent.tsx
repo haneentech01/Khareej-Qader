@@ -7,7 +7,7 @@ import { MentorProfileHeader } from "./MentorProfileHeader";
 import { MentorProfileStats } from "./MentorProfileStats";
 import { MentorProfileInfo } from "./MentorProfileInfo";
 import { MentorRecentSubmissions } from "./MentorRecentSubmissions";
-import { DashboardSkeleton } from "@/components/dashboard/Home/DashboardSkeleton";
+import { DashboardSkeleton } from "@/components/dashboard/students/Home/DashboardSkeleton";
 
 export function MentorProfileContent() {
   const { mentor, loading: mentorLoading, error: mentorError } = useMentorProfile();

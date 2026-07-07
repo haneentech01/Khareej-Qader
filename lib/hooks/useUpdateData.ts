@@ -1,5 +1,5 @@
-// hooks/useUpdateData.ts
 "use client";
+
 import { useState } from "react";
 import apiClient from "@/lib/api/client";
 
@@ -10,8 +10,6 @@ export function useUpdateData<T>(url: string) {
 
   const updateData = async (
     body: Record<string, unknown> | FormData,
-    // "put"   = استبدل البيانات كاملة
-    // "patch" = عدّل جزء من البيانات بس
     method: "put" | "patch" = "patch",
   ) => {
     setLoading(true);

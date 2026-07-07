@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { useStudentPath } from "@/hooks/dashboard/useStudentPath";
-import { LessonTimeline } from "@/components/dashboard/MyTrack/LessonTimeline";
+import { LessonTimeline } from "@/components/dashboard/students/MyTrack/LessonTimeline";
 import { MyTrackSkeleton } from "./MyTrackSkeleton";
 import { ProgressHero } from "../Home/ProgressHero";
 

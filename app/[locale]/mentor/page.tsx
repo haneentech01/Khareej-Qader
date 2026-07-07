@@ -1,5 +1,5 @@
 
-import MentorDashboardContent from "@/components/mentor/Home/MentorDashboardContent";
+import MentorDashboardContent from "@/components/dashboard/mentor/Home/MentorDashboardContent";
 import { getTranslations } from "next-intl/server";
 
 export async function generateMetadata({

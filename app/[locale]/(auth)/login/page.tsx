@@ -1,10 +1,27 @@
 import { AuthLayout } from "@/components/auth/AuthLayout";
 import { LoginForm } from "@/components/auth/LoginForm";
-import { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "تسجيل الدخول - خريج قادر",
-};
+import { getTranslations } from "next-intl/server";
+
+interface Props {
+  params: {
+    locale: string;
+  };
+}
+
+export async function generateMetadata({ params }: Props) {
+  const { locale } = params;
+
+  const t = await getTranslations({
+    locale,
+    namespace: "Auth.Metadata",
+  });
+
+  return {
+    title: t("title_login"),
+    description: t("subtitle"),
+  };
+}
 
 interface LoginPageProps {
   searchParams: Promise<{

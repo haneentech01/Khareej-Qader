@@ -1,9 +1,9 @@
 import { getTranslations } from "next-intl/server";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
-import { CertificateProgressCard } from "@/components/dashboard/Certificates/CertificateProgressCard";
-import { CertificatePreview } from "@/components/dashboard/Certificates/CertificatePreview";
-import { CertificateDetails } from "@/components/dashboard/Certificates/CertificateDetails";
-import { PageHeader } from "@/components/layout/PageHeader";
+import { CertificateProgressCard } from "@/components/dashboard/students/Certificates/CertificateProgressCard";
+import { CertificatePreview } from "@/components/dashboard/students/Certificates/CertificatePreview";
+import { CertificateDetails } from "@/components/dashboard/students/Certificates/CertificateDetails";
+import { PageHeader } from "@/components/dashboard/Layout/PageHeader";
 
 export default async function CertificatesPage({
   params,

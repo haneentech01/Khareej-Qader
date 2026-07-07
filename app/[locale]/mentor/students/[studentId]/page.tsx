@@ -1,6 +1,6 @@
 import React from "react";
 import { getTranslations } from "next-intl/server";
-import { StudentProfilePageMentor } from "@/components/mentor/Students/StudentProfilePageMentor";
+import { StudentProfilePageMentor } from "@/components/dashboard/mentor/Students/StudentProfilePageMentor";
 
 interface StudentProfilePageProps {
   params: Promise<{

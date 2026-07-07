@@ -1,6 +1,6 @@
 import React from "react";
 import { getTranslations } from "next-intl/server";
-import { TaskDetailsView } from "@/components/dashboard/Tasks/TaskDetails/TaskDetailsView";
+import { TaskDetailsView } from "@/components/dashboard/students/Tasks/TaskDetails/TaskDetailsView";
 import { TaskDetailsPageProps } from "@/types";
 
 export default async function TaskDetailsPage({

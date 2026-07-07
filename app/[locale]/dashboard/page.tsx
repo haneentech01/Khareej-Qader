@@ -1,5 +1,5 @@
 import { getTranslations } from "next-intl/server";
-import { DashboardContent } from "@/components/dashboard/Home/DashboardContent";
+import { DashboardContent } from "@/components/dashboard/students/Home/DashboardContent";
 
 export async function generateMetadata({
   params,

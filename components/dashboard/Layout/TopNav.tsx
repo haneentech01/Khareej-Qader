@@ -44,7 +44,7 @@ export function TopNav({ variant = "student" }: TopNavProps) {
   const displayAvatar =
     variant === "mentor"
       ? mentor?.avatar || "/images/default-avatar.svg"
-      : dashboard?.student?.avatar || "/images/default-avatar.svg";
+      : dashboard?.student?.profile_photo || "/images/default-avatar.svg";
 
   return (
     <header className="sticky top-0 z-40 bg-white backdrop-blur-md

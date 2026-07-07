@@ -2,10 +2,10 @@
 
 import { MentorStats } from './MentorStats'
 import { LatestSubmissions } from './LatestSubmissions'
-import { WelcomeHeader } from '@/components/layout/WelcomeHeader';
+import { WelcomeHeader } from '@/components/dashboard/Layout/WelcomeHeader';
 import { useTranslations } from 'next-intl';
 import { useMentorDashboard } from '@/hooks/mentor/useMentorDashboard';
-import { DashboardSkeleton } from '@/components/dashboard/Home/DashboardSkeleton';
+import { DashboardSkeleton } from '@/components/dashboard/students/Home/DashboardSkeleton';
 import { Code2Icon } from 'lucide-react';
 
 

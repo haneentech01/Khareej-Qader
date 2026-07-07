@@ -1,37 +1,17 @@
 "use client";
 
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { Building, ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
-import {
-  ColumnDef,
-  flexRender,
-  getCoreRowModel,
-  useReactTable,
-} from "@tanstack/react-table";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/components/ui/avatar";
+import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useMentorDashboard } from "@/hooks/mentor/useMentorDashboard";
 import type { MentorDashboardLastSubmission } from "@/types";
 
-// ─── Constants ───────────────────────────────────────────────────────────────
-
-/** الحد الأقصى لعدد التسليمات المعروضة في الجدول. */
 const MAX_VISIBLE_SUBMISSIONS = 5;
 
-// ─── Types ───────────────────────────────────────────────────────────────────
 interface Submission {
   id: string;
   studentName: string;
@@ -39,15 +19,6 @@ interface Submission {
   task: string;
 }
 
-// ─── Helpers ─────────────────────────────────────────────────────────────────
-
-/**
- * يستخرج أول حرف صالح من اسم الطالب (بعد trim) لاستخدامه كـ fallback
- * داخل AvatarFallback. لو الاسم فارغ أو "—" نُرجع "؟".
- *
- * نستخدم Array.from بدل name[0] لتفادي مشكلة الـ surrogates في الـ emoji
- * أو الحروف العربية المركّبة (مثل "أ").
- */
 function getInitial(name: string | null | undefined): string {
   if (!name) return "";
   const chars = Array.from(name.trim());
@@ -76,8 +47,6 @@ export function LatestSubmissions() {
   const { dashboard, loading } = useMentorDashboard();
 
   // ── Data ──────────────────────────────────────────────────────────────────
-  // نأخذ آخر MAX_VISIBLE_SUBMISSIONS تسليمات فقط — الباقي يصل له المستخدم
-  // عبر زر "عرض الكل" الذي يوجّه لصفحة /mentor/submissions الكاملة.
   const submissions: Submission[] = useMemo(() => {
     const all = dashboard?.last_task_submissions_count ?? [];
     return all.slice(0, MAX_VISIBLE_SUBMISSIONS).map((item, index) =>
@@ -131,7 +100,7 @@ export function LatestSubmissions() {
     getCoreRowModel: getCoreRowModel(),
   });
 
-  // ── Render ────────────────────────────────────────────────────────────────
+  // ── Table ────────────────────────────────────────────────────────────────
   return (
     <div className="bg-white rounded-3xl p-6 border border-sidebar-border shadow-sm flex flex-col gap-6 w-full overflow-hidden">
       {/* Header */}
@@ -183,7 +152,6 @@ export function LatestSubmissions() {
 
           <TableBody>
             {loading ? (
-              // skeleton بسيط أثناء التحميل
               <TableRow>
                 <TableCell
                   colSpan={columns.length}

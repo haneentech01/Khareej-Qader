@@ -1,12 +1,12 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { ProgressHero } from "@/components/dashboard/Home/ProgressHero";
-import { MentorCard } from "@/components/dashboard/Home/MentorCard";
-import { TaskCard } from "@/components/dashboard/Home/TaskCard";
+import { ProgressHero } from "@/components/dashboard/students/Home/ProgressHero";
+import { MentorCard } from "@/components/dashboard/students/Home/MentorCard";
+import { TaskCard } from "@/components/dashboard/students/Home/TaskCard";
 import { useDashboard } from "@/hooks/dashboard/useDashboard";
 import { DashboardSkeleton } from "./DashboardSkeleton";
-import { WelcomeHeader } from "@/components/layout/WelcomeHeader";
+import { WelcomeHeader } from "@/components/dashboard/Layout/WelcomeHeader";
 
 
 export function DashboardContent() {

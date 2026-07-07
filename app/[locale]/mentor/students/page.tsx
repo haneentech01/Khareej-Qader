@@ -1,7 +1,7 @@
-import { PageHeader } from "@/components/dashboard/Layout/PageHeader";
-import { MentorProfileContent } from "@/components/dashboard/mentor/Profile/MentorProfileContent";
+import MentorStudentsContent from '@/components/dashboard/mentor/Students/MentorStudentsContent'
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
-import { getTranslations, getLocale } from "next-intl/server";
+import { PageHeader } from "@/components/dashboard/Layout/PageHeader";
+import { getLocale, getTranslations } from "next-intl/server";
 
 export async function generateMetadata({
   params,
@@ -9,26 +9,25 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "Dashboard.metadata.mentor_dashboard.profile" });
+  const t = await getTranslations({ locale, namespace: "Dashboard.metadata.mentor_dashboard.students" });
   return {
     title: t("title"),
     description: t("description"),
   };
 }
 
-
-export default async function MentorProfilePage() {
-  const t = await getTranslations("MentorProfilePage");
+export default async function MentorStudentsPage() {
+  const t = await getTranslations("MentorStudents");
   const locale = await getLocale();
 
   const breadcrumbItems = [
     { label: t('breadcrumbs.home'), href: '/mentor' },
-    { label: t('breadcrumbs.profile') },
+    { label: t('breadcrumbs.students') },
   ];
 
   return (
     <div className="max-w-7xl mx-auto space-y-6">
-      <div className="flex flex-col gap-3.5">
+      <div className="flex flex-col">
         <Breadcrumbs items={breadcrumbItems} locale={locale} />
         <PageHeader
           title={t('header.title')}
@@ -36,9 +35,9 @@ export default async function MentorProfilePage() {
         />
       </div>
 
-      <div>
-        <MentorProfileContent />
-      </div>
+
+
+      <MentorStudentsContent />
     </div>
   );
 }

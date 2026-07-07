@@ -1,6 +1,3 @@
-// مسؤول عن: formData + fieldErrors + handleChange + validate
-// + extractErrors + handleSubmit + toast
-
 "use client";
 
 import { useState } from "react";
@@ -8,27 +5,13 @@ import { toast } from "react-toastify";
 import { useInsertData } from "@/lib/hooks/useInsertData";
 import { ValidationErrors } from "@/types";
 
-// ─── شكل الـ config اللي لازم كل صفحة تمرّره ──────
 interface useFormConfig<T extends Record<string, unknown>> {
-  // القيم الأولية للفورم
   initialValues: T;
-
-  // رابط الـ API
   endpoint: string;
-
-  // فحص محلي — يرجع أخطاء أو {} لو كله صح
   validate: (values: T) => ValidationErrors;
-
-  // (اختياري) تحويل البيانات قبل الإرسال — مثلاً course_id من string لـ array
   formatPayload?: (values: T) => Record<string, unknown> | FormData;
-
-  // رسالة النجاح
   successMessage?: string;
-
-  // callback بعد النجاح — مثلاً redirect
   onSuccess?: (data: unknown) => void;
-
-  // callback بعد الفشل — لو تبي تسوي شي إضافي
   onError?: (errors: ValidationErrors, message: string) => void;
 }
 
@@ -45,24 +28,18 @@ export function useForm<T extends Record<string, unknown>>(
     onError,
   } = config;
 
-  // ─── حالة الفورم ──────────────────────────────
   const [formData, setFormData] = useState<T>(initialValues);
 
-  // ─── أخطاء الحقول ─────────────────────────────
   const [fieldErrors, setFieldErrors] = useState<ValidationErrors>({});
 
-  // ─── hook الإرسال ─────────────────────────────
   const { loading, insertData } = useInsertData(endpoint);
 
-  // ─── تحديث حقل + مسح خطأه ─────────────────────
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     const { name, value } = e.target;
 
     setFormData((prev) => ({ ...prev, [name]: value }));
-
-    // مسح خطأ الحقل لما المستخدم يبدأ يعدّل
     setFieldErrors((prev) => {
       const updated = { ...prev };
       delete updated[name];
@@ -70,7 +47,6 @@ export function useForm<T extends Record<string, unknown>>(
     });
   };
 
-  // ─── استخراج أخطاء الباك إند ───────────────────
   const extractBackendErrors = (
     data: Record<string, unknown> | null,
   ): ValidationErrors => {
@@ -109,14 +85,14 @@ export function useForm<T extends Record<string, unknown>>(
     const result = await insertData(payload);
 
     if (result.success) {
-      // ✅ نجاح
+      // نجاح
       const message =
         ((result.data as Record<string, unknown>)?.message as string) ||
         successMessage;
       toast.success(message);
       onSuccess?.(result.data);
     } else {
-      // ❌ فشل
+      //  فشل
       const backendErrors = extractBackendErrors(result.data);
 
       if (Object.keys(backendErrors).length > 0) {

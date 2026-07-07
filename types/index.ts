@@ -249,7 +249,11 @@ export interface DashboardStudent {
   name: string;
   slug: string;
   email: string;
-  avatar?: string;
+  mobile_number?: string;
+  gender?: string;
+  university_name?: string;
+  university_major?: string;
+  profile_photo?: string;
 }
 
 export interface DashboardCourse {
@@ -422,28 +426,19 @@ export interface CreateTaskResponse {
 
 // ─── Mentor Tasks Page (count / list / courses / profile) ───
 
-/**
- * استجابة GET /tasks/count
- * الـ backend يرجع: { success, message, data: { total: number } }
- */
+// GET /tasks/count
 export interface MentorTasksCountData {
   total: number;
 }
 
-/**
- * عنصر من استجابة GET /tasks/list
- * كل مهمة تحتوي على العنوان، اسم الدرس المرتبط، وتاريخ التسليم.
- */
+// GET /tasks/list
 export interface MentorTaskListItem {
   title: string;
   video_title: string;
-  dead_line: string; // ISO date string
+  dead_line: string;
 }
 
-/**
- * استجابة GET /videos/mentor/course
- * كل عنصر يمثل درس/فيديو داخل مسار المنتور (يُستخدم في القائمة المنسدلة بنموذج إضافة مهمة).
- */
+// GET /videos/mentor/course
 export interface MentorCourseItem {
   id: number;
   video_title: string;
@@ -475,6 +470,30 @@ export interface MentorDashboardData {
   last_task_submissions_count: MentorDashboardLastSubmission[];
 }
 
+// GET /tasks/submissions
+export interface TaskSubmissionListStudent {
+  id: number;
+  full_name: string;
+  profile_image: string | null;
+}
+
+export interface TaskSubmissionListReviewer {
+  id: number;
+  name: string;
+}
+
+export interface TaskSubmissionListItem {
+  id: number;
+  task_id: number;
+  task_name: string | null;
+  student_id: number;
+  grade: number | null;
+  reviewed_by: number | null;
+  created_at: string | null;
+  student: TaskSubmissionListStudent;
+  reviewer: TaskSubmissionListReviewer | null;
+}
+
 // ─── Review Task Submission (PATCH /tasks/submissions/{id}/review) ──────────
 export interface ReviewSubmissionPayload {
   [key: string]: unknown;
@@ -482,65 +501,14 @@ export interface ReviewSubmissionPayload {
   review_notes: string;
 }
 
-export interface TaskSubmissionStudent {
+// ─── Mentor Students List (GET /mentor/students) ────────────────────────────
+export interface MentorStudentListItem {
   id: number;
-  slug: string;
-  email: string;
-  username: string;
   full_name: string;
-  profile_image: string | null;
-  university_name: string;
-  university_major: string;
-  mobile_number: string;
-  code_mobile: string;
-  teacher_collage: string | null;
-  files: unknown;
-  is_active: boolean;
-  gender: "male" | "female";
-  deleted_at: string | null;
-  last_active_at: string | null;
-  created_at: string;
-  updated_at: string;
-  project_season: string | null;
-}
-
-export interface TaskSubmissionReviewer {
-  id: number;
-  name: string;
-  username: string;
-  slug: string;
-  profile_image: string | null;
-  info: string | null;
   email: string;
-  mobile_number: string;
-  code_mobile: string;
-  address: string;
-  city: string;
-  state: string;
-  experience: number;
-  status: string;
-  files: unknown;
+  profile_image: string | null;
+  university_major: string;
   is_active: boolean;
-  deleted_at: string | null;
   last_active_at: string | null;
   created_at: string;
-  updated_at: string;
 }
-
-export interface TaskSubmission {
-  id: number;
-  task_id: number;
-  student_id: number;
-  grade: number;
-  answer: string;
-  file: string | null;
-  reviewed_by: number | null;
-  reviewed_at: string | null;
-  review_notes: string | null;
-  created_at: string;
-  updated_at: string;
-  student: TaskSubmissionStudent;
-  reviewer: TaskSubmissionReviewer | null;
-}
-
-export type ReviewSubmissionResponse = TaskSubmission;

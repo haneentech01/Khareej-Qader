@@ -15,7 +15,8 @@ export const TasksFilter = ({
   const t = useTranslations('MentorTasks.filters');
 
   return (
-    <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-6 bg-white p-2 rounded-xl border border-gray-100">
+    <div className="flex flex-col md:flex-row items-center mb-0
+    bg-white p-4 rounded-xl ">
       <div className="relative w-full md:max-w-md">
         <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
         <Input
@@ -23,7 +24,8 @@ export const TasksFilter = ({
           placeholder={t('search_placeholder')}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="pl-4 pr-10 border-0 bg-gray-50 focus-visible:ring-0 focus-visible:bg-white"
+          className="pl-4 py-4 pr-10 border-0 bg-gray-50 
+          focus-visible:ring-0 focus-visible:bg-brand-light-green"
         />
       </div>
     </div>

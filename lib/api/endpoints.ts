@@ -41,13 +41,15 @@ const endpoints = {
   // ─── روابط المنتور ──────────────────────────
   mentor: {
     dashboard: "/mentor/dashboard",
-    submissions: "/mentor/submissions",
+    submissions: "/tasks/submissions",
     submission: (id: string | number) => `/mentor/submissions/${id}`,
     students: "/mentor/students",
     tasks: {
-      create: "/tasks/new-task", // POST - إنشاء مهمة جديدة
+      create: "/tasks/new-task",
       list: "/tasks/list", // GET  - قائمة المهام
       count: "/tasks/count", // GET  - إجمالي عدد المهام
+      submissionsByTask: (taskId: string | number) =>
+        `/tasks/${taskId}/submissions`, // GET - المهام المرفوعة
       reviewSubmission: (id: string | number) =>
         `/tasks/submissions/${id}/review`, // تقييم تسليم طالب (PATCH)
     },

@@ -1,7 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
-import { MyTrackContent } from "@/components/dashboard/MyTrack/MyTrackContent";
-import { PageHeader } from "@/components/layout/PageHeader";
+import { MyTrackContent } from "@/components/dashboard/students/MyTrack/MyTrackContent";
+import { PageHeader } from "@/components/dashboard/Layout/PageHeader";
 
 
 export async function generateMetadata({

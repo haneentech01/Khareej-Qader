@@ -1,13 +1,26 @@
-import { Metadata } from "next";
 import { AuthLayout } from "@/components/auth/AuthLayout";
 import { MentorRegisterForm } from "@/components/auth/MentorRegisterForm";
+import { getTranslations } from "next-intl/server";
 
+interface Props {
+  params: {
+    locale: string;
+  };
+}
 
+export async function generateMetadata({ params }: Props) {
+  const { locale } = params;
 
+  const t = await getTranslations({
+    locale,
+    namespace: "BecomeTrainer.Metadata",
+  });
 
-export const metadata: Metadata = {
-  title: "سجل كمدرب - خريج قادر",
-};
+  return {
+    title: t("title"),
+    description: t("subtitle"),
+  };
+}
 
 export default function RegisterMentorPage() {
   const benefits = ["feature1", "feature2", "feature3", "feature4"];

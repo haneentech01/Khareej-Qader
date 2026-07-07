@@ -2,11 +2,11 @@ import React from "react";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 import { FileCheck2, ChevronLeft, ChevronRight } from "lucide-react";
-import { SubmissionHeader } from "@/components/mentor/Submissions/SubmissionHeader";
-import { TaskInfoCard } from "@/components/mentor/Submissions/TaskInfoCard";
+import { SubmissionHeader } from "@/components/dashboard/mentor/Submissions/SubmissionHeader";
+import { TaskInfoCard } from "@/components/dashboard/mentor/Submissions/TaskInfoCard";
 import { SubmissionReviewPageProps } from "@/types";
-import { EvaluationForm } from "@/components/mentor/Submissions/Evaluation/EvaluationForm";
-import { UploadedFilesCard } from "@/components/dashboard/Tasks/TaskDetails/UploadedFilesCard";
+import { EvaluationForm } from "@/components/dashboard/mentor/Submissions/Evaluation/EvaluationForm";
+import { UploadedFilesCard } from "@/components/dashboard/students/Tasks/TaskDetails/UploadedFilesCard";
 
 export default async function SubmissionReviewPage({ params }: SubmissionReviewPageProps) {
   const { locale } = await params;
@@ -45,7 +45,7 @@ export default async function SubmissionReviewPage({ params }: SubmissionReviewP
             {t("header.title")}
           </h1>
           <p className="text-brand-muted text-sm md:text-base">
-            {t("header.subtext")}
+            {t("header.subtitle")}
           </p>
         </div>
       </div>

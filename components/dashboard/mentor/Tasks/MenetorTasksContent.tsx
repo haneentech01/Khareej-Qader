@@ -1,15 +1,14 @@
 "use client";
 
 import { useCallback, useMemo, useState } from "react";
-import { TasksStats } from "@/components/mentor/Tasks/TasksStats";
-import { TasksFilter } from "@/components/mentor/Tasks/TasksFilter";
-import { TasksTable } from "@/components/mentor/Tasks/TasksTable";
+import { TasksStats } from "@/components/dashboard/mentor/Tasks/TasksStats";
+import { TasksFilter } from "@/components/dashboard/mentor/Tasks/TasksFilter";
+import { TasksTable } from "@/components/dashboard/mentor/Tasks/TasksTable";
 import { MentorTaskListItem } from "@/types";
 import { useMentorTasksCount } from "@/hooks/mentor/useMentorTasksCount";
 import { useMentorTasksList } from "@/hooks/mentor/useMentorTasksList";
 import { NewTaskModal } from "./NewTaskModal";
 
-/** عدد المهام المعروضة في كل صفحة من الجدول */
 const ITEMS_PER_PAGE = 10;
 
 export default function MentorTasksContent() {
@@ -28,7 +27,7 @@ export default function MentorTasksContent() {
         refetch: refetchList,
     } = useMentorTasksList();
 
-    // ─── Local UI state ────────────────────────
+
     const [searchQuery, setSearchQuery] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
 
@@ -78,8 +77,6 @@ export default function MentorTasksContent() {
                 />
                 <NewTaskModal onSuccess={handleTaskCreated} />
             </div>
-
-
 
             {/* Search filter */}
             <TasksFilter
