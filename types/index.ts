@@ -319,6 +319,55 @@ export interface DashboardData {
   announcements: DashboardAnnouncement[];
 }
 
+export interface StudentProfile {
+  student: DashboardStudent;
+  course: DashboardCourse;
+}
+
+export interface StudentFormData {
+  name: string;
+  email: string;
+  mobile_number: string;
+  gender: "male" | "female" | "";
+  university_name: string;
+  university_major: string;
+}
+
+// Update Student Data (PATCH /students/update-student-data)
+export interface UpdateStudentDataPayload {
+  [key: string]: unknown;
+  full_name?: string;
+  email?: string;
+  mobile_number?: string;
+  gender?: "male" | "female" | "";
+  university_name?: string;
+  university_major?: string;
+  teacher_collage?: string | null;
+  profile_photo?: string | null;
+}
+
+export interface UpdatedStudentData {
+  id: number;
+  slug: string;
+  email: string;
+  username: string;
+  full_name: string;
+  profile_image: string | null;
+  university_name: string;
+  university_major: string;
+  mobile_number: string;
+  code_mobile: string;
+  teacher_collage: string | null;
+  files: unknown;
+  is_active: boolean;
+  gender: "male" | "female";
+  deleted_at: string | null;
+  last_active_at: string | null;
+  created_at: string;
+  updated_at: string;
+  project_season: string | null;
+}
+
 // ─── Student Path Types ────────────────────
 export interface PathInfo {
   id: number;
@@ -360,17 +409,17 @@ export interface StudentPathData {
 
 // ─── Video Progress Types ───────────────────────
 
-//  استجابة GET /videos/{id}/resume
+// GET /videos/{id}/resume
 export type VideoResumeData = number;
 
-// استجابة POST /videos/{id}/progress
+// POST /videos/{id}/progress
 export interface VideoProgressResponse {
   success: boolean;
   message: string;
   data: null;
 }
 
-//  استجابة POST /videos/{id}/complete
+// POST /videos/{id}/complete
 export interface VideoCompleteResponse {
   success: boolean;
   message: string;
@@ -499,6 +548,29 @@ export interface ReviewSubmissionPayload {
   [key: string]: unknown;
   grade: number;
   review_notes: string;
+}
+
+export interface ReviewSubmissionResponse {
+  id: number;
+  task_id: number;
+  student_id: number;
+  reviewed_by: number;
+  grade: number | null;
+  review_notes: string | null;
+  created_at: string;
+  updated_at: string;
+  student: {
+    id: number;
+    full_name: string;
+    email: string;
+    mobile_number?: string;
+    profile_photo?: string;
+  };
+  reviewer: {
+    id: number;
+    name: string;
+    role: string;
+  };
 }
 
 // ─── Mentor Students List (GET /mentor/students) ────────────────────────────

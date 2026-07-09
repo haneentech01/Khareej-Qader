@@ -6,7 +6,6 @@ import endpoints from "@/lib/api/endpoints";
 import { StudentPathData } from "@/types";
 
 //  تحسب الفيديو الحالي الصحيح (أول فيديو غير مكتمل).
-
 export function computeCurrentVideo(rawData: StudentPathData): StudentPathData {
   const videos = rawData.videos ?? [];
   const firstIncomplete = videos.find((v) => !v.completed);
@@ -53,7 +52,6 @@ export function useStudentPath() {
     setOptimisticData(null);
   }
 
-  // نحوّل البيانات (سواء من السيرفر أو optimistic)
   const data = useMemo(() => {
     const source = optimisticData ?? serverData;
     return source ? computeCurrentVideo(source) : null;

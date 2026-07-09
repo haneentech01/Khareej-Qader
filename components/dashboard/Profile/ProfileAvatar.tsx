@@ -1,9 +1,12 @@
 "use client";
 
 import React from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
-import { t } from "media-chrome";
 
 interface ProfileAvatarProps {
   /** URL الصورة (أو null لو مفيش صورة) */
@@ -37,10 +40,10 @@ const TEXT_SIZE_MAP = {
  * نستخدم Array.from بدل name[0] لتفادي مشكلة الـ surrogates.
  */
 function getInitial(name: string | null | undefined): string {
-  if (!name) return "";
+  if (!name) return "؟";
   const chars = Array.from(name.trim());
   const first = chars.find((c) => c.trim().length > 0);
-  return first ? first.toUpperCase() : "";
+  return first ? first.toUpperCase() : "؟";
 }
 
 /**
@@ -86,8 +89,7 @@ export function ProfileAvatar({
 
       {showOnlineBadge && (
         <span
-          className="absolute bottom-1 inset-e-1 size-3.5
-           bg-brand-primary rounded-full border-2 border-white"
+          className="absolute bottom-1 inset-e-1 size-3.5 bg-emerald-500 rounded-full border-2 border-white"
           aria-label="online"
         />
       )}

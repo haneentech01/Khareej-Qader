@@ -10,33 +10,6 @@ import {
   ReviewSubmissionResponse,
 } from "@/types";
 
-/**
- * تقييم تسليم مهمة طالب عبر:
- *   PATCH /tasks/submissions/{id}/review
- *
- * الـ payload المُرسل:
- *   { grade: number, review_notes: string }
- *
- * الاستجابة المتوقعة من الـ backend:
- *   {
- *     success: true,
- *     message: "Task reviewed successfully",
- *     data: TaskSubmission  // يحتوي على student + reviewer relations
- *   }
- *
- * تصميم الـ hook:
- *  - نستخدم apiClient مباشرة (PATCH) بدل useUpdateData لأننا نحتاج لتمرير
- *    URL ديناميكي يحتوي على الـ id في كل استدعاء، بينما useUpdateData
- *    يأخذ URL ثابت عند الإنشاء.
- *  - نُرجع نتيجة موحّدة { success, data?, message? } لتسهيل الاستهلاك
- *    من قبل الـ UI دون الحاجة للتعامل مع axios error details.
- *  - نعيد الحالة loading و error لربطها بزر الإرسال وعرض رسائل الخطأ.
- *
- * مثال الاستخدام:
- *   const { reviewSubmission, loading, error } = useReviewSubmission();
- *   const result = await reviewSubmission(submissionId, { grade: 90, review_notes: "Excellent" });
- *   if (result.success) { ... } else { toast.error(result.message); }
- */
 export function useReviewSubmission() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);

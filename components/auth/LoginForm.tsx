@@ -17,11 +17,6 @@ interface LoginFormProps {
   role?: Role;
 }
 
-/**
- * يستخرج الـ role من الـ URL query param.
- * مثال: /ar/login?role=mentor → "mentor"
- * لو الـ query مش موجود أو قيمته مش صحيحة → "student"
- */
 function useLoginRole(propRole?: Role): Role {
   const searchParams = useNextSearchParams();
   const queryRole = searchParams.get("role");
@@ -33,15 +28,7 @@ function useLoginRole(propRole?: Role): Role {
   return "student";
 }
 
-/**
- * تبويبات اختيار الـ role (طالب / مدرب).
- *
- * لما المستخدم يضغط على تبويب، نحدّث الـ URL query param ?role=X
- * بدل ما نعدّل state محلي — عشان:
- *  1. الـ role يفضل متزامن مع الـ URL (يمكن مشاركته أو عمل bookmark)
- *  2. لو المستخدم عمل reload، الـ role يفضل محفوظ
- *  3. الـ LoginForm يقرأ الـ role من الـ URL تلقائياً
- */
+
 function RoleTabs({ currentRole }: { currentRole: Role }) {
   const t = useTranslations("Auth");
   const router = useRouter();
@@ -49,13 +36,9 @@ function RoleTabs({ currentRole }: { currentRole: Role }) {
 
   const handleRoleChange = (newRole: Role) => {
     if (newRole === currentRole) return;
-
-    // حدّث الـ URL query param
     const params = new URLSearchParams(searchParams.toString());
     params.set("role", newRole);
-    // امسح الـ redirect لو موجود عشان ما يرجّعوش المستخدم لمكان غلط
     params.delete("redirect");
-
     router.push(`/login?${params.toString()}`);
   };
 
@@ -122,10 +105,9 @@ export function LoginForm({ showActivationMessage = false, role: propRole }: Log
         </p>
       </div>
 
-      {/* ─── تبويبات اختيار الـ role (طالب / مدرب) ─── */}
       <RoleTabs currentRole={role} />
 
-      {/* ─── رسالة التفعيل عند الحاجة ─────────────── */}
+
       {showActivationMessage && (
         <motion.div
           initial={{ opacity: 0, height: 0 }}

@@ -35,11 +35,9 @@ export function LogoutButton({
             disabled={loading}
             aria-label={t("logout")}
             className={cn(
-                // ─── base styles ───
                 "flex items-center gap-3 w-full px-6 py-3 rounded-e-lg",
                 "transition-all duration-300 text-red-500 hover:bg-red-50",
                 "disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer",
-                // ─── responsive: icon-only لما الـ sidebar يكون collapsed ───
                 isCollapsed && "justify-center px-0",
                 className,
             )}

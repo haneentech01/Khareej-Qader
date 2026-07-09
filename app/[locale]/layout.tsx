@@ -7,6 +7,7 @@ import { notFound } from "next/navigation";
 import { ScrollToTopButton } from "@/components/ui/ScrollToTopButton";
 import { getTranslations } from "next-intl/server";
 import { ToastContainer } from 'react-toastify';
+import { QueryProvider } from "@/app/providers/QueryProvider";
 import Script from "next/script";
 
 
@@ -70,19 +71,22 @@ export default async function RootLayout({
 
 
       <body className="min-h-full flex flex-col">
-        <NextIntlClientProvider messages={messages}>
-          {children}
-          <ScrollToTopButton />
-        </NextIntlClientProvider>
+        <QueryProvider>
+          <NextIntlClientProvider messages={messages}>
+            {children}
+            <ScrollToTopButton />
+          </NextIntlClientProvider>
 
-        {/* Toast هون يشتغل على كل الصفحات */}
-        <ToastContainer
-          position={locale === 'ar' ? 'top-left' : 'top-right'}
-          rtl={locale === 'ar'}
-          autoClose={4000}
-          hideProgressBar={false}
-          theme="light"
-        />
+          {/* Toast هون يشتغل على كل الصفحات */}
+          <ToastContainer
+            position={locale === 'ar' ? 'top-left' : 'top-right'}
+            rtl={locale === 'ar'}
+            autoClose={4000}
+            hideProgressBar={false}
+            theme="light"
+          />
+
+        </QueryProvider>
       </body>
     </html>
   );

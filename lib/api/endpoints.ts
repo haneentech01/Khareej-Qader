@@ -22,6 +22,8 @@ const endpoints = {
   // ─── روابط الطالب ───────────────────────────
   student: {
     profile: "/students/student-profile",
+    updateData: "/students/update-student-data",
+    uploadProfileImage: "/students/upload-profile-image",
     track: "/students/track",
     tasks: "/students/tasks",
     task: (id: string | number) => `/students/tasks/${id}`,
