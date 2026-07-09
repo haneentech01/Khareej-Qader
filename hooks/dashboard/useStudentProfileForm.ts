@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback, useMemo, useRef, useEffect } from "react";
 import { useDashboard } from "@/hooks/dashboard/useDashboard";
 import { useUpdateStudentData } from "@/hooks/dashboard/useUpdateStudentData";
 import { useUploadProfileImage } from "@/hooks/dashboard/useUploadProfileImage";
@@ -134,15 +134,30 @@ export function useStudentProfileForm(): UseStudentProfileFormResult {
     reset: resetImage,
   } = useUploadProfileImage();
 
-  const [formData, setFormData] = useState<StudentFormData>(EMPTY_FORM);
-  const [initialized, setInitialized] = useState(false);
+  // Derive initial form data directly from server data — no setState-in-effect
+  const serverFormData = useMemo(
+    () => toFormData(student, course),
+    // We only want to recompute when the server identity changes (slug/name)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [student?.slug, course?.name],
+  );
 
+  // User edits layered on top of server data
+  const [overrides, setOverrides] = useState<Partial<StudentFormData>>({});
+
+  const formData: StudentFormData = useMemo(
+    () => ({ ...serverFormData, ...overrides }),
+    [serverFormData, overrides],
+  );
+
+  // Track whether the first load has settled (no setState — just a ref)
+  const initializedRef = useRef(false);
   useEffect(() => {
-    if ((student || course) && !initialized) {
-      setFormData(toFormData(student, course));
-      setInitialized(true);
+    if (student || course) {
+      initializedRef.current = true;
     }
-  }, [student, course, initialized]);
+  }, [student, course]);
+  const initialized = initializedRef.current || !!(student || course);
 
   const hasChanges =
     initialized &&
@@ -157,7 +172,7 @@ export function useStudentProfileForm(): UseStudentProfileFormResult {
   // ─── Handlers ────────────────────────────────────────────────────────────
   const handleFieldChange = useCallback(
     (field: keyof StudentFormData, value: string) => {
-      setFormData((prev) => ({ ...prev, [field]: value }));
+      setOverrides((prev) => ({ ...prev, [field]: value }));
       if (successMessage || saveError) resetSave();
       if (imageSuccessMsg || imageError) resetImage();
     },

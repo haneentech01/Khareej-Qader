@@ -3,8 +3,8 @@
 import { useLocale, useTranslations } from "next-intl";
 import { GraduationCap, Lock } from "lucide-react";
 import type { StudentFormData } from "@/hooks/dashboard/useStudentProfileForm";
-import { ProfileTextInput } from "../../profile/ProfileTextInput";
-import { ProfileFieldSection, ProfileInputGroup } from "@/components/dashboard/profile";;
+import { ProfileTextInput } from "@/components/dashboard/profile/ProfileTextInput";
+import { ProfileFieldSection, ProfileInputGroup } from "@/components/dashboard/profile";
 
 interface EducationalInfoSectionProps {
     formData: StudentFormData;

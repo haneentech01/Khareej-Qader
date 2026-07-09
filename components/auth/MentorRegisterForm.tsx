@@ -1,15 +1,14 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/routing";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
-import { Briefcase, BriefcaseBusiness, CircleDollarSign, ClockCheck, CloudUpload, HandHeart, Loader2, MapPin, User } from "lucide-react";
+import { Briefcase, BriefcaseBusiness, CircleDollarSign, ClockCheck, HandHeart, Loader2, MapPin, User } from "lucide-react";
 import { motion } from "framer-motion";
 import endpoints from "@/lib/api/endpoints";
 import { useGetData } from "@/lib/hooks/useGetData";
-import { Country, Course, Major, University } from "@/types";
+import { Country } from "@/types";
 import { useRegisterForm } from "@/hooks/auth/useRegisterForm";
 import clsx from "clsx";
 import { useState } from "react";

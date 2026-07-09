@@ -4,7 +4,7 @@ import React from "react";
 import Image from "next/image";
 import { useTranslations, useLocale } from "next-intl";
 import { Link } from "@/i18n/routing";
-import { ChevronLeft, ChevronRight, Mail, Phone, MapPin, GraduationCap } from "lucide-react";
+import { ChevronLeft, ChevronRight, Mail, GraduationCap } from "lucide-react";
 import { MentorProfile } from "@/types";
 
 interface MentorProfileHeaderProps {

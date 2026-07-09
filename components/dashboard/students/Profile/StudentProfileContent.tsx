@@ -6,8 +6,8 @@ import { AccountInfoSection } from "./AccountInfoSection";
 import { PersonalInfoSection } from "./PersonalInfoSection";
 import { EducationalInfoSection } from "./EducationalInfoSection";
 import { useStudentProfileForm } from "@/hooks/dashboard/useStudentProfileForm";
-import { ProfilePageLayout, ProfileSkeleton } from "../../profile";
-import { ProfileFormFooter } from "../../profile/ProfileFormFooter";
+import { ProfilePageLayout, ProfileSkeleton } from "@/components/dashboard/profile";
+import { ProfileFormFooter } from "@/components/dashboard/profile/ProfileFormFooter";
 
 
 export function StudentProfileContent() {

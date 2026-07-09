@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useTranslations } from "next-intl";
-import { TrendingUp, BookOpen, ClipboardList, Star } from "lucide-react";
+import { TrendingUp, BookOpen, ClipboardList } from "lucide-react";
 import { StudentProfileData } from "@/types";
 
 interface StudentProfileStatsProps {

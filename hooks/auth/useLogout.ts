@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useRouter } from "@/i18n/routing";
-import apiClient from "@/lib/api/client";
 import endpoints from "@/lib/api/endpoints";
 import { clearRoleCookie } from "@/lib/auth/roleCookie";
 import { queryClient } from "@/lib/query/queryClient";
@@ -28,13 +27,16 @@ export function useLogout({ role, redirectPath }: UseLogoutOptions) {
 
   const finalRedirect = redirectPath ?? `/login?role=${role}`;
 
+  // Call the hook at the top level of the custom hook (rules-of-hooks)
+  const { insertData: callLogout } = useInsertData(logoutEndpoint);
+
   const logout = async () => {
     setLoading(true);
     setError(null);
 
     try {
       // ─── 1) Backend logout (يمسح الـ http-only token cookie) ─────────────
-      await useInsertData(logoutEndpoint);
+      await callLogout({});
     } catch (err) {
       const errMsg =
         err instanceof Error

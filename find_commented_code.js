@@ -50,9 +50,6 @@ const findCommentedCode = (filePath) => {
   const lines = content.split("\n");
   const matches = [];
 
-  let inMultiLineComment = false;
-  let multiLineBuffer = [];
-  let multiLineStart = 0;
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];

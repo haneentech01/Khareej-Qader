@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useTranslations, useLocale } from "next-intl";
-import { ClipboardList, ChevronLeft, ChevronRight, Clock, CheckCircle2, XCircle, AlertCircle } from "lucide-react";
+import { ClipboardList, ChevronLeft, ChevronRight, Clock } from "lucide-react";
 import { Link } from "@/i18n/routing";
 import { MentorDashboardLastSubmission } from "@/types";
 

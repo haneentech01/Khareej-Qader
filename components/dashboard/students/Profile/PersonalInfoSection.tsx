@@ -6,7 +6,7 @@ import { User } from "lucide-react";
 import { ProfileFieldSection, ProfileInputGroup } from "@/components/dashboard/profile";
 import { Select } from "@/components/ui/select";
 import type { StudentFormData } from "@/hooks/dashboard/useStudentProfileForm";
-import { ProfileTextInput } from "../../profile/ProfileTextInput";
+import { ProfileTextInput } from "@/components/dashboard/profile/ProfileTextInput";
 
 interface PersonalInfoSectionProps {
     formData: StudentFormData;

@@ -1,7 +1,7 @@
 // components/dashboard/LessonViewer/VideoPlayer.tsx
 "use client";
 
-import React, { useEffect, useRef, useCallback, memo } from "react";
+import React, { useEffect, useRef, memo } from "react";
 import {
     MediaController,
     MediaControlBar,
@@ -43,7 +43,6 @@ function extractYoutubeId(url?: string): string | null {
 function VideoPlayerComponent({
     lessonId = "default",
     videoUrl,
-    thumbnailUrl: _thumbnailUrl,
     onVideoCompleted,
 }: VideoPlayerProps) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -166,7 +166,7 @@ export default function SubmissionsTable({
         ),
       },
     ],
-    [t, locale, isRtl]
+    [t, locale, Chevron]
   );
 
   const table = useReactTable({

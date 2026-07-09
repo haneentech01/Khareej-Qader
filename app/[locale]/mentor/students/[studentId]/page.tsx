@@ -13,7 +13,6 @@ export async function generateMetadata({
   params,
 }: StudentProfilePageProps) {
   const { locale, studentId } = await params;
-  const t = await getTranslations({ locale, namespace: "MentorStudentProfile" });
   const tMeta = await getTranslations({ locale, namespace: "Dashboard.metadata" });
 
   // Here we can fetch the name based on the id or display a dynamic localized title.
