@@ -323,7 +323,8 @@
       "tasks": "Tasks",
       "certificates": "Certificates",
       "profile": "Profile",
-      "logout": "Logout"
+      "logout": "Logout",
+      "logging_out": "Logging out..."
     },
     "topNav": {
       "search": "Search in track",
@@ -562,7 +563,8 @@
       "submissions": "Submissions",
       "students": "Students",
       "profile": "Profile",
-      "logout": "Logout"
+      "logout": "Logout",
+      "logging_out": "Logging out..."
     },
     "header": {
       "welcome": "Welcome, {name} 👋",

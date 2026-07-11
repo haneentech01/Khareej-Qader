@@ -109,9 +109,9 @@ export const StudentsTable = ({
               {/* Data rows */}
               {!loading &&
                 !error &&
-                students.map((student) => (
+                students.map((student, index) => (
                   <TableRow
-                    key={`student-${student.id}`}
+                    key={`student-${student.id ?? index}`}
                     className="hover:bg-gray-50/50 transition-colors"
                   >
                     <TableCell className="py-4 text-start font-medium text-gray-900 pl-6 pr-6">

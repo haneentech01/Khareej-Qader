@@ -11,3 +11,7 @@ export { ProfileInfoRow } from "./ProfileInfoRow";
 export { ProfileFieldSection, ProfileInputGroup } from "./ProfileFieldSection";
 
 export { ProfileSkeleton } from "./ProfileSkeleton";
+
+export { ProfileFormFooter } from "./ProfileFormFooter";
+
+export { ProfileTextInput } from "./ProfileTextInput";

@@ -1,15 +1,3 @@
-/**
- * مفاتيح الاستعلام المركزية (centralized query keys).
- *
- * ليش لازم ملف كامل للمفاتيح؟
- *  1. منع الـ typos: بدل ما تكتب ["student", "dashboard"] في كل مكان،
- *     تستخدم queryKeys.student.dashboard
- *  2. سهولة الـ invalidation: queryClient.invalidateQueries({ queryKey: queryKeys.student.dashboard })
- *  3. Type safety: as const يخلي الـ keys readonly و type-safe
- *  4. قابلية الاكتشاف: أي مطور جديد يفتح هذا الملف ويعرف كل الـ queries الموجودة
- *
- * القاعدة: كل query في التطبيق لازم يكون له مفتاح هنا.
- */
 export const queryKeys = {
   // ─── Student ──────────────────────────────────────────────────────────────
   student: {
@@ -31,6 +19,8 @@ export const queryKeys = {
     tasks: ["mentor", "tasks"] as const,
     /** GET /tasks/count — عدد مهام المنتور */
     tasksCount: ["mentor", "tasks-count"] as const,
+    //  GET /mentor/students — قائمة طلاب المنتور (paginated).
+    students: (page: number = 1) => ["mentor", "students", page] as const,
   },
 
   // ─── Admin ────────────────────────────────────────────────────────────────

@@ -36,8 +36,9 @@ export default async function MentorStudentsPage() {
       </div>
 
 
-
-      <MentorStudentsContent />
+      <div >
+        <MentorStudentsContent />
+      </div>
     </div>
   );
 }

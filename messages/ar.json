@@ -375,7 +375,8 @@
       "tasks": "المهام",
       "certificates": "الشهادة",
       "profile": "الملف الشخصي",
-      "logout": "تسجيل الخروج"
+      "logout": "تسجيل الخروج",
+      "logging_out": "جاري الخروج..."
     },
 
     "topNav": {
@@ -1033,7 +1034,7 @@
       "total_students": "إجمالي الطلاب",
       "active_students": "نشطين مؤخراً",
       "inactive_students": "غير نشطين",
-      "student": "طالب"
+      "students": "طلاب"
     },
     "filters": {
       "search_placeholder": "ابحث في الطلاب (الاسم أو البريد)...",

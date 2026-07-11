@@ -17,12 +17,11 @@ export const TasksStats = ({
   const t = useTranslations("MentorTasks.stats");
 
   return (
-    <div className="grid grid-cols-2 gap-4 mb-6">
+    <div className="grid grid-cols-12 gap-4 mb-6">
       <div
-        className="bg-white rounded-2xl py-4
+        className="col-span-6 bg-white rounded-2xl py-4
         border border-sidebar-border shadow-xs
-        flex flex-col items-center justify-between
-        hover:shadow-md transition-shadow duration-300"
+        flex flex-col items-center justify-between"
       >
         <div className="flex flex-col items-center gap-2 px-3 w-full">
           {/* Header Row */}

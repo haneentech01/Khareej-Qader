@@ -17,18 +17,18 @@ export const StudentsStats = ({
   const t = useTranslations("MentorStudents.stats");
 
   return (
-    <div className="grid grid-cols-2 gap-4 mb-6">
+    <div className="grid grid-cols-12 gap-4 mb-6">
       <div
-        className="bg-white rounded-2xl py-4
+        className="col-span-6 bg-white rounded-2xl py-4
         border border-sidebar-border shadow-xs
         flex flex-col items-center justify-between
-        hover:shadow-md transition-shadow duration-300"
+       transition-shadow duration-300"
       >
         <div className="flex flex-col items-center gap-2 px-3 w-full">
           {/* Header Row */}
           <div className="flex justify-center items-center gap-2.5 w-full">
             <div className="size-10 rounded-xl bg-brand-light-green 
-            border border-[#A7F3D0]/60 flex items-center justify-center shrink-0">
+            border border-brand-light flex items-center justify-center shrink-0">
               <Users className="w-5 h-5 text-blue-500" />
             </div>
 
@@ -39,7 +39,7 @@ export const StudentsStats = ({
             </div>
           </div>
 
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1.5">
             {/* Value */}
             {loading ? (
               <Loader2 className="w-6 h-6 text-brand-muted animate-spin" />
@@ -52,8 +52,8 @@ export const StudentsStats = ({
             )}
 
             {!loading && !error && (
-              <span className="text-xs md:text-sm font-medium block">
-                {t("student")}
+              <span className="text-xs md:text-sm font-extrabold block">
+                {t("students")}
               </span>
             )}
           </div>

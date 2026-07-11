@@ -31,7 +31,9 @@ export default async function MentorTaskspage() {
         title={t('header.title')}
         subtitle={t('header.subtitle')}
       />
-      <MentorTasksContent />
+      <div>
+        <MentorTasksContent />
+      </div>
     </div>
   )
 }

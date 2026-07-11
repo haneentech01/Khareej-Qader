@@ -584,3 +584,34 @@ export interface MentorStudentListItem {
   last_active_at: string | null;
   created_at: string;
 }
+
+
+export interface PaginationLink {
+  url: string | null;
+  label: string;
+  page: number | null;
+  active: boolean;
+}
+
+export interface PaginatedResponse<T> {
+  /** رقم الصفحة الحالية */
+  current_page: number;
+  /** البيانات الفعلية للصفحة الحالية */
+  data: T[];
+  /** رقم أول عنصر في الصفحة (1-based) */
+  from: number | null;
+  /** رقم آخر صفحة */
+  last_page: number;
+  /** روابط التنقل بين الصفحات (Previous, 1, 2, 3, Next) */
+  links: PaginationLink[];
+  /** عدد العناصر في الصفحة الواحدة */
+  per_page: number;
+  /** رقم آخر عنصر في الصفحة */
+  to: number | null;
+  /** إجمالي عدد العناصر في كل الصفحات */
+  total: number;
+}
+
+/** قائمة طلاب المنتور (paginated) */
+export type MentorStudentsListResponse =
+  PaginatedResponse<MentorStudentListItem>;

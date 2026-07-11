@@ -68,14 +68,23 @@ export default function MentorTasksContent() {
             className="w-full max-w-7xl mx-auto px-4 md:px-0 pb-12 space-y-6 md:space-y-8 
             animate-in fade-in slide-in-from-bottom-4 duration-500"
         >
-            <div className="flex justify-between items-start">
+            <div className="flex justify-between flex-col w-full">
                 {/* Stats: Total Tasks (from /tasks/count) */}
-                <TasksStats
-                    totalTasksCount={totalCount}
-                    loading={countLoading}
-                    error={countError}
-                />
-                <NewTaskModal onSuccess={handleTaskCreated} />
+                <div className="w-full space-y-4">
+                    <div className="flex justify-end">
+                        <NewTaskModal onSuccess={handleTaskCreated} />
+                    </div>
+
+                    <div className="flex justify-start">
+                        <div className="w-full">
+                            <TasksStats
+                                totalTasksCount={totalCount}
+                                loading={countLoading}
+                                error={countError}
+                            />
+                        </div>
+                    </div>
+                </div>
             </div>
 
             {/* Search filter */}
