@@ -36,7 +36,6 @@ export function LessonViewerContent({ lessonId }: LessonViewerContentProps) {
 
   // ─── Loading/Error ────────────────────────────
   if (loading) {
-    console.log("⏳ LessonViewerContent: loading...");  // ★
     return (
       <div className="flex flex-col gap-6 animate-pulse">
         <div className="aspect-video bg-slate-200 rounded-t-4xl" />
@@ -50,7 +49,6 @@ export function LessonViewerContent({ lessonId }: LessonViewerContentProps) {
   }
 
   if (error) {
-    console.error("💥 LessonViewerContent error:", error);  // ★
     return (
       <div className="text-center py-20">
         <p className="text-red-500 text-lg">{error}</p>
@@ -59,11 +57,9 @@ export function LessonViewerContent({ lessonId }: LessonViewerContentProps) {
   }
 
   if (!data) {
-    console.warn("⚠️ LessonViewerContent: no data, returning null");  // ★
     return null;
   }
 
-  console.log("✅ LessonViewerContent: rendering VideoPlayer");  // ★
 
   const { videos, current_video } = data;
   const currentIndex = videos.findIndex((v) => String(v.id) === lessonId);
@@ -87,11 +83,6 @@ export function LessonViewerContent({ lessonId }: LessonViewerContentProps) {
     setTimeout(() => refetch(), 1500);
   };
 
-  const tabs = [
-    { id: "notes", label: t("tab_notes") },
-    { id: "attachments", label: t("tab_attachments") },
-    { id: "questions", label: t("tab_questions") },
-  ];
 
   return (
     <div className="flex flex-col gap-6 mx-auto">
@@ -110,9 +101,7 @@ export function LessonViewerContent({ lessonId }: LessonViewerContentProps) {
 
       {/* ─── Navigation Buttons ───────────────── */}
       <div className="flex items-center justify-between gap-4 
-      bg-[#F2F4F280] py-6 shadow-[0px_1px_2px_0px_#0000000D]
-      
-      ">
+      py-6 px-3">
         {prevVideo ? (
           <Link
             href={`/dashboard/my-track/lessons/${prevVideo.id}`}
@@ -144,51 +133,6 @@ export function LessonViewerContent({ lessonId }: LessonViewerContentProps) {
         ) : (
           <div />
         )}
-      </div>
-
-      {/* ─── Tabs ─────────────────────────────── */}
-      <div className="bg-white rounded-[20px] p-6 border border-slate-100 shadow-sm">
-        <div className="flex items-center justify-center gap-8 border-b border-slate-100 mb-8">
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={cn(
-                "pb-4 text-base font-bold transition-colors relative",
-                activeTab === tab.id
-                  ? "text-brand-primary"
-                  : "text-brand-muted hover:text-brand-primary",
-              )}
-            >
-              {tab.label}
-              {activeTab === tab.id && (
-                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-brand-primary rounded-t-full" />
-              )}
-            </button>
-          ))}
-        </div>
-
-        {activeTab === "about" && (
-          <div className="flex flex-col gap-8 max-w-3xl">
-            <div>
-              <h3 className="text-xl font-bold text-black mb-4">{t("about_title")}</h3>
-              <p className="text-slate-500 text-lg leading-relaxed">{t("about_description")}</p>
-            </div>
-            <div>
-              <h3 className="text-xl font-bold text-black mb-4">{t("objectives_title")}</h3>
-              <ul className="space-y-4">
-                {[t("objective_1"), t("objective_2"), t("objective_3")].map((obj, i) => (
-                  <li key={i} className="flex items-start gap-3">
-                    <CheckCircle2 className="w-6 h-6 fill-brand-primary text-white shrink-0" />
-                    <span className="text-brand-muted">{obj}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        )}
-
-        {activeTab === "questions" && <LessonQuestions />}
       </div>
     </div>
   );

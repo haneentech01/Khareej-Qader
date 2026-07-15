@@ -10,7 +10,6 @@ export function MyTrackContent() {
     const t = useTranslations("Dashboard.MyTrack");
     const { data, loading, error, refetch } = useStudentPath();
 
-    // ─── Loading: Skeleton يطابق شكل الصفحة ──────
     if (loading) {
         return <MyTrackSkeleton />;
     }
@@ -24,7 +23,7 @@ export function MyTrackContent() {
                     onClick={() => refetch()}
                     className="text-brand-primary font-bold hover:underline"
                 >
-                    {t("retry", { defaultValue: "إعادة المحاولة" })}
+                    {t("retry")}
                 </button>
             </div>
         );
