@@ -12,7 +12,7 @@ import { Code2Icon } from 'lucide-react';
 export default function MentorDashboardContent() {
     const tDash = useTranslations("Dashboard");
     const tMentor = useTranslations("MentorDashboard");
-    const { dashboard, loading, error, refetch, } = useMentorDashboard();
+    const { mentorDashboard, loading, error, refetch, } = useMentorDashboard();
 
     // ─── Loading ──────────────────────────────────
     if (loading) {
@@ -35,30 +35,35 @@ export default function MentorDashboardContent() {
     }
 
     // ─── No Data ───────────────────────────────
-    if (!dashboard) return null;
+    if (!mentorDashboard) return null;
+
+    const { mentor, course, course_video, students_training_count, last_submissions } =
+        mentorDashboard;
 
     return (
         <div className='max-w-7xl mx-auto space-y-8 pb-8 px-4 md:px-0'>
             {/* Welcome Greeting Row */}
             <WelcomeHeader
-                userName={dashboard?.name || ""}
+                userName={mentor?.name || ""}
                 subtitleMessage={tDash("WelcomeHeader.subtitle")}
                 trackInfo={{
                     label: tMentor("header.track_label"),
-                    name: dashboard?.course_name,
+                    name: course?.name,
                     icon: Code2Icon
                 }}
             />
 
             {/* Grid of Statistics */}
             <MentorStats
-                studentCount={dashboard?.student_count}
-                lastTaskSubmissionsCount={dashboard?.last_task_submissions_count}
+                studentCount={students_training_count}
+                lastTaskSubmissionsCount={last_submissions}
             />
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
                 <div className="lg:col-span-12 flex">
-                    <LatestSubmissions />
+                    <LatestSubmissions
+                        submissions={last_submissions}
+                        loading={loading} />
                 </div>
             </div>
         </div>

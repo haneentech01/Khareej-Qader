@@ -16,14 +16,14 @@ interface UploadResult {
   imageUrl?: string;
 }
 
-// POST /upload-profile-image
-export function useUploadProfileImage() {
+//  POST /mentor/upload-profile-image
+
+export function useUploadMentorImage() {
   const queryClient = useQueryClient();
-  const t = useTranslations("Dashboard.profile.useUploadProfileImage");
+  const t = useTranslations("Dashboard.ProfilePage.upload_profile_image");
 
   const mutation = useMutation({
     mutationFn: async (file: File) => {
-      // ─── Client-side validation ──────────────────────────────────────────
       if (!ALLOWED_TYPES.includes(file.type)) {
         throw new Error(t("error_file_type"));
       }
@@ -31,13 +31,11 @@ export function useUploadProfileImage() {
         throw new Error(t("error_size"));
       }
 
-      // ─── Build FormData ──────────────────────────────────────────────────
       const formData = new FormData();
       formData.append("profile_image", file);
 
-      // ─── Send request ────────────────────────────────────────────────────
       const res = await apiClient.post<ApiResponse<unknown>>(
-        endpoints.student.uploadProfileImage,
+        endpoints.mentor.uploadProfileImage,
         formData,
         { headers: { "Content-Type": undefined } },
       );
@@ -45,7 +43,7 @@ export function useUploadProfileImage() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: queryKeys.student.dashboard,
+        queryKey: queryKeys.mentor.dashboard,
       });
     },
   });

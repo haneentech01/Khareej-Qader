@@ -40,15 +40,10 @@ export const TasksStats = ({
 
           <div className="flex items-center gap-1">
             {/* Value */}
-            {loading ? (
-              <Loader2 className="w-6 h-6 text-brand-muted animate-spin" />
-            ) : error ? (
-              <span className="text-sm font-medium text-red-500">—</span>
-            ) : (
-              <span className="text-3xl font-extrabold text-black block tracking-tight">
-                {totalTasksCount}
-              </span>
-            )}
+            <span className="text-3xl font-extrabold text-black block tracking-tight">
+              {totalTasksCount}
+            </span>
+
 
             {!loading && !error && (
               <span className="text-xs md:text-sm font-medium block">

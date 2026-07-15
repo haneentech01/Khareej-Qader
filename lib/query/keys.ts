@@ -41,7 +41,9 @@ export const queryKeys = {
     universities: ["lookup", "universities"] as const,
     /** GET /major-list — قائمة التخصصات */
     majors: ["lookup", "majors"] as const,
-    /** GET /course — قائمة الكورسات */
-    courses: ["lookup", "courses"] as const,
+    /** GET /course/list — قائمة الكورسات */
+    coursesList: ["lookup", "courses-list"] as const,
+    /** GET /states-list — قائمة الدول/الولايات */
+    statesList: ["lookup", "states-list"] as const,
   },
 } as const;

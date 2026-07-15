@@ -17,8 +17,6 @@ interface AvatarUploaderProps {
     onAvatarClick?: () => void;
 }
 
-//  AvatarUploader — مكوّن reusable لرفع صورة البروفايل.
-
 export function AvatarUploader({
     name,
     currentImage,

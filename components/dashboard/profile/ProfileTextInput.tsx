@@ -4,19 +4,16 @@ import * as React from "react";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { useLocale } from "next-intl";
-import { StudentFormData } from "@/hooks/dashboard/useStudentProfileForm";
 
-interface ProfileTextInputProps
+interface ProfileTextInputProps<T extends string = string>
     extends React.ComponentProps<typeof Input> {
     className?: string;
     icon?: React.ReactNode;
-    field?: keyof StudentFormData;
+    field?: string;
     value?: string;
-    onValueChange?: (
-        field: keyof StudentFormData,
-        value: string
-    ) => void;
+    onValueChange?: (field: string, value: string) => void;
 }
+
 
 export function ProfileTextInput({
     className,

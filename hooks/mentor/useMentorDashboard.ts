@@ -1,27 +1,42 @@
 "use client";
 
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import apiClient from "@/lib/api/client";
 import endpoints from "@/lib/api/endpoints";
-import { useGetData } from "@/lib/hooks/useGetData";
-import { MentorDashboardData } from "@/types";
+import { queryKeys } from "@/lib/query/keys";
+import type { ApiResponse, MentorDashboardData } from "@/types";
 
-interface UseMentorDashboardProps {
+interface UseDashboardOptions {
   enabled?: boolean;
 }
 
+// GET /students/student-profile
 export function useMentorDashboard({
   enabled = true,
-}: UseMentorDashboardProps = {}) {
-  const { data, loading, error, refetch } = useGetData<MentorDashboardData>(
-    endpoints.mentor.dashboard,
-    {
-      immediate: enabled,
+}: UseDashboardOptions = {}) {
+  const queryClient = useQueryClient();
+
+  const { data, isLoading, error, refetch } = useQuery({
+    queryKey: queryKeys.mentor.dashboard,
+    queryFn: async () => {
+      const res = await apiClient.get<ApiResponse<MentorDashboardData>>(
+        endpoints.mentor.dashboard,
+      );
+      return res.data.data;
     },
-  );
+    enabled,
+  });
 
   return {
-    dashboard: (data as MentorDashboardData) ?? null,
-    loading,
-    error,
+    mentorDashboard: data ?? null,
+    mentor: data?.mentor ?? null,
+    course: data?.course ?? null,
+    loading: isLoading,
+    error: error ? (error as Error).message : null,
     refetch,
+    invalidate: () =>
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.mentor.dashboard,
+      }),
   };
 }

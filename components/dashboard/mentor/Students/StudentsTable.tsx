@@ -43,7 +43,7 @@ export const StudentsTable = ({
   const locale = useLocale();
 
   return (
-    <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden flex flex-col">
+    <div className="overflow-hidden flex flex-col">
       <div className="overflow-x-auto">
         <div className="px-0">
           <Table>
@@ -56,13 +56,7 @@ export const StudentsTable = ({
                   {t("email")}
                 </TableHead>
                 <TableHead className="text-start py-4 text-gray-500 font-medium">
-                  {t("major")}
-                </TableHead>
-                <TableHead className="text-center py-4 text-gray-500 font-medium">
-                  {t("status")}
-                </TableHead>
-                <TableHead className="text-center py-4 text-gray-500 font-medium">
-                  {t("last_active")}
+                  {t("courses")}
                 </TableHead>
                 <TableHead className="text-center py-4 text-gray-500 font-medium">
                   {t("actions")}
@@ -128,23 +122,13 @@ export const StudentsTable = ({
                     <TableCell className="py-4 text-start text-gray-600">
                       {student.email}
                     </TableCell>
+
                     <TableCell className="py-4 text-start text-gray-600">
-                      {student.university_major || "—"}
+                      {student.courses}
                     </TableCell>
-                    <TableCell className="py-4 text-center">
-                      <span
-                        className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                          student.is_active
-                            ? "bg-green-100 text-green-800"
-                            : "bg-gray-100 text-gray-800"
-                        }`}
-                      >
-                        {student.is_active ? t("status_active") : t("status_inactive")}
-                      </span>
-                    </TableCell>
-                    <TableCell className="py-4 text-center text-gray-600">
-                      {formatDate(student.last_active_at, locale)}
-                    </TableCell>
+
+
+
                     <TableCell className="py-4 text-center">
                       <Link
                         href={`/mentor/students/${student.id}`}

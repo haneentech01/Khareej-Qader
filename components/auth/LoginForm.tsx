@@ -8,9 +8,10 @@ import { Input } from "@/components/ui/input";
 import { motion } from "framer-motion";
 import { useLoginForm } from "@/hooks/auth/useLoginForm";
 import { Loader2, GraduationCap, Briefcase } from "lucide-react";
-
 import { cn } from "@/lib/utils";
 import { Role } from "@/types";
+import { RegisterModal } from "@/components/layout/RegisterModal";
+import { useState } from "react";
 
 interface LoginFormProps {
   showActivationMessage?: boolean;
@@ -85,6 +86,7 @@ export function LoginForm({ showActivationMessage = false, role: propRole }: Log
   const role = useLoginRole(propRole);
   const { formData, fieldErrors, loading, handleChange, handleSubmit } =
     useLoginForm({ role });
+  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
 
   return (
     <motion.div
@@ -181,12 +183,18 @@ export function LoginForm({ showActivationMessage = false, role: propRole }: Log
         <div className="text-center mt-8">
           <p className="text-sm text-slate-500">
             {t("no_account")}{" "}
-            <Link href="/register" className="text-brand-primary font-bold hover:underline">
+            <button
+              type="button"
+              onClick={() => setIsRegisterOpen(true)}
+              className="text-brand-primary font-bold hover:underline cursor-pointer"
+            >
               {t("create_account")}
-            </Link>
+            </button>
+
           </p>
         </div>
       </form>
+      <RegisterModal open={isRegisterOpen} onOpenChange={setIsRegisterOpen} />
     </motion.div>
   );
 }

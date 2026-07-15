@@ -2,22 +2,26 @@
 
 import React from "react";
 import { useTranslations } from "next-intl";
-import { Users, ClipboardCheck, BookOpen, Star } from "lucide-react";
-import { MentorDashboardData } from "@/types";
+import { Users, ClipboardCheck, BookOpen, Video } from "lucide-react";
 
 interface MentorProfileStatsProps {
-  dashboard: MentorDashboardData | null;
+  studentsCount: number;
+  courseVideoCount: number;
   loading?: boolean;
 }
 
-export function MentorProfileStats({ dashboard, loading }: MentorProfileStatsProps) {
+export function MentorProfileStats({
+  studentsCount,
+  courseVideoCount,
+  loading = false,
+}: MentorProfileStatsProps) {
   const t = useTranslations("MentorProfilePage.stats");
 
   const cards = [
     {
       key: "students",
       title: t("students_count"),
-      value: loading ? "—" : (dashboard?.student_count ?? "0"),
+      value: loading ? "—" : studentsCount,
       sub: t("students_unit"),
       icon: Users,
       iconBg: "bg-brand-light-green",
@@ -25,34 +29,14 @@ export function MentorProfileStats({ dashboard, loading }: MentorProfileStatsPro
       accent: "border-brand-primary/10",
     },
     {
-      key: "submissions",
-      title: t("new_submissions"),
-      value: loading ? "—" : (dashboard?.last_task_submissions_count?.length ?? 0),
-      sub: t("submissions_unit"),
-      icon: ClipboardCheck,
-      iconBg: "bg-blue-50",
-      iconColor: "text-blue-500",
-      accent: "border-blue-100",
-    },
-    {
       key: "lessons",
       title: t("track_lessons"),
-      value: loading ? "—" : "—",
+      value: loading ? "—" : courseVideoCount,
       sub: t("lessons_unit"),
-      icon: BookOpen,
+      icon: Video,
       iconBg: "bg-purple-50",
       iconColor: "text-purple-500",
       accent: "border-purple-100",
-    },
-    {
-      key: "rating",
-      title: t("avg_rating"),
-      value: loading ? "—" : "—",
-      sub: t("rating_unit"),
-      icon: Star,
-      iconBg: "bg-amber-50",
-      iconColor: "text-amber-400",
-      accent: "border-amber-100",
     },
   ];
 
@@ -71,11 +55,15 @@ export function MentorProfileStats({ dashboard, loading }: MentorProfileStatsPro
               <Icon className={`size-5 ${card.iconColor}`} />
             </div>
             <div className="flex-1 text-right rtl:text-right ltr:text-left">
-              <p className="text-slate-400 text-xs font-bold leading-none mb-1">{card.title}</p>
+              <p className="text-slate-400 text-xs font-bold leading-none mb-1">
+                {card.title}
+              </p>
               <p className="text-black font-extrabold text-2xl leading-tight">
                 {card.value}
               </p>
-              <p className="text-slate-400 text-xs font-semibold mt-0.5">{card.sub}</p>
+              <p className="text-slate-400 text-xs font-semibold mt-0.5">
+                {card.sub}
+              </p>
             </div>
           </div>
         );

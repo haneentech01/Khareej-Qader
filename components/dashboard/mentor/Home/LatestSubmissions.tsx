@@ -3,20 +3,26 @@
 import { useMemo } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { Building, ChevronLeft, ChevronRight } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from "@/components/ui/table";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useMentorDashboard } from "@/hooks/mentor/useMentorDashboard";
 import type { MentorDashboardLastSubmission } from "@/types";
 
 const MAX_VISIBLE_SUBMISSIONS = 5;
+
+
+interface LatestSubmissionsProps {
+  submissions: MentorDashboardLastSubmission[];
+  loading?: boolean;
+}
 
 interface Submission {
   id: string;
   studentName: string;
   studentAvatar: string | null;
   task: string;
+  submittedAt: string;
 }
 
 function getInitial(name: string | null | undefined): string {
@@ -26,36 +32,68 @@ function getInitial(name: string | null | undefined): string {
   return first ? first.toUpperCase() : "";
 }
 
-function mapDashboardSubmission(
+function formatRelativeTime(sqlDate: string, locale: string): string {
+  if (!sqlDate) return "—";
+
+  const normalized = sqlDate.includes("T") ? sqlDate : sqlDate.replace(" ", "T");
+  const isoStr = normalized.endsWith("Z") ? normalized : `${normalized}Z`;
+  const date = new Date(isoStr);
+
+  if (Number.isNaN(date.getTime())) return sqlDate;
+
+  const now = new Date();
+  const diffSec = Math.round((now.getTime() - date.getTime()) / 1000);
+  const diffMin = Math.round(diffSec / 60);
+  const diffHour = Math.round(diffMin / 60);
+  const diffDay = Math.round(diffHour / 24);
+  const isAr = locale === "ar";
+
+  if (diffSec < 60) return isAr ? "الآن" : "Just now";
+  if (diffMin < 60) return isAr ? `قبل ${diffMin} دقيقة` : `${diffMin}m ago`;
+  if (diffHour < 24) return isAr ? `قبل ${diffHour} ساعة` : `${diffHour}h ago`;
+  if (diffDay === 1) return isAr ? "أمس" : "Yesterday";
+  if (diffDay < 7) return isAr ? `قبل ${diffDay} أيام` : `${diffDay}d ago`;
+
+  try {
+    return new Intl.DateTimeFormat(locale, {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    }).format(date);
+  } catch {
+    return sqlDate;
+  }
+}
+
+function mapSubmission(
   item: MentorDashboardLastSubmission,
   index: number,
+  locale: string,
 ): Submission {
   return {
     id: `dash-${index}-${item.student_name}-${item.submitted_at}`,
     studentName: item.student_name || "—",
     studentAvatar: null,
     task: item.task_title || "—",
+    submittedAt: formatRelativeTime(item.submitted_at, locale),
   };
 }
 
 // ─── Main Component ──────────────────────────────────────────────────────────
-
-export function LatestSubmissions() {
+export function LatestSubmissions({
+  submissions,
+  loading = false,
+}: LatestSubmissionsProps) {
   const t = useTranslations("MentorDashboard.submissions_table");
   const locale = useLocale();
   const isRtl = locale === "ar";
-  const { dashboard, loading } = useMentorDashboard();
 
-  // ── Data ──────────────────────────────────────────────────────────────────
-  const submissions: Submission[] = useMemo(() => {
-    const all = dashboard?.last_task_submissions_count ?? [];
-    return all.slice(0, MAX_VISIBLE_SUBMISSIONS).map((item, index) =>
-      mapDashboardSubmission(item, index),
+  const mappedSubmissions: Submission[] = useMemo(() => {
+    return submissions.slice(0, MAX_VISIBLE_SUBMISSIONS).map((item, index) =>
+      mapSubmission(item, index, locale),
     );
-  }, [dashboard]);
+  }, [submissions, locale]);
 
-  // ── Column Definitions ────────────────────────────────────────────────────
-  // الطالب (صورة + اسم) + المهمة
   const columns: ColumnDef<Submission>[] = useMemo(
     () => [
       {
@@ -89,18 +127,25 @@ export function LatestSubmissions() {
           </span>
         ),
       },
+      {
+        accessorKey: "submittedAt",
+        header: t("time"),
+        cell: ({ getValue }) => (
+          <span className="text-brand-muted text-xs md:text-sm">
+            {getValue<string>()}
+          </span>
+        ),
+      },
     ],
     [t]
   );
 
-  // ── Table Instance ────────────────────────────────────────────────────────
   const table = useReactTable({
-    data: submissions,
+    data: mappedSubmissions,
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
 
-  // ── Table ────────────────────────────────────────────────────────────────
   return (
     <div className="bg-white rounded-3xl p-6 border border-sidebar-border shadow-sm flex flex-col gap-6 w-full overflow-hidden">
       {/* Header */}
@@ -125,7 +170,7 @@ export function LatestSubmissions() {
       </div>
 
       {/* Data Table */}
-      <div className="w-full table-fixed">
+      <div className="w-full">
         <Table dir={isRtl ? "rtl" : "ltr"}>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -142,7 +187,7 @@ export function LatestSubmissions() {
                       ? null
                       : flexRender(
                         header.column.columnDef.header,
-                        header.getContext()
+                        header.getContext(),
                       )}
                   </TableHead>
                 ))}
@@ -152,15 +197,15 @@ export function LatestSubmissions() {
 
           <TableBody>
             {loading ? (
-              <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="text-center py-10 text-brand-muted"
-                >
-                  <span className="inline-block size-5 border-2 border-brand-primary border-t-transparent rounded-full animate-spin align-middle ml-2" />
-                  {isRtl ? "جاري التحميل..." : "Loading..."}
-                </TableCell>
-              </TableRow>
+              Array.from({ length: 4 }).map((_, i) => (
+                <TableRow key={`skeleton-${i}`} className="hover:bg-transparent">
+                  {columns.map((_, j) => (
+                    <TableCell key={j} className="py-4 px-4">
+                      <div className="h-4 bg-slate-100 animate-pulse rounded-md w-3/4 mx-auto" />
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
             ) : table.getRowModel().rows.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
@@ -174,7 +219,7 @@ export function LatestSubmissions() {
                     >
                       {flexRender(
                         cell.column.columnDef.cell,
-                        cell.getContext()
+                        cell.getContext(),
                       )}
                     </TableCell>
                   ))}
@@ -186,7 +231,7 @@ export function LatestSubmissions() {
                   colSpan={columns.length}
                   className="text-center py-10 text-brand-muted"
                 >
-                  {isRtl ? "لا توجد بيانات" : "No data"}
+                  {t("no_submissions")}
                 </TableCell>
               </TableRow>
             )}

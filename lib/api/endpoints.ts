@@ -5,7 +5,6 @@ const endpoints = {
       register: "/students/auth/register",
       login: "/students/auth/login",
       logout: "/students/auth/logout",
-      countries: "/code-number",
     },
     mentor: {
       register: "/mentor/auth/register",
@@ -43,6 +42,8 @@ const endpoints = {
   // ─── روابط المنتور ──────────────────────────
   mentor: {
     dashboard: "/mentor/dashboard",
+    updateData: "/mentor/update-mentor-information",
+    uploadProfileImage: "/mentor/upload-profile-image",
     submissions: "/tasks/submissions",
     submission: (id: string | number) => `/mentor/submissions/${id}`,
     students: "/mentor/students",
@@ -53,7 +54,7 @@ const endpoints = {
       submissionsByTask: (taskId: string | number) =>
         `/tasks/${taskId}/submissions`, // GET - المهام المرفوعة
       reviewSubmission: (id: string | number) =>
-        `/tasks/submissions/${id}/review`, // تقييم تسليم طالب (PATCH)
+        `/tasks/submissions/${id}/review`, // تقييم تسليم طالب - PATCH
     },
   },
 
@@ -67,10 +68,11 @@ const endpoints = {
 
   // ─── Lookup data (بيانات القوائم المنسدلة) ──
   lookup: {
-    countries: "/code-number",
+    codeCountries: "/code-number",
     universities: "/university-list",
     majors: "/major-list",
-    courses: "/course",
+    coursesList: "/course/list",
+    statesList: "/states-list",
   },
 } as const;
 

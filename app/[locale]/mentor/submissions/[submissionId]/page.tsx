@@ -10,6 +10,7 @@ import { UploadedFilesCard } from "@/components/dashboard/students/Tasks/TaskDet
 
 export default async function SubmissionReviewPage({ params }: SubmissionReviewPageProps) {
   const { locale } = await params;
+  console.log("SubmissionReviewPage params:", await params);
   const t = await getTranslations("MentorSubmissions");
   const isRtl = locale === "ar";
 

@@ -6,41 +6,37 @@ import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
 import { Briefcase, BriefcaseBusiness, CircleDollarSign, ClockCheck, HandHeart, Loader2, MapPin, User } from "lucide-react";
 import { motion } from "framer-motion";
-import endpoints from "@/lib/api/endpoints";
-import { useGetData } from "@/lib/hooks/useGetData";
-import { Country } from "@/types";
-import { useRegisterForm } from "@/hooks/auth/useRegisterForm";
+import { ContributionType } from "@/types";
+import { useMentorRegisterForm } from "@/hooks/auth/useMentorRegisterForm";
+import { useStatesList } from "@/hooks/lookup/useStatesList";
+import { useCoursesList } from "@/hooks/lookup/useCoursesList";
 import clsx from "clsx";
-import { useState } from "react";
+
 
 export function MentorRegisterForm() {
   const t = useTranslations("Auth");
   const tTrainer = useTranslations("BecomeTrainer");
 
-  type ContributionType = "mentoring" | "jobs" | "financial";
+  // Lookup data (React Query — cached + deduplicated)
+  const { states } = useStatesList();
+  const { courses } = useCoursesList();
 
-  const [selected, setSelected] = useState<ContributionType[]>([]);
 
-  const handleToggle = (value: ContributionType) => {
-    setSelected((prev) =>
-      prev.includes(value)
-        ? prev.filter((item) => item !== value)
-        : [...prev, value]
-    );
+  const handleToggleContribution = (value: ContributionType) => {
+    const current = formData.contribution_types as ContributionType[];
+    const newValue = current.includes(value)
+      ? current.filter((item) => item !== value)
+      : [...current, value];
   };
 
   const isSelected = (value: ContributionType) =>
-    selected.includes(value);
+    (formData.contribution_types as ContributionType[]).includes(value);
 
 
   // ─── Hook للتسجيل (POST) ──────────────────────
   const { formData, fieldErrors, loading, handleChange, handleSubmit } =
-    useRegisterForm();
+    useMentorRegisterForm();
 
-  // ─── Hook لجلب الدول (GET) ──────────────────────
-  const { data: countries } = useGetData<Country[]>(
-    endpoints.lookup.countries
-  );
 
   return (
     <motion.div
@@ -79,7 +75,7 @@ export function MentorRegisterForm() {
                 id="full_name"
                 name="full_name"
                 type="text"
-                value={formData.full_name}
+                value={formData.name}
                 onChange={handleChange}
                 placeholder={t("full_name")}
                 className="h-12 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none"
@@ -126,10 +122,10 @@ export function MentorRegisterForm() {
                 >
                   <option value="">{t("country")}</option>
 
-                  {Array.isArray(countries) &&
-                    countries.map((country) => (
-                      <option key={country.iso} value={country.iso}>
-                        {country.countryCode}
+                  {Array.isArray(states) &&
+                    states.map((country) => (
+                      <option key={country.state_code} value={country.state_code}>
+                        {country.name}
                       </option>
                     ))}
                 </Select>
@@ -179,8 +175,8 @@ export function MentorRegisterForm() {
               <Input
                 name="address"
                 type="text"
-                // value={formData.address}
-                // onChange={handleChange}
+                value={formData.address}
+                onChange={handleChange}
                 placeholder={tTrainer("address_placeholder")}
                 className="h-12 ltr:text-left rtl:text-right focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none"
                 required />
@@ -199,8 +195,8 @@ export function MentorRegisterForm() {
               <Input
                 name="city"
                 type="text"
-                // value={formData.city}
-                // onChange={handleChange}
+                value={formData.city}
+                onChange={handleChange}
                 placeholder={tTrainer("city_placeholder")}
                 className="h-12 ltr:text-left rtl:text-right focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none"
                 required
@@ -220,17 +216,17 @@ export function MentorRegisterForm() {
             </label>
             <Select
               name="country"
-              // value={formData.country}
-              // onChange={handleChange}
+              value={formData.state_code}
+              onChange={handleChange}
               className="h-12 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none"
               required>
               <option value="">
                 {tTrainer("country")}
               </option>
-              {Array.isArray(countries) &&
-                countries.map((country) => (
-                  <option key={country.iso} value={country.iso}>
-                    {country.countryCode}
+              {Array.isArray(states) &&
+                states.map((country) => (
+                  <option key={country.id} value={country.name}>
+                    {country.name}
                   </option>
                 ))}
             </Select>
@@ -258,21 +254,21 @@ export function MentorRegisterForm() {
             </label>
             <Select
               name="track_placeholder"
-              // value={formData.track}
-              // onChange={handleChange}
+              value={formData.course}
+              onChange={handleChange}
               className="h-12 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none"
               required>
               <option value="">
                 {tTrainer("track_placeholder")}
               </option>
-              {Array.isArray(countries) &&
-                countries.map((country) => (
-                  <option key={country.iso} value={country.iso}>
-                    {country.countryCode}
+              {Array.isArray(courses) &&
+                courses.map((course) => (
+                  <option key={course.id} value={course.id}>
+                    {course.name}
                   </option>
                 ))}
             </Select>
-            {fieldErrors.country?.[0] && (
+            {fieldErrors.course?.[0] && (
               <p className="text-sm text-red-500 mt-1">
                 {fieldErrors.country[0]}
               </p>
@@ -299,7 +295,7 @@ export function MentorRegisterForm() {
             {/* Mentoring */}
             <button
               type="button"
-              onClick={() => handleToggle("mentoring")}
+              onClick={() => handleToggleContribution("mentoring")}
               className={clsx(
                 "flex flex-col items-center gap-2 px-5 py-7 border-2 rounded-2xl transition-all duration-200",
                 isSelected("mentoring")
@@ -321,7 +317,7 @@ export function MentorRegisterForm() {
             {/* Jobs */}
             <button
               type="button"
-              onClick={() => handleToggle("jobs")}
+              onClick={() => handleToggleContribution("jobs")}
               className={clsx(
                 "flex flex-col items-center gap-2 px-5 py-7 border-2 rounded-2xl transition-all duration-200",
                 isSelected("jobs")
@@ -343,7 +339,7 @@ export function MentorRegisterForm() {
             {/* Financial */}
             <button
               type="button"
-              onClick={() => handleToggle("financial")}
+              onClick={() => handleToggleContribution("financial")}
               className={clsx(
                 "flex flex-col items-center gap-2 px-5 py-7 border-2 rounded-2xl transition-all duration-200",
                 isSelected("financial")
@@ -362,6 +358,12 @@ export function MentorRegisterForm() {
               </p>
             </button>
           </div>
+
+          {fieldErrors.contribution_types?.[0] && (
+            <p className="text-sm text-red-500 mt-2">
+              {fieldErrors.contribution_types[0]}
+            </p>
+          )}
 
         </div>
 

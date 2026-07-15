@@ -41,7 +41,7 @@ export const TasksTable = ({
   const locale = useLocale();
 
   return (
-    <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden flex flex-col">
+    <div className="flex flex-col">
       <div className="overflow-x-auto">
         <div className="px-0">
           <Table>
@@ -61,18 +61,6 @@ export const TasksTable = ({
 
 
             <TableBody>
-              {/* Loading state */}
-              {loading && (
-                <TableRow>
-                  <TableCell colSpan={3} className="py-12 text-center">
-                    <div className="flex items-center justify-center gap-2 text-brand-muted">
-                      <Loader2 className="w-5 h-5 animate-spin" />
-                      <span className="text-sm">{t("loading", { defaultValue: "جاري التحميل..." })}</span>
-                    </div>
-                  </TableCell>
-                </TableRow>
-              )}
-
               {/* Error state */}
               {!loading && error && (
                 <TableRow>

@@ -9,15 +9,10 @@ import {
 import { cn } from "@/lib/utils";
 
 interface ProfileAvatarProps {
-  /** URL الصورة (أو null لو مفيش صورة) */
   src?: string | null;
-  /** اسم المستخدم — نستخدم أول حرف منه كـ fallback */
   name?: string | null;
-  /** حجم الصورة: sm=32px, md=40px, lg=64px, xl=96px */
   size?: "sm" | "md" | "lg" | "xl";
-  /** className إضافية */
   className?: string;
-  /** هل نعرض مؤشر "online" (نقطة خضرا)؟ */
   showOnlineBadge?: boolean;
 }
 
@@ -35,10 +30,6 @@ const TEXT_SIZE_MAP = {
   xl: "text-3xl",
 } as const;
 
-/**
- * يستخرج أول حرف صالح من الاسم (آمن للـ emoji والحروف العربية المركّبة).
- * نستخدم Array.from بدل name[0] لتفادي مشكلة الـ surrogates.
- */
 function getInitial(name: string | null | undefined): string {
   if (!name) return "؟";
   const chars = Array.from(name.trim());
@@ -46,18 +37,24 @@ function getInitial(name: string | null | undefined): string {
   return first ? first.toUpperCase() : "؟";
 }
 
-/**
- * ProfileAvatar — Avatar قابل لإعادة الاستخدام لكل صفحات البروفايل.
- *
- * المميزات:
- *  - لو src = null → يعرض أول حرف من name في دائرة خضرا.
- *  - لو src موجود لكن فشل التحميل → يعرض الـ fallback تلقائياً (shadcn Avatar behavior).
- *  - أحجام قياسية: sm (32px), md (40px), lg (64px), xl (96px).
- *  - online badge اختياري (نقطة خضرا في الزاوية).
- *
- * مثال:
- *   <ProfileAvatar src={user.photo} name={user.name} size="lg" showOnlineBadge />
- */
+function normalizeImageUrl(url?: string | null): string | null {
+  if (!url) return null;
+  if (
+    url.startsWith("http://") ||
+    url.startsWith("https://") ||
+    url.startsWith("data:") ||
+    url.startsWith("blob:")
+  ) {
+    return url;
+  }
+  const proxyBase = "/api/proxy/";
+  const cleanPath = url.startsWith("/") ? url.slice(1) : url;
+  if (cleanPath.startsWith("storage/")) {
+    return `${proxyBase}${cleanPath}`;
+  }
+  return `${proxyBase}storage/${cleanPath}`;
+}
+
 export function ProfileAvatar({
   src,
   name,
@@ -66,6 +63,7 @@ export function ProfileAvatar({
   showOnlineBadge = false,
 }: ProfileAvatarProps) {
   const initial = getInitial(name);
+  const normalizedSrc = normalizeImageUrl(src);
 
   return (
     <div className="relative inline-block shrink-0">
@@ -76,7 +74,9 @@ export function ProfileAvatar({
           className,
         )}
       >
-        {src && <AvatarImage src={src} alt={name ?? "avatar"} />}
+        {normalizedSrc && (
+          <AvatarImage src={normalizedSrc} alt={name ?? "avatar"} />
+        )}
         <AvatarFallback
           className={cn(
             "bg-brand-light-green text-brand-primary font-bold",

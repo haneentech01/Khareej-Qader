@@ -8,6 +8,7 @@ import { MentorTaskListItem } from "@/types";
 import { useMentorTasksCount } from "@/hooks/mentor/useMentorTasksCount";
 import { useMentorTasksList } from "@/hooks/mentor/useMentorTasksList";
 import { NewTaskModal } from "./NewTaskModal";
+import { TasksSkeleton } from "./TasksSkeleton";
 
 const ITEMS_PER_PAGE = 10;
 
@@ -63,6 +64,10 @@ export default function MentorTasksContent() {
         refetchList();
     }, [refetchCount, refetchList]);
 
+    if (listLoading && tasks.length === 0) {
+        return <TasksSkeleton />;
+    }
+
     return (
         <div
             className="w-full max-w-7xl mx-auto px-4 md:px-0 pb-12 space-y-6 md:space-y-8 
@@ -87,21 +92,23 @@ export default function MentorTasksContent() {
                 </div>
             </div>
 
-            {/* Search filter */}
-            <TasksFilter
-                searchQuery={searchQuery}
-                setSearchQuery={handleSearchChange}
-            />
+            <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden py-3">
+                {/* Search filter */}
+                <TasksFilter
+                    searchQuery={searchQuery}
+                    setSearchQuery={handleSearchChange}
+                />
 
-            {/* Tasks table (from /tasks/list) */}
-            <TasksTable
-                tasks={paginatedTasks}
-                loading={listLoading}
-                error={listError}
-                currentPage={currentPage}
-                totalPages={totalPages}
-                onPageChange={setCurrentPage}
-            />
+                {/* Tasks table (from /tasks/list) */}
+                <TasksTable
+                    tasks={paginatedTasks}
+                    loading={listLoading}
+                    error={listError}
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    onPageChange={setCurrentPage}
+                />
+            </div>
         </div>
     );
 }

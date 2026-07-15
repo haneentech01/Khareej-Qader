@@ -9,7 +9,7 @@ import { Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
 import endpoints from "@/lib/api/endpoints";
 import { useGetData } from "@/lib/hooks/useGetData";
-import { Country, Course, Major, University } from "@/types";
+import { Country, CourseListItem, Major, University } from "@/types";
 import { useRegisterForm } from "@/hooks/auth/useRegisterForm";
 
 export function RegisterForm() {
@@ -21,7 +21,7 @@ export function RegisterForm() {
 
   // ─── Hook لجلب الدول (GET) ──────────────────────
   const { data: countries } = useGetData<Country[]>(
-    endpoints.lookup.countries
+    endpoints.lookup.codeCountries
   );
 
   const { data: universities } = useGetData<University[]>(
@@ -32,8 +32,8 @@ export function RegisterForm() {
     endpoints.lookup.majors
   );
 
-  const { data: courses } = useGetData<Course[]>(
-    endpoints.lookup.courses
+  const { data: courses } = useGetData<CourseListItem[]>(
+    endpoints.lookup.coursesList
   )
 
   return (

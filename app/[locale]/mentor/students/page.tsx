@@ -36,7 +36,7 @@ export default async function MentorStudentsPage() {
       </div>
 
 
-      <div >
+      <div>
         <MentorStudentsContent />
       </div>
     </div>

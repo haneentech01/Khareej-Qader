@@ -1,60 +1,73 @@
 "use client";
 
-import React from "react";
-import { useMentorProfile } from "@/hooks/mentor/useMentorProfile";
-import { useMentorDashboard } from "@/hooks/mentor/useMentorDashboard";
-import { MentorProfileHeader } from "./MentorProfileHeader";
-import { MentorProfileStats } from "./MentorProfileStats";
+import { useTranslations } from "next-intl";
+import { ProfileFormFooter, ProfilePageLayout, ProfileSkeleton } from "../../profile";
+import { MentorAccountInfo } from "./MentorAccountInfo";
+import { MentorLocationInfo } from "./MentorLocationInfo";
 import { MentorProfileInfo } from "./MentorProfileInfo";
-import { MentorRecentSubmissions } from "./MentorRecentSubmissions";
+import { useMentorProfileForm } from "@/hooks/mentor/profile/useMentorProfileForm";
+
 
 export function MentorProfileContent() {
-  const { mentor, loading: mentorLoading, error: mentorError } = useMentorProfile();
-  const { dashboard, loading: dashLoading } = useMentorDashboard();
+  const t = useTranslations("Dashboard.ProfilePage");
+  const form = useMentorProfileForm();
 
-  const loading = mentorLoading || dashLoading;
+  // ─── Loading ──────────────────────────────────────────────────────────────
+  if (form.loading) return <ProfileSkeleton />;
 
-  // ─── Error state ────────────────────────────────────────────────────────────
-  if (mentorError && !loading) {
+  // ─── Error ────────────────────────────────────────────────────────────────
+  if (form.error) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[60vh] gap-3 text-center">
-        <div className="size-16 rounded-3xl bg-red-50 flex items-center justify-center mb-2">
-          <span className="text-3xl">⚠️</span>
-        </div>
-        <p className="text-red-500 font-semibold text-base">{mentorError}</p>
+      <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
+        <p className="text-red-500 font-semibold text-center max-w-md">
+          {form.error}
+        </p>
+        <button
+          onClick={form.handleRetry}
+          className="text-brand-primary font-bold hover:underline cursor-pointer"
+        >
+          {t("retry")}
+        </button>
       </div>
     );
   }
 
-  const submissions = dashboard?.last_task_submissions_count ?? [];
 
   return (
-    <div className="max-w-7xl mx-auto space-y-6 md:space-y-8 pb-12 px-4 md:px-0 animate-in fade-in duration-500">
-      {/* ── Hero Header ─────────────────────────────────────────────────────────── */}
-      <MentorProfileHeader mentor={mentor} loading={loading} />
+    <ProfilePageLayout>
+      <form onSubmit={form.handleSave} className="space-y-8">
+        {/* ─── Account Info Section ───────────────────────────────────────── */}
+        <MentorAccountInfo
+          mentor={form.mentor}
+          imageUrl={form.imageUrl}
+          isUploadingImage={form.isUploadingImage}
+          imageError={form.imageError}
+          imageSuccess={form.imageSuccess}
+          onImageChange={form.handleImageUpload}
+        />
 
-      {/* ── Stats Row ──────────────────────────────────────────────────────────── */}
-      <MentorProfileStats dashboard={dashboard} loading={loading} />
+        {/* ─── Personal Info Section ──────────────────────────────────────── */}
+        <MentorProfileInfo
+          formData={form.formData}
+          disabled={form.isSaving}
+          onChange={form.handleFieldChange}
+        />
 
-      {/* ── Two-column section ─────────────────────────────────────────────────── */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
-        {/* Personal Info - 1 col */}
-        <div className="lg:col-span-1">
-          <MentorProfileInfo
-            mentor={mentor}
-            dashboard={dashboard}
-            loading={loading}
-          />
-        </div>
+        {/* ─── Location Info Section ──────────────────────────────────────── */}
+        <MentorLocationInfo
+          formData={form.formData}
+          disabled={form.isSaving}
+          onChange={form.handleFieldChange}
+        />
 
-        {/* Recent Submissions - 2 col */}
-        <div className="lg:col-span-2">
-          <MentorRecentSubmissions
-            submissions={submissions}
-            loading={loading}
-          />
-        </div>
-      </div>
-    </div>
+        {/* ─── Footer (save button + messages) ────────────────────────────── */}
+        <ProfileFormFooter
+          isSaving={form.isSaving}
+          hasChanges={form.hasChanges}
+          saveError={form.saveError}
+          saveSuccess={form.saveSuccess}
+        />
+      </form>
+    </ProfilePageLayout>
   );
 }

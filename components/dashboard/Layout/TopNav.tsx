@@ -1,18 +1,13 @@
 "use client";
 
-import { Search } from "lucide-react";
+import { Search, Bell } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { useTranslations } from "next-intl";
-import {
-  Avatar,
-  AvatarBadge,
-  AvatarFallback,
-  AvatarImage,
-} from "@/components/ui/avatar";
+import { Avatar, AvatarBadge, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { useDashboard } from "@/hooks/dashboard/useDashboard";
-import { useMentorProfile } from "@/hooks/mentor/useMentorProfile";
 import { TopNavVariant } from "@/types";
+import { useMentorDashboard } from "@/hooks/mentor/useMentorDashboard";
 
 interface TopNavProps {
   variant?: TopNavVariant;
@@ -25,29 +20,23 @@ export function TopNav({ variant = "student" }: TopNavProps) {
   const isStudent = variant === "student";
 
   const { dashboard } = useDashboard({ enabled: isStudent });
-  const { mentor } = useMentorProfile({ enabled: isMentor });
+  const { mentorDashboard } = useMentorDashboard({ enabled: isMentor });
 
-  // Name of the current user
-  const displayName =
-    variant === "mentor"
-      ? mentor?.name || t("mentorName")
-      : dashboard?.student?.name || t("userName");
+  const displayName = isMentor
+    ? mentorDashboard?.mentor?.name || t("mentorName")
+    : dashboard?.student?.name || t("userName");
 
+  const displayEmail = isMentor
+    ? mentorDashboard?.mentor?.email || t("mentorMajor")
+    : dashboard?.student?.email || t("userMajor");
 
-  // Email or Major of the current user
-  const displayEmail =
-    variant === "mentor"
-      ? mentor?.email || mentor?.major || t("mentorMajor")
-      : dashboard?.student?.email || t("userMajor");
-
-  // Avatar of the current user
-  const displayAvatar =
-    variant === "mentor"
-      ? mentor?.avatar || "/images/default-avatar.svg"
-      : dashboard?.student?.profile_photo || "/images/default-avatar.svg";
+  const displayAvatar = isMentor
+    ? mentorDashboard?.mentor?.profile_image || "/images/default-avatar.svg"
+    : dashboard?.student?.profile_photo || dashboard?.student?.profile_photo || "/images/default-avatar.svg";
 
   return (
-    <header className="sticky top-0 z-40 bg-white backdrop-blur-md
+    <header
+      className="sticky top-0 z-40 bg-white backdrop-blur-md
       border-b border-gray-100
       px-4 md:px-8 h-20 flex justify-between items-center gap-4"
     >
@@ -58,8 +47,10 @@ export function TopNav({ variant = "student" }: TopNavProps) {
 
       {/* Search Bar */}
       <div className="relative w-full max-w-md">
-        <Search className="absolute right-3 top-1/2 -translate-y-1/2
-          text-brand-muted size-4" />
+        <Search
+          className="absolute right-3 top-1/2 -translate-y-1/2
+          text-brand-muted size-4"
+        />
         <Input
           placeholder={t("search")}
           className="pr-10 bg-[#F4F7F5] border border-[#F1F5F9]
@@ -75,13 +66,13 @@ export function TopNav({ variant = "student" }: TopNavProps) {
             <p className="text-sm font-semibold text-black leading-tight">
               {displayName}
             </p>
-            <p className="text-xs text-brand-muted">
-              {displayEmail}
-            </p>
+            <p className="text-xs text-brand-muted">{displayEmail}</p>
           </div>
           <Avatar className="size-10 border border-brand-surface">
             <AvatarImage src={displayAvatar} />
-            <AvatarFallback>{displayName?.[0] || "A"}</AvatarFallback>
+            <AvatarFallback>
+              {displayName ? Array.from(displayName)[0] : "A"}
+            </AvatarFallback>
             <AvatarBadge className="bg-green-600 dark:bg-green-800" />
           </Avatar>
         </div>

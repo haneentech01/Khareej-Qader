@@ -201,10 +201,17 @@ export interface Major {
   name: string;
 }
 
-export interface Course {
-  id: string | number;
+export interface CourseListItem {
+  id: number;
   name: string;
   description: string;
+}
+
+export interface StateListItem {
+  id: number;
+  name: string;
+  state_code: string;
+  capital: string;
 }
 
 export interface RegisterResponse {
@@ -228,6 +235,23 @@ export interface RegisterFormData {
   university_major: string;
   course_id: string;
 }
+
+export type ContributionType = "mentoring" | "jobs" | "financial";
+
+export interface MentorRegisterFormData {
+  [key: string]: unknown;
+  name: string;
+  email: string;
+  country_iso: string;
+  mobile_number: string;
+  address: string;
+  city: string;
+  state_code: string;
+  course: string;
+  contribution_types: ContributionType[];
+}
+
+export type MentorRegisterPayload = MentorRegisterFormData;
 
 export interface ValidationErrors {
   [key: string]: string[];
@@ -511,12 +535,76 @@ export interface MentorDashboardLastSubmission {
   submitted_at: string;
 }
 
+export interface MentorDashboard {
+  name: string;
+  username: string;
+  email: string;
+  profile_image?: string;
+  mobile_number?: string;
+  address?: string;
+  city?: string;
+  state?: string;
+}
+
+export interface MentorDashboardCourse {
+  id: number;
+  name: string;
+  description: string;
+}
+
 export interface MentorDashboardData {
+  mentor: MentorDashboard;
+  course: MentorDashboardCourse;
+  course_video: number;
+  students_training_count: number;
+  last_submissions: MentorDashboardLastSubmission[];
+}
+
+// ─── Update Mentor Data (PATCH /mentor/update-mentor-information) ──────────────────
+export interface UpdateMentorDataPayload {
+  [key: string]: unknown;
+  name?: string;
+  email?: string;
+  mobile_number?: string;
+  address?: string;
+  city?: string;
+  state?: string;
+}
+
+export interface UpdatedMentorData {
+  id: number;
+  name: string;
+  username: string;
+  slug: string;
+  profile_image: string | null;
+  info: string | null;
+  email: string;
+  mobile_number: string;
+  code_mobile: string;
+  address: string;
+  city: string;
+  state: string;
+  experience: number;
+  status: string;
+  files: unknown;
+  is_active: boolean;
+  deleted_at: string | null;
+  last_active_at: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface MentorFormData {
   name: string;
   email: string;
-  course_name: string[];
-  student_count: number | string;
-  last_task_submissions_count: MentorDashboardLastSubmission[];
+  mobile_number: string;
+  address: string;
+  city: string;
+  state: string;
+  profile_image: string | null;
+  // Locked fields
+  username: string;
+  course: string;
 }
 
 // GET /tasks/submissions
@@ -578,13 +666,9 @@ export interface MentorStudentListItem {
   id: number;
   full_name: string;
   email: string;
-  profile_image: string | null;
-  university_major: string;
-  is_active: boolean;
-  last_active_at: string | null;
-  created_at: string;
+  profile_image?: string | null;
+  courses: string[];
 }
-
 
 export interface PaginationLink {
   url: string | null;
@@ -594,24 +678,15 @@ export interface PaginationLink {
 }
 
 export interface PaginatedResponse<T> {
-  /** رقم الصفحة الحالية */
   current_page: number;
-  /** البيانات الفعلية للصفحة الحالية */
   data: T[];
-  /** رقم أول عنصر في الصفحة (1-based) */
   from: number | null;
-  /** رقم آخر صفحة */
   last_page: number;
-  /** روابط التنقل بين الصفحات (Previous, 1, 2, 3, Next) */
   links: PaginationLink[];
-  /** عدد العناصر في الصفحة الواحدة */
   per_page: number;
-  /** رقم آخر عنصر في الصفحة */
   to: number | null;
-  /** إجمالي عدد العناصر في كل الصفحات */
   total: number;
 }
 
-/** قائمة طلاب المنتور (paginated) */
 export type MentorStudentsListResponse =
   PaginatedResponse<MentorStudentListItem>;

@@ -541,7 +541,16 @@
       "update_success": "تم حفظ التعديلات بنجاح",
       "locked_info_hint": "بعض البيانات لا يمكن تعديلها",
       "no_student_data": "لا توجد بيانات للطالب",
-      "no_image": "لا يوجد صورة"
+      "no_image": "لا يوجد صورة",
+      "retry": "إعادة المحاولة",
+      "upload_profile_image": {
+        "error_file_type": "نوع الملف غير مدعوم. الرجاء اختيار صورة (JPG/PNG/WEBP/GIF).",
+        "error_size": "حجم الملف يتجاوز 5 ميجابايت. الرجاء اختيار ملف أصغر.",
+        "error_network": "حدث خطأ في الاتصال. حاول مرة أخرى.",
+        "uploading": "جاري رفع الصورة...",
+        "upload_success": "تم رفع الصورة بنجاح",
+        "upload_error": "فشل رفع الصورة. حاول مرة أخرى"
+      }
     },
     "CertificatesPage": {
       "breadcrumb_home": "الرئيسية",
@@ -656,12 +665,13 @@
       "view_all": "عرض الكل",
       "student": "الطالب",
       "task": "المهمة",
-      "time": "وقت التسليم",
+      "time": "الوقت",
       "status": "الحالة",
       "action": "الإجراء",
       "review_btn": "مراجعة",
       "status_evaluated": "تم التقييم",
-      "status_pending": "بانتظار المراجعة"
+      "status_pending": "بانتظار المراجعة",
+      "no_submissions": "لا توجد تسليمات بعد"
     },
     "late_students_list": {
       "title": "الطلاب المتأخرون",
@@ -1044,9 +1054,7 @@
     "table": {
       "student": "الطالب",
       "email": "البريد الإلكتروني",
-      "major": "التخصص",
-      "status": "الحالة",
-      "last_active": "آخر نشاط",
+      "courses": "المسارات",
       "actions": "الإجراءات",
       "view_profile": "عرض الملف",
       "status_active": "نشط",
@@ -1067,10 +1075,12 @@
       "home": "الرئيسية",
       "profile": "ملفي الشخصي"
     },
+
     "header": {
       "title": "الملف الشخصي",
       "subtitle": "عرض وإدارة بياناتك الشخصية كمنتور في برنامج خريج قادر."
     },
+
     "default_role": "منتور",
     "stats": {
       "students_count": "عدد الطلاب",
@@ -1082,13 +1092,22 @@
       "avg_rating": "متوسط التقييم",
       "rating_unit": "تقييم"
     },
+
     "info": {
       "title": "المعلومات الشخصية",
       "full_name": "الاسم الكامل",
       "email": "البريد الإلكتروني",
-      "major": "التخصص",
-      "track": "المسار التدريبي"
+      "mobile_number": "رقم الهاتف",
+      "country": "البلد"
     },
+
+    "location_info": {
+      "title": "معلومات الموقع",
+      "address": "العنوان",
+      "city": "المدينة",
+      "training_path": "المسار التدريبي"
+    },
+
     "recent_submissions": {
       "title": "آخر التسليمات",
       "view_all": "عرض الكل",

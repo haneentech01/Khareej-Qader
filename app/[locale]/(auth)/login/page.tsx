@@ -4,13 +4,13 @@ import { LoginForm } from "@/components/auth/LoginForm";
 import { getTranslations } from "next-intl/server";
 
 interface Props {
-  params: {
+  params: Promise<{
     locale: string;
-  };
+  }>;
 }
 
 export async function generateMetadata({ params }: Props) {
-  const { locale } = params;
+  const { locale } = await params;
 
   const t = await getTranslations({
     locale,

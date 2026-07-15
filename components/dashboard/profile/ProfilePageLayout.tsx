@@ -5,15 +5,6 @@ import { AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ProfileSkeleton } from "./ProfileSkeleton";
 
-/**
- * ProfilePageLayout — Shared layout for profile pages.
- *
- * يوفّر:
- *  1) Loading state (ProfileSkeleton).
- *  2) Error state مع زر "إعادة المحاولة".
- *  3) No-data guard: لو loading=false و error=null و children موجود، يعرض children.
- */
-
 interface ProfilePageLayoutProps {
   loading?: boolean;
   error?: string | null;

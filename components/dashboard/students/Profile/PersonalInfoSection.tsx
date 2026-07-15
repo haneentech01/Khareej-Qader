@@ -14,7 +14,6 @@ interface PersonalInfoSectionProps {
     onChange: (field: keyof StudentFormData, value: string) => void;
 }
 
-/**Section 2: full_name + email + phone + gender */
 export function PersonalInfoSection({
     formData,
     disabled,
@@ -30,7 +29,7 @@ export function PersonalInfoSection({
                     value={formData.name}
                     disabled={disabled}
                     field="name"
-                    onValueChange={onChange}
+                    onValueChange={(field, value) => onChange(field as keyof StudentFormData, value)}
                 />
             </ProfileInputGroup>
 
@@ -40,7 +39,7 @@ export function PersonalInfoSection({
                     value={formData.email}
                     disabled={disabled}
                     field="email"
-                    onValueChange={onChange}
+                    onValueChange={(field, value) => onChange(field as keyof StudentFormData, value)}
                 />
             </ProfileInputGroup>
 
@@ -49,7 +48,7 @@ export function PersonalInfoSection({
                     type="tel"
                     value={formData.mobile_number}
                     field="mobile_number"
-                    onValueChange={onChange}
+                    onValueChange={(field, value) => onChange(field as keyof StudentFormData, value)}
                 />
             </ProfileInputGroup>
 

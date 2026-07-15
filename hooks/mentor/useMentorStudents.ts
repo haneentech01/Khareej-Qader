@@ -7,32 +7,11 @@ import { queryKeys } from "@/lib/query/keys";
 import type { ApiResponse, MentorStudentsListResponse } from "@/types";
 
 interface UseMentorStudentsOptions {
-  /** رقم الصفحة (1-based). default: 1 */
   page?: number;
-  /** هل نجلِب البيانات تلقائياً؟ default: true */
   enabled?: boolean;
 }
 
-/**
- * GET /mentor/students?page={page}
- *
- * يجلب قائمة طلاب المنتور مع pagination (Laravel LengthAwarePaginator).
- *
- * ✅ يستخدم React Query — كل صفحة لها cache entry مستقل.
- *    لو رجعت لصفحةvisited before، تظهر فوراً من cache بدون request جديد.
- *
- * ✅ الـ pagination metadata (total, last_page, links, ...) بترجع مع الـ data
- *    عشان تقدر تبني الـ pagination UI بسهولة.
- *
- * @example
- * const { students, pagination, loading, error } = useMentorStudents({ page: 1 });
- *
- * // مع pagination control:
- * const [page, setPage] = useState(1);
- * const { students, pagination } = useMentorStudents({ page });
- * <button onClick={() => setPage(p => p - 1)} disabled={page === 1}>السابق</button>
- * <button onClick={() => setPage(p => p + 1)} disabled={page === pagination.last_page}>التالي</button>
- */
+//  GET /mentor/students?page={page}
 export function useMentorStudents({
   page = 1,
   enabled = true,
@@ -47,13 +26,11 @@ export function useMentorStudents({
       return res.data.data;
     },
     enabled,
-    placeholderData: (prev) => prev, // giữ cache cũ trong khi fetch trang mới (mượt hơn)
+    placeholderData: (prev) => prev,
   });
 
   return {
-    /** قائمة الطلاب في الصفحة الحالية */
     students: data?.data ?? [],
-    /** بيانات الـ pagination الكاملة (total, last_page, links, ...) */
     pagination: data
       ? {
           currentPage: data.current_page,
