@@ -84,6 +84,7 @@ export function LatestSubmissions({
   submissions,
   loading = false,
 }: LatestSubmissionsProps) {
+  "use no memo";
   const t = useTranslations("MentorDashboard.submissions_table");
   const locale = useLocale();
   const isRtl = locale === "ar";

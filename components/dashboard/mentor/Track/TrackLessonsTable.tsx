@@ -11,6 +11,7 @@ interface TrackLessonsTableProps {
 }
 
 export function TrackLessonsTable({ lessons }: TrackLessonsTableProps) {
+  "use no memo";
   const t = useTranslations("MentorTrack");
   const locale = useLocale();
   const isRtl = locale === "ar";

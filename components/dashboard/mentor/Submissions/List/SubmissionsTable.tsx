@@ -57,6 +57,7 @@ export default function SubmissionsTable({
   submissions,
   loading,
 }: SubmissionsTableProps) {
+  "use no memo";
   const t = useTranslations("MentorSubmissionsList");
   const locale = useLocale();
   const isRtl = locale === "ar";

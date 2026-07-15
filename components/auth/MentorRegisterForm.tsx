@@ -24,9 +24,12 @@ export function MentorRegisterForm() {
 
   const handleToggleContribution = (value: ContributionType) => {
     const current = formData.contribution_types as ContributionType[];
-    const newValue = current.includes(value)
+    const updated = current.includes(value)
       ? current.filter((item) => item !== value)
       : [...current, value];
+    handleChange({
+      target: { name: "contribution_types", value: updated },
+    } as unknown as React.ChangeEvent<HTMLInputElement>);
   };
 
   const isSelected = (value: ContributionType) =>

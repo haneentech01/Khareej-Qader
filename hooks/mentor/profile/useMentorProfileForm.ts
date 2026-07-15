@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useMemo, useRef, useEffect } from "react";
+import { useState, useCallback, useMemo, useEffect } from "react";
 
 import type {
   MentorDashboardCourse,
@@ -143,7 +143,7 @@ export function useMentorProfileForm(): UseMentorProfileFormResult {
   // Derive initial form data directly from server data — no setState-in-effect
   const serverFormData = useMemo(
     () => toFormData(mentor, course),
-    [mentor?.username, course?.name],
+    [mentor, course],
   );
 
   // User edits layered on top of server data
@@ -154,14 +154,8 @@ export function useMentorProfileForm(): UseMentorProfileFormResult {
     [serverFormData, overrides],
   );
 
-  // Track whether the first load has settled (no setState — just a ref)
-  const initializedRef = useRef(false);
-  useEffect(() => {
-    if (mentor || course) {
-      initializedRef.current = true;
-    }
-  }, [mentor, course]);
-  const initialized = initializedRef.current || !!(mentor || course);
+  // Derived flag: true as soon as server data has arrived (safe to read during render)
+  const initialized = !!(mentor || course);
 
   const hasChanges =
     initialized &&

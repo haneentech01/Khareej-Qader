@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useTranslations } from "next-intl";
-import { Briefcase, LocationEdit, Lock } from "lucide-react";
+import { LocationEdit, Lock } from "lucide-react";
 import type { MentorFormData } from "@/types";
 import { ProfileFieldSection, ProfileInputGroup, ProfileTextInput } from "../../profile";
 

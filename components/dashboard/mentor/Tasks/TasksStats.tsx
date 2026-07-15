@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { FileText, Loader2 } from "lucide-react";
+import { FileText } from "lucide-react";
 
 interface TasksStatsProps {
   totalTasksCount: number;

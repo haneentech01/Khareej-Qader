@@ -17,6 +17,7 @@ interface StudentSubmissionsTableProps {
 
 
 export function StudentSubmissionsTable({ submissions }: StudentSubmissionsTableProps) {
+  "use no memo";
   const t = useTranslations("MentorStudentProfile");
 
   const columns: ColumnDef<StudentSubmissionSummary>[] = useMemo(

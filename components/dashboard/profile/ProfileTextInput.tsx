@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { useLocale } from "next-intl";
 
-interface ProfileTextInputProps<T extends string = string>
+interface ProfileTextInputProps
     extends React.ComponentProps<typeof Input> {
     className?: string;
     icon?: React.ReactNode;

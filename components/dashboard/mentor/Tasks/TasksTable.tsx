@@ -3,7 +3,7 @@
 import { useTranslations, useLocale } from "next-intl";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Pagination } from "@/components/ui/Pagination";
-import { Loader2, Inbox } from "lucide-react";
+import { Inbox } from "lucide-react";
 import { MentorTaskListItem } from "@/types";
 
 interface TasksTableProps {

@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useTranslations } from "next-intl";
-import { Users, ClipboardCheck, BookOpen, Video } from "lucide-react";
+import { Users, Video } from "lucide-react";
 
 interface MentorProfileStatsProps {
   studentsCount: number;

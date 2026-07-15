@@ -37,7 +37,7 @@ export default function MentorDashboardContent() {
     // ─── No Data ───────────────────────────────
     if (!mentorDashboard) return null;
 
-    const { mentor, course, course_video, students_training_count, last_submissions } =
+    const { mentor, course, students_training_count, last_submissions } =
         mentorDashboard;
 
     return (

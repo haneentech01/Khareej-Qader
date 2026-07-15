@@ -17,19 +17,6 @@ interface StudentsTableProps {
   onPageChange: (page: number) => void;
 }
 
-function formatDate(isoDate: string | null, locale: string): string {
-  if (!isoDate) return "—";
-  try {
-    const date = new Date(isoDate);
-    return new Intl.DateTimeFormat(locale === "ar" ? "ar-EG" : "en-US", {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    }).format(date);
-  } catch {
-    return isoDate;
-  }
-}
 
 export const StudentsTable = ({
   students,
