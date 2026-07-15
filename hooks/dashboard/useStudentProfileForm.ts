@@ -19,7 +19,7 @@ export interface StudentFormData {
   university_name: string;
   university_major: string;
   // locked fields
-  slug: string;
+  username: string;
   course: string;
 }
 
@@ -51,7 +51,7 @@ const EMPTY_FORM: StudentFormData = {
   gender: "",
   university_name: "",
   university_major: "",
-  slug: "",
+  username: "",
   course: "",
 };
 
@@ -67,7 +67,7 @@ function toFormData(
     gender: (student.gender as "male" | "female" | "") ?? "",
     university_name: student.university_name ?? "",
     university_major: student.university_major ?? "",
-    slug: student.slug ?? "",
+    username: student.username ?? "",
     course: course?.name ?? "",
   };
 }
@@ -137,9 +137,8 @@ export function useStudentProfileForm(): UseStudentProfileFormResult {
   // Derive initial form data directly from server data — no setState-in-effect
   const serverFormData = useMemo(
     () => toFormData(student, course),
-    // We only want to recompute when the server identity changes (slug/name)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [student?.slug, course?.name],
+    // We only want to recompute when the server identity changes (username/name)
+    [student?.username, course?.name],
   );
 
   // User edits layered on top of server data
