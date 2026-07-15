@@ -1,22 +1,12 @@
 "use client";
 
-import { useTranslations, useLocale } from "next-intl";
-import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
+import { useTranslations } from "next-intl";
 
 export function TrackHeader() {
   const t = useTranslations("MentorTrack");
-  const locale = useLocale();
-
-  const breadcrumbs = [
-    { label: t('breadcrumbs.home'), href: '/mentor/' },
-    { label: t('breadcrumbs.track'), href: '/mentor/track' },
-  ];
 
   return (
     <div className="space-y-6">
-      {/* Breadcrumbs */}
-      <Breadcrumbs items={breadcrumbs} locale={locale} />
-
       {/* Title & Description with Icon */}
       <div className="flex flex-col gap-2 items-start text-right rtl:text-right ltr:text-left">
         <h1 className="text-2xl md:text-3xl font-extrabold text-black tracking-tight">

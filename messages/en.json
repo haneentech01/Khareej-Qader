@@ -668,9 +668,23 @@
     }
   },
   "MentorTrack": {
+    "metadata": {
+      "title": "Training Track | Khareej Qader",
+      "description": "Manage training track content and educational lessons as a mentor in the Khareej Qader program.",
+      "lesson_title": "Lesson Details | Khareej Qader",
+      "lesson_description": "View and manage lesson details"
+    },
+    "retry": "Retry",
+    "back_to_track": "Back to Track",
+    "video_placeholder": "Video Player",
+    "minutes": "mins",
+    "open_for_mentor": "Open for Mentor",
+    "lesson_overview": "Lesson Overview",
+    "lesson_description_placeholder": "This text is a placeholder for the lesson description. The mentor can view the lesson content exactly as the student sees it to ensure content quality.",
     "breadcrumbs": {
       "home": "Home",
-      "track": "Training Track"
+      "track": "Training Track",
+      "lesson": "Lesson Details"
     },
     "header": {
       "title": "Web Development",
@@ -692,10 +706,14 @@
     },
     "table": {
       "lesson": "Lesson",
+      "lesson_name": "Lesson Name",
       "status": "Status",
       "average_progress": "Average Progress",
+      "duration": "Duration",
       "date_added": "Date Added",
       "actions": "Actions",
+      "action": "Action",
+      "edit": "Edit",
       "minutes": "{minutes} mins"
     },
     "pagination": {

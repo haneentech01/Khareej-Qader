@@ -5,7 +5,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Pagination } from "@/components/ui/Pagination";
 import { Loader2, Inbox, Eye } from "lucide-react";
 import { MentorStudentListItem } from "@/types";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
 import { Link } from "@/i18n/routing";
 import Image from "next/image";
 
@@ -92,7 +92,6 @@ export const StudentsTable = ({
               {!loading &&
                 !error &&
                 students.map((student, index) => {
-                  // const sId = student.id || (student as any).student_id || (student as any).user_id || (student as any).slug || (student as any).username;
                   return (
                     <TableRow
                       key={index}

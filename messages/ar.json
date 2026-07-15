@@ -749,9 +749,23 @@
   },
 
   "MentorTrack": {
+    "metadata": {
+      "title": "المسار التدريبي | خريج قادر",
+      "description": "إدارة محتوى المسار والدروس التعليمية للمنتور في برنامج خريج قادر.",
+      "lesson_title": "تفاصيل الدرس | خريج قادر",
+      "lesson_description": "مشاهدة وتفاصيل الدرس"
+    },
+    "retry": "إعادة المحاولة",
+    "back_to_track": "العودة للمسار",
+    "video_placeholder": "مشغل الفيديو",
+    "minutes": "دقيقة",
+    "open_for_mentor": "مفتوح للمنتور",
+    "lesson_overview": "نظرة عامة على الدرس",
+    "lesson_description_placeholder": "هذا النص هو مثال لوصف الدرس. المنتور يمكنه مشاهدة محتوى الدرس كما يراه الطالب للتأكد من جودة المحتوى.",
     "breadcrumbs": {
       "home": "الرئيسية",
-      "track": "المسار التدريبي"
+      "track": "المسار التدريبي",
+      "lesson": "تفاصيل الدرس"
     },
     "header": {
       "title": "تطوير الويب",
@@ -773,11 +787,16 @@
     },
     "table": {
       "lesson": "الدرس",
+      "lesson_name": "اسم الدرس",
       "status": "الحالة",
       "average_progress": "التقدم المتوسط",
+      "duration": "المدة",
       "date_added": "تاريخ الإضافة",
       "actions": "إجراءات",
-      "minutes": "{minutes} دقيقة"
+      "action": "إجراء",
+      "edit": "تعديل",
+      "minutes": "{minutes} دقيقة",
+      "view": "مشاهدة"
     },
     "pagination": {
       "showing": "عرض {start} إلى {end} من {total} درس",

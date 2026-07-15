@@ -1,28 +1,21 @@
-import React from "react";
-import { getTranslations } from "next-intl/server";
-import { LessonEditPageMentor } from "@/components/dashboard/mentor/Track/LessonEditPageMentor";
 
-interface MentorLessonEditPageProps {
-  params: Promise<{
-    locale: string;
-    lessonId: string;
-  }>;
+import { LessonEditPageMentor } from "@/components/dashboard/mentor/Track/LessonEditPageMentor";
+import { getTranslations } from "next-intl/server";
+
+interface MentorLessonPageProps {
+  params: Promise<{ locale: string; lessonId: string }>;
 }
 
-export async function generateMetadata({
-  params,
-}: MentorLessonEditPageProps) {
+export async function generateMetadata({ params }: MentorLessonPageProps) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "MentorLessonEdit.breadcrumbs" });
-  const tMeta = await getTranslations({ locale, namespace: "Dashboard.metadata" });
+  const t = await getTranslations({ locale, namespace: "MentorTrack.metadata" });
   return {
-    title: `${t("edit_lesson")} - ${tMeta("title")}`,
+    title: t("lesson_title", { defaultValue: "تفاصيل الدرس" }),
+    description: t("lesson_description", { defaultValue: "مشاهدة وتفاصيل الدرس" }),
   };
 }
 
-export default async function MentorLessonEditPage({
-  params,
-}: MentorLessonEditPageProps) {
+export default async function MentorLessonPage({ params }: MentorLessonPageProps) {
   const { lessonId } = await params;
   return <LessonEditPageMentor lessonId={lessonId} />;
 }

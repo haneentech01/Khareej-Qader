@@ -672,7 +672,7 @@ export interface ReviewSubmissionResponse {
 // ─── Mentor Students List (GET /mentor/students) ────────────────────────────
 export interface MentorStudentListItem {
   id: number;
-  slug: String;
+  slug: string;
   full_name: string;
   email: string;
   profile_image?: string | null;

@@ -1,116 +1,109 @@
 "use client";
 
-import React from "react";
+import React, { useMemo, useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
-import { Clock } from "lucide-react";
-import { MentorLesson } from "@/types";
-import { ColumnDef, getCoreRowModel, useReactTable } from "@tanstack/react-table";
+import { Link } from "@/i18n/routing";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Search, ChevronLeft, ChevronRight, BookOpenText, Loader2, Inbox, Eye } from "lucide-react";
+import type { TrackCourses } from "@/types";
 
-interface TrackLessonsTableProps {
-  lessons: MentorLesson[];
+// Helper لتحويل الثواني لصيغة MM:SS
+function formatDuration(seconds: number): string {
+  const h = Math.floor(seconds / 3600);
+  const m = Math.floor((seconds % 3600) / 60);
+  const s = Math.floor(seconds % 60);
+  if (h > 0) {
+    return `${h}:${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
+  }
+  return `${m}:${s.toString().padStart(2, "0")}`;
 }
 
-export function TrackLessonsTable({ lessons }: TrackLessonsTableProps) {
-  "use no memo";
+interface TrackLessonsTableProps {
+  courses: TrackCourses[];
+  loading: boolean;
+  error: string | null;
+}
+
+export function TrackLessonsTable({ courses, loading, error }: TrackLessonsTableProps) {
   const t = useTranslations("MentorTrack");
   const locale = useLocale();
   const isRtl = locale === "ar";
 
-
-
-  const formatDate = (dateStr: string, localeCode: string) => {
-    const date = new Date(dateStr);
-    return date.toLocaleDateString(localeCode === "ar" ? "ar-EG" : "en-US", {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    });
-  };
-
-
-
-  const columns = React.useMemo<ColumnDef<MentorLesson>[]>(
-    () => [
-      {
-        accessorKey: "title",
-      },
-      {
-        accessorKey: "dateAdded",
-      },
-    ],
-    []
-  );
-
-  const table = useReactTable({
-    data: lessons,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-  });
-
   return (
-    <div className="bg-white rounded-3xl border border-slate-100 shadow-[0_10px_30px_rgba(0,0,0,0.01)] overflow-hidden">
-      <div className="overflow-x-auto">
-        <table className="w-full text-right rtl:text-right ltr:text-left border-collapse">
-          <thead>
-            <tr className="border-b border-slate-100 text-slate-400 text-xs md:text-sm font-semibold">
-              <th className="px-6 py-5 text-start font-bold">{t("table.lesson")}</th>
-              <th className="px-6 py-5 text-center font-bold">{t("table.date_added")}</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-slate-50">
-            {lessons.length === 0 ? (
-              <tr>
-                <td colSpan={5} className="text-center py-10 text-slate-400 text-sm font-medium">
-                  {isRtl ? "لم يتم العثور على أي دروس تطابق الفلاتر المحددة." : "No lessons found matching the selected filters."}
-                </td>
-              </tr>
+    <div className="w-full flex flex-col gap-6">
+      {/* Table */}
+      <div className="overflow-hidden">
+        <Table dir={isRtl ? "rtl" : "ltr"}>
+          <TableHeader className="bg-gray-50/50">
+            <TableRow>
+              <TableHead className="py-4 text-gray-500 font-medium text-start px-6">
+                {t("table.lesson_name")}
+              </TableHead>
+              <TableHead className="py-4 text-gray-500 font-medium text-center">
+                {t("table.duration")}
+              </TableHead>
+              <TableHead className="py-4 text-gray-500 font-medium text-center">
+                {t("table.date_added")}
+              </TableHead>
+              <TableHead className="py-4 text-gray-500 font-medium text-center">
+                {t("table.action")}
+              </TableHead>
+            </TableRow>
+          </TableHeader>
+
+          <TableBody>
+            {loading ? (
+              <TableRow>
+                <TableCell colSpan={4} className="text-center py-12">
+                  <Loader2 className="w-6 h-6 text-brand-primary animate-spin mx-auto" />
+                </TableCell>
+              </TableRow>
+            ) : error ? (
+              <TableRow>
+                <TableCell colSpan={4} className="text-center py-12 text-red-500">
+                  {error}
+                </TableCell>
+              </TableRow>
+            ) : courses.length === 0 ? (
+              <TableRow>
+                <TableCell colSpan={4} className="text-center py-12">
+                  <div className="flex flex-col items-center gap-2 text-brand-muted">
+                    <Inbox className="w-8 h-8" />
+                    <span className="text-sm">{t("empty", { defaultValue: "لا توجد دروس بعد" })}</span>
+                  </div>
+                </TableCell>
+              </TableRow>
             ) : (
-              table.getRowModel().rows.map((row) => {
-                const lesson = row.original;
-                return (
-                  <tr
-                    key={lesson.id}
-                    className="group hover:bg-slate-50/50 transition-all duration-300"
-                  >
-                    {/* Lesson Title & Number */}
-                    <td className="px-6 py-4.5">
-                      <div className="flex items-center gap-4 text-start">
-                        {/* Number circle */}
-                        <div
-                          className={`size-10 rounded-full flex items-center justify-center 
-                            font-bold text-sm shrink-0 shadow-xs transition-transform duration-300 
-                            group-hover:scale-105 bg-brand-primary text-white`}
-                        >
-                          {lesson.number}
-                        </div>
+              courses.map((course) => (
+                <TableRow key={course.id} className="hover:bg-gray-50/50 transition-colors">
 
-                        {/* Title and duration */}
-                        <div className="space-y-1">
-                          <h3 className="text-sm md:text-base font-bold text-slate-800 tracking-tight group-hover:text-black transition-colors">
-                            {lesson.title}
-                          </h3>
-                          <div className="flex items-center gap-1 text-slate-400 text-xs font-semibold">
-                            <Clock className="size-3.5" />
-                            <span>{lesson.duration}</span>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
+                  <TableCell className="py-4 font-medium text-gray-900 flex items-center gap-2 text-center">
+                    <BookOpenText className="size-4 text-brand-primary" />
+                    {course.video_title}
+                  </TableCell>
 
+                  <TableCell className="py-4 text-gray-600 text-center">
+                    {formatDuration(course.video_duration)}
+                  </TableCell>
 
+                  <TableCell className="py-4 text-gray-600 text-center">
+                    {new Date(course.created_at).toLocaleDateString(isRtl ? "ar-EG" : "en-US")}
+                  </TableCell>
 
-                    {/* Date Added */}
-                    <td className="px-6 py-4.5 text-center text-xs md:text-sm font-semibold text-slate-500 whitespace-nowrap">
-                      {formatDate(lesson.dateAdded, locale)}
-                    </td>
-
-
-                  </tr>
-                );
-              })
+                  <TableCell className="py-4 text-center">
+                    <Link
+                      href={`/mentor/track/${course.id}`}
+                      className="text-brand-primary hover:underline text-sm font-bold inline-flex items-center gap-1"
+                    >
+                      <Eye className="size-4" />
+                      {t("table.view")}
+                    </Link>
+                  </TableCell>
+                </TableRow>
+              ))
             )}
-          </tbody>
-        </table>
+          </TableBody>
+        </Table>
       </div>
     </div>
   );
