@@ -1032,10 +1032,17 @@
   },
 
   "MentorStudents": {
+    "metadata": {
+      "title": "تفاصيل الطالب | خريج قادر",
+      "description": "عرض بيانات الطالب ونشاطه في المسار التدريبي."
+    },
+
     "breadcrumbs": {
       "home": "الرئيسية",
-      "students": "الطلاب"
+      "students": "الطلاب",
+      "details": "التفاصيل"
     },
+    "retry": "إعادة المحاولة",
     "header": {
       "title": "الطلاب",
       "subtitle": "استعرض بيانات طلابك وتابع نشاطهم في المسار التدريبي"
@@ -1044,7 +1051,13 @@
       "total_students": "إجمالي الطلاب",
       "active_students": "نشطين مؤخراً",
       "inactive_students": "غير نشطين",
-      "students": "طلاب"
+      "students": "طلاب",
+      "answered_tasks": "المهام المنجزة",
+      "unanswered_tasks": "المهام غير المنجزة"
+    },
+    "sections": {
+      "courses": "المسارات التدريبية",
+      "mentors": "الموجهين"
     },
     "filters": {
       "search_placeholder": "ابحث في الطلاب (الاسم أو البريد)...",

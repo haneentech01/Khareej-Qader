@@ -1,29 +1,28 @@
-import React from "react";
+import { MentorStudentDetailsContent } from "@/components/dashboard/mentor/Students/Student/MentorStudentDetailsContent";
+import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { getTranslations } from "next-intl/server";
-import { StudentProfilePageMentor } from "@/components/dashboard/mentor/Students/Student/StudentProfilePageMentor";
 
-interface StudentProfilePageProps {
+interface MentorStudentDetailsPageProps {
   params: Promise<{
     locale: string;
     studentId: string;
   }>;
 }
 
-export async function generateMetadata({
-  params,
-}: StudentProfilePageProps) {
-  const { locale, studentId } = await params;
-  const tMeta = await getTranslations({ locale, namespace: "Dashboard.metadata" });
-
-  // Here we can fetch the name based on the id or display a dynamic localized title.
-  // For mock-up simplicity, we'll prefix it.
-  const studentName = studentId === "2" ? "سارة أحمد" : "محمد خالد";
+export async function generateMetadata({ params }: MentorStudentDetailsPageProps) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "MentorStudents.metadata" });
   return {
-    title: `${studentName} - ${tMeta("title")}`,
+    title: t("title"),
+    description: t("description"),
   };
 }
-
-export default async function StudentProfilePage({ params }: StudentProfilePageProps) {
+export default async function StudentProfilePage({ params }: MentorStudentDetailsPageProps) {
   const { studentId } = await params;
-  return <StudentProfilePageMentor studentId={studentId} />;
+  return (
+    <div>
+      <MentorStudentDetailsContent studentId={studentId} />;
+    </div>
+
+  )
 }

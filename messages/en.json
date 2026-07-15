@@ -963,8 +963,10 @@
   "MentorStudents": {
     "breadcrumbs": {
       "home": "Home",
-      "students": "Students"
+      "students": "Students",
+      "details": "Details"
     },
+    "retry": "Retry",
     "header": {
       "title": "Students",
       "subtitle": "Review your students' data and track their activity in the training track"
@@ -973,7 +975,13 @@
       "total_students": "Total Students",
       "active_students": "Recently Active",
       "inactive_students": "Inactive",
-      "student": "Student"
+      "student": "Student",
+      "answered_tasks": "Answered Tasks",
+      "unanswered_tasks": "Unanswered Tasks"
+    },
+    "sections": {
+      "courses": "Training Tracks",
+      "mentors": "Mentors"
     },
     "filters": {
       "search_placeholder": "Search students (name or email)...",

@@ -560,6 +560,14 @@ export interface MentorDashboardData {
   last_submissions: MentorDashboardLastSubmission[];
 }
 
+// ─── GET /videos/mentor/course ──────────────────
+export interface TrackCourses {
+  id: number;
+  video_title: string;
+  video_duration: number;
+  created_at: string;
+}
+
 // ─── Update Mentor Data (PATCH /mentor/update-mentor-information) ──────────────────
 export interface UpdateMentorDataPayload {
   [key: string]: unknown;
@@ -664,6 +672,7 @@ export interface ReviewSubmissionResponse {
 // ─── Mentor Students List (GET /mentor/students) ────────────────────────────
 export interface MentorStudentListItem {
   id: number;
+  slug: String;
   full_name: string;
   email: string;
   profile_image?: string | null;
@@ -690,3 +699,22 @@ export interface PaginatedResponse<T> {
 
 export type MentorStudentsListResponse =
   PaginatedResponse<MentorStudentListItem>;
+
+// ─── Mentor Student Details (GET /mentor/students/{id}) ──────────────────
+export interface MentorStudentCourse {
+  id: number;
+  name: string;
+  description: string;
+}
+export interface MentorStudentDetails {
+  full_name: string;
+  university_name: string;
+  university_major: string;
+  mobile_number: string;
+  profile_photo: string | null;
+  gender: "male" | "female";
+  mentor: string[];
+  courses: MentorStudentCourse[];
+  answered_tasks: number;
+  unanswered_tasks: number;
+}

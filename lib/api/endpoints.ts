@@ -47,15 +47,17 @@ const endpoints = {
     submissions: "/tasks/submissions",
     submission: (id: string | number) => `/mentor/submissions/${id}`,
     students: "/mentor/students",
+    student: (id: string | number) => `/mentor/students/${id}`,
     tasks: {
       create: "/tasks/new-task",
-      list: "/tasks/list", // GET  - قائمة المهام
-      count: "/tasks/count", // GET  - إجمالي عدد المهام
+      list: "/tasks/list",
+      count: "/tasks/count",
       submissionsByTask: (taskId: string | number) =>
-        `/tasks/${taskId}/submissions`, // GET - المهام المرفوعة
+        `/tasks/${taskId}/submissions`,
       reviewSubmission: (id: string | number) =>
-        `/tasks/submissions/${id}/review`, // تقييم تسليم طالب - PATCH
+        `/tasks/submissions/${id}/review`,
     },
+    trackCourses: "/videos/mentor/course",
   },
 
   // ─── روابط الأدمن ───────────────────────────

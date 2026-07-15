@@ -4,9 +4,16 @@ import endpoints from "@/lib/api/endpoints";
 import { useGetData } from "@/lib/hooks/useGetData";
 import { MentorCourseItem } from "@/types";
 
-export function useMentorCourses() {
+interface UseMentorCourses {
+  enabled?: boolean;
+}
+
+export function useMentorCourses({ enabled = true }: UseMentorCourses = {}) {
   const { data, loading, error, refetch } = useGetData<MentorCourseItem[]>(
     endpoints.video.mentorCourses,
+    {
+      immediate: enabled,
+    },
   );
 
   return {

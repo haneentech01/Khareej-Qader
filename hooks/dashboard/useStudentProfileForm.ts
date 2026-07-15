@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useMemo, useRef, useEffect } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { useDashboard } from "@/hooks/dashboard/useDashboard";
 import { useUpdateStudentData } from "@/hooks/dashboard/useUpdateStudentData";
 import { useUploadProfileImage } from "@/hooks/dashboard/useUploadProfileImage";
@@ -138,7 +138,7 @@ export function useStudentProfileForm(): UseStudentProfileFormResult {
   const serverFormData = useMemo(
     () => toFormData(student, course),
     // We only want to recompute when the server identity changes (username/name)
-    [student?.username, course?.name],
+    [student, course],
   );
 
   // User edits layered on top of server data
@@ -149,14 +149,8 @@ export function useStudentProfileForm(): UseStudentProfileFormResult {
     [serverFormData, overrides],
   );
 
-  // Track whether the first load has settled (no setState — just a ref)
-  const initializedRef = useRef(false);
-  useEffect(() => {
-    if (student || course) {
-      initializedRef.current = true;
-    }
-  }, [student, course]);
-  const initialized = initializedRef.current || !!(student || course);
+  // Derived flag: true as soon as server data has arrived (safe to read during render)
+  const initialized = !!(student || course);
 
   const hasChanges =
     initialized &&

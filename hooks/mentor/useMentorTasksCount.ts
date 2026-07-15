@@ -4,9 +4,18 @@ import endpoints from "@/lib/api/endpoints";
 import { useGetData } from "@/lib/hooks/useGetData";
 import { MentorTasksCountData } from "@/types";
 
-export function useMentorTasksCount() {
+interface UseMentorTasksCountOptions {
+  enabled?: boolean;
+}
+
+export function useMentorTasksCount({
+  enabled = true,
+}: UseMentorTasksCountOptions = {}) {
   const { data, loading, error, refetch } = useGetData<MentorTasksCountData>(
     endpoints.mentor.tasks.count,
+    {
+      immediate: enabled,
+    },
   );
 
   return {

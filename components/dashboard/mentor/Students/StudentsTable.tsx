@@ -7,6 +7,7 @@ import { Loader2, Inbox, Eye } from "lucide-react";
 import { MentorStudentListItem } from "@/types";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Link } from "@/i18n/routing";
+import Image from "next/image";
 
 interface StudentsTableProps {
   students: MentorStudentListItem[];
@@ -90,43 +91,57 @@ export const StudentsTable = ({
               {/* Data rows */}
               {!loading &&
                 !error &&
-                students.map((student, index) => (
-                  <TableRow
-                    key={`student-${student.id ?? index}`}
-                    className="hover:bg-gray-50/50 transition-colors"
-                  >
-                    <TableCell className="py-4 text-start font-medium text-gray-900 pl-6 pr-6">
-                      <div className="flex items-center gap-3">
-                        <Avatar className="h-10 w-10">
-                          <AvatarImage src={student.profile_image || ""} alt={student.full_name} />
-                          <AvatarFallback className="bg-brand-light-green text-brand-dark-green font-bold">
-                            {student.full_name?.charAt(0).toUpperCase() || "?"}
-                          </AvatarFallback>
-                        </Avatar>
-                        <span>{student.full_name}</span>
-                      </div>
-                    </TableCell>
-                    <TableCell className="py-4 text-start text-gray-600">
-                      {student.email}
-                    </TableCell>
+                students.map((student, index) => {
+                  // const sId = student.id || (student as any).student_id || (student as any).user_id || (student as any).slug || (student as any).username;
+                  return (
+                    <TableRow
+                      key={index}
+                      className="hover:bg-gray-50/50 transition-colors border-b border-gray-100 last:border-0"
+                    >
+                      <TableCell className="py-4 font-medium text-black">
+                        <div className="flex items-center gap-3">
+                          {student.profile_image && (student.profile_image || student.profile_image.startsWith("/")) ? (
+                            <div className="relative w-10 h-10 rounded-full overflow-hidden shrink-0 border border-gray-100">
+                              <Image
+                                src={student.profile_image}
+                                alt={student.full_name || ""}
+                                fill
+                                className="object-cover"
+                              />
+                            </div>
+                          ) : (
+                            <div className="w-10 h-10 rounded-full bg-[#E5F5FA] text-[#008985] flex items-center justify-center font-bold shrink-0 border border-[#E5F5FA]">
+                              {student.full_name?.charAt(0).toUpperCase() || "?"}
+                            </div>
+                          )}
+                          <span className="font-semibold text-gray-900 block">
+                            {student.full_name}
+                          </span>
+                        </div>
+                      </TableCell>
+                      <TableCell className="py-4 text-gray-500 font-medium">
+                        {student.email}
+                      </TableCell>
+                      <TableCell className="py-4">
+                        <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 text-gray-700">
+                          {student.courses}
+                        </span>
+                      </TableCell>
 
-                    <TableCell className="py-4 text-start text-gray-600">
-                      {student.courses}
-                    </TableCell>
 
 
-
-                    <TableCell className="py-4 text-center">
-                      <Link
-                        href={`/mentor/students/${student.id}`}
-                        className="inline-flex items-center justify-center text-brand-dark-green hover:text-brand-dark-green/80 transition-colors bg-brand-light-green hover:bg-[#A7F3D0]/50 p-2 rounded-lg"
-                        title={t("view_profile")}
-                      >
-                        <Eye className="w-5 h-5" />
-                      </Link>
-                    </TableCell>
-                  </TableRow>
-                ))}
+                      <TableCell className="py-4 text-center">
+                        <Link
+                          href={`/mentor/students/${student.slug}`}
+                          className="inline-flex items-center justify-center text-brand-dark-green hover:text-brand-dark-green/80 transition-colors bg-brand-light-green hover:bg-[#A7F3D0]/50 p-2 rounded-lg"
+                          title={t("view_profile")}
+                        >
+                          <Eye className="w-5 h-5" />
+                        </Link>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
             </TableBody>
           </Table>
         </div>

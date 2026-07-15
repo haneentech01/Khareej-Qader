@@ -21,6 +21,10 @@ export const queryKeys = {
     tasksCount: ["mentor", "tasks-count"] as const,
     //  GET /mentor/students — قائمة طلاب المنتور (paginated).
     students: (page: number = 1) => ["mentor", "students", page] as const,
+    // GET /mentor/students/{id} — تفاصيل طالب واحد
+    student: (id: string | number) =>
+      ["mentor", "students", "details", id] as const,
+    trackCourses: ["mentor", "trackCourses"] as const,
   },
 
   // ─── Admin ────────────────────────────────────────────────────────────────
