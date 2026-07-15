@@ -16,10 +16,10 @@ export interface MentorFormData {
   name: string;
   email: string;
   profile_image?: string;
-  mobile_number?: string;
-  address?: string;
-  city?: string;
-  state?: string;
+  mobile_number: string;
+  address: string;
+  city: string;
+  state: string;
   // locked fields
   username: string;
   course: string;

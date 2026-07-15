@@ -601,7 +601,7 @@ export interface MentorFormData {
   address: string;
   city: string;
   state: string;
-  profile_image: string | null;
+  profile_image?: string | null;
   // Locked fields
   username: string;
   course: string;
