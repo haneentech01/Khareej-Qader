@@ -271,7 +271,7 @@ export type Role = "student" | "mentor" | "admin";
 // ─── Dashboard Types ────────────────────────────
 export interface DashboardStudent {
   name: string;
-  slug: string;
+  username: string;
   email: string;
   mobile_number?: string;
   gender?: string;

@@ -24,7 +24,7 @@ const validate = (values: MentorRegisterFormData): ValidationErrors => {
 
   if (!values.state_code) errors.state_code = ["Country is required"];
 
-  if (!values.course) errors.course_id = ["Course is required"];
+  if (!values.course) errors.course = ["Course is required"];
 
   if (values.contribution_types.length === 0)
     errors.contribution_types = ["Select at least one contribution type"];
@@ -35,6 +35,8 @@ const validate = (values: MentorRegisterFormData): ValidationErrors => {
 // ─── تحويل البيانات قبل الإرسال ────────────────────
 const formatPayload = (values: MentorRegisterFormData) => ({
   ...values,
+  course_id: values.course ? [values.course] : [],
+  status: "pending",
 });
 
 export function useMentorRegisterForm() {
@@ -53,7 +55,7 @@ export function useMentorRegisterForm() {
       contribution_types: [],
     },
 
-    endpoint: endpoints.auth.student.register,
+    endpoint: endpoints.auth.mentor.register,
 
     validate,
     formatPayload,

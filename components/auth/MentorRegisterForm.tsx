@@ -75,8 +75,8 @@ export function MentorRegisterForm() {
             {/* full name */}
             <div>
               <Input
-                id="full_name"
-                name="full_name"
+                id="name"
+                name="name"
                 type="text"
                 value={formData.name}
                 onChange={handleChange}
@@ -84,9 +84,9 @@ export function MentorRegisterForm() {
                 className="h-12 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none"
                 required />
 
-              {fieldErrors.full_name?.[0] && (
+              {fieldErrors.name?.[0] && (
                 <p className="text-sm text-red-500 mt-1">
-                  {fieldErrors.full_name[0]}
+                  {fieldErrors.name[0]}
                 </p>
               )}
             </div>
@@ -218,7 +218,7 @@ export function MentorRegisterForm() {
               {tTrainer("country")}
             </label>
             <Select
-              name="country"
+              name="state_code"
               value={formData.state_code}
               onChange={handleChange}
               className="h-12 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none"
@@ -228,14 +228,14 @@ export function MentorRegisterForm() {
               </option>
               {Array.isArray(states) &&
                 states.map((country) => (
-                  <option key={country.id} value={country.name}>
+                  <option key={country.id} value={country.state_code}>
                     {country.name}
                   </option>
                 ))}
             </Select>
-            {fieldErrors.country?.[0] && (
+            {fieldErrors.state_code?.[0] && (
               <p className="text-sm text-red-500 mt-1">
-                {fieldErrors.country[0]}
+                {fieldErrors.state_code[0]}
               </p>
             )}
           </div>
@@ -256,7 +256,7 @@ export function MentorRegisterForm() {
               {tTrainer("track")}
             </label>
             <Select
-              name="track_placeholder"
+              name="course"
               value={formData.course}
               onChange={handleChange}
               className="h-12 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none"
@@ -273,7 +273,7 @@ export function MentorRegisterForm() {
             </Select>
             {fieldErrors.course?.[0] && (
               <p className="text-sm text-red-500 mt-1">
-                {fieldErrors.country[0]}
+                {fieldErrors.course[0]}
               </p>
             )}
           </div>

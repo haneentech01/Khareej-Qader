@@ -34,7 +34,7 @@ export function AccountInfoSection({
                 <div className="relative">
                     <ProfileTextInput
                         type="text"
-                        defaultValue={student?.slug ?? ""}
+                        defaultValue={student?.username ?? ""}
                         disabled
                         icon={<Lock className="size-4 text-brand-muted" />}
                         className={isRtl ? "pr-8" : "pl-8"}
