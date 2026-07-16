@@ -69,9 +69,6 @@ export default function StudentsTasksContent({
                                     </h3>
                                 </Link>
 
-                                <p className="mt-1 text-sm text-muted-foreground">
-                                    {task.course.name}
-                                </p>
 
                                 <p className="mt-3 text-sm">
                                     {t("tasks.deadline")}: {formatDate(task.dead_line)}
