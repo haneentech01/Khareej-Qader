@@ -10,7 +10,6 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { VideoPlayer } from "./VideoPlayer";
-import { LessonQuestions } from "./LessonQuestions";
 import { Link } from "@/i18n/routing";
 import { useLessonPath } from "@/providers/LessonPathProvider";
 import { notFound } from "next/navigation";

@@ -3,16 +3,18 @@ import { Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 
 
-interface TasksFilterProps {
+interface StudentsFilterProps {
   searchQuery: string;
   setSearchQuery: (query: string) => void;
+  placeholder: string;
 }
 
-export const TasksFilter = ({
+export const Filter = ({
   searchQuery,
   setSearchQuery,
-}: TasksFilterProps) => {
-  const t = useTranslations('MentorTasks.filters');
+  placeholder
+}: StudentsFilterProps) => {
+  const t = useTranslations('Dashboard.filters');
 
   return (
     <div className="flex flex-col md:flex-row items-center mb-0
@@ -21,7 +23,7 @@ export const TasksFilter = ({
         <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
         <Input
           type="text"
-          placeholder={t('search_placeholder')}
+          placeholder={placeholder}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className="pl-4 py-4 pr-10 border-0 bg-gray-50 

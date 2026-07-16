@@ -117,7 +117,6 @@ export function LessonItem({
       </div>
     );
 
-    // locked = div بدون link، غيره = link
     if (status === "locked") {
       return <div className={sidebarClass}>{content}</div>;
     }

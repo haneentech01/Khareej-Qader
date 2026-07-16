@@ -42,7 +42,8 @@ async function proxyRequest(
     );
   }
 
-  const targetUrl = `${BACKEND_URL}/${endpoint}`;
+  const searchParams = request.nextUrl.search || "";
+  const targetUrl = `${BACKEND_URL}/${endpoint}${searchParams}`;
 
   // ─── 2) بناء headers ─────────────────────
   const headers: Record<string, string> = {

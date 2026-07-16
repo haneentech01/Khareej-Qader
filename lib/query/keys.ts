@@ -4,7 +4,7 @@ export const queryKeys = {
     /** GET /students/student-profile — بيانات الـ dashboard كاملة */
     dashboard: ["student", "dashboard"] as const,
     /** GET /students/tasks — قائمة مهام الطالب */
-    tasks: ["student", "tasks"] as const,
+    tasks: ["student", "all-tasks"] as const,
     /** GET /students/student-path — مسار الطالب التعليمي */
     path: ["student", "path"] as const,
   },
@@ -35,6 +35,12 @@ export const queryKeys = {
     students: ["admin", "students"] as const,
     /** GET /admin/mentors — قائمة المنتورات */
     mentors: ["admin", "mentors"] as const,
+  },
+
+  // ─── Video ───────────────────────────────────────────────────────────────
+  video: {
+    /** GET /videos/details/{id} — تفاصيل فيديو واحد */
+    details: (id: string | number) => ["video", "details", id] as const,
   },
 
   // ─── Lookup data ──────────────────────────────────────────────────────────

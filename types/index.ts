@@ -343,6 +343,18 @@ export interface DashboardData {
   announcements: DashboardAnnouncement[];
 }
 
+// ─── GET /tasks/all — جميع المهام المتاحة للطالب ──────────────────
+
+export interface AllTaskItem {
+  title: string;
+  description: string;
+  dead_line: string;
+  created_at: string;
+  submissions: unknown[];
+  course: DashboardCourse;
+  video: PathVideo;
+}
+
 export interface StudentProfile {
   student: DashboardStudent;
   course: DashboardCourse;
@@ -515,6 +527,18 @@ export interface MentorTaskListItem {
 export interface MentorCourseItem {
   id: number;
   video_title: string;
+}
+
+//  تفاصيل الفيديو الواحد (GET /videos/details/{id})
+export interface VideoDetails {
+  id: number;
+  title: string;
+  youtube_id: string;
+  video_url: string;
+  thumbnail: string;
+  description: string;
+  duration: string;
+  created_at: string;
 }
 
 export interface MentorProfile {

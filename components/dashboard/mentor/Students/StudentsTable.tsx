@@ -5,7 +5,6 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Pagination } from "@/components/ui/Pagination";
 import { Loader2, Inbox, Eye } from "lucide-react";
 import { MentorStudentListItem } from "@/types";
-
 import { Link } from "@/i18n/routing";
 import Image from "next/image";
 
@@ -81,7 +80,7 @@ export const StudentsTable = ({
                     <div className="flex flex-col items-center gap-2 text-brand-muted">
                       <Inbox className="w-8 h-8" />
                       <span className="text-sm">
-                        {t("empty", { defaultValue: "No students found" })}
+                        {t("empty")}
                       </span>
                     </div>
                   </TableCell>

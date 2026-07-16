@@ -305,6 +305,12 @@
 
   "Dashboard": {
     "retry": "إعادة المحاولة",
+    "filters": {
+      "search_placeholder": "ابحث...",
+      "sort_students": "ترتيب الطلاب",
+      "all": "الكل"
+    },
+
     "metadata": {
       "student_dashboard": {
         "home": {
@@ -408,11 +414,13 @@
     "tasks": {
       "upcoming": "المهمة القادمة",
       "title": "بناء أول صفحة ويب",
-      "deadline": "الموعد النهائي: {date}",
+      "deadline": "الموعد النهائي",
       "description": "مهمتك هي بناء صفحة ويب بسيطة باستخدام HTML و CSS. يجب أن تتضمن الصفحة ما يلي:\n- عنوان رئيسي (h1)\n- فقرة (p)\n- قائمة غير مرتبة (ul)\n- صورة (img)\n- رابط (a)\n- ملف CSS لعمل بعض التنسيقات",
       "start": "ابدأ التنفيذ",
       "context": "مرتبط بدرس: {lesson}",
-      "lesson_name": "هيكل صفحة HTML"
+      "lesson_name": "هيكل صفحة HTML",
+      "task_presentation": "عرض المهمة",
+      "related_lesson": "مرتبط بدرس"
     },
 
     "mentor": {
@@ -978,6 +986,7 @@
       "subtitle": "إدارة مهام المسار وتسليمات الطلاب",
       "new_task": "مهمة جديدة"
     },
+
     "stats": {
       "total_tasks": "إجمالي المهام",
       "published": "منشورة",
@@ -986,11 +995,7 @@
       "closed": "مغلقة",
       "task": "مهمة"
     },
-    "filters": {
-      "search_placeholder": "ابحث في المهام...",
-      "sort_tasks": "ترتيب المهام",
-      "all": "الكل"
-    },
+
     "table": {
       "task": "المهمة",
       "related_lesson": "الدرس المرتبط",
@@ -1078,11 +1083,7 @@
       "courses": "المسارات التدريبية",
       "mentors": "الموجهين"
     },
-    "filters": {
-      "search_placeholder": "ابحث في الطلاب (الاسم أو البريد)...",
-      "sort_students": "ترتيب الطلاب",
-      "all": "الكل"
-    },
+
     "table": {
       "student": "الطالب",
       "email": "البريد الإلكتروني",

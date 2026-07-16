@@ -24,7 +24,7 @@ const endpoints = {
     updateData: "/students/update-student-data",
     uploadProfileImage: "/students/upload-profile-image",
     track: "/students/track",
-    tasks: "/students/tasks",
+    tasks: "/tasks/all",
     task: (id: string | number) => `/students/tasks/${id}`,
     certificates: "/students/certificates",
     studentPath: "/students/student-path",
@@ -37,6 +37,7 @@ const endpoints = {
     complete: (id: string | number) => `/videos/${id}/complete`,
     // دروس/فيديوهات المسار الخاص بالمنتور (للقائمة المنسدلة في صفحة المهام)
     mentorCourses: "/videos/mentor/course",
+    details: (id: string | number) => `/videos/details/${id}`,
   },
 
   // ─── روابط المنتور ──────────────────────────

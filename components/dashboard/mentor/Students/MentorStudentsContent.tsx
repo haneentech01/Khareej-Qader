@@ -2,16 +2,18 @@
 
 import { useCallback, useMemo, useState } from "react";
 import { StudentsStats } from "@/components/dashboard/mentor/Students/StudentsStats";
-import { StudentsFilter } from "@/components/dashboard/mentor/Students/StudentsFilter";
+import { Filter } from "@/components/dashboard/Layout/Filter";
 import { StudentsTable } from "@/components/dashboard/mentor/Students/StudentsTable";
 import { MentorStudentListItem } from "@/types";
 import { useMentorStudents } from "@/hooks/mentor/useMentorStudents";
 import { StudentsSkeleton } from "./StudentsSkeleton";
+import { useTranslations } from "next-intl";
 
 export default function MentorStudentsContent() {
     // ─── Pagination state (server-side) ──────────────────────────────────────
     const [currentPage, setCurrentPage] = useState(1);
     const [searchQuery, setSearchQuery] = useState("");
+    const t = useTranslations("Dashboard.filters");
 
     const {
         students,
@@ -66,9 +68,10 @@ export default function MentorStudentsContent() {
 
             <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden py-3">
                 {/* Search filter */}
-                <StudentsFilter
+                <Filter
                     searchQuery={searchQuery}
                     setSearchQuery={handleSearchChange}
+                    placeholder={t("search_placeholder")}
                 />
 
                 {/* Students table */}

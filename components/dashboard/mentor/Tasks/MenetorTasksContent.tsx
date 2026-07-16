@@ -2,13 +2,15 @@
 
 import { useCallback, useMemo, useState } from "react";
 import { TasksStats } from "@/components/dashboard/mentor/Tasks/TasksStats";
-import { TasksFilter } from "@/components/dashboard/mentor/Tasks/TasksFilter";
 import { TasksTable } from "@/components/dashboard/mentor/Tasks/TasksTable";
 import { MentorTaskListItem } from "@/types";
 import { useMentorTasksCount } from "@/hooks/mentor/useMentorTasksCount";
 import { useMentorTasksList } from "@/hooks/mentor/useMentorTasksList";
 import { NewTaskModal } from "./NewTaskModal";
 import { TasksSkeleton } from "./TasksSkeleton";
+import { Filter } from "../../Layout/Filter";
+import { t } from "media-chrome";
+import { useTranslations } from "next-intl";
 
 const ITEMS_PER_PAGE = 10;
 
@@ -31,6 +33,7 @@ export default function MentorTasksContent() {
 
     const [searchQuery, setSearchQuery] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
+    const t = useTranslations("Dashboard.filters");
 
     // ─── Derived data (search + pagination) ────
     const filteredTasks = useMemo<MentorTaskListItem[]>(() => {
@@ -94,9 +97,10 @@ export default function MentorTasksContent() {
 
             <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden py-3">
                 {/* Search filter */}
-                <TasksFilter
+                <Filter
                     searchQuery={searchQuery}
                     setSearchQuery={handleSearchChange}
+                    placeholder={t("search_placeholder")}
                 />
 
                 {/* Tasks table (from /tasks/list) */}
