@@ -42,8 +42,15 @@ async function proxyRequest(
     );
   }
 
-  const searchParams = request.nextUrl.search || "";
-  const targetUrl = `${BACKEND_URL}/${endpoint}${searchParams}`;
+  // ─── Clean up searchParams ───────────────
+  // Vercel sometimes injects dynamic route parameters into the query string.
+  // We need to remove the "path" parameter before forwarding to the backend.
+  const urlSearchParams = new URLSearchParams(request.nextUrl.search);
+  urlSearchParams.delete("path");
+  const searchString = urlSearchParams.toString();
+  const searchSuffix = searchString ? `?${searchString}` : "";
+  
+  const targetUrl = `${BACKEND_URL}/${endpoint}${searchSuffix}`;
 
   // ─── 2) بناء headers ─────────────────────
   const headers: Record<string, string> = {

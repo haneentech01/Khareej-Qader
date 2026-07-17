@@ -8,6 +8,7 @@ import { SidebarTrigger } from "@/components/ui/sidebar";
 import { useDashboard } from "@/hooks/dashboard/useDashboard";
 import { TopNavVariant } from "@/types";
 import { useMentorDashboard } from "@/hooks/mentor/useMentorDashboard";
+import { getImageUrl } from "@/lib/utils/imageUrl";
 
 interface TopNavProps {
   variant?: TopNavVariant;
@@ -31,8 +32,8 @@ export function TopNav({ variant = "student" }: TopNavProps) {
     : dashboard?.student?.email || t("userMajor");
 
   const displayAvatar = isMentor
-    ? mentorDashboard?.mentor?.profile_image || "/images/default-avatar.svg"
-    : dashboard?.student?.profile_photo || dashboard?.student?.profile_photo || "/images/default-avatar.svg";
+    ? getImageUrl(mentorDashboard?.mentor?.profile_image)
+    : getImageUrl(dashboard?.student?.profile_photo);
 
   return (
     <header

@@ -8,6 +8,7 @@ import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from "@tanstack
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { TaskSubmissionListItem } from "@/types";
+import { getImageUrl } from "@/lib/utils/imageUrl";
 
 // gets the first character of the name
 function getInitial(name: string | null | undefined): string {
@@ -80,7 +81,7 @@ export default function SubmissionsTable({
               <Avatar className="size-8 border border-slate-100 shrink-0">
                 {student?.profile_image && (
                   <AvatarImage
-                    src={student.profile_image}
+                    src={getImageUrl(student.profile_image)}
                     alt={student?.full_name ?? "student"}
                   />
                 )}

@@ -7,6 +7,7 @@ import { Loader2, Inbox, Eye } from "lucide-react";
 import { MentorStudentListItem } from "@/types";
 import { Link } from "@/i18n/routing";
 import Image from "next/image";
+import { getImageUrl } from "@/lib/utils/imageUrl";
 
 interface StudentsTableProps {
   students: MentorStudentListItem[];
@@ -98,10 +99,10 @@ export const StudentsTable = ({
                     >
                       <TableCell className="py-4 font-medium text-black">
                         <div className="flex items-center gap-3">
-                          {student.profile_image && (student.profile_image || student.profile_image.startsWith("/")) ? (
+                          {student.profile_image ? (
                             <div className="relative w-10 h-10 rounded-full overflow-hidden shrink-0 border border-gray-100">
                               <Image
-                                src={student.profile_image}
+                                src={getImageUrl(student.profile_image)}
                                 alt={student.full_name || ""}
                                 fill
                                 className="object-cover"

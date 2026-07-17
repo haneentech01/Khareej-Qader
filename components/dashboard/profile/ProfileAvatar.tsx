@@ -7,6 +7,7 @@ import {
   AvatarImage,
 } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
+import { getImageUrl } from "@/lib/utils/imageUrl";
 
 interface ProfileAvatarProps {
   src?: string | null;
@@ -37,23 +38,6 @@ function getInitial(name: string | null | undefined): string {
   return first ? first.toUpperCase() : "؟";
 }
 
-function normalizeImageUrl(url?: string | null): string | null {
-  if (!url) return null;
-  if (
-    url.startsWith("http://") ||
-    url.startsWith("https://") ||
-    url.startsWith("data:") ||
-    url.startsWith("blob:")
-  ) {
-    return url;
-  }
-  const proxyBase = "/api/proxy/";
-  const cleanPath = url.startsWith("/") ? url.slice(1) : url;
-  if (cleanPath.startsWith("storage/")) {
-    return `${proxyBase}${cleanPath}`;
-  }
-  return `${proxyBase}storage/${cleanPath}`;
-}
 
 export function ProfileAvatar({
   src,
@@ -63,7 +47,7 @@ export function ProfileAvatar({
   showOnlineBadge = false,
 }: ProfileAvatarProps) {
   const initial = getInitial(name);
-  const normalizedSrc = normalizeImageUrl(src);
+  const resolvedSrc = getImageUrl(src) !== "/images/default-avatar.svg" ? getImageUrl(src) : null;
 
   return (
     <div className="relative inline-block shrink-0">
@@ -74,8 +58,8 @@ export function ProfileAvatar({
           className,
         )}
       >
-        {normalizedSrc && (
-          <AvatarImage src={normalizedSrc} alt={name ?? "avatar"} />
+        {resolvedSrc && (
+          <AvatarImage src={resolvedSrc} alt={name ?? "avatar"} />
         )}
         <AvatarFallback
           className={cn(
