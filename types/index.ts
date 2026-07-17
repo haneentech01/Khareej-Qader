@@ -1,5 +1,6 @@
 import React from "react";
 import type { Editor } from "@tiptap/react";
+import { POST } from "@/app/api/proxy/[...path]/route";
 
 export interface StepItem {
   number: string;
@@ -691,6 +692,21 @@ export interface ReviewSubmissionResponse {
     name: string;
     role: string;
   };
+}
+
+// ─── Submit Task (POST /tasks/{id}/submit) ──────────────────────────────────
+
+export interface SubmitTaskResponse {
+  id: number;
+  task_id: number;
+  student_id: number;
+  file: string | null;
+  grade: number | null;
+  reviewed_by: string | null;
+  reviewed_at: string | null;
+  review_notes: string | null;
+  created_at: string;
+  updated_at: string;
 }
 
 // ─── Mentor Students List (GET /mentor/students) ────────────────────────────

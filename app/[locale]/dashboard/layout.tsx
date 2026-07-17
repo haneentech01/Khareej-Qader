@@ -4,7 +4,6 @@ import { SidebarProvider } from "@/components/ui/sidebar";
 import { getTranslations } from "next-intl/server";
 import { StudentSidebar } from "@/components/dashboard/students/Layout/StudentSidebar";
 
-
 export async function generateMetadata({
   params,
 }: {
@@ -18,11 +17,17 @@ export async function generateMetadata({
   };
 }
 
-export default function DashboardLayout({
+export default async function DashboardLayout({
   children,
+  params,
 }: {
   children: React.ReactNode;
+  params: Promise<{ locale: string }>;
 }) {
+  // Awaiting params ensures this layout is fully resolved as a Server Component
+  // and never falls back to client-side rendering outside NextIntlClientProvider.
+  await params;
+
   return (
     <SidebarProvider>
       <div className="min-h-screen bg-[#F6FBFA] flex overflow-x-hidden w-full">

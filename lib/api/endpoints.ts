@@ -25,6 +25,7 @@ const endpoints = {
     uploadProfileImage: "/students/upload-profile-image",
     track: "/students/track",
     tasks: "/tasks/all",
+    submitTask: (taskId: string | number) => `/tasks/${taskId}/submit`,
     task: (id: string | number) => `/students/tasks/${id}`,
     certificates: "/students/certificates",
     studentPath: "/students/student-path",

@@ -16,6 +16,24 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "images.unsplash.com",
       },
+      // Backend storage (ngrok tunnel)
+      {
+        protocol: "https",
+        hostname: "*.ngrok-free.app",
+      },
+      {
+        protocol: "https",
+        hostname: "*.ngrok-free.dev",
+      },
+      // Local backend
+      {
+        protocol: "http",
+        hostname: "localhost",
+      },
+      {
+        protocol: "http",
+        hostname: "127.0.0.1",
+      },
     ],
   },
 

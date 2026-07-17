@@ -7,6 +7,9 @@ export const queryKeys = {
     tasks: ["student", "all-tasks"] as const,
     /** GET /students/student-path — مسار الطالب التعليمي */
     path: ["student", "path"] as const,
+    /** GET /students/tasks/{id} — تفاصيل مهمة واحدة للطالب */
+    taskDetails: (id: string | number) =>
+      ["student", "tasks", "details", id] as const,
   },
 
   // ─── Mentor ───────────────────────────────────────────────────────────────
