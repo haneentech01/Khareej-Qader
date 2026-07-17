@@ -49,7 +49,7 @@ async function proxyRequest(
   urlSearchParams.delete("path");
   const searchString = urlSearchParams.toString();
   const searchSuffix = searchString ? `?${searchString}` : "";
-  
+
   const targetUrl = `${BACKEND_URL}/${endpoint}${searchSuffix}`;
 
   // ─── 2) بناء headers ─────────────────────
@@ -160,7 +160,17 @@ async function proxyRequest(
     }
     // Case 3: Other content types
     else {
-      data = { success: true, data: responseText };
+      console.error("[proxy] Unexpected content type:", {
+        status: response.status,
+        contentType: responseContentType,
+        body: responseText.slice(0, 300),
+      });
+      return jsonError(
+        response.status >= 400 ? response.status : 502,
+        "UNEXPECTED_CONTENT_TYPE",
+        `Backend returned unexpected content type (${responseContentType || "none"}).`,
+        { bodyPreview: responseText.slice(0, 500) },
+      );
     }
   }
 
