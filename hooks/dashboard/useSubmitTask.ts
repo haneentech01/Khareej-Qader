@@ -4,9 +4,10 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import apiClient from "@/lib/api/client";
 import endpoints from "@/lib/api/endpoints";
 import { queryKeys } from "@/lib/query/keys";
-import type { ApiResponse, SubmitTaskResponse } from "@/types";
+import type { AllTaskItem, ApiResponse, SubmitTaskResponse } from "@/types";
 
 const MAX_SIZE = 10 * 1024 * 1024; // 10MB
+
 const ALLOWED_TYPES = [
   "application/pdf",
   "application/zip",
@@ -15,7 +16,6 @@ const ALLOWED_TYPES = [
   "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
   "image/png",
   "image/jpeg",
-  "image/jpg",
 ];
 
 const ALLOWED_EXTENSIONS = [
@@ -34,16 +34,6 @@ interface SubmitResult {
   data?: SubmitTaskResponse;
 }
 
-/**
- * POST /tasks/{taskId}/submit
- *
- * مسؤولية واحدة: تسليم مهمة (رفع ملف).
- *
- * ✅ بعد نجاح التسليم، بيعمل invalidate لـ:
- *    - queryKeys.student.tasks (قائمة المهام)
- *    - queryKeys.student.taskDetails(taskId) (تفاصيل المهمة دي)
- *    عشان الـ UI يتحدث ويعرض إن المهمة اتعملها submit.
- */
 export function useSubmitTask() {
   const queryClient = useQueryClient();
 
@@ -55,7 +45,6 @@ export function useSubmitTask() {
       taskId: string | number;
       file: File;
     }) => {
-      // ─── Client-side validation ──────────────────────────────────────────
       const fileExtension = "." + file.name.split(".").pop()?.toLowerCase();
 
       if (
@@ -70,24 +59,76 @@ export function useSubmitTask() {
         throw new Error("حجم الملف كبير جداً (الحد الأقصى 10MB)");
       }
 
-      // ─── Build FormData ──────────────────────────────────────────────────
       const formData = new FormData();
       formData.append("file", file);
 
-      // ─── Send request ────────────────────────────────────────────────────
       const res = await apiClient.post<ApiResponse<SubmitTaskResponse>>(
-        endpoints.student.submitTask(taskId),
+        endpoints.tasks.submit(taskId),
         formData,
-        { headers: { "Content-Type": undefined } }, // ضروري عشان axios يحط الـ boundary
+        { headers: { "Content-Type": undefined } },
       );
       return res.data;
     },
-    onSuccess: (_data, variables) => {
-      // تحديث قائمة المهام وتفاصيل المهمة الحالية
-      queryClient.invalidateQueries({ queryKey: queryKeys.student.tasks });
+    // 1️⃣ onMutate: التحديث الفوري (Optimistic Update) قبل إرسال الطلب
+    onMutate: async ({ taskId }) => {
+      // إلغاء أي طلبات جلب قيد التنفيذ لقائمة المهام
+      await queryClient.cancelQueries({ queryKey: queryKeys.student.tasks });
+
+      // حفظ النسخة القديمة للرجوع إليها في حال الخطأ
+      const previousTasks = queryClient.getQueryData<AllTaskItem[]>(
+        queryKeys.student.tasks,
+      );
+
+      // تحديث الـ cache فوراً ليعرض حالة "تحت المراجعة"
+      queryClient.setQueryData<AllTaskItem[]>(
+        queryKeys.student.tasks,
+        (oldTasks) => {
+          if (!oldTasks) return oldTasks;
+          return oldTasks.map((t) => {
+            if (t.id === Number(taskId)) {
+              return {
+                ...t,
+                submissions: [
+                  ...(t.submissions || []),
+                  {
+                    id: Date.now(),
+                    task_id: Number(taskId),
+                    student_id: 0,
+                    grade: null,
+                    file: null,
+                    reviewed_by: null,
+                    reviewed_at: null,
+                    review_notes: null,
+                    created_at: new Date().toISOString(),
+                    updated_at: new Date().toISOString(),
+                    submission_reviewed: false,
+                    reviewer: null,
+                  },
+                ],
+              };
+            }
+            return t;
+          });
+        },
+      );
+
+      return { previousTasks };
+    },
+    // 2️⃣ onError: التراجع عن التحديث الفوري في حال فشل الطلب
+    onError: (err, variables, context) => {
+      if (context?.previousTasks) {
+        queryClient.setQueryData(
+          queryKeys.student.tasks,
+          context.previousTasks,
+        );
+      }
+    },
+    // 3️⃣ onSettled: تحديث البيانات من الخادم بعد انتهاء الطلب (نجاح أو فشل)
+    onSettled: (data, error, variables) => {
       queryClient.invalidateQueries({
         queryKey: queryKeys.student.taskDetails(variables.taskId),
       });
+      queryClient.invalidateQueries({ queryKey: queryKeys.student.tasks });
     },
   });
 

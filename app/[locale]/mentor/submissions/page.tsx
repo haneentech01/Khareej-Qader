@@ -1,6 +1,6 @@
 import React from "react";
 import { getLocale, getTranslations } from "next-intl/server";
-import { SubmissionsPageMentor } from "@/components/dashboard/mentor/Submissions/List/SubmissionsPageMentor";
+import { SubmissionsContent } from "@/components/dashboard/mentor/Submissions/SubmissionsContent";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { PageHeader } from "@/components/dashboard/Layout/PageHeader";
 
@@ -37,7 +37,7 @@ export default async function MentorSubmissionsPage() {
       </div>
 
       <div>
-        <SubmissionsPageMentor />
+        <SubmissionsContent />
       </div>
     </div>
   );

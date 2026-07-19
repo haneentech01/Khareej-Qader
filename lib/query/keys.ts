@@ -5,11 +5,11 @@ export const queryKeys = {
     dashboard: ["student", "dashboard"] as const,
     /** GET /students/tasks — قائمة مهام الطالب */
     tasks: ["student", "all-tasks"] as const,
-    /** GET /students/student-path — مسار الطالب التعليمي */
-    path: ["student", "path"] as const,
-    /** GET /students/tasks/{id} — تفاصيل مهمة واحدة للطالب */
+    /** GET /tasks/{id} — تفاصيل مهمة واحدة */
     taskDetails: (id: string | number) =>
       ["student", "tasks", "details", id] as const,
+    /** GET /students/student-path — مسار الطالب التعليمي */
+    path: ["student", "path"] as const,
   },
 
   // ─── Mentor ───────────────────────────────────────────────────────────────
@@ -18,6 +18,9 @@ export const queryKeys = {
     dashboard: ["mentor", "dashboard"] as const,
     /** GET /mentor/submissions — قائمة تسليمات المنتور */
     submissions: ["mentor", "submissions"] as const,
+    /** GET /mentor/${id}/submissions — تفاصيل تسليم واحدة */
+    submissionDetails: (id: string | number) =>
+      ["mentor", "submissions", "details", id] as const,
     /** GET /tasks/list — قائمة مهام المنتور */
     tasks: ["mentor", "tasks"] as const,
     /** GET /tasks/count — عدد مهام المنتور */

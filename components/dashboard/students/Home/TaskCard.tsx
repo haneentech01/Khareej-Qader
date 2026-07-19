@@ -4,10 +4,10 @@ import { Calendar, ClipboardClock } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 interface TaskCardProps {
-  title: string;
-  context: string;
+  title?: string;
+  context?: string;
   deadline?: string;
-  description: string;
+  description?: string;
   videoName?: string;
 }
 
@@ -27,8 +27,8 @@ export function TaskCard({ title, context, deadline, description, videoName }: T
               {t("upcoming")}
             </span>
           </div>
-          {/* Deadline */}
 
+          {/* Deadline */}
           {deadline ? (
             <div className="flex items-center gap-2 text-[#93000A]">
               <Calendar className="size-4" />
@@ -41,7 +41,7 @@ export function TaskCard({ title, context, deadline, description, videoName }: T
 
         {/* Task Title */}
         <h3 className="text-xl font-bold text-black mb-1">
-          {title}
+          {title || t("no_tasks")}
         </h3>
 
         <p className="text-brand-muted mb-7">
@@ -50,8 +50,7 @@ export function TaskCard({ title, context, deadline, description, videoName }: T
 
         {/* Task Context */}
         <p className="text-brand-primary font-bold">
-          {t("context", { lesson: context })}
-          {videoName}
+          {videoName || null}
         </p>
       </div>
     </div>

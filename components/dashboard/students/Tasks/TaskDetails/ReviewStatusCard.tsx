@@ -2,41 +2,57 @@
 
 import React from "react";
 import { Clock, Check } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import Image from "next/image";
+import { StudentTaskSubmission } from "@/types";
 
 interface ReviewStatusCardProps {
   status: "pending" | "completed";
+  submission?: StudentTaskSubmission | null;
 }
 
-export function ReviewStatusCard({ status }: ReviewStatusCardProps) {
+export function ReviewStatusCard({ status, submission }: ReviewStatusCardProps) {
   const t = useTranslations("Dashboard.TaskDetailsPage");
+  const locale = useLocale();
   const isCompleted = status === "completed";
+
+
+  const formatDateTime = (isoDate: string | null | undefined) => {
+    if (!isoDate) return "—";
+    try {
+      const d = new Date(isoDate);
+      return new Intl.DateTimeFormat(locale, {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+      }).format(d);
+    } catch {
+      return isoDate;
+    }
+  };
+
+  const displayDate = isCompleted
+    ? formatDateTime(submission?.reviewed_at)
+    : formatDateTime(submission?.created_at);
 
   return (
     <div className="bg-white rounded-2xl p-6 md:p-8 
     border border-sidebar-border shadow-sm 
     flex flex-col md:flex-row justify-between
     items-start md:items-center gap-6">
+
       {/* Mentor Info */}
       <div className="flex items-center gap-4 shrink-0">
-        {/* Image Of Mentor */}
-        <div className="relative size-14 rounded-full overflow-hidden shrink-0">
-          <Image
-            src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=150"
-            alt={t("mentor_name")}
-            fill
-            className="object-cover"
-          />
-        </div>
-
-        {/* Mentor Name and Role */}
         <div className="space-y-1 text-right md:text-right">
           <span className="text-brand-muted text-xs md:text-sm block">
-            {t("mentor_review_title")}
+            {isCompleted
+              ? t("mentor_review_title")
+              : t("mentor_pending_review_title")}
           </span>
           <h5 className="font-bold text-black text-lg md:text-xl">
-            {t("mentor_name")}
+            {submission?.reviewer?.name}
           </h5>
           <span className="text-brand-base text-xs md:text-sm font-medium block">
             {t("mentor_role")}
@@ -46,7 +62,6 @@ export function ReviewStatusCard({ status }: ReviewStatusCardProps) {
 
       {/* Status Details */}
       <div className="flex items-center gap-4">
-        {/* Icon Of Status */}
         {isCompleted ? (
           <div className="size-12 rounded-full bg-brand-light flex items-center justify-center shrink-0">
             <Check className="size-6 text-brand-base stroke-3" />
@@ -57,7 +72,6 @@ export function ReviewStatusCard({ status }: ReviewStatusCardProps) {
           </div>
         )}
 
-        {/* Status Text and Date */}
         <div className="space-y-1.5">
           <h4 className={`font-bold text-lg md:text-xl 
             ${isCompleted ? "text-brand-base" : "text-brand-orange"}`}>
@@ -68,8 +82,8 @@ export function ReviewStatusCard({ status }: ReviewStatusCardProps) {
           </p>
           <p className="text-brand-muted/70 text-xs">
             {isCompleted
-              ? t("reviewed_on", { date: "25 أبريل 2024, 11:59 م" })
-              : t("submitted_on", { date: "25 أبريل 2024, 11:59 م" })
+              ? t("reviewed_on", { date: displayDate })
+              : t("submitted_on", { date: displayDate })
             }
           </p>
         </div>

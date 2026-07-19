@@ -24,11 +24,20 @@ const endpoints = {
     updateData: "/students/update-student-data",
     uploadProfileImage: "/students/upload-profile-image",
     track: "/students/track",
-    tasks: "/tasks/all",
     submitTask: (taskId: string | number) => `/tasks/${taskId}/submit`,
     task: (id: string | number) => `/students/tasks/${id}`,
     certificates: "/students/certificates",
     studentPath: "/students/student-path",
+  },
+
+  // ─── روابط المهام (Tasks) ───────────────────
+  tasks: {
+    // GET
+    all: "/tasks/all",
+    // GET /tasks/{id}
+    details: (id: string | number) => `/tasks/${id}`,
+    // POST
+    submit: (taskId: string | number) => `/tasks/${taskId}/submit`,
   },
 
   // ─── روابط الفيديو (تقدم + استكمال) ────────
@@ -47,7 +56,7 @@ const endpoints = {
     updateData: "/mentor/update-mentor-information",
     uploadProfileImage: "/mentor/upload-profile-image",
     submissions: "/tasks/submissions",
-    submission: (id: string | number) => `/mentor/submissions/${id}`,
+    submissionDetails: (id: string | number) => `/tasks/${id}/submissions`,
     students: "/mentor/students",
     student: (id: string | number) => `/mentor/students/${id}`,
     tasks: {

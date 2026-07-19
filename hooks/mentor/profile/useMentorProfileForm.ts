@@ -201,10 +201,12 @@ export function useMentorProfileForm(): UseMentorProfileFormResult {
       const file = e.target.files?.[0];
       if (!file) return;
 
+      // Reset previous state before starting a new upload
+      resetImage();
       await uploadProfileImage(file);
       if (e.target) e.target.value = "";
     },
-    [uploadProfileImage],
+    [uploadProfileImage, resetImage],
   );
 
   const handleRetry = useCallback(() => {

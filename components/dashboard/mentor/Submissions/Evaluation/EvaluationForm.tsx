@@ -7,7 +7,7 @@ import { RatingStars } from "./RatingStars";
 import { SubmitButton } from "./SubmitButton";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { useReviewSubmission } from "@/hooks/mentor/useReviewSubmission";
+import { useReviewSubmission } from "@/hooks/mentor/submissions/useReviewSubmission";
 
 export function EvaluationForm() {
     const [rating, setRating] = useState<number>(4);

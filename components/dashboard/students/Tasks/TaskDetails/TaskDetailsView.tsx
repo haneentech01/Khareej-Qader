@@ -3,27 +3,25 @@ import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { FileText } from "lucide-react";
 import Link from "next/link";
 import { ReviewStatusCard } from "./ReviewStatusCard";
-import { UploadedFilesCard } from "./UploadedFilesCard";
 import { SubmissionInfoCard } from "./SubmissionInfoCard";
 import { EvaluationCard } from "./EvaluationCard";
 import { TaskDetailsViewProps } from "@/types";
+import { UploadedFilesCard } from "./UploadedFilesCard";
 
 export function TaskDetailsView({
   id,
-  locale,
   status,
   title,
   subtitle,
-  breadcrumbItems,
   switcherCompleted,
   switcherPending,
+  submission,
+  uploadedFiles,
 }: TaskDetailsViewProps) {
   return (
     <div className="max-w-7xl mx-auto space-y-6 px-4 md:px-0 pb-12">
       {/* Top Bar with Breadcrumbs & Dynamic Switcher */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <Breadcrumbs items={breadcrumbItems} locale={locale} />
-
         {/* State Interactive Switcher */}
         <div className="flex items-center gap-1.5 
         bg-gray-bg border border-gray-200/80 p-1 
@@ -75,16 +73,16 @@ export function TaskDetailsView({
       </div>
 
       {/* Review Status Banner */}
-      <ReviewStatusCard status={status} />
+      <ReviewStatusCard status={status} submission={submission} />
 
       {/* Detail Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <SubmissionInfoCard status={status} />
-        <UploadedFilesCard />
+        <SubmissionInfoCard status={status} submission={submission} />
+        <UploadedFilesCard files={uploadedFiles} />
       </div>
 
       {/* Evaluation and Feedback Section */}
-      <EvaluationCard status={status} />
+      <EvaluationCard status={status} submission={submission} />
     </div>
   );
 }

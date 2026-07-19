@@ -1,6 +1,7 @@
 import React from "react";
 import type { Editor } from "@tiptap/react";
 import { POST } from "@/app/api/proxy/[...path]/route";
+import { number } from "framer-motion";
 
 export interface StepItem {
   number: string;
@@ -89,21 +90,6 @@ export interface TaskDetailsPageProps {
   searchParams: Promise<{
     status?: string;
   }>;
-}
-
-export interface TaskDetailsViewProps {
-  id?: string;
-  locale: string;
-  status: "pending" | "completed";
-  title: string;
-  subtitle: string;
-  breadcrumbItems: { label: string; href?: string }[];
-  switcherCompleted: string;
-  switcherPending: string;
-}
-
-export interface SubmissionInfoCardProps {
-  status: "pending" | "completed";
 }
 
 export interface SubmissionReviewPageProps {
@@ -345,15 +331,48 @@ export interface DashboardData {
 }
 
 // ─── GET /tasks/all — جميع المهام المتاحة للطالب ──────────────────
+export interface MentorReviewer {
+  id: number;
+  name: string;
+}
+
+export interface StudentTaskSubmission {
+  id: number;
+  task_id: number;
+  student_id: number;
+  grade: number | null;
+  file: string | null;
+  reviewed_by: string | null;
+  reviewed_at: string | null;
+  review_notes: string | null;
+  created_at: string;
+  updated_at: string;
+  submission_reviewed: boolean;
+  reviewer: MentorReviewer | null;
+}
 
 export interface AllTaskItem {
+  id: number | string;
   title: string;
+  course_id: number;
+  video_id: number;
   description: string;
   dead_line: string;
   created_at: string;
-  submissions: unknown[];
-  course: DashboardCourse;
   video: PathVideo;
+  submissions: StudentTaskSubmission[];
+}
+
+// GET /tasks/{id}.
+
+export interface StudentTaskDetails {
+  id: number;
+  title: string;
+  course_id: number;
+  video_id: number;
+  description: string;
+  video: PathVideo;
+  submissions: StudentTaskSubmission[];
 }
 
 export interface StudentProfile {
@@ -368,6 +387,27 @@ export interface StudentFormData {
   gender: "male" | "female" | "";
   university_name: string;
   university_major: string;
+}
+
+// Task Details Page
+export interface UploadedFile {
+  name: string;
+  size: string;
+  type: string;
+  url?: string;
+}
+
+export type SubmissionInfoCardProps = "pending" | "completed";
+
+export interface TaskDetailsViewProps {
+  id?: string;
+  status: SubmissionInfoCardProps;
+  title: string;
+  subtitle: string;
+  switcherCompleted: string;
+  switcherPending: string;
+  submission: StudentTaskSubmission | null;
+  uploadedFiles: UploadedFile[];
 }
 
 // Update Student Data (PATCH /students/update-student-data)
@@ -644,7 +684,13 @@ export interface MentorFormData {
 export interface TaskSubmissionListStudent {
   id: number;
   full_name: string;
-  profile_image: string | null;
+  profile_image?: string;
+  email?: string;
+}
+
+export interface TaskSubmissionListTask {
+  id: number;
+  title: string;
 }
 
 export interface TaskSubmissionListReviewer {
@@ -655,13 +701,28 @@ export interface TaskSubmissionListReviewer {
 export interface TaskSubmissionListItem {
   id: number;
   task_id: number;
-  task_name: string | null;
   student_id: number;
   grade: number | null;
-  reviewed_by: number | null;
+  reviewed_by: string | null;
   created_at: string | null;
+  submission_reviewed: boolean;
   student: TaskSubmissionListStudent;
+  task: TaskSubmissionListTask;
   reviewer: TaskSubmissionListReviewer | null;
+}
+
+// GET /tasks/{id}/submissions
+export interface SubmissionDetail {
+  id: number | string;
+  student_id: number;
+  file: string | null;
+  grade: number;
+  reviewed_by: string;
+  reviewed_at: string;
+  created_at: string;
+  submission_reviewed: boolean;
+  student: TaskSubmissionListStudent;
+  reviewer: TaskSubmissionListReviewer;
 }
 
 // ─── Review Task Submission (PATCH /tasks/submissions/{id}/review) ──────────
@@ -675,27 +736,16 @@ export interface ReviewSubmissionResponse {
   id: number;
   task_id: number;
   student_id: number;
-  reviewed_by: number;
   grade: number | null;
-  review_notes: string | null;
+  reviewed_by: string;
   created_at: string;
-  updated_at: string;
-  student: {
-    id: number;
-    full_name: string;
-    email: string;
-    mobile_number?: string;
-    profile_photo?: string;
-  };
-  reviewer: {
-    id: number;
-    name: string;
-    role: string;
-  };
+  submission_reviewed: boolean;
+  student: TaskSubmissionListStudent;
+  task: TaskSubmissionListTask;
+  reviewer: TaskSubmissionListReviewer | null;
 }
 
 // ─── Submit Task (POST /tasks/{id}/submit) ──────────────────────────────────
-
 export interface SubmitTaskResponse {
   id: number;
   task_id: number;

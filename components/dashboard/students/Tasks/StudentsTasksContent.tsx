@@ -5,13 +5,8 @@ import { useLocale, useTranslations } from "next-intl";
 import { DashboardSkeleton } from "../Home/DashboardSkeleton";
 import { Link } from "@/i18n/routing";
 
-interface StudentsTasksContentProps {
-    id: string;
-}
 
-export default function StudentsTasksContent({
-    id,
-}: StudentsTasksContentProps) {
+export default function StudentsTasksContent() {
     const { tasks, loading, error, refetch } = useAllTasks();
     const t = useTranslations("Dashboard");
     const locale = useLocale();
@@ -51,16 +46,16 @@ export default function StudentsTasksContent({
     return (
         <div className="container mx-auto max-w-5xl p-6">
             <div className="space-y-4">
-                {tasks.map((task, index) => (
+                {tasks.map((task) => (
                     <div
-                        key={index}
+                        key={task.id}
                         className="rounded-2xl border bg-card p-5 shadow-sm transition hover:shadow-md"
                     >
                         <div className="flex items-start justify-between gap-4">
                             <div>
-                                <h2 className="text-xl font-semibold">{task.title}</h2>
-
-
+                                <h2 className="text-xl font-semibold">
+                                    {task.title}
+                                </h2>
                                 <Link href={`/dashboard/my-track/lessons/${task.video.id}`}>
                                     <h3 className="text-brand-primary">
                                         {t("tasks.related_lesson")}: {""}
@@ -68,15 +63,13 @@ export default function StudentsTasksContent({
 
                                     </h3>
                                 </Link>
-
-
                                 <p className="mt-3 text-sm">
                                     {t("tasks.deadline")}: {formatDate(task.dead_line)}
                                 </p>
                             </div>
 
                             <div className="flex flex-col items-end gap-3">
-                                <Link href={`/dashboard/tasks/${id}`}>
+                                <Link href={`/dashboard/tasks/${task.id}`}>
                                     <button className="rounded-lg bg-brand-primary px-4 py-2 text-sm font-medium 
                                      text-white hover:opacity-90 cursor-pointer">
                                         {t("tasks.task_presentation")}

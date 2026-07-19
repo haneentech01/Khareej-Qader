@@ -8,7 +8,6 @@ import { Role } from "./types";
 const PROTECTED_ROUTES = ["/dashboard", "/mentor", "/admin"];
 const AUTH_ONLY_ROUTES = ["/login", "/register", "/register-mentor"];
 
-// أي cookie من دول بيدل على إن المستخدم مسجّل دخول
 const AUTH_COOKIE_NAMES = [
   "token",
   "access_token",

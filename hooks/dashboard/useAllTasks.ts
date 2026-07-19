@@ -10,7 +10,7 @@ interface UseAllTasksOptions {
 
 export function useAllTasks({ enabled = true }: UseAllTasksOptions = {}) {
   const { data, loading, error, refetch } = useGetData<AllTaskItem[]>(
-    endpoints.student.tasks,
+    endpoints.tasks.all,
     {
       immediate: enabled,
     },

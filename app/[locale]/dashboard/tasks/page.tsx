@@ -21,9 +21,9 @@ export async function generateMetadata({
 export default async function TasksPage({
   params,
 }: {
-  params: Promise<{ locale: string, id: string }>;
+  params: Promise<{ locale: string }>;
 }) {
-  const { locale, id } = await params;
+  const { locale } = await params;
   const t = await getTranslations("Dashboard.TasksPage");
 
   const breadcrumbItems = [
@@ -44,7 +44,7 @@ export default async function TasksPage({
       </div>
 
       <div>
-        <StudentsTasksContent id={id} />
+        <StudentsTasksContent />
       </div>
     </div>
   );

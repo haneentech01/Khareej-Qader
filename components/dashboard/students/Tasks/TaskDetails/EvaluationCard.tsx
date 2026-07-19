@@ -4,26 +4,40 @@ import React from "react";
 import { Star, Clock, Trophy } from "lucide-react";
 import { useTranslations } from "next-intl";
 
+import { StudentTaskSubmission } from "@/types";
+
 interface EvaluationCardProps {
   status: "pending" | "completed";
+  submission?: StudentTaskSubmission | null;
 }
 
-export function EvaluationCard({ status }: EvaluationCardProps) {
+export function EvaluationCard({ status, submission }: EvaluationCardProps) {
   const t = useTranslations("Dashboard.TaskDetailsPage");
   const isCompleted = status === "completed";
 
-  // Safe type-checking for evaluation points
+  // Use review_notes from submission, or split it if it has newlines. Fallback to generic text.
   let points: string[] = [];
-  try {
-    points = t.raw("evaluation_points") as string[];
-  } catch {
-    points = [
-      "عمل ممتاز في تنفيذ المتطلبات الأساسية للصفحة.",
-      "تنظيم الكود جيد جداً وسهل القراءة.",
-      "انتبه لاستخدام خصائص semantic HTML بشكل أفضل.",
-      "حاول تحسين تصميم الـ footer واضافة روابط أكثر."
-    ];
+  if (submission?.review_notes) {
+    points = submission.review_notes.split('\n').filter(p => p.trim() !== '');
+  } else {
+    try {
+      points = t.raw("evaluation_points") as string[];
+    } catch {
+      points = [
+        "عمل ممتاز في تنفيذ المتطلبات الأساسية للصفحة.",
+        "تنظيم الكود جيد جداً وسهل القراءة."
+      ];
+    }
   }
+
+  // Calculate stars from grade (out of 100)
+  const grade = submission?.grade ?? 0;
+  let starsCount = 0;
+  if (grade >= 90) starsCount = 5;
+  else if (grade >= 75) starsCount = 4;
+  else if (grade >= 60) starsCount = 3;
+  else if (grade >= 40) starsCount = 2;
+  else if (grade > 0) starsCount = 1;
 
   return (
     <div className="bg-white rounded-2xl p-6 border border-sidebar-border shadow-sm flex flex-col gap-6 w-full">
@@ -73,14 +87,16 @@ export function EvaluationCard({ status }: EvaluationCardProps) {
             </span>
             {/* Stars */}
             <div className="flex items-center gap-1 mb-3">
-              {[1, 2, 3, 4].map((num) => (
-                <Star key={num} className="size-6 text-brand-base fill-brand-base" />
+              {[1, 2, 3, 4, 5].map((num) => (
+                <Star 
+                  key={num} 
+                  className={`size-6 ${num <= starsCount ? 'text-brand-base fill-brand-base' : 'text-gray-300 fill-transparent'}`} 
+                />
               ))}
-              <Star className="size-6 text-gray-300 fill-transparent" />
             </div>
             {/* Badge */}
             <span className="bg-brand-light text-brand-primary font-bold px-5 md:px-12 py-2 rounded-lg text-sm md:text-base shadow-xs">
-              {t("evaluation_rating_text")}
+              {grade > 0 ? `${grade} / 100` : t("evaluation_rating_text")}
             </span>
           </div>
         </div>

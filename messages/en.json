@@ -297,6 +297,14 @@
         "title": "Mentor Dashboard | Khareej Qader",
         "description": "Manage your students, track their progress, and review submitted tasks."
       },
+      "submissionDetails": {
+        "title": "Task Submission | Khareej Qader",
+        "description": "View student's task submission details, task status, and uploaded files.",
+        "header": {
+          "title": "Task Submission | Khareej Qader",
+          "description": "View student's task submission details, task status, and uploaded files."
+        }
+      },
       "profile": {
         "title": "Profile",
         "subtitle": "Update your mentor information and manage your public profile",
@@ -356,7 +364,8 @@
       "deadline": "Deadline: {date}",
       "start": "Start Execution",
       "context": "Related to lesson: {lesson}",
-      "lesson_name": "HTML Structure"
+      "lesson_name": "HTML Structure",
+      "no_tasks": "You have completed all your tasks!"
     },
     "announcements": {
       "title": "Important Announcements",
@@ -415,6 +424,8 @@
     "TaskDetailsPage": {
       "title": "Building your first web page",
       "subtitle": "Related to lesson: Basic HTML page structure",
+      "switcher_completed": "Completed",
+      "switcher_pending": "Pending",
       "breadcrumb_home": "Home",
       "breadcrumb_tasks": "Tasks",
       "breadcrumb_task_title": "Building your first web page",
@@ -617,6 +628,15 @@
     }
   },
   "MentorSubmissions": {
+    "retry": "Retry",
+    "no_file": "No file uploaded",
+    "download_submission": "Download Student's File",
+    "review_form_title": "Submission Review",
+    "grade": "Grade (out of 100)",
+    "review_notes": "Mentor Notes",
+    "notes_placeholder": "Write your notes here...",
+    "submitting": "Submitting Review...",
+    "submit_review": "Submit Review",
     "breadcrumbs": {
       "home": "Home",
       "tasks": "Tasks",

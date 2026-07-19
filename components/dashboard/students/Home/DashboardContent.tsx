@@ -13,7 +13,7 @@ export function DashboardContent() {
     const t = useTranslations("Dashboard");
     const { dashboard, loading, error, refetch } = useDashboard();
 
-    // ─── Loading: Skeleton يطابق شكل الصفحة ──────
+    // ─── Loading ──────────────────────────────────
     if (loading) {
         return <DashboardSkeleton />;
     }
@@ -27,7 +27,7 @@ export function DashboardContent() {
                     onClick={() => refetch()}
                     className="text-brand-primary font-bold hover:underline"
                 >
-                    {t("retry", { defaultValue: "إعادة المحاولة" })}
+                    {t("retry")}
                 </button>
             </div>
         );
@@ -68,11 +68,11 @@ export function DashboardContent() {
                     />
                 ) : (
                     <TaskCard
-                        title={t("tasks.title")}
-                        context={t("tasks.lesson_name")}
+                        title={("")}
+                        context={("")}
                         deadline="—"
-                        description={t("tasks.description")}
-                        videoName={t("tasks.lesson_name")}
+                        description={("")}
+                        videoName={("")}
                     />
                 )}
 

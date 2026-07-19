@@ -305,6 +305,7 @@
 
   "Dashboard": {
     "retry": "إعادة المحاولة",
+    "back_to_tasks": "العودة للمهام",
     "filters": {
       "search_placeholder": "ابحث...",
       "sort_students": "ترتيب الطلاب",
@@ -328,6 +329,10 @@
         "tasks": {
           "title": "المهام | خريج قادر",
           "description": "تابع مهامك، أنجزها، واحصل على شهادتك في برنامج خريج قادر."
+        },
+        "taskDetails": {
+          "title": "تفاصيل المهمة | خريج قادر",
+          "description": "عرض تفاصيل مهمة معينة."
         },
         "certificates": {
           "title": "الشهادة | خريج قادر",
@@ -354,6 +359,14 @@
         "submissions": {
           "title": "التسليمات | خريج قادر",
           "description": "استعرض تسليمات الطلاب، راجعها، وقيّم أداءهم وتابع تقدمهم."
+        },
+        "submissionDetails": {
+          "title": "تسليم المهمة | خريج قادر",
+          "description": "عرض تفاصيل تسليم الطالب وحالة المهمة والملفات المرفقة.",
+          "header": {
+            "title": "تسليم المهمة | خريج قادر",
+            "description": "عرض تفاصيل تسليم الطالب وحالة المهمة والملفات المرفقة."
+          }
         },
         "students": {
           "title": "الطلاب | خريج قادر",
@@ -420,7 +433,8 @@
       "context": "مرتبط بدرس: {lesson}",
       "lesson_name": "هيكل صفحة HTML",
       "task_presentation": "عرض المهمة",
-      "related_lesson": "مرتبط بدرس"
+      "related_lesson": "مرتبط بدرس",
+      "no_tasks": "لقد انجزت مهامك!"
     },
 
     "mentor": {
@@ -484,14 +498,26 @@
       }
     },
     "TaskDetailsPage": {
+      "retry": "إعادة المحاولة",
+      "under_review": "تحت المراجعة",
+      "under_review_desc": "تم تسليم مهمتك بنجاح. سيقوم المنتور بمراجعتها قريباً.",
+      "submit_solution": "تسليم الحل",
+      "upload_file": "رفع الملف",
+      "file_placeholder": "اضغط لاختيار ملف (PDF, ZIP, DOC, PNG, JPG)",
+      "submit_btn": "تسليم المهمة",
+      "download_submission": "تحميل الملف المُسلَّم",
+      "submitting": "جاري التسليم...",
       "title": "بناء أول صفحة ويب",
       "subtitle": "مرتبط بدرس: هيكل صفحة HTML الأساسية",
+      "switcher_completed": "المكتملة",
+      "switcher_pending": "قيد الانتظار",
       "breadcrumb_home": "الرئيسية",
       "breadcrumb_tasks": "المهام",
       "breadcrumb_task_title": "بناء أول صفحة ويب",
-      "mentor_review_title": "تحت المراجعة بواسطة",
+      "mentor_review_title": "تمت مراجعة المهمة بواسطة المنتور",
+      "mentor_pending_review_title": "سيتم تقييم المهمة قريبا بواسطة المنتور المسؤول",
       "mentor_name": "أحمد يوسف",
-      "mentor_role": "منتور - مسار تطوير الويب",
+      "mentor_role": "منتور - المسار التدريبي الخاص بك",
       "review_status_waiting": "بانتظار المراجعة",
       "review_status_desc": "تم استلام مهمتك بنجاح وهي الآن بانتظار مراجعة المنتور.",
       "review_status_completed": "مكتملة",
@@ -516,8 +542,11 @@
         "تنظيم الكود جيد جداً وسهل القراءة.",
         "انتبه لاستخدام خصائص semantic HTML بشكل أفضل.",
         "حاول تحسين تصميم الـ footer واضافة روابط أكثر."
-      ]
+      ],
+      "review_status_not_submitted": "لم يتم التسليم",
+      "task_description": "تفاصيل المهمة"
     },
+
     "ProfilePage": {
       "title": "ملفي الشخصي",
       "subtitle": "يمكنك مراجعة وتحديث بياناتك",
@@ -560,6 +589,7 @@
         "upload_error": "فشل رفع الصورة. حاول مرة أخرى"
       }
     },
+
     "CertificatesPage": {
       "breadcrumb_home": "الرئيسية",
       "breadcrumb_certificate": "الشهادة",
@@ -595,6 +625,7 @@
         "disabled_hint": "الزر سيتفعل عند إكمال المسار بنسبة 100%"
       }
     },
+
     "LessonViewer": {
       "breadcrumb_home": "الرئيسية",
       "breadcrumb_track": "المسار التدريبي",
@@ -702,6 +733,15 @@
     }
   },
   "MentorSubmissions": {
+    "retry": "إعادة المحاولة",
+    "no_file": "لا يوجد ملف مرفوع",
+    "download_submission": "تحميل ملف الطالب",
+    "review_form_title": "تقييم التسليم",
+    "grade": "الدرجة (من 100)",
+    "review_notes": "ملاحظات المنتور",
+    "notes_placeholder": "اكتب ملاحظاتك هنا...",
+    "submitting": "جاري التقييم...",
+    "submit_review": "تأكيد التقييم",
     "breadcrumbs": {
       "home": "الرئيسية",
       "submissions": "التسليمات",

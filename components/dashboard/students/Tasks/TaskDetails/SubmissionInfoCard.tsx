@@ -3,20 +3,35 @@
 import React from "react";
 import { Calendar } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { SubmissionInfoCardProps } from "@/types";
+import { StudentTaskSubmission } from "@/types";
 
-export function SubmissionInfoCard({ status }: SubmissionInfoCardProps) {
+// تحديث الـ Props لتستقبل البيانات
+export interface SubmissionInfoCardProps {
+  status: "completed" | "pending";
+  submission: StudentTaskSubmission | null;
+  deadline?: string; // تاريخ التسليم النهائي للمهمة (إن وجد)
+}
+
+export function SubmissionInfoCard({ status, submission, deadline }: SubmissionInfoCardProps) {
   const t = useTranslations("Dashboard.TaskDetailsPage");
   const isCompleted = status === "completed";
+
+  const formatDate = (dateString?: string) => {
+    if (!dateString) return "—";
+    try {
+      return new Date(dateString).toLocaleString("ar-EG", {
+        year: "numeric", month: "long", day: "numeric",
+        hour: "2-digit", minute: "2-digit"
+      });
+    } catch {
+      return "—";
+    }
+  };
 
   const details = [
     {
       label: t("submission_date"),
-      value: "25 أبريل 2024, 11:59 م",
-    },
-    {
-      label: t("deadline_date"),
-      value: "25 أبريل 2024, 11:59 م",
+      value: formatDate(submission?.created_at),
     },
     {
       label: t("submission_status"),
@@ -32,15 +47,10 @@ export function SubmissionInfoCard({ status }: SubmissionInfoCardProps) {
         </span>
       ),
     },
-    {
-      label: t("attempts_count"),
-      value: "1",
-    },
   ];
 
   return (
     <div className="bg-white rounded-2xl p-6 border border-sidebar-border shadow-sm flex flex-col gap-6 w-full">
-      {/* Card Title */}
       <div className="flex items-center gap-2">
         <Calendar className="size-5 text-brand-orange" />
         <h4 className="font-bold text-black text-lg">
@@ -48,7 +58,6 @@ export function SubmissionInfoCard({ status }: SubmissionInfoCardProps) {
         </h4>
       </div>
 
-      {/* Details List */}
       <div className="flex flex-col divide-y divide-gray-50">
         {details.map((detail, idx) => (
           <div key={idx} className="flex items-center justify-between py-4 first:pt-0 last:pb-0">

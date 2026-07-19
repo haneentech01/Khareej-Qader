@@ -1,18 +1,18 @@
 "use client";
 
 import { AlertCircle } from "lucide-react";
-import { useMentorSubmissions } from "@/hooks/mentor/useMentorSubmissions";
+import { useMentorSubmissions } from "@/hooks/mentor/submissions/useMentorSubmissions";
 import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
 import SubmissionsTable from "./SubmissionsTable";
 
 
-export function SubmissionsPageMentor() {
+export function SubmissionsContent() {
   const tCommon = useTranslations("Dashboard");
   const { submissions, loading, error, refetch } = useMentorSubmissions();
 
   // ─── Error state ─────────────────────────────────────────────────────────
-  if (error && !loading) {
+  if (error) {
     return (
       <div className="max-w-7xl mx-auto space-y-6 md:space-y-8 pb-12 px-4 md:px-0">
         <div className="flex flex-col items-center justify-center min-h-[40vh] gap-4">

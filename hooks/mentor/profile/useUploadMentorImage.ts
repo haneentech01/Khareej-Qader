@@ -8,7 +8,14 @@ import type { ApiResponse } from "@/types";
 import { useTranslations } from "next-intl";
 
 const MAX_SIZE = 5 * 1024 * 1024;
-const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif"];
+const ALLOWED_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp", "image/gif", "image/jfif"];
+const ALLOWED_EXTENSIONS = ["jpg", "jpeg", "png", "webp", "gif", "jfif"];
+
+function isAllowedFile(file: File): boolean {
+  if (file.type && ALLOWED_TYPES.includes(file.type.toLowerCase())) return true;
+  const ext = file.name.split(".").pop()?.toLowerCase() ?? "";
+  return ALLOWED_EXTENSIONS.includes(ext);
+}
 
 interface UploadResult {
   success: boolean;
@@ -24,7 +31,7 @@ export function useUploadMentorImage() {
 
   const mutation = useMutation({
     mutationFn: async (file: File) => {
-      if (!ALLOWED_TYPES.includes(file.type)) {
+      if (!isAllowedFile(file)) {
         throw new Error(t("error_file_type"));
       }
       if (file.size > MAX_SIZE) {
@@ -39,6 +46,9 @@ export function useUploadMentorImage() {
         formData,
         { headers: { "Content-Type": undefined } },
       );
+      if (!res.data.success) {
+        throw new Error(res.data.message);
+      }
       return res.data;
     },
     onSuccess: () => {
