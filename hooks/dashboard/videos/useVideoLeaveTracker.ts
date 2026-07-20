@@ -10,10 +10,6 @@ interface UseVideoLeaveTrackerProps {
   lastSavedPositionRef: React.MutableRefObject<number>;
 }
 
-/**
- * Hook لحفظ آخر position عند مغادرة الصفحة (beforeunload).
- * Responsibility: حفظ البيانات عند الإغلاق فقط.
- */
 export function useVideoLeaveTracker({
   lessonId,
   lastSavedPositionRef,
@@ -27,7 +23,6 @@ export function useVideoLeaveTracker({
         watched_seconds: lastSavedPositionRef.current,
       };
 
-      // ★ نستخدم axios مباشرة (hooks لا تعمل في event listeners)
       apiClient
         .post(endpoints.video.progress(lessonId), payload)
         .catch(() => {});

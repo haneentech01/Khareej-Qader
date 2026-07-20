@@ -8,12 +8,9 @@ interface UseVideoResumeProps {
   lessonId: string | number;
 }
 
-/**
- * Hook لجلب آخر موضع توقف عنده الطالب في الفيديو.
- * Responsibility: Data fetching only (لا logic، لا UI).
- */
 export function useVideoResume({ lessonId }: UseVideoResumeProps) {
   const { data, loading, error, refetch } = useGetData<VideoResumeData>(
+    ["videoResume", lessonId],
     endpoints.video.resume(lessonId),
   );
 

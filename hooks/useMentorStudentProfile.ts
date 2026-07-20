@@ -1,10 +1,10 @@
 "use client";
 
 import { useMemo } from "react";
-import { StudentProfileData } from "@/types";
+import { StudentProfile } from "@/types";
 
 // Mock data for multiple students
-const MOCK_STUDENTS: Record<string, StudentProfileData> = {
+const MOCK_STUDENTS: Record<string, StudentProfile> = {
   "1": {
     id: "1",
     fullName: "محمد خالد",
@@ -79,10 +79,10 @@ const MOCK_STUDENTS: Record<string, StudentProfileData> = {
 };
 
 // Fallback student in case an unknown ID is requested
-const DEFAULT_STUDENT: StudentProfileData = MOCK_STUDENTS["1"];
+const DEFAULT_STUDENT: StudentProfile = MOCK_STUDENTS["1"];
 
 export function useMentorStudentProfile(studentId: string) {
-  const student = useMemo<StudentProfileData>(() => {
+  const student = useMemo<StudentProfile>(() => {
     return MOCK_STUDENTS[studentId] ?? DEFAULT_STUDENT;
   }, [studentId]);
 

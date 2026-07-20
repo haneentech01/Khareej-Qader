@@ -10,7 +10,6 @@ interface TaskSubmissionFormProps {
     onSubmit: (taskId: string, file: File) => Promise<boolean>;
     isSubmitting: boolean;
     submitError: string | null;
-    successMessage: string | null;
     onResetState: () => void;
 }
 
@@ -19,7 +18,6 @@ export function TaskSubmissionForm({
     onSubmit,
     isSubmitting,
     submitError,
-    successMessage,
     onResetState,
 }: TaskSubmissionFormProps) {
     const t = useTranslations("Dashboard.TaskDetailsPage");
@@ -98,7 +96,7 @@ export function TaskSubmissionForm({
                 {showSuccess && (
                     <div className="bg-green-50 text-green-700 text-sm font-bold px-4 py-3 rounded-xl border border-green-200 flex items-center gap-2 animate-in fade-in duration-300">
                         <CheckCircle2 className="size-4 shrink-0" />
-                        {successMessage || t("submit_success")}
+                        {t("submit_success")}
                     </div>
                 )}
                 {submitError && (

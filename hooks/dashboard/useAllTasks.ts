@@ -1,7 +1,7 @@
 "use client";
 
 import endpoints from "@/lib/api/endpoints";
-import type { AllTaskItem, CourseListItem } from "@/types";
+import type { AllTaskItem } from "@/types";
 import { useGetData } from "@/lib/hooks/useGetData";
 
 interface UseAllTasksOptions {
@@ -10,9 +10,10 @@ interface UseAllTasksOptions {
 
 export function useAllTasks({ enabled = true }: UseAllTasksOptions = {}) {
   const { data, loading, error, refetch } = useGetData<AllTaskItem[]>(
+    ["allTasks"],
     endpoints.tasks.all,
     {
-      immediate: enabled,
+      enabled: enabled,
     },
   );
 

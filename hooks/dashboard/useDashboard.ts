@@ -1,10 +1,10 @@
 "use client";
 
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import apiClient from "@/lib/api/client";
+import { useQueryClient } from "@tanstack/react-query";
 import endpoints from "@/lib/api/endpoints";
 import { queryKeys } from "@/lib/query/keys";
-import type { ApiResponse, DashboardData } from "@/types";
+import { useGetData } from "@/lib/hooks/useGetData";
+import type { DashboardData } from "@/types";
 
 interface UseDashboardOptions {
   enabled?: boolean;
@@ -14,27 +14,20 @@ interface UseDashboardOptions {
 export function useDashboard({ enabled = true }: UseDashboardOptions = {}) {
   const queryClient = useQueryClient();
 
-  const { data, isLoading, error, refetch } = useQuery({
-    queryKey: queryKeys.student.dashboard,
-    queryFn: async () => {
-      const res = await apiClient.get<ApiResponse<DashboardData>>(
-        endpoints.student.profile,
-      );
-      return res.data.data;
-    },
-    enabled,
-  });
+  const { data, loading, error, refetch } = useGetData<DashboardData>(
+    [...queryKeys.student.dashboard],
+    endpoints.student.profile,
+    { enabled },
+  );
 
   return {
     dashboard: data ?? null,
     student: data?.student ?? null,
     course: data?.course ?? null,
-    loading: isLoading,
-    error: error ? (error as Error).message : null,
+    loading,
+    error,
     refetch,
     invalidate: () =>
-      queryClient.invalidateQueries({
-        queryKey: queryKeys.student.dashboard,
-      }),
+      queryClient.invalidateQueries({ queryKey: queryKeys.student.dashboard }),
   };
 }

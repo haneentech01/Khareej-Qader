@@ -1,26 +1,34 @@
-// hooks/useDeleteData.ts
 "use client";
-import { useState } from "react";
+import { useMutation, UseMutationOptions } from "@tanstack/react-query";
 import apiClient from "@/lib/api/client";
 
-export function useDeleteData(url: string) {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+export function useDeleteData(
+  url: string,
+  options?: UseMutationOptions<boolean, Error, void>
+) {
+  const mutation = useMutation({
+    mutationFn: async () => {
+      try {
+        await apiClient.delete(url);
+        return true;
+      } catch (err) {
+        const e = err as { message?: string };
+        throw new Error(e.message || "حدث خطأ");
+      }
+    },
+    ...options,
+  });
 
-  const deleteData = async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      await apiClient.delete(url);
-      return true; // ← نجح
-    } catch (err) {
-      const e = err as { message?: string };
-      setError(e.message || "حدث خطأ");
-      return false; // ← فشل
-    } finally {
-      setLoading(false);
+  return {
+    ...mutation,
+    loading: mutation.isPending,
+    error: mutation.error?.message || null,
+    deleteData: async () => {
+      try {
+        return await mutation.mutateAsync();
+      } catch {
+        return false;
+      }
     }
   };
-
-  return { loading, error, deleteData };
 }

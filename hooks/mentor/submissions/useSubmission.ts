@@ -1,36 +1,38 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
-import apiClient from "@/lib/api/client";
 import endpoints from "@/lib/api/endpoints";
 import { queryKeys } from "@/lib/query/keys";
-import type { ApiResponse, SubmissionDetail } from "@/types";
+import { useGetData } from "@/lib/hooks/useGetData";
+import type { SubmissionDetail } from "@/types";
 
 interface UseSubmissionOptions {
   enabled?: boolean;
 }
 
-// GET (/tasks/submissions/{id}).
+// GET /tasks/submissions/{id}
 export function useSubmission(
   submissionId: string | number,
   { enabled = true }: UseSubmissionOptions = {},
 ) {
-  const { data, isLoading, error, refetch } = useQuery({
-    queryKey: queryKeys.mentor.submissionDetails(submissionId),
-    queryFn: async () => {
-      const res = await apiClient.get<
-        ApiResponse<SubmissionDetail | SubmissionDetail[]>
-      >(endpoints.mentor.submissionDetails(submissionId));
-      const data = res.data.data;
-      return Array.isArray(data) ? data[0] : data;
-    },
-    enabled: enabled && Boolean(submissionId),
-  });
+  const { data, loading, error, refetch } = useGetData<
+    SubmissionDetail[] | SubmissionDetail
+  >(
+    [...queryKeys.mentor.submissionDetails(submissionId)],
+    endpoints.mentor.submissionDetails(submissionId),
+    { enabled: enabled && Boolean(submissionId) },
+  );
+
+  // نُحوّل دائماً إلى كائن واحد أو null
+  const submission: SubmissionDetail | null = !data
+    ? null
+    : Array.isArray(data)
+      ? (data[0] ?? null)
+      : data;
 
   return {
-    submission: data ?? null,
-    loading: isLoading,
-    error: error ? (error as Error).message : null,
+    submission,
+    loading,
+    error,
     refetch,
   };
 }

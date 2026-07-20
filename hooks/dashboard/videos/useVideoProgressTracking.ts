@@ -18,7 +18,6 @@ export function useVideoProgressTracking({
 
   const lastSavedPositionRef = useRef(0);
 
-  // ★ useCallback لمنع إعادة إنشاء الدالة كل render
   const saveProgress = useCallback(
     async (position: number): Promise<boolean> => {
       if (position <= 0) return false;
@@ -40,7 +39,6 @@ export function useVideoProgressTracking({
     [insertData],
   );
 
-  // ★ useCallback — هذه كانت سبب الـ bug!
   const reset = useCallback(() => {
     lastSavedPositionRef.current = 0;
   }, []);

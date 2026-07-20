@@ -43,7 +43,7 @@ export function SubmissionReviewContent({
   const breadcrumbsItems = [
     { label: t("breadcrumbs.home"), href: "/mentor" },
     { label: t("breadcrumbs.submissions"), href: "/mentor/submissions" },
-    { label: (`${submission?.id}`) },
+    { label: `${submission?.task?.title}` },
   ];
 
   return (

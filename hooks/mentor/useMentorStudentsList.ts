@@ -12,9 +12,10 @@ export function useMentorStudentsList({
   enabled = true,
 }: UseMentorStudentsListOptions = {}) {
   const { data, loading, error, refetch } = useGetData<MentorStudentListItem[]>(
+    ["mentorStudentsList"],
     endpoints.mentor.students,
     {
-      immediate: enabled,
+      enabled: enabled,
     },
   );
 

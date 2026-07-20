@@ -14,9 +14,13 @@ export function useCoursesList({ enabled = true }: UseCoursesListOptions = {}) {
     loading,
     error,
     refetch: fetchData,
-  } = useGetData<CourseListItem[]>(endpoints.lookup.coursesList, {
-    immediate: enabled,
-  });
+  } = useGetData<CourseListItem[]>(
+    ["coursesList"],
+    endpoints.lookup.coursesList,
+    {
+      enabled: enabled,
+    }
+  );
 
   return {
     courses: data ?? [],

@@ -34,15 +34,6 @@ export interface SubmissionReviewer {
 
 // ─── النوع المُوحّد للتسليم ─────────────────────────────────────────────────
 
-/**
- * Submission — يمثّل تسليم طالب لمهمة، في القائمة أو التفاصيل أو التقييم.
- *
- * الحقول المُضمّنة دائماً: id, student_id, file, grade, reviewed_by,
- *   reviewed_at, created_at, submission_reviewed, student, reviewer
- *
- * الحقول الاختيارية (موجودة في القائمة العامة لكن قد تُغيب في التفاصيل):
- *   task_id, task, review_notes, updated_at
- */
 export interface Submission {
   id: number | string;
   task_id?: number;

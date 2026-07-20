@@ -13,9 +13,13 @@ export function useStatesList({ enabled = true }: UseStatesListOptions = {}) {
     loading,
     error,
     refetch: fetchData,
-  } = useGetData<StateListItem[]>(endpoints.lookup.statesList, {
-    immediate: enabled,
-  });
+  } = useGetData<StateListItem[]>(
+    ["statesList"],
+    endpoints.lookup.statesList,
+    {
+      enabled: enabled,
+    }
+  );
 
   return {
     states: data ?? [],

@@ -10,9 +10,10 @@ interface UseMentorCourses {
 
 export function useMentorCourses({ enabled = true }: UseMentorCourses = {}) {
   const { data, loading, error, refetch } = useGetData<TrackCourses[]>(
+    ["mentorCourses"],
     endpoints.video.mentorCourses,
     {
-      immediate: enabled,
+      enabled: enabled,
     },
   );
 

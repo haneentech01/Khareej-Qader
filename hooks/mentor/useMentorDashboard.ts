@@ -1,38 +1,33 @@
 "use client";
 
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import apiClient from "@/lib/api/client";
+import { useQueryClient } from "@tanstack/react-query";
 import endpoints from "@/lib/api/endpoints";
 import { queryKeys } from "@/lib/query/keys";
-import type { ApiResponse, MentorDashboardData } from "@/types";
+import { useGetData } from "@/lib/hooks/useGetData";
+import type { MentorDashboardData } from "@/types";
 
-interface UseDashboardOptions {
+interface UseMentorDashboardOptions {
   enabled?: boolean;
 }
 
-// GET /students/student-profile
+// GET /mentor/dashboard
 export function useMentorDashboard({
   enabled = true,
-}: UseDashboardOptions = {}) {
+}: UseMentorDashboardOptions = {}) {
   const queryClient = useQueryClient();
 
-  const { data, isLoading, error, refetch } = useQuery({
-    queryKey: queryKeys.mentor.dashboard,
-    queryFn: async () => {
-      const res = await apiClient.get<ApiResponse<MentorDashboardData>>(
-        endpoints.mentor.dashboard,
-      );
-      return res.data.data;
-    },
-    enabled,
-  });
+  const { data, loading, error, refetch } = useGetData<MentorDashboardData>(
+    [...queryKeys.mentor.dashboard],
+    endpoints.mentor.dashboard,
+    { enabled },
+  );
 
   return {
     mentorDashboard: data ?? null,
     mentor: data?.mentor ?? null,
     course: data?.course ?? null,
-    loading: isLoading,
-    error: error ? (error as Error).message : null,
+    loading,
+    error,
     refetch,
     invalidate: () =>
       queryClient.invalidateQueries({

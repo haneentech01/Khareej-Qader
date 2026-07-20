@@ -1,33 +1,26 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
-import apiClient from "@/lib/api/client";
 import endpoints from "@/lib/api/endpoints";
 import { queryKeys } from "@/lib/query/keys";
-import type { ApiResponse, MentorStudentsListResponse } from "@/types";
+import { useGetData } from "@/lib/hooks/useGetData";
+import type { MentorStudentsListResponse } from "@/types";
 
 interface UseMentorStudentsOptions {
   page?: number;
   enabled?: boolean;
 }
 
-//  GET /mentor/students?page={page}
+// GET /mentor/students?page={page}
 export function useMentorStudents({
   page = 1,
   enabled = true,
 }: UseMentorStudentsOptions = {}) {
-  const { data, isLoading, error, refetch } = useQuery({
-    queryKey: queryKeys.mentor.students(page),
-    queryFn: async () => {
-      const res = await apiClient.get<ApiResponse<MentorStudentsListResponse>>(
-        endpoints.mentor.students,
-        { params: { page } },
-      );
-      return res.data.data;
-    },
-    enabled,
-    placeholderData: (prev) => prev,
-  });
+  const { data, loading, error, refetch } =
+    useGetData<MentorStudentsListResponse>(
+      [...queryKeys.mentor.students(page)],
+      `${endpoints.mentor.students}?page=${page}`,
+      { enabled },
+    );
 
   return {
     students: data?.data ?? [],
@@ -42,8 +35,8 @@ export function useMentorStudents({
           links: data.links,
         }
       : null,
-    loading: isLoading,
-    error: error ? (error as Error).message : null,
+    loading,
+    error,
     refetch,
   };
 }

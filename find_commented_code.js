@@ -1,5 +1,5 @@
-const fs = import("fs");
-const path = import("path");
+const fs = require("fs");
+const path = require("path");
 
 const dirsToSearch = [
   "app",

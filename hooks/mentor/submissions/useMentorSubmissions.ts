@@ -13,8 +13,8 @@ export function useMentorSubmissions({
 }: UseMentorSubmissionsOptions = {}) {
   const { data, loading, error, refetch } = useGetData<
     TaskSubmissionListItem[]
-  >(endpoints.mentor.submissions, {
-    immediate: enabled,
+  >(["mentorSubmissions"], endpoints.mentor.submissions, {
+    enabled: enabled,
   });
 
   return {

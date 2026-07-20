@@ -12,9 +12,10 @@ export function useMentorTrackCourses({
   enabled = true,
 }: UseMentorCoursesOptions = {}) {
   const { data, loading, error } = useGetData<TrackCourses[]>(
+    ["mentorTrackCourses"],
     endpoints.mentor.trackCourses,
     {
-      immediate: enabled,
+      enabled: enabled,
     },
   );
 

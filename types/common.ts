@@ -3,7 +3,6 @@
  */
 
 import type React from "react";
-import type { Editor } from "@tiptap/react";
 
 export type Role = "student" | "mentor" | "admin";
 
@@ -21,7 +20,7 @@ export type TopNavVariant = "student" | "mentor" | "admin";
 
 export type ContributionType = "mentoring" | "jobs" | "financial";
 
-// ─── Editor / Tiptap ───────────────────────────────────────────────────────
+// ─── Editor / Toolbar (بدون Tiptap) ───────────────────────────────────────
 export interface ToolbarButtonProps {
   onClick: () => void;
   isActive?: boolean;
@@ -30,7 +29,7 @@ export interface ToolbarButtonProps {
 }
 
 export interface EditorToolbarProps {
-  editor: Editor | null;
+  editor: unknown;
 }
 
 // ─── Pagination ───────────────────────────────────────────────────────────

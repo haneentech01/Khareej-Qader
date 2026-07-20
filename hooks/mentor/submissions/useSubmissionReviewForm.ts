@@ -51,7 +51,6 @@ export function useSubmissionReviewForm(
     reviewSubmission,
     loading: isReviewing,
     error: reviewError,
-    successMessage,
     reset: resetReview,
   } = useReviewSubmission();
 
@@ -129,7 +128,7 @@ export function useSubmissionReviewForm(
     isReviewing,
     reviewError,
     showSuccess,
-    successMessage,
+    successMessage: showSuccess ? "تم التقييم بنجاح" : null,
     // Handlers
     handleGradeChange,
     handleNotesChange,

@@ -18,9 +18,10 @@ export function useVideoDetails(
   { enabled = true }: UseVideoDetailsOptions = {},
 ) {
   const { data, loading, error, refetch } = useGetData<VideoDetails>(
+    ["videoDetails", videoId],
     endpoints.video.details(videoId!),
     {
-      immediate: enabled && Boolean(videoId),
+      enabled: enabled && Boolean(videoId),
     },
   );
 

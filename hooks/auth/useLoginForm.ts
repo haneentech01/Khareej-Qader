@@ -2,7 +2,6 @@
 
 import { useRouter } from "@/i18n/routing";
 import endpoints from "@/lib/api/endpoints";
-import { setRoleCookie } from "@/lib/auth/roleCookie";
 import { useForm } from "../forms/useForm";
 import { LoginFormData, Role, ValidationErrors } from "@/types";
 import { useLocale } from "next-intl";
@@ -62,23 +61,6 @@ export function useLoginForm({
     validate,
 
     successMessage: "تم تسجيل الدخول بنجاح",
-
-    // onSuccess: (responseData) => {
-    //   const backendRole = extractRoleFromResponse(responseData);
-
-    //   const finalRole: Role = backendRole ?? selectedRole;
-
-    //   setRoleCookie(finalRole);
-
-    //   const redirectPath = DEFAULT_REDIRECT_PATHS[finalRole];
-    //   router.push(redirectPath);
-
-    //   if (backendRole && backendRole !== selectedRole) {
-    //     console.warn(
-    //       `[login] Role mismatch: user selected "${selectedRole}" but backend returned "${backendRole}". Using backend role.`,
-    //     );
-    //   }
-    // },
 
     onSuccess: async (responseData) => {
       const backendRole = extractRoleFromResponse(responseData);

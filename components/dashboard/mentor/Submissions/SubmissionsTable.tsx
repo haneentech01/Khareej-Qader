@@ -104,7 +104,7 @@ export default function SubmissionsTable({
           <span className="font-extrabold">{t("table.task")}</span>
         ),
         cell: ({ row }) => {
-          const answer = row.original.task.title ?? row.original.task_id.toString();
+          const answer = row.original.task?.title ?? row.original.task_id?.toString() ?? "—";
           const preview =
             answer.length > 50 ? `${answer.slice(0, 50)}...` : answer;
           return (

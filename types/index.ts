@@ -132,3 +132,7 @@ export type { SubmissionTask as TaskSubmissionListTask } from "./submission";
 export type { SubmissionReviewer as TaskSubmissionListReviewer } from "./submission";
 export type { SubmissionReviewer as MentorReviewer } from "./submission";
 export type { Submission as StudentTaskSubmission } from "./submission";
+
+// ─── SubmissionStatus — حالات التسليم الممكنة ─────────────────────────────
+export type SubmissionStatus = "pending" | "evaluated" | "late" | "not_submitted";
+

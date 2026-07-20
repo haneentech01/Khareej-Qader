@@ -19,7 +19,6 @@ export function TrackPageMentor() {
   }, [courses, searchQuery]);
 
   return (
-    // <div className="max-w-7xl mx-auto space-y-6 md:space-y-8 pb-12 px-4 md:px-0 animate-in fade-in duration-500">
     <div className="w-full flex flex-col gap-6 bg-white py-4 rounded-3xl">
       <MentorFilter searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
       {/* Lessons Table */}
@@ -28,6 +27,5 @@ export function TrackPageMentor() {
         loading={loading}
         error={error} />
     </div>
-    // </div>
   );
 }

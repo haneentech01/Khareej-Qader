@@ -1,8 +1,6 @@
 
 "use client";
 
-import { useEvaluationEditor } from "@/hooks/useEvaluationEditor";
-import { RichTextEditor } from "./Editor/RichTextEditor";
 import { RatingStars } from "./RatingStars";
 import { SubmitButton } from "./SubmitButton";
 import { useState } from "react";
@@ -13,7 +11,7 @@ export function EvaluationForm() {
     const [rating, setRating] = useState<number>(4);
     const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
-    const editor = useEvaluationEditor();
+    const [reviewNotes, setReviewNotes] = useState("");
     const t = useTranslations("MentorSubmissions.evaluation_card");
     const tCommon = useTranslations("MentorSubmissions");
 
@@ -43,9 +41,7 @@ export function EvaluationForm() {
 
         // تحويل النجوم (1..5) إلى درجة (0..100)
         const grade = rating * 20;
-        const reviewNotes = editor?.getText()?.trim() ?? "";
-
-        if (!reviewNotes) {
+        if (!reviewNotes.trim()) {
             return;
         }
 
@@ -63,7 +59,7 @@ export function EvaluationForm() {
         }
     };
 
-    const isSubmitDisabled = !editor?.getText()?.trim();
+    const isSubmitDisabled = !reviewNotes.trim();
 
     return (
         <form
@@ -82,7 +78,12 @@ export function EvaluationForm() {
                 />
             </div>
 
-            <RichTextEditor editor={editor} />
+            <textarea
+                value={reviewNotes}
+                onChange={(e) => setReviewNotes(e.target.value)}
+                placeholder={t("placeholder") ?? "اكتب تقييمك هنا..."}
+                className="w-full min-h-[150px] p-4 border border-gray-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-primary resize-y"
+            />
 
             {/* رسالة النجاح */}
             {successMessage && (

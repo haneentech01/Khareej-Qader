@@ -127,18 +127,21 @@ export function useMentorProfileForm(): UseMentorProfileFormResult {
   const {
     updateMentorData,
     loading: isSaving,
-    error: saveError,
-    successMessage,
+    error: rawSaveError,
     reset: resetSave,
   } = useUpdateMentorData();
+  const saveError = typeof rawSaveError === 'string' ? rawSaveError : (rawSaveError as Error | null)?.message ?? null;
   const {
     uploadProfileImage,
     loading: isUploadingImage,
-    error: imageError,
-    successMessage: imageSuccessMsg,
-    imageUrl,
+    error: rawImageError,
     reset: resetImage,
   } = useUploadMentorImage();
+  const imageError = typeof rawImageError === 'string' ? rawImageError : (rawImageError as Error | null)?.message ?? null;
+
+  const [saveSuccess, setSaveSuccess] = useState<string | null>(null);
+  const [imageSuccessMsg, setImageSuccessMsg] = useState<string | null>(null);
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
 
   // Derive initial form data directly from server data — no setState-in-effect
   const serverFormData = useMemo(
@@ -172,11 +175,17 @@ export function useMentorProfileForm(): UseMentorProfileFormResult {
   const handleFieldChange = useCallback(
     (field: keyof MentorFormData, value: string) => {
       setOverrides((prev) => ({ ...prev, [field]: value }));
-      if (successMessage || saveError) resetSave();
-      if (imageSuccessMsg || imageError) resetImage();
+      if (saveSuccess || saveError) {
+        setSaveSuccess(null);
+        resetSave();
+      }
+      if (imageSuccessMsg || imageError) {
+        setImageSuccessMsg(null);
+        resetImage();
+      }
     },
     [
-      successMessage,
+      saveSuccess,
       saveError,
       imageSuccessMsg,
       imageError,
@@ -191,6 +200,7 @@ export function useMentorProfileForm(): UseMentorProfileFormResult {
       if (!hasChanges || isSaving) return;
       const result = await updateMentorData(buildPayload(formData, mentor));
       if (result.success) {
+        setSaveSuccess(result.message ?? "تم الحفظ بنجاح");
       }
     },
     [hasChanges, isSaving, formData, mentor, updateMentorData],
@@ -203,7 +213,13 @@ export function useMentorProfileForm(): UseMentorProfileFormResult {
 
       // Reset previous state before starting a new upload
       resetImage();
-      await uploadProfileImage(file);
+      setImageSuccessMsg(null);
+      setImageUrl(null);
+      const uploadResult = await uploadProfileImage(file);
+      if (uploadResult.success && uploadResult.imageUrl) {
+        setImageUrl(uploadResult.imageUrl);
+        setImageSuccessMsg(uploadResult.message ?? "تم رفع الصورة بنجاح");
+      }
       if (e.target) e.target.value = "";
     },
     [uploadProfileImage, resetImage],
@@ -223,7 +239,7 @@ export function useMentorProfileForm(): UseMentorProfileFormResult {
     hasChanges,
     isSaving,
     saveError,
-    saveSuccess: successMessage,
+    saveSuccess,
     isUploadingImage,
     imageError,
     imageSuccess: imageSuccessMsg,

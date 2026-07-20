@@ -16,7 +16,7 @@ export function TaskDetailsContent({ taskId }: TaskDetailsContentProps) {
 
     const { task, submission, status, loading, error, refetch } = useStudentTask(taskId);
 
-    const { submitTask, loading: isSubmitting, error: submitError, successMessage, reset } = useSubmitTask();
+    const { submitTask, loading: isSubmitting, error: submitError, reset } = useSubmitTask();
 
     const handleSubmission = async (id: string, file: File): Promise<boolean> => {
         const result = await submitTask(id, file);
@@ -41,7 +41,6 @@ export function TaskDetailsContent({ taskId }: TaskDetailsContentProps) {
                                 onSubmit={handleSubmission}
                                 isSubmitting={isSubmitting}
                                 submitError={submitError}
-                                successMessage={successMessage}
                                 onResetState={reset}
                             />
                         </div>

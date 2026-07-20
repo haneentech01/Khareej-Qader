@@ -5,7 +5,6 @@ import { useGetData } from "@/lib/hooks/useGetData";
 import endpoints from "@/lib/api/endpoints";
 import { StudentPathData } from "@/types";
 
-//  تحسب الفيديو الحالي الصحيح (أول فيديو غير مكتمل).
 export function computeCurrentVideo(rawData: StudentPathData): StudentPathData {
   const videos = rawData.videos ?? [];
   const firstIncomplete = videos.find((v) => !v.completed);
@@ -36,9 +35,11 @@ export function useStudentPath() {
     loading,
     error,
     refetch,
-  } = useGetData<StudentPathData>(endpoints.student.studentPath);
+  } = useGetData<StudentPathData>(
+    ["studentPath"],
+    endpoints.student.studentPath,
+  );
 
-  // ─── Optimistic overlay للتحديثات المحلية ────────
   const [optimisticData, setOptimisticData] = useState<StudentPathData | null>(
     null,
   );
@@ -48,7 +49,7 @@ export function useStudentPath() {
   );
 
   if (serverData !== prevServerData) {
-    setPrevServerData(serverData);
+    setPrevServerData(serverData ?? null);
     setOptimisticData(null);
   }
 

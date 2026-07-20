@@ -17,8 +17,9 @@ export function useMentorStudentDetails(
   const url = studentId ? endpoints.mentor.student(studentId) : "";
 
   const { data, loading, error, refetch } = useGetData<MentorStudentDetails>(
+    ["mentorStudentDetails", studentId],
     url,
-    { immediate: enabled && Boolean(studentId) },
+    { enabled: enabled && Boolean(studentId) },
   );
 
   return {

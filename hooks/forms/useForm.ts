@@ -48,11 +48,14 @@ export function useForm<T extends Record<string, unknown>>(
   };
 
   const extractBackendErrors = (
-    data: Record<string, unknown> | null,
+    data: unknown,
   ): ValidationErrors => {
-    if (!data?.errors) return {};
+    if (!data || typeof data !== "object") return {};
+    const record = data as Record<string, unknown>;
 
-    const errors = data.errors;
+    if (!record.errors) return {};
+
+    const errors = record.errors;
     if (typeof errors === "object" && !Array.isArray(errors)) {
       return errors as ValidationErrors;
     }
@@ -71,7 +74,7 @@ export function useForm<T extends Record<string, unknown>>(
       setFieldErrors(localErrors);
       const firstKey = Object.keys(localErrors)[0];
       toast.error(
-        localErrors[firstKey]?.[0] || "يرجى ملء جميع الحقول المطلوبة",
+        localErrors[firstKey]?.[0] ?? "يرجى ملء جميع الحقول المطلوبة",
       );
       return;
     }
@@ -98,12 +101,12 @@ export function useForm<T extends Record<string, unknown>>(
       if (Object.keys(backendErrors).length > 0) {
         setFieldErrors(backendErrors);
         const firstKey = Object.keys(backendErrors)[0];
-        const firstErrorMsg = backendErrors[firstKey]?.[0] || result.message;
-        toast.error(firstErrorMsg);
-        onError?.(backendErrors, result.message);
+        const firstErrorMsg = backendErrors[firstKey]?.[0] ?? result.message;
+        toast.error(firstErrorMsg ?? "حدث خطأ غير متوقع");
+        onError?.(backendErrors, result.message ?? "خطأ");
       } else {
-        toast.error(result.message);
-        onError?.({}, result.message);
+        toast.error(result.message ?? "حدث خطأ غير متوقع");
+        onError?.({}, result.message ?? "خطأ غير متوقع");
       }
     }
   };

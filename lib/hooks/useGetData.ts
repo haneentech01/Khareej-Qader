@@ -1,53 +1,45 @@
 "use client";
-import { useState, useEffect, useCallback } from "react";
+import { useQuery, UseQueryOptions } from "@tanstack/react-query";
 import apiClient from "@/lib/api/client";
 import { ApiResponse } from "@/types";
-
-interface UseGetDataOptions {
-  immediate?: boolean;
-}
+import axios from "axios";
 
 export function useGetData<T>(
+  queryKey: unknown[],
   url: string,
-  { immediate = true }: UseGetDataOptions = {},
+  options?: Omit<
+    UseQueryOptions<T, Error, T, unknown[]>,
+    "queryKey" | "queryFn"
+  >,
 ) {
-  const [data, setData] = useState<T | null>(null);
-  const [loading, setLoading] = useState(immediate);
-  const [error, setError] = useState<string | null>(null);
+  const query = useQuery<T, Error, T, unknown[]>({
+    queryKey,
+    queryFn: async () => {
+      try {
+        const res = await apiClient.get<ApiResponse<T>>(url);
+        const { data: responseData, message } = res.data;
 
-  const fetchData = useCallback(async () => {
-    setLoading(true);
-    setError(null);
-
-    try {
-      const res = await apiClient.get<ApiResponse<T>>(url);
-      const { data: responseData, message } = res.data;
-
-      if (responseData !== null && responseData !== undefined) {
-        setData(responseData);
-        setError(null);
-      } else {
-        setError(message || "لا توجد بيانات متاحة");
+        if (responseData !== null && responseData !== undefined) {
+          return responseData;
+        }
+        throw new Error(message || "لا توجد بيانات متاحة");
+      } catch (err) {
+        if (axios.isAxiosError(err)) {
+          throw new Error(
+            err.response?.data?.message ||
+              err.message ||
+              "حدث خطأ أثناء جلب البيانات",
+          );
+        }
+        throw err;
       }
-      return responseData;
-    } catch (err) {
-      const e = err as { message?: string; response?: { status?: number } };
-      const errMsg = e.message || "حدث خطأ أثناء جلب البيانات";
-      setError(errMsg);
+    },
+    ...options,
+  });
 
-      console.error("[useGetData] Failed:", {
-        url,
-        status: e.response?.status,
-        message: errMsg,
-      });
-    } finally {
-      setLoading(false);
-    }
-  }, [url]);
-
-  useEffect(() => {
-    if (immediate) fetchData();
-  }, [immediate, fetchData]);
-
-  return { data, loading, error, refetch: fetchData };
+  return {
+    ...query,
+    loading: query.isLoading,
+    error: query.error?.message || null,
+  };
 }

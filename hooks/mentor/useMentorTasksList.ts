@@ -12,9 +12,10 @@ export function useMentorTasksList({
   enabled = true,
 }: UseMentorTasksListOptions = {}) {
   const { data, loading, error, refetch } = useGetData<MentorTaskListItem[]>(
+    ["mentorTasksList"],
     endpoints.mentor.tasks.list,
     {
-      immediate: enabled,
+      enabled: enabled,
     },
   );
 

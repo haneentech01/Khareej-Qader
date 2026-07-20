@@ -21,18 +21,22 @@ export function RegisterForm() {
 
   // ─── Hook لجلب الدول (GET) ──────────────────────
   const { data: countries } = useGetData<Country[]>(
+    ["codeCountries"],
     endpoints.lookup.codeCountries
   );
 
   const { data: universities } = useGetData<University[]>(
+    ["universities"],
     endpoints.lookup.universities
   );
 
   const { data: majors } = useGetData<Major[]>(
+    ["majors"],
     endpoints.lookup.majors
   );
 
   const { data: courses } = useGetData<CourseListItem[]>(
+    ["coursesList"],
     endpoints.lookup.coursesList
   )
 

@@ -1,9 +1,10 @@
 "use client";
 
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import apiClient from "@/lib/api/client";
+import { useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
 import endpoints from "@/lib/api/endpoints";
 import { queryKeys } from "@/lib/query/keys";
+import apiClient from "@/lib/api/client";
 import type { AllTaskItem, ApiResponse, SubmitTaskResponse } from "@/types";
 
 const MAX_SIZE = 10 * 1024 * 1024; // 10MB
@@ -36,29 +37,74 @@ interface SubmitResult {
 
 export function useSubmitTask() {
   const queryClient = useQueryClient();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const mutation = useMutation({
-    mutationFn: async ({
-      taskId,
-      file,
-    }: {
-      taskId: string | number;
-      file: File;
-    }) => {
-      const fileExtension = "." + file.name.split(".").pop()?.toLowerCase();
+  const submitTask = async (
+    taskId: string | number,
+    file: File,
+  ): Promise<SubmitResult> => {
+    // ─── Client-side validation ───────────────────────────────────────────
+    const fileExtension = "." + file.name.split(".").pop()?.toLowerCase();
 
-      if (
-        !ALLOWED_TYPES.includes(file.type) &&
-        !ALLOWED_EXTENSIONS.includes(fileExtension)
-      ) {
-        throw new Error(
-          "نوع الملف غير مدعوم. المسموح: pdf, zip, doc, docx, png, jpg, jpeg",
-        );
-      }
-      if (file.size > MAX_SIZE) {
-        throw new Error("حجم الملف كبير جداً (الحد الأقصى 10MB)");
-      }
+    if (
+      !ALLOWED_TYPES.includes(file.type) &&
+      !ALLOWED_EXTENSIONS.includes(fileExtension)
+    ) {
+      const msg =
+        "نوع الملف غير مدعوم. المسموح: pdf, zip, doc, docx, png, jpg, jpeg";
+      setError(msg);
+      return { success: false, message: msg };
+    }
+    if (file.size > MAX_SIZE) {
+      const msg = "حجم الملف كبير جداً (الحد الأقصى 10MB)";
+      setError(msg);
+      return { success: false, message: msg };
+    }
 
+    setLoading(true);
+    setError(null);
+
+    // ─── Optimistic update ────────────────────────────────────────────────
+    await queryClient.cancelQueries({ queryKey: queryKeys.student.tasks });
+    const previousTasks = queryClient.getQueryData<AllTaskItem[]>(
+      queryKeys.student.tasks,
+    );
+
+    queryClient.setQueryData<AllTaskItem[]>(queryKeys.student.tasks, (old) => {
+      if (!old) return old;
+      return old.map((t) => {
+        if (t.id !== Number(taskId)) return t;
+        return {
+          ...t,
+          submissions: [
+            ...(t.submissions || []),
+            {
+              id: Date.now(),
+              task_id: Number(taskId),
+              student_id: 0,
+              grade: null,
+              file: null,
+              reviewed_by: null,
+              reviewed_at: null,
+              review_notes: null,
+              created_at: new Date().toISOString(),
+              updated_at: new Date().toISOString(),
+              submission_reviewed: false,
+              reviewer: null,
+              student: {
+                id: 0,
+                full_name: "Student",
+                email: "",
+                profile_image: undefined,
+              },
+            },
+          ],
+        };
+      });
+    });
+
+    try {
       const formData = new FormData();
       formData.append("file", file);
 
@@ -67,97 +113,41 @@ export function useSubmitTask() {
         formData,
         { headers: { "Content-Type": undefined } },
       );
-      return res.data;
-    },
-    // 1️⃣ onMutate: التحديث الفوري (Optimistic Update) قبل إرسال الطلب
-    onMutate: async ({ taskId }) => {
-      // إلغاء أي طلبات جلب قيد التنفيذ لقائمة المهام
-      await queryClient.cancelQueries({ queryKey: queryKeys.student.tasks });
 
-      // حفظ النسخة القديمة للرجوع إليها في حال الخطأ
-      const previousTasks = queryClient.getQueryData<AllTaskItem[]>(
-        queryKeys.student.tasks,
-      );
-
-      // تحديث الـ cache فوراً ليعرض حالة "تحت المراجعة"
-      queryClient.setQueryData<AllTaskItem[]>(
-        queryKeys.student.tasks,
-        (oldTasks) => {
-          if (!oldTasks) return oldTasks;
-          return oldTasks.map((t) => {
-            if (t.id === Number(taskId)) {
-              return {
-                ...t,
-                submissions: [
-                  ...(t.submissions || []),
-                  {
-                    id: Date.now(),
-                    task_id: Number(taskId),
-                    student_id: 0,
-                    grade: null,
-                    file: null,
-                    reviewed_by: null,
-                    reviewed_at: null,
-                    review_notes: null,
-                    created_at: new Date().toISOString(),
-                    updated_at: new Date().toISOString(),
-                    submission_reviewed: false,
-                    reviewer: null,
-                  },
-                ],
-              };
-            }
-            return t;
-          });
-        },
-      );
-
-      return { previousTasks };
-    },
-    // 2️⃣ onError: التراجع عن التحديث الفوري في حال فشل الطلب
-    onError: (err, variables, context) => {
-      if (context?.previousTasks) {
-        queryClient.setQueryData(
-          queryKeys.student.tasks,
-          context.previousTasks,
-        );
-      }
-    },
-    // 3️⃣ onSettled: تحديث البيانات من الخادم بعد انتهاء الطلب (نجاح أو فشل)
-    onSettled: (data, error, variables) => {
+      // ─── Cache invalidation بعد النجاح ───────────────────────────────
       queryClient.invalidateQueries({
-        queryKey: queryKeys.student.taskDetails(variables.taskId),
+        queryKey: queryKeys.student.taskDetails(taskId),
       });
       queryClient.invalidateQueries({ queryKey: queryKeys.student.tasks });
-    },
-  });
 
-  const submitTask = async (
-    taskId: string | number,
-    file: File,
-  ): Promise<SubmitResult> => {
-    try {
-      const data = await mutation.mutateAsync({ taskId, file });
       return {
         success: true,
-        message: data.message ?? undefined,
-        data: data.data ?? undefined,
+        message: res.data.message ?? undefined,
+        data: res.data.data ?? undefined,
       };
     } catch (err) {
+      // ─── Rollback عند الخطأ ───────────────────────────────────────────
+      if (previousTasks) {
+        queryClient.setQueryData(queryKeys.student.tasks, previousTasks);
+      }
       const e = err as { message?: string };
-      return {
-        success: false,
-        message: e?.message || "حدث خطأ أثناء تسليم المهمة",
-      };
+      const msg = e?.message || "حدث خطأ أثناء تسليم المهمة";
+      setError(msg);
+      return { success: false, message: msg };
+    } finally {
+      setLoading(false);
     }
+  };
+
+  const reset = () => {
+    setLoading(false);
+    setError(null);
   };
 
   return {
     submitTask,
-    loading: mutation.isPending,
-    error: mutation.error ? (mutation.error as Error).message : null,
-    successMessage: mutation.data?.message ?? null,
-    submittedTask: mutation.data?.data ?? null,
-    reset: mutation.reset,
+    loading,
+    error,
+    reset,
   };
 }

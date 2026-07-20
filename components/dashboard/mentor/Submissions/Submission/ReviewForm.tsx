@@ -8,15 +8,10 @@ import { Input } from "@/components/ui/input";
 
 interface ReviewFormProps {
     grade: string;
-    /** القيمة الحالية للملاحظات */
     reviewNotes: string;
-    /** هل التقييم جارٍ الإرسال؟ */
     isSubmitting: boolean;
-    /** خطأ من الـ API (إن وُجد) */
     error: string | null;
-    /** هل يجب عرض رسالة النجاح؟ */
     showSuccess: boolean;
-    /** رسالة النجاح من الـ backend */
     successMessage: string | null;
 
     // ─── Handlers ────────────────────────────────────────────────────────────
@@ -25,25 +20,6 @@ interface ReviewFormProps {
     onSubmit: (e: React.FormEvent) => void;
 }
 
-/**
- * ReviewForm — Presentational Component.
- *
- * مسؤولية واحدة (SRP): عرض نموذج إدخال الدرجة والملاحظات + رسائل الحالة.
- * لا يعرف عن الـ API أو كيفية إرسال البيانات.
- *
- * @example
- * <ReviewForm
- *   grade={formData.grade}
- *   reviewNotes={formData.reviewNotes}
- *   isSubmitting={isReviewing}
- *   error={reviewError}
- *   showSuccess={showSuccess}
- *   successMessage={successMessage}
- *   onGradeChange={handleGradeChange}
- *   onNotesChange={handleNotesChange}
- *   onSubmit={handleSubmit}
- * />
- */
 export function ReviewForm({
     grade,
     reviewNotes,
@@ -61,14 +37,14 @@ export function ReviewForm({
         <div className="bg-white rounded-3xl border border-slate-100 shadow-sm p-6 md:p-8">
             <h3 className="text-lg font-bold text-black mb-4 flex items-center gap-2">
                 <Star className="size-5 text-brand-primary" />
-                {t("review_form_title", { defaultValue: "تقييم التسليم" })}
+                {t("review_form_title")}
             </h3>
 
             <form onSubmit={onSubmit} className="space-y-4">
                 {/* Grade Input */}
                 <div>
                     <label className="block text-sm font-bold text-black mb-2">
-                        {t("grade", { defaultValue: "الدرجة (من 100)" })}
+                        {t("grade")}
                     </label>
                     <Input
                         type="number"
@@ -78,7 +54,11 @@ export function ReviewForm({
                         onChange={onGradeChange}
                         disabled={isSubmitting}
                         placeholder="0"
-                        className="h-12 rounded-xl border-slate-200 focus:outline-none focus:ring-0 focus:border-slate-200"
+                        className="h-12 rounded-xl focus:outline-none focus:ring-0 focus:border-0
+                        focus-visible:ring-1
+                        focus-visible:ring-ring
+                        border-input
+                        w-full"
                         required
                     />
                 </div>
@@ -86,14 +66,14 @@ export function ReviewForm({
                 {/* Review Notes Textarea */}
                 <div>
                     <label className="block text-sm font-bold text-black mb-2">
-                        {t("review_notes", { defaultValue: "ملاحظات المنتور" })}
+                        {t("review_notes")}
                     </label>
                     <textarea
                         value={reviewNotes}
                         onChange={onNotesChange}
                         disabled={isSubmitting}
                         rows={4}
-                        placeholder={t("notes_placeholder", { defaultValue: "اكتب ملاحظاتك هنا..." })}
+                        placeholder={t("notes_placeholder")}
                         className="w-full p-4 rounded-xl border border-slate-200 focus:outline-none focus:ring-0 focus:border-slate-200 resize-none text-sm"
                     />
                 </div>
@@ -107,12 +87,12 @@ export function ReviewForm({
                     {isSubmitting ? (
                         <>
                             <Loader2 className="size-5 animate-spin" />
-                            {t("submitting", { defaultValue: "جاري التقييم..." })}
+                            {t("submitting")}
                         </>
                     ) : (
                         <>
                             <CheckCircle2 className="size-5" />
-                            {t("submit_review", { defaultValue: "تأكيد التقييم" })}
+                            {t("submit_review")}
                         </>
                     )}
                 </Button>
@@ -124,7 +104,7 @@ export function ReviewForm({
                         className="bg-green-50 text-green-700 text-sm font-bold px-4 py-3 rounded-xl border border-green-200 flex items-center gap-2 animate-in fade-in duration-300"
                     >
                         <CheckCircle2 className="size-4 shrink-0" />
-                        {successMessage || t("review_success", { defaultValue: "تم تقييم التسليم بنجاح" })}
+                        {successMessage}
                     </div>
                 )}
 
