@@ -1,8 +1,6 @@
 "use client";
 
-import React from "react";
 import { useTranslations } from "next-intl";
-import { Download, FileText } from "lucide-react";
 import type { SubmissionDetail } from "@/types";
 import { ProfileAvatar } from "@/components/dashboard/profile";
 

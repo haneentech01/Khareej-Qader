@@ -1,5 +1,5 @@
 import { MentorStudentDetailsContent } from "@/components/dashboard/mentor/Students/Student/MentorStudentDetailsContent";
-import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
+
 import { getTranslations } from "next-intl/server";
 
 interface MentorStudentDetailsPageProps {

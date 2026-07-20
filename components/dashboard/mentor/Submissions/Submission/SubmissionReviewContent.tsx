@@ -1,13 +1,7 @@
 "use client";
 
-import React, { useState, useCallback } from "react";
 import { useTranslations, useLocale } from "next-intl";
-import { Download, Star, Loader2, CheckCircle2, AlertCircle } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { ProfileAvatar, ProfilePageLayout } from "../../../profile";
-import { useSubmission } from "@/hooks/mentor/submissions/useSubmission";
-import { useReviewSubmission } from "@/hooks/mentor/submissions/useReviewSubmission";
+import { ProfilePageLayout } from "../../../profile";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { useSubmissionReviewForm } from "@/hooks/mentor/submissions/useSubmissionReviewForm";
 import { StudentSubmissionInfo } from "./StudentSubmissionInfo";

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { Link } from "@/i18n/routing";
 import { AlertTriangle, ChevronLeft, ChevronRight, Eye } from "lucide-react";
@@ -171,6 +171,7 @@ export default function SubmissionsTable({
     [t, locale, Chevron]
   );
 
+  // eslint-disable-next-line react-hooks/incompatible-library
   const table = useReactTable({
     data: submissions,
     columns,

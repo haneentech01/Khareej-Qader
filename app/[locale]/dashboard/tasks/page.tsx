@@ -1,7 +1,5 @@
 import { getTranslations } from "next-intl/server";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
-import { FileUpload } from "@/components/dashboard/students/Tasks/FileUpload";
-import { PreviousTaskItem } from "@/components/dashboard/students/Tasks/PreviousTaskItem";
 import { PageHeader } from "@/components/dashboard/Layout/PageHeader";
 import StudentsTasksContent from "@/components/dashboard/students/Tasks/StudentsTasksContent";
 

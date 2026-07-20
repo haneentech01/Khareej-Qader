@@ -23,7 +23,6 @@ export function useReviewSubmission() {
   ): Promise<ReviewResult> => {
     try {
       const { default: apiClient } = await import("@/lib/api/client");
-      const { default: axios } = await import("axios");
 
       const res = await apiClient.patch(
         endpoints.mentor.tasks.reviewSubmission(submissionId),

@@ -1,4 +1,3 @@
-import { useTranslations } from 'next-intl';
 import { Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 
@@ -14,8 +13,6 @@ export const Filter = ({
   setSearchQuery,
   placeholder
 }: StudentsFilterProps) => {
-  const t = useTranslations('Dashboard.filters');
-
   return (
     <div className="flex flex-col md:flex-row items-center mb-0
     bg-white p-4 rounded-xl ">

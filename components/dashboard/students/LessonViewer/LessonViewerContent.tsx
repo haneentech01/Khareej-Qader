@@ -1,13 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import {
-  ArrowLeft,
-  ArrowRight,
-  CheckCircle2,
-  LockKeyholeIcon,
-} from "lucide-react";
+import { ArrowLeft, ArrowRight, LockKeyholeIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { VideoPlayer } from "./VideoPlayer";
 import { Link } from "@/i18n/routing";

@@ -1,10 +1,7 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
-import apiClient from "@/lib/api/client";
 import endpoints from "@/lib/api/endpoints";
-import { queryKeys } from "@/lib/query/keys";
-import type { ApiResponse, VideoDetails } from "@/types";
+import type { VideoDetails } from "@/types";
 import { useGetData } from "@/lib/hooks/useGetData";
 
 interface UseVideoDetailsOptions {
@@ -12,7 +9,6 @@ interface UseVideoDetailsOptions {
 }
 
 // GET /videos/details/{id}
-
 export function useVideoDetails(
   videoId: string | number | null | undefined,
   { enabled = true }: UseVideoDetailsOptions = {},

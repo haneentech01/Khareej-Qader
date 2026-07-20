@@ -1,13 +1,11 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { Link } from "@/i18n/routing";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Search, ChevronLeft, ChevronRight, BookOpenText, Loader2, Inbox, Eye } from "lucide-react";
+import { BookOpenText, Loader2, Inbox, Eye } from "lucide-react";
 import type { TrackCourses } from "@/types";
 
-// Helper لتحويل الثواني لصيغة MM:SS
 function formatDuration(seconds: number): string {
   const h = Math.floor(seconds / 3600);
   const m = Math.floor((seconds % 3600) / 60);

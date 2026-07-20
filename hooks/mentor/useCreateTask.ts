@@ -1,14 +1,10 @@
 "use client";
 
 import endpoints from "@/lib/api/endpoints";
-import { queryKeys } from "@/lib/query/keys";
 import { useInsertData } from "@/lib/hooks/useInsertData";
 import type { CreateTaskPayload, CreateTaskResponse } from "@/types";
 
-/**
- * useCreateTask — Hook لإنشاء مهمة جديدة من المنتور.
- * POST /mentor/tasks/create
- */
+//POST /mentor/tasks/create
 export function useCreateTask() {
   const { loading, insertData } = useInsertData<CreateTaskResponse>(
     endpoints.mentor.tasks.create,

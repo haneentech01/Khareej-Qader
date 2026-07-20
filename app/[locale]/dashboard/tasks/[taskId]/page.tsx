@@ -1,6 +1,5 @@
 import React from "react";
 import { getTranslations } from "next-intl/server";
-import { TaskDetailsView } from "@/components/dashboard/students/Tasks/TaskDetails/TaskDetailsView";
 import { TaskDetailsContent } from "@/components/dashboard/students/Tasks/TaskDetails/TaskDetailsContent";
 
 interface TaskDetailsPageProps {
