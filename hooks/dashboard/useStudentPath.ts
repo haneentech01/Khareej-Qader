@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useState, useEffect } from "react";
 import { useGetData } from "@/lib/hooks/useGetData";
 import endpoints from "@/lib/api/endpoints";
 import { StudentPathData } from "@/types";
@@ -44,14 +44,9 @@ export function useStudentPath() {
     null,
   );
 
-  const [prevServerData, setPrevServerData] = useState<StudentPathData | null>(
-    null,
-  );
-
-  if (serverData !== prevServerData) {
-    setPrevServerData(serverData ?? null);
+  useEffect(() => {
     setOptimisticData(null);
-  }
+  }, [serverData]);
 
   const data = useMemo(() => {
     const source = optimisticData ?? serverData;

@@ -7,6 +7,7 @@ import { LoginFormData, Role, ValidationErrors } from "@/types";
 import { useLocale } from "next-intl";
 import { toast } from "react-toastify";
 import apiClient from "@/lib/api/client";
+import { setRoleCookie } from "@/lib/auth/roleCookie";
 
 const validate = (values: LoginFormData): ValidationErrors => {
   const errors: ValidationErrors = {};
@@ -68,7 +69,7 @@ export function useLoginForm({
       const finalRole: Role = backendRole ?? selectedRole;
 
       try {
-        await apiClient.post("/api/auth/role", { role: finalRole });
+        setRoleCookie(finalRole);
       } catch (err) {
         console.warn("[login] Failed to set role cookie:", err);
       }
