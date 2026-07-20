@@ -39,3 +39,4 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+app.zip components.zip hooks.zip lib.zip messages.zip providers.zip

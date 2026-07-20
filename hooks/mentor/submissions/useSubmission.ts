@@ -10,7 +10,7 @@ interface UseSubmissionOptions {
   enabled?: boolean;
 }
 
-// GET (/mentor/[id]/submissions).
+// GET (/tasks/submissions/{id}).
 export function useSubmission(
   submissionId: string | number,
   { enabled = true }: UseSubmissionOptions = {},
@@ -18,9 +18,9 @@ export function useSubmission(
   const { data, isLoading, error, refetch } = useQuery({
     queryKey: queryKeys.mentor.submissionDetails(submissionId),
     queryFn: async () => {
-      const res = await apiClient.get<ApiResponse<SubmissionDetail | SubmissionDetail[]>>(
-        endpoints.mentor.submissionDetails(submissionId),
-      );
+      const res = await apiClient.get<
+        ApiResponse<SubmissionDetail | SubmissionDetail[]>
+      >(endpoints.mentor.submissionDetails(submissionId));
       const data = res.data.data;
       return Array.isArray(data) ? data[0] : data;
     },

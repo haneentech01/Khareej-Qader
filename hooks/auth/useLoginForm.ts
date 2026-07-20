@@ -7,6 +7,7 @@ import { useForm } from "../forms/useForm";
 import { LoginFormData, Role, ValidationErrors } from "@/types";
 import { useLocale } from "next-intl";
 import { toast } from "react-toastify";
+import apiClient from "@/lib/api/client";
 
 const validate = (values: LoginFormData): ValidationErrors => {
   const errors: ValidationErrors = {};
@@ -62,12 +63,33 @@ export function useLoginForm({
 
     successMessage: "تم تسجيل الدخول بنجاح",
 
-    onSuccess: (responseData) => {
+    // onSuccess: (responseData) => {
+    //   const backendRole = extractRoleFromResponse(responseData);
+
+    //   const finalRole: Role = backendRole ?? selectedRole;
+
+    //   setRoleCookie(finalRole);
+
+    //   const redirectPath = DEFAULT_REDIRECT_PATHS[finalRole];
+    //   router.push(redirectPath);
+
+    //   if (backendRole && backendRole !== selectedRole) {
+    //     console.warn(
+    //       `[login] Role mismatch: user selected "${selectedRole}" but backend returned "${backendRole}". Using backend role.`,
+    //     );
+    //   }
+    // },
+
+    onSuccess: async (responseData) => {
       const backendRole = extractRoleFromResponse(responseData);
 
       const finalRole: Role = backendRole ?? selectedRole;
 
-      setRoleCookie(finalRole);
+      try {
+        await apiClient.post("/api/auth/role", { role: finalRole });
+      } catch (err) {
+        console.warn("[login] Failed to set role cookie:", err);
+      }
 
       const redirectPath = DEFAULT_REDIRECT_PATHS[finalRole];
       router.push(redirectPath);

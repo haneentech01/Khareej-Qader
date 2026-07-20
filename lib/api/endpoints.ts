@@ -56,7 +56,7 @@ const endpoints = {
     updateData: "/mentor/update-mentor-information",
     uploadProfileImage: "/mentor/upload-profile-image",
     submissions: "/tasks/submissions",
-    submissionDetails: (id: string | number) => `/tasks/${id}/submissions`,
+    submissionDetails: (id: string | number) => `/tasks/submissions/${id}`,
     students: "/mentor/students",
     student: (id: string | number) => `/mentor/students/${id}`,
     tasks: {

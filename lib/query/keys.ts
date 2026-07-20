@@ -18,7 +18,7 @@ export const queryKeys = {
     dashboard: ["mentor", "dashboard"] as const,
     /** GET /mentor/submissions — قائمة تسليمات المنتور */
     submissions: ["mentor", "submissions"] as const,
-    /** GET /mentor/${id}/submissions — تفاصيل تسليم واحدة */
+    /** GET /tasks/${id}/submissions — تفاصيل تسليم واحدة */
     submissionDetails: (id: string | number) =>
       ["mentor", "submissions", "details", id] as const,
     /** GET /tasks/list — قائمة مهام المنتور */
