@@ -27,7 +27,7 @@ export function AuthLayout({
             alt="Areisto Academy"
             width={90}
             height={40}
-            className="object-contain w-[150px] h-[60px] md:w-56 md:h-24"
+            className="object-contain w-37.5 h-15 md:w-56 md:h-24"
           />
         </Link>
       </div>
@@ -35,7 +35,7 @@ export function AuthLayout({
       {/* Form */}
       <div className="flex flex-col items-center lg:items-start justify-start 
       w-full lg:w-1/2 p-6 md:p-12 overflow-y-auto">
-        <div className="w-full lg:max-w-[634px]">
+        <div className="w-full lg:max-w-158.5">
           {children}
         </div>
       </div>

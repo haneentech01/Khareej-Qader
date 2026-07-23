@@ -64,7 +64,7 @@ export function useMentorRegisterForm() {
       "تم إنشاء حسابك بنجاح — يرجى مراقبة بريدك الإلكتروني لتفعيل الحساب",
 
     onSuccess: () => {
-      router.push("/login?registered=true");
+      router.push("/login?registered=true&role=mentor");
     },
   });
 }

@@ -5,7 +5,16 @@ import axios from "axios";
 
 export function useInsertData<T>(
   url: string,
-  options?: UseMutationOptions<{ success: boolean; data?: T; status?: number | null; message?: string }, Error, Record<string, unknown> | FormData>
+  options?: UseMutationOptions<
+    {
+      success: boolean;
+      data?: T;
+      status?: number | null;
+      message?: string;
+    },
+    Error,
+    Record<string, unknown> | FormData
+  >,
 ) {
   const mutation = useMutation({
     mutationFn: async (body: Record<string, unknown> | FormData) => {
@@ -14,7 +23,8 @@ export function useInsertData<T>(
         return { success: true, data: res.data };
       } catch (err) {
         if (axios.isAxiosError(err)) {
-          const message = err.message || err.response?.data?.message || "حدث خطأ غير متوقع";
+          const message =
+            err.message || err.response?.data?.message || "حدث خطأ غير متوقع";
           throw new Error(message);
         }
         const fallbackErr = err as { message?: string };
@@ -36,9 +46,9 @@ export function useInsertData<T>(
           success: false,
           status: null,
           data: null,
-          message: err instanceof Error ? err.message : "حدث خطأ غير متوقع"
+          message: err instanceof Error ? err.message : "حدث خطأ غير متوقع",
         };
       }
-    }
+    },
   };
 }

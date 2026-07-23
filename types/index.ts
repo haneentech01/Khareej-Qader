@@ -125,6 +125,19 @@ export type {
   MentorLesson,
 } from "./mentor";
 
+// ─── Admin ────────────────────────────────────────────────────────────────
+export type {
+  AdminProfile,
+  AdminPermission,
+  AdminLoginResponse,
+  AdminLoginPayload,
+  AdminStudent,
+  AdminMentor,
+  AdminCourse,
+  CreateCoursePayload,
+  DashboardStats,
+} from "./admin";
+
 export type { Submission as TaskSubmissionListItem } from "./submission";
 export type { Submission as SubmissionDetail } from "./submission";
 export type { SubmissionStudent as TaskSubmissionListStudent } from "./submission";
@@ -134,5 +147,8 @@ export type { SubmissionReviewer as MentorReviewer } from "./submission";
 export type { Submission as StudentTaskSubmission } from "./submission";
 
 // ─── SubmissionStatus — حالات التسليم الممكنة ─────────────────────────────
-export type SubmissionStatus = "pending" | "evaluated" | "late" | "not_submitted";
-
+export type SubmissionStatus =
+  | "pending"
+  | "evaluated"
+  | "late"
+  | "not_submitted";

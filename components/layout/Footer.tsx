@@ -6,6 +6,7 @@ import Image from "next/image";
 import { FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa";
 import { motion, Variants } from "framer-motion";
 import { useScrollAnimation } from "@/hooks/layout/useScrollAnimation";
+import { ShieldCheck } from "lucide-react";
 
 export function Footer() {
   const t = useTranslations("Footer");
@@ -68,7 +69,7 @@ export function Footer() {
                 alt="Khareej Qader"
                 width={180}
                 height={108}
-                className="w-[131px] md:w-[150px] h-auto"
+                className="w-32.75 md:w-37.5 h-auto"
               />
             </Link>
             <p className="text-brand-muted text-sm lg:text-base mt-4 leading-relaxed">
@@ -155,6 +156,15 @@ export function Footer() {
               {t("rights")}
             </p>
           </div>
+
+          <Link
+            href="/admin/login"
+            className="text-slate-300 hover:text-brand-primary text-xs font-medium transition-colors inline-flex items-center gap-1.5"
+            title="Admin Panel"
+          >
+            <ShieldCheck className="size-3.5" />
+            {t("admin_panel")}
+          </Link>
         </motion.div>
       </motion.div>
     </footer>

@@ -6,8 +6,6 @@ import { useForm } from "../forms/useForm";
 import { LoginFormData, Role, ValidationErrors } from "@/types";
 import { useLocale } from "next-intl";
 import { toast } from "react-toastify";
-import apiClient from "@/lib/api/client";
-import { setRoleCookie } from "@/lib/auth/roleCookie";
 
 const validate = (values: LoginFormData): ValidationErrors => {
   const errors: ValidationErrors = {};
@@ -69,7 +67,11 @@ export function useLoginForm({
       const finalRole: Role = backendRole ?? selectedRole;
 
       try {
-        setRoleCookie(finalRole);
+        await fetch("/api/auth/role", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ role: finalRole }),
+        });
       } catch (err) {
         console.warn("[login] Failed to set role cookie:", err);
       }

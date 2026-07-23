@@ -22,7 +22,6 @@ export function useSubmission(
     { enabled: enabled && Boolean(submissionId) },
   );
 
-  // نُحوّل دائماً إلى كائن واحد أو null
   const submission: SubmissionDetail | null = !data
     ? null
     : Array.isArray(data)

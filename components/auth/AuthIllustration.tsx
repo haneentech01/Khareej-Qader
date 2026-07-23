@@ -54,7 +54,7 @@ export function AuthIllustration({
             alt="Illustration"
             width={imageSrc.includes("signupMentorLogo") ? 585 : 609}
             height={imageSrc.includes("signupMentorLogo") ? 562 : 560}
-            className="w-full max-w-[600px] lg:max-w-[600px] h-auto object-contain"
+            className="w-full max-w-150 lg:max-w-150 h-auto object-contain"
             priority
           />
         </motion.div>
@@ -69,7 +69,7 @@ export function AuthIllustration({
               transition={{ delay: 0.2 + index * 0.1 }}
               className="flex items-center justify-center gap-2.5 bg-white rounded-[10px] 
               shadow-[0_5px_5px_0px_#0000000D] border border-slate-50 
-              max-w-[250px] h-[92px]"
+              max-w-62.5 h-23"
             >
               <div className="shrink-0">
                 {benefit.icon}

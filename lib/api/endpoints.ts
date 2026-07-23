@@ -13,7 +13,7 @@ const endpoints = {
       logout: "/mentor/auth/logout",
     },
     admin: {
-      login: "/admin/auth/login",
+      login: "/admin/login",
       logout: "/admin/auth/logout",
     },
   },
@@ -73,10 +73,26 @@ const endpoints = {
 
   // ─── روابط الأدمن ───────────────────────────
   admin: {
-    students: "/admin/students",
-    student: (id: string) => `/admin/students/${id}`,
-    mentors: "/admin/mentors",
-    stats: "/admin/stats",
+    // Courses management
+    courses: "/course/all-course",
+    createCourse: "/course/create",
+
+    // Students management
+    students: "/students/all-students",
+    enableStudent: (slug: string) => `/students/enableAccount/${slug}`,
+    disableStudent: (slug: string) => `/students/disableAccount/${slug}`,
+
+    // Mentors management
+    mentors: "/mentor/all-mentors",
+    enableMentor: (slug: string) => `/mentor/enable-account/${slug}`,
+    disableMentor: (slug: string) => `/mentor/disable-account/${slug}`,
+
+    // GET /mentor/count
+    mentorsCount: "/mentor/count",
+    // GET /students/count
+    studentsCount: "/students/count",
+    // GET /course/count
+    coursesCount: "/course/count",
   },
 
   // ─── Lookup data (بيانات القوائم المنسدلة) ──

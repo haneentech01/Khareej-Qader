@@ -35,12 +35,18 @@ export const queryKeys = {
 
   // ─── Admin ────────────────────────────────────────────────────────────────
   admin: {
-    /** GET /admin/stats — إحصائيات الأدمن */
-    stats: ["admin", "stats"] as const,
-    /** GET /admin/students — قائمة الطلاب */
+    /** GET /students/all-students — قائمة الطلاب */
     students: ["admin", "students"] as const,
-    /** GET /admin/mentors — قائمة المنتورات */
+    /** GET /mentor/all-mentors — قائمة المنتورات */
     mentors: ["admin", "mentors"] as const,
+    /** GET /course/all-course — قائمة الكورسات */
+    courses: ["admin", "courses"] as const,
+    /** GET /students/count — عدد الطلاب (للـ Dashboard) */
+    studentsCount: ["admin", "students-count"] as const,
+    /** GET /mentor/count — عدد المنتورات (للـ Dashboard) */
+    mentorsCount: ["admin", "mentors-count"] as const,
+    /** GET /course/count — عدد الكورسات (للـ Dashboard) */
+    coursesCount: ["admin", "courses-count"] as const,
   },
 
   // ─── Video ───────────────────────────────────────────────────────────────

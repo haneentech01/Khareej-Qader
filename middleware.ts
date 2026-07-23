@@ -77,7 +77,7 @@ export default async function middleware(request: NextRequest) {
 
   // ─── 1) لو المسار محمي والـ user مش مسجل → وجّه لـ login ──
   const isProtected = PROTECTED_ROUTES.some((route) =>
-    pathname.includes(route),
+    pathname.includes(route) && !pathname.includes("/admin/login")
   );
 
   if (isProtected && !hasAuth) {

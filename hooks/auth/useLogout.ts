@@ -35,7 +35,7 @@ export function useLogout({ role, redirectPath }: UseLogoutOptions) {
     setError(null);
 
     try {
-      // ─── 1) Backend logout (يمسح الـ http-only token cookie) ─────────────
+      // ─── 1) Backend logout ─────────────
       await callLogout({});
     } catch (err) {
       const errMsg =
@@ -51,6 +51,11 @@ export function useLogout({ role, redirectPath }: UseLogoutOptions) {
       );
       setError(errMsg);
     } finally {
+      try {
+        await fetch("/api/auth/role", { method: "DELETE" });
+      } catch (err) {
+        console.warn("[logout] Failed to clear role cookie via API:", err);
+      }
       clearRoleCookie();
       queryClient.clear();
       router.refresh();

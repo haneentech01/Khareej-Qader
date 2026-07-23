@@ -29,7 +29,6 @@ export function useReviewSubmission() {
         payload,
       );
 
-      // تحديث الـ cache بعد النجاح
       queryClient.invalidateQueries({ queryKey: queryKeys.mentor.submissions });
       queryClient.invalidateQueries({ queryKey: queryKeys.mentor.dashboard });
 

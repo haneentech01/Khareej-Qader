@@ -195,7 +195,8 @@
     "email_placeholder": "أدخل بريدك الإلكتروني",
     "subscribe_btn": "اشتراك",
     "contact_us": "تواصل معنا",
-    "rights": "2026 Areisto Academy.© جميع الحقوق محفوظة"
+    "rights": "2026 Areisto Academy.© جميع الحقوق محفوظة",
+    "admin_panel": "لوحة الأدمن"
   },
 
   "Auth": {
@@ -443,6 +444,7 @@
       "bio": "أحمد مطور واجهات خبير متخصص في تعليم تقنيات الويب الحديثة وتبسيط المفاهيم المعقدة للمبتدئين.",
       "contact": "تواصل مع المرشد"
     },
+
     "certificate": {
       "title": "الشهادة",
       "description": "أكمل مسارك للحصول على الشهادة المعتمدة وابدأ رحلتك المهنية.",
@@ -450,6 +452,7 @@
       "steps_completed": "{completed} من {total} مكتمل",
       "details": "عرض التفاصيل"
     },
+
     "announcements": {
       "title": "إعلانات مهمة",
       "view_all": "عرض الكل",
@@ -459,6 +462,7 @@
       "item2_desc": "موعدك القادم مع مرشد المسار",
       "october": "أكتوبر"
     },
+
     "MyTrack": {
       "retry": "إعادة المحاولة",
       "title": "مساري",
@@ -472,6 +476,7 @@
       "status_current": "الدرس الحالي",
       "status_locked": "مقفل"
     },
+
     "TasksPage": {
       "title": "مهامي",
       "subtitle": "نفذ المهام المرتبطة بدوروسك وطبق ما تعلمته لتحسين مهاراتك.",
@@ -497,6 +502,7 @@
         "submitted_on": "تم التسليم في {date}"
       }
     },
+
     "TaskDetailsPage": {
       "retry": "إعادة المحاولة",
       "under_review": "تحت المراجعة",
@@ -732,6 +738,7 @@
       "send_email": "إرسال بريد إلى الطلاب"
     }
   },
+
   "MentorSubmissions": {
     "retry": "إعادة المحاولة",
     "no_file": "لا يوجد ملف مرفوع",
@@ -1185,6 +1192,418 @@
       "title": "آخر التسليمات",
       "view_all": "عرض الكل",
       "empty": "لا توجد تسليمات حتى الآن."
+    }
+  },
+
+  "Admin": {
+    "common": {
+      "cancel": "إلغاء",
+      "close": "إغلاق",
+      "search": "بحث",
+      "filter": "فلترة",
+      "loading": "جاري التحميل...",
+      "saving": "جاري الحفظ...",
+      "delete": "حذف",
+      "restore": "استعادة",
+      "force_delete": "حذف نهائي",
+      "edit": "تعديل",
+      "view": "عرض",
+      "actions": "إجراءات",
+      "confirm": "تأكيد",
+      "yes": "نعم",
+      "no": "لا",
+      "all": "الكل",
+      "page": "صفحة",
+      "of": "من",
+      "total": "الإجمالي",
+      "no_data": "لا توجد بيانات",
+      "error_occurred": "حدث خطأ",
+      "retry": "إعادة المحاولة"
+    },
+
+    "metadata": {
+      "title": "لوحة تحكم الأدمن",
+      "description": "إدارة المنصة التعليمية — الطلاب والمنتورات والكورسات"
+    },
+
+    "login": {
+      "title": "تسجيل دخول الأدمن",
+      "subtitle": "أدخل بيانات الأدمن للوصول للوحة التحكم",
+      "username": "اسم المستخدم",
+      "username_placeholder": "ادخل اسم المستخدم",
+      "password": "كلمة المرور",
+      "password_placeholder": "ادخل كلمة السر",
+      "submit": "تسجيل الدخول",
+      "submitting": "جاري تسجيل الدخول...",
+      "default_credentials_hint": "بيانات الدخول الافتراضية مُعبّأة مسبقاً — يمكنك تعديلها إن لزم.",
+      "back_to_home": "العودة للرئيسية",
+      "welcome_back": "أهلاً {name}!"
+    },
+
+    "sidebar": {
+      "dashboard": "الرئيسية",
+      "admins": "الأدمن",
+      "courses": "الكورسات",
+      "tasks": "المهام",
+      "pending_tasks": "المهام المعلّقة",
+      "students": "الطلاب",
+      "trashed_students": "الطلاب المحذوفين",
+      "mentors": "المنتورات",
+      "logout": "تسجيل الخروج",
+      "section_management": "الإدارة",
+      "section_users": "المستخدمون",
+      "section_content": "المحتوى"
+    },
+
+    "topNav": {
+      "welcome": "أهلاً، {name}",
+      "notifications": "الإشعارات",
+      "profile": "الملف الشخصي"
+    },
+
+    "dashboard": {
+      "header": {
+        "title": "لوحة تحكم الأدمن",
+        "subtitle": "متابعة الطلاب والمنتورات والكورسات والمهام",
+        "create_course": "إنشاء كورس جديد"
+      },
+      "title": "لوحة التحكم",
+      "subtitle": "نظرة عامة على المنصة",
+      "stats": {
+        "students": "الطلاب",
+        "students_unit": "طالب",
+        "mentors": "المنتورات",
+        "mentors_unit": "منتور",
+        "courses": "الكورسات",
+        "courses_unit": "كورس",
+        "active_users": "المستخدمون النشطون",
+        "active_users_unit": "نشط",
+        "active_students": "الطلاب النشطون",
+        "active_mentors": "المنتورات النشطون",
+        "tasks": "المهام",
+        "pending_tasks": "المهام المعلّقة",
+        "submissions": "التسليمات",
+        "pending_submissions": "التسليمات المعلّقة"
+      },
+      "quick_actions": {
+        "title": "الإجراءات السريعة",
+        "create_course": "إضافة كورس",
+        "add_admin": "إضافة أدمن",
+        "manage_students": "إدارة الطلاب",
+        "manage_mentors": "إدارة المنتورات",
+        "pending_tasks": "المهام المعلقة"
+      },
+      "overview": {
+        "title": "نظرة عامة على المنصة",
+        "total_members": "إجمالي أعضاء المنصة: {count}",
+        "students_ratio": "نسبة الطلاب",
+        "mentors_ratio": "نسبة المنتورات",
+        "total_courses": "إجمالي الكورسات"
+      },
+      "recent_students": {
+        "title": "آخر الطلاب المسجّلين",
+        "view_all": "عرض الكل",
+        "empty": "لا يوجد طلاب مسجلون حديثاً"
+      },
+      "recent_mentors": {
+        "title": "آخر المنتورات المسجّلين",
+        "view_all": "عرض الكل",
+        "empty": "لا يوجد منتورات مسجلون حديثاً",
+        "students_count": "{count} طالب",
+        "active": "نشط"
+      },
+      "recent_activity": "النشاط الأخير",
+      "view_all": "عرض الكل"
+    },
+
+    "admins": {
+      "title": "إدارة الأدمن",
+      "subtitle": "إنشاء وحذف حسابات الأدمن",
+      "create_button": "إضافة أدمن جديد",
+      "table": {
+        "id": "المعرف",
+        "name": "الاسم",
+        "email": "البريد الإلكتروني",
+        "status": "الحالة",
+        "created_at": "تاريخ الإنشاء",
+        "last_active": "آخر نشاط",
+        "actions": "إجراءات"
+      },
+      "status": {
+        "active": "نشط",
+        "inactive": "غير نشط"
+      },
+      "create": {
+        "title": "إنشاء أدمن جديد",
+        "name": "الاسم الكامل",
+        "email": "البريد الإلكتروني",
+        "password": "كلمة المرور",
+        "submit": "إنشاء الأدمن",
+        "submitting": "جاري الإنشاء...",
+        "success": "تم إنشاء الأدمن بنجاح"
+      },
+      "delete": {
+        "confirm_title": "تأكيد حذف الأدمن",
+        "confirm_message": "هل أنت متأكد من حذف الأدمن {name}؟ لا يمكن التراجع عن هذا الإجراء.",
+        "confirm_button": "نعم، احذف",
+        "cancel": "إلغاء",
+        "success": "تم حذف الأدمن بنجاح"
+      },
+      "no_data": "لا يوجد أدمن بعد",
+      "search_placeholder": "بحث بالاسم أو البريد..."
+    },
+
+    "courses": {
+      "title": "إدارة الكورسات",
+      "subtitle": "إنشاء وتعديل وحذف الكورسات",
+      "create_button": "إضافة كورس جديد",
+      "table": {
+        "id": "المعرف",
+        "name": "اسم الكورس",
+        "description": "الوصف",
+        "price": "السعر",
+        "students_count": "عدد الطلاب",
+        "mentors_count": "عدد المنتورات",
+        "created_at": "تاريخ الإنشاء",
+        "status": "الحالة",
+        "actions": "إجراءات",
+        "no_data": "لا توجد كورسات بعد"
+      },
+      "status": {
+        "active": "نشط",
+        "trashed": "محذوف"
+      },
+      "create": {
+        "title": "إنشاء كورس جديد",
+        "description_helper": "املأ الحقول التالية لإضافة كورس جديد إلى النظام.",
+        "name": "اسم الكورس",
+        "description": "وصف الكورس",
+        "price": "السعر",
+        "youtube_playlist_url": "رابط قائمة تشغيل يوتيوب",
+        "submit": "إنشاء الكورس",
+        "submitting": "جاري الإنشاء...",
+        "success": "تم إنشاء الكورس بنجاح"
+      },
+      "delete": {
+        "confirm_title": "حذف الكورس",
+        "confirm_message": "هل تريد حذف الكورس {name}؟ يمكن استعادته لاحقاً.",
+        "confirm_button": "نعم، احذف",
+        "cancel": "إلغاء",
+        "success": "تم حذف الكورس بنجاح"
+      },
+      "force_delete": {
+        "confirm_title": "حذف نهائي",
+        "confirm_message": "هل تريد حذف الكورس {name} نهائياً؟ لا يمكن التراجع عن هذا الإجراء.",
+        "confirm_button": "نعم، احذف نهائياً",
+        "success": "تم الحذف النهائي للكورس"
+      },
+      "restore": {
+        "confirm_title": "استعادة الكورس",
+        "confirm_message": "هل تريد استعادة الكورس {name}؟",
+        "confirm_button": "نعم، استعد",
+        "success": "تم استعادة الكورس بنجاح"
+      },
+      "view_students": "عرض الطلاب",
+      "view_mentors": "عرض المنتورات",
+      "no_data": "لا توجد كورسات بعد"
+    },
+
+    "tasks": {
+      "title": "إدارة المهام",
+      "subtitle": "مراجعة المهام والموافقة عليها",
+      "pending_title": "المهام المعلّقة",
+      "pending_subtitle": "المهام بانتظار الموافقة",
+      "table": {
+        "id": "المعرف",
+        "title": "عنوان المهمة",
+        "course": "الكورس",
+        "deadline": "الموعد النهائي",
+        "passing_grade": "درجة النجاح",
+        "status": "الحالة",
+        "created_at": "تاريخ الإنشاء",
+        "actions": "إجراءات"
+      },
+      "status": {
+        "approved": "معتمد",
+        "pending": "معلّق",
+        "trashed": "محذوف"
+      },
+      "approve": {
+        "confirm_title": "اعتماد المهمة",
+        "confirm_message": "هل تريد اعتماد المهمة {title}؟",
+        "confirm_button": "نعم، اعتمد",
+        "success": "تم اعتماد المهمة بنجاح"
+      },
+      "reject": {
+        "confirm_title": "رفض المهمة",
+        "confirm_message": "هل تريد رفض المهمة {title}؟",
+        "confirm_button": "نعم، ارفض",
+        "success": "تم رفض المهمة"
+      },
+      "view_submissions": "عرض التسليمات",
+      "no_data": "لا توجد مهام",
+      "no_pending": "لا توجد مهام معلّقة 🎉"
+    },
+
+    "students": {
+      "title": "إدارة الطلاب",
+      "subtitle": "إدارة حسابات الطلاب",
+      "trashed_title": "الطلاب المحذوفين",
+      "trashed_subtitle": "الطلاب المحذوفون ناعماً — يمكن استعادتهم",
+
+      "search_placeholder": "ابحث بالاسم أو البريد الإلكتروني",
+
+      "view": {
+        "all": "الكل",
+        "active": "المفعّلة",
+        "disabled": "المعطّلة"
+      },
+
+      "account": {
+        "active": "مفعّل",
+        "disabled": "معطّل",
+        "enable": "تفعيل الحساب",
+        "disable": "تعطيل الحساب"
+      },
+
+      "empty": {
+        "title": "لا يوجد طلاب مطابقون للبحث"
+      },
+
+      "join_date": "انضم:",
+
+      "table": {
+        "id": "المعرف",
+        "name": "الاسم",
+        "email": "البريد الإلكتروني",
+        "mobile": "الجوال",
+        "university": "الجامعة",
+        "major": "التخصص",
+        "status": "الحالة",
+        "created_at": "تاريخ التسجيل",
+        "actions": "إجراءات"
+      },
+
+      "status": {
+        "active": "نشط",
+        "inactive": "معطّل",
+        "trashed": "محذوف"
+      },
+
+      "enable": {
+        "success": "تم تفعيل حساب الطالب"
+      },
+
+      "disable": {
+        "success": "تم تعطيل حساب الطالب"
+      },
+
+      "delete": {
+        "confirm_title": "حذف الطالب",
+        "confirm_message": "هل تريد حذف الطالب {name}؟ يمكن استعادته لاحقاً.",
+        "confirm_button": "نعم، احذف",
+        "success": "تم حذف الطالب بنجاح"
+      },
+
+      "force_delete": {
+        "confirm_title": "حذف نهائي",
+        "confirm_message": "هل تريد حذف الطالب {name} نهائياً؟ لا يمكن التراجع.",
+        "confirm_button": "نعم، احذف نهائياً",
+        "success": "تم الحذف النهائي للطالب"
+      },
+
+      "restore": {
+        "confirm_title": "استعادة الطالب",
+        "confirm_message": "هل تريد استعادة الطالب {name}؟",
+        "confirm_button": "نعم، استعد",
+        "success": "تم استعادة الطالب بنجاح"
+      },
+
+      "send_email": {
+        "title": "إرسال بريد للطالب",
+        "subject": "الموضوع",
+        "body": "نص الرسالة",
+        "submit": "إرسال",
+        "submitting": "جاري الإرسال...",
+        "success": "تم إرسال البريد بنجاح"
+      },
+
+      "send_email_all": {
+        "title": "إرسال بريد لكل الطلاب",
+        "button": "إرسال بريد جماعي",
+        "subject": "الموضوع",
+        "body": "نص الرسالة",
+        "submit": "إرسال للجميع",
+        "submitting": "جاري الإرسال...",
+        "success": "تم إرسال البريد لكل الطلاب"
+      },
+
+      "no_data": "لا يوجد طلاب",
+      "no_trashed": "لا يوجد طلاب محذوفون"
+    },
+
+    "mentors": {
+      "title": "إدارة المنتورات",
+      "subtitle": "إدارة حسابات المنتورات",
+      "table": {
+        "id": "المعرف",
+        "name": "الاسم",
+        "email": "البريد الإلكتروني",
+        "mobile": "الجوال",
+        "experience": "الخبرة",
+        "status": "الحالة",
+        "students_count": "عدد الطلاب",
+        "created_at": "تاريخ التسجيل",
+        "actions": "إجراءات"
+      },
+      "status": {
+        "active": "نشط",
+        "inactive": "معطّل",
+        "trashed": "محذوف"
+      },
+      "enable": {
+        "success": "تم تفعيل حساب المنتور"
+      },
+      "disable": {
+        "success": "تم تعطيل حساب المنتور"
+      },
+      "delete": {
+        "confirm_title": "حذف المنتور",
+        "confirm_message": "هل تريد حذف المنتور {name}؟ يمكن استعادته لاحقاً.",
+        "confirm_button": "نعم، احذف",
+        "success": "تم حذف المنتور بنجاح"
+      },
+      "force_delete": {
+        "confirm_title": "حذف نهائي",
+        "confirm_message": "هل تريد حذف المنتور {name} نهائياً؟ لا يمكن التراجع.",
+        "confirm_button": "نعم، احذف نهائياً",
+        "success": "تم الحذف النهائي للمنتور"
+      },
+      "restore": {
+        "confirm_title": "استعادة المنتور",
+        "confirm_message": "هل تريد استعادة المنتور {name}؟",
+        "confirm_button": "نعم، استعد",
+        "success": "تم استعادة المنتور بنجاح"
+      },
+      "send_email": {
+        "title": "إرسال بريد للمنتور",
+        "subject": "الموضوع",
+        "body": "نص الرسالة",
+        "submit": "إرسال",
+        "submitting": "جاري الإرسال...",
+        "success": "تم إرسال البريد بنجاح"
+      },
+      "send_email_all": {
+        "title": "إرسال بريد لكل المنتورات",
+        "button": "إرسال بريد جماعي",
+        "subject": "الموضوع",
+        "body": "نص الرسالة",
+        "submit": "إرسال للجميع",
+        "submitting": "جاري الإرسال...",
+        "success": "تم إرسال البريل لكل المنتورات"
+      },
+      "view_students": "عرض الطلاب",
+      "no_data": "لا يوجد منتورات"
     }
   }
 }

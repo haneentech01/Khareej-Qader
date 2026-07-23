@@ -1078,5 +1078,378 @@
       "view_all": "View All",
       "empty": "No submissions yet."
     }
+  },
+
+  "Admin": {
+    "common": {
+      "retry": "Retry",
+      "quick_actions": "Quick Actions"
+    },
+    "metadata": {
+      "title": "Admin Dashboard",
+      "description": "Manage the educational platform — students, mentors, courses"
+    },
+    "login": {
+      "title": "Admin Login",
+      "subtitle": "Enter admin credentials to access dashboard",
+      "username": "Username",
+      "username_placeholder": "administrator",
+      "password": "Password",
+      "password_placeholder": "••••••••",
+      "submit": "Sign In",
+      "submitting": "Signing in...",
+      "default_credentials_hint": "Default credentials are pre-filled — modify if needed.",
+      "back_to_home": "Back to home",
+      "welcome_back": "Welcome, {name}!"
+    },
+    "sidebar": {
+      "dashboard": "Dashboard",
+      "admins": "Admins",
+      "courses": "Courses",
+      "tasks": "Tasks",
+      "pending_tasks": "Pending Tasks",
+      "students": "Students",
+      "trashed_students": "Trashed Students",
+      "mentors": "Mentors",
+      "logout": "Logout",
+      "section_management": "Management",
+      "section_users": "Users",
+      "section_content": "Content"
+    },
+    "topNav": {
+      "welcome": "Hi, {name}",
+      "notifications": "Notifications",
+      "profile": "Profile"
+    },
+    "dashboard": {
+      "header": {
+        "title": "Admin Dashboard",
+        "subtitle": "Monitor students, mentors, courses, and tasks",
+        "create_course": "Create Course"
+      },
+      "title": "Dashboard",
+      "subtitle": "Platform overview",
+      "stats": {
+        "students": "Students",
+        "students_unit": "Students",
+        "mentors": "Mentors",
+        "mentors_unit": "Mentors",
+        "courses": "Courses",
+        "courses_unit": "Courses",
+        "active_users": "Active Users",
+        "active_users_unit": "Active",
+        "active_students": "Active Students",
+        "active_mentors": "Active Mentors",
+        "tasks": "Tasks",
+        "pending_tasks": "Pending Tasks",
+        "submissions": "Submissions",
+        "pending_submissions": "Pending Submissions"
+      },
+      "quick_actions": {
+        "title": "Quick Actions",
+        "create_course": "Add Course",
+        "add_admin": "Add Admin",
+        "manage_students": "Manage Students",
+        "manage_mentors": "Manage Mentors",
+        "pending_tasks": "Pending Tasks"
+      },
+      "overview": {
+        "title": "Platform Overview",
+        "total_members": "Total Platform Members: {count}",
+        "students_ratio": "Students Ratio",
+        "mentors_ratio": "Mentors Ratio",
+        "total_courses": "Total Courses"
+      },
+      "recent_students": {
+        "title": "Recent Students",
+        "view_all": "View All",
+        "empty": "No recent students found"
+      },
+      "recent_mentors": {
+        "title": "Recent Mentors",
+        "view_all": "View All",
+        "empty": "No recent mentors found",
+        "students_count": "{count} Students",
+        "active": "Active"
+      },
+      "recent_activity": "Recent Activity",
+      "view_all": "View All"
+    },
+    "admins": {
+      "title": "Admins Management",
+      "subtitle": "Create and delete admin accounts",
+      "create_button": "Add New Admin",
+      "table": {
+        "id": "ID",
+        "name": "Name",
+        "email": "Email",
+        "status": "Status",
+        "created_at": "Created At",
+        "last_active": "Last Active",
+        "actions": "Actions"
+      },
+      "status": {
+        "active": "Active",
+        "inactive": "Inactive"
+      },
+      "create": {
+        "title": "Create New Admin",
+        "name": "Full Name",
+        "email": "Email",
+        "password": "Password",
+        "submit": "Create Admin",
+        "submitting": "Creating...",
+        "success": "Admin created successfully"
+      },
+      "delete": {
+        "confirm_title": "Confirm Admin Deletion",
+        "confirm_message": "Are you sure you want to delete admin {name}? This action cannot be undone.",
+        "confirm_button": "Yes, delete",
+        "cancel": "Cancel",
+        "success": "Admin deleted successfully"
+      },
+      "no_data": "No admins yet",
+      "search_placeholder": "Search by name or email..."
+    },
+    "courses": {
+      "title": "Courses Management",
+      "subtitle": "Create, edit, delete courses",
+      "create_button": "Add New Course",
+      "table": {
+        "id": "ID",
+        "name": "Course Name",
+        "description": "Description",
+        "price": "Price",
+        "students_count": "Students",
+        "mentors_count": "Mentors",
+        "created_at": "Created At",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "status": {
+        "active": "Active",
+        "trashed": "Trashed"
+      },
+      "create": {
+        "title": "Create New Course",
+        "name": "Course Name",
+        "description": "Course Description",
+        "price": "Price",
+        "youtube_playlist_url": "YouTube Playlist URL",
+        "submit": "Create Course",
+        "submitting": "Creating...",
+        "success": "Course created successfully"
+      },
+      "delete": {
+        "confirm_title": "Delete Course",
+        "confirm_message": "Delete course {name}? It can be restored later.",
+        "confirm_button": "Yes, delete",
+        "cancel": "Cancel",
+        "success": "Course deleted successfully"
+      },
+      "force_delete": {
+        "confirm_title": "Force Delete",
+        "confirm_message": "Permanently delete course {name}? This cannot be undone.",
+        "confirm_button": "Yes, force delete",
+        "success": "Course permanently deleted"
+      },
+      "restore": {
+        "confirm_title": "Restore Course",
+        "confirm_message": "Restore course {name}?",
+        "confirm_button": "Yes, restore",
+        "success": "Course restored successfully"
+      },
+      "view_students": "View Students",
+      "view_mentors": "View Mentors",
+      "no_data": "No courses yet"
+    },
+    "tasks": {
+      "title": "Tasks Management",
+      "subtitle": "Review and approve tasks",
+      "pending_title": "Pending Tasks",
+      "pending_subtitle": "Tasks awaiting approval",
+      "table": {
+        "id": "ID",
+        "title": "Task Title",
+        "course": "Course",
+        "deadline": "Deadline",
+        "passing_grade": "Passing Grade",
+        "status": "Status",
+        "created_at": "Created At",
+        "actions": "Actions"
+      },
+      "status": {
+        "approved": "Approved",
+        "pending": "Pending",
+        "trashed": "Trashed"
+      },
+      "approve": {
+        "confirm_title": "Approve Task",
+        "confirm_message": "Approve task {title}?",
+        "confirm_button": "Yes, approve",
+        "success": "Task approved successfully"
+      },
+      "reject": {
+        "confirm_title": "Reject Task",
+        "confirm_message": "Reject task {title}?",
+        "confirm_button": "Yes, reject",
+        "success": "Task rejected"
+      },
+      "view_submissions": "View Submissions",
+      "no_data": "No tasks",
+      "no_pending": "No pending tasks 🎉"
+    },
+    "students": {
+      "title": "Students Management",
+      "subtitle": "Manage student accounts",
+      "trashed_title": "Trashed Students",
+      "trashed_subtitle": "Soft-deleted students — can be restored",
+      "table": {
+        "id": "ID",
+        "name": "Name",
+        "email": "Email",
+        "mobile": "Mobile",
+        "university": "University",
+        "major": "Major",
+        "status": "Status",
+        "created_at": "Joined",
+        "actions": "Actions"
+      },
+      "status": {
+        "active": "Active",
+        "inactive": "Disabled",
+        "trashed": "Trashed"
+      },
+      "enable": {
+        "success": "Student account enabled"
+      },
+      "disable": {
+        "success": "Student account disabled"
+      },
+      "delete": {
+        "confirm_title": "Delete Student",
+        "confirm_message": "Delete student {name}? Can be restored later.",
+        "confirm_button": "Yes, delete",
+        "success": "Student deleted successfully"
+      },
+      "force_delete": {
+        "confirm_title": "Force Delete",
+        "confirm_message": "Permanently delete student {name}? Cannot be undone.",
+        "confirm_button": "Yes, force delete",
+        "success": "Student permanently deleted"
+      },
+      "restore": {
+        "confirm_title": "Restore Student",
+        "confirm_message": "Restore student {name}?",
+        "confirm_button": "Yes, restore",
+        "success": "Student restored successfully"
+      },
+      "send_email": {
+        "title": "Email Student",
+        "subject": "Subject",
+        "body": "Message Body",
+        "submit": "Send",
+        "submitting": "Sending...",
+        "success": "Email sent successfully"
+      },
+      "send_email_all": {
+        "title": "Email All Students",
+        "button": "Bulk Email",
+        "subject": "Subject",
+        "body": "Message Body",
+        "submit": "Send to All",
+        "submitting": "Sending...",
+        "success": "Email sent to all students"
+      },
+      "no_data": "No students",
+      "no_trashed": "No trashed students"
+    },
+    "mentors": {
+      "title": "Mentors Management",
+      "subtitle": "Manage mentor accounts",
+      "table": {
+        "id": "ID",
+        "name": "Name",
+        "email": "Email",
+        "mobile": "Mobile",
+        "experience": "Experience",
+        "status": "Status",
+        "students_count": "Students",
+        "created_at": "Joined",
+        "actions": "Actions"
+      },
+      "status": {
+        "active": "Active",
+        "inactive": "Disabled",
+        "trashed": "Trashed"
+      },
+      "enable": {
+        "success": "Mentor account enabled"
+      },
+      "disable": {
+        "success": "Mentor account disabled"
+      },
+      "delete": {
+        "confirm_title": "Delete Mentor",
+        "confirm_message": "Delete mentor {name}? Can be restored later.",
+        "confirm_button": "Yes, delete",
+        "success": "Mentor deleted successfully"
+      },
+      "force_delete": {
+        "confirm_title": "Force Delete",
+        "confirm_message": "Permanently delete mentor {name}? Cannot be undone.",
+        "confirm_button": "Yes, force delete",
+        "success": "Mentor permanently deleted"
+      },
+      "restore": {
+        "confirm_title": "Restore Mentor",
+        "confirm_message": "Restore mentor {name}?",
+        "confirm_button": "Yes, restore",
+        "success": "Mentor restored successfully"
+      },
+      "send_email": {
+        "title": "Email Mentor",
+        "subject": "Subject",
+        "body": "Message Body",
+        "submit": "Send",
+        "submitting": "Sending...",
+        "success": "Email sent successfully"
+      },
+      "send_email_all": {
+        "title": "Email All Mentors",
+        "button": "Bulk Email",
+        "subject": "Subject",
+        "body": "Message Body",
+        "submit": "Send to All",
+        "submitting": "Sending...",
+        "success": "Email sent to all mentors"
+      },
+      "view_students": "View Students",
+      "no_data": "No mentors"
+    },
+    "common": {
+      "cancel": "Cancel",
+      "close": "Close",
+      "search": "Search",
+      "filter": "Filter",
+      "loading": "Loading...",
+      "saving": "Saving...",
+      "delete": "Delete",
+      "restore": "Restore",
+      "force_delete": "Force Delete",
+      "edit": "Edit",
+      "view": "View",
+      "actions": "Actions",
+      "confirm": "Confirm",
+      "yes": "Yes",
+      "no": "No",
+      "all": "All",
+      "page": "Page",
+      "of": "of",
+      "total": "Total",
+      "no_data": "No data available",
+      "error_occurred": "An error occurred",
+      "retry": "Retry"
+    }
   }
 }
