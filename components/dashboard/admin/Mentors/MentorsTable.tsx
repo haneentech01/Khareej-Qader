@@ -1,30 +1,10 @@
 "use client";
 
-import React from "react";
 import { useTranslations, useLocale } from "next-intl";
-import {
-  Search,
-  Users2,
-  CheckCircle2,
-  XCircle,
-  Mail,
-  Building2,
-  Users,
-  Calendar,
-  Loader2,
-  UserCheck,
-  UserX,
-} from "lucide-react";
+import { Search, Users2, CheckCircle2, XCircle, Mail, Building2, Calendar, Loader2, UserCheck, UserX } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import {
-  Table,
-  TableHeader,
-  TableBody,
-  TableRow,
-  TableHead,
-  TableCell,
-} from "@/components/ui/table";
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table";
 import type { AdminMentor } from "@/types";
 
 interface MentorsTableProps {

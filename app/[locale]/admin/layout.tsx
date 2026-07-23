@@ -1,7 +1,4 @@
 import React from "react";
-import { AdminSidebar } from "@/components/dashboard/admin/Layout/AdminSidebar";
-import { AdminTopNav } from "@/components/dashboard/admin/Layout/AdminTopNav";
-import { SidebarProvider } from "@/components/ui/sidebar";
 import { getTranslations } from "next-intl/server";
 
 export async function generateMetadata({

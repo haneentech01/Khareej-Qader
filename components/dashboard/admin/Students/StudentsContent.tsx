@@ -1,8 +1,7 @@
 "use client";
 
-import React from "react";
 import { useTranslations } from "next-intl";
-import { AlertCircle, GraduationCap, RefreshCw, Users } from "lucide-react";
+import { AlertCircle, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useStudentsManagement } from "@/hooks/admin/useStudentsManagement";
 import { StudentsStats } from "./StudentsStats";

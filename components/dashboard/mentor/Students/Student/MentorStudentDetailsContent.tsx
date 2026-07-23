@@ -1,9 +1,9 @@
 "use client";
 
 import { useTranslations, useLocale } from "next-intl";
-import { ChevronLeft, ChevronRight, User, Mail, School, BookOpen, Phone, Users, CheckCircle2, XCircle } from "lucide-react";
+import { BookOpen, Users } from "lucide-react";
 import { useMentorStudentDetails } from "@/hooks/mentor/useMentorStudentDetails";
-import { ProfileAvatar, ProfileInfoPill, ProfilePageLayout } from "@/components/dashboard/profile";
+import { ProfilePageLayout } from "@/components/dashboard/profile";
 import { StudentProfileHeader } from "./StudentProfileHeader";
 import { StudentProfileStats } from "./StudentProfileStats";
 

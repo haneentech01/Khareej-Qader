@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useState, useCallback } from "react";
 import type { AdminProfile, AdminPermission } from "@/types";
 
 const STORAGE_KEY = "khareej_admin_auth";
@@ -47,19 +47,10 @@ export interface UseAdminAuthResult {
 }
 
 export function useAdminAuth(): UseAdminAuthResult {
-  const [stored, setStored] = useState<StoredAdminAuth | null>(null);
-
-  useEffect(() => {
-    setStored(readFromStorage());
-
-    const handler = (e: StorageEvent) => {
-      if (e.key === STORAGE_KEY) {
-        setStored(readFromStorage());
-      }
-    };
-    window.addEventListener("storage", handler);
-    return () => window.removeEventListener("storage", handler);
-  }, []);
+  // قراءة البيانات مباشرة في الـ Initial State لتجنب استخدام useEffect بشكل خاطئ
+  const [stored, setStored] = useState<StoredAdminAuth | null>(() =>
+    readFromStorage(),
+  );
 
   const setAdminAuth = useCallback(
     (admin: AdminProfile, permissions: AdminPermission[]) => {
