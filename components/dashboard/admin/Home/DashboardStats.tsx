@@ -66,7 +66,7 @@ const StatCardLink = React.memo(function StatCardLink({
     const Icon = card.icon;
     const variant = COLOR_VARIANTS[card.color] ?? DEFAULT_VARIANT;
     const isRTL = typeof window !== "undefined" && document.dir === "rtl";
-    const Arrow = isRTL ? ArrowRight : ArrowLeft;
+    const Arrow = isRTL ? ArrowLeft : ArrowRight;
 
     return (
         <Link
