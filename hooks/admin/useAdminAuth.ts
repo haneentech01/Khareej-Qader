@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect, useMemo } from "react";
 import type { AdminProfile, AdminPermission } from "@/types";
 
 const STORAGE_KEY = "khareej_admin_auth";
+const SESSION_TTL_MS = 7 * 24 * 60 * 60 * 1000; // 7 أيام
 
 interface StoredAdminAuth {
   admin: AdminProfile;
@@ -11,21 +12,44 @@ interface StoredAdminAuth {
   stored_at: number;
 }
 
+// ─── Storage helpers (pure functions) ─────────────
 function readFromStorage(): StoredAdminAuth | null {
   if (typeof window === "undefined") return null;
+
   try {
     const raw = window.localStorage.getItem(STORAGE_KEY);
     if (!raw) return null;
+
     const parsed = JSON.parse(raw) as StoredAdminAuth;
-    if (!parsed.admin || !Array.isArray(parsed.permissions)) return null;
+
+    if (
+      !parsed ||
+      typeof parsed !== "object" ||
+      !parsed.admin ||
+      typeof parsed.admin.name !== "string" ||
+      typeof parsed.admin.email !== "string" ||
+      !Array.isArray(parsed.permissions) ||
+      typeof parsed.stored_at !== "number"
+    ) {
+      window.localStorage.removeItem(STORAGE_KEY);
+      return null;
+    }
+
+    const age = Date.now() - parsed.stored_at;
+    if (age > SESSION_TTL_MS) {
+      window.localStorage.removeItem(STORAGE_KEY);
+      return null;
+    }
+
     return parsed;
   } catch {
     return null;
   }
 }
 
-function writeToStorage(data: StoredAdminAuth | null) {
+function writeToStorage(data: StoredAdminAuth | null): void {
   if (typeof window === "undefined") return;
+
   try {
     if (data) {
       window.localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
@@ -39,6 +63,7 @@ export interface UseAdminAuthResult {
   admin: AdminProfile | null;
   permissions: AdminPermission[];
   isAuthenticated: boolean;
+  isHydrated: boolean;
   hasPermission: (permission: AdminPermission) => boolean;
   hasAnyPermission: (permissions: AdminPermission[]) => boolean;
   hasAllPermissions: (permissions: AdminPermission[]) => boolean;
@@ -46,12 +71,30 @@ export interface UseAdminAuthResult {
   clearAdminAuth: () => void;
 }
 
+// ─── Hook ──────────────────────────────────────────────────────────
 export function useAdminAuth(): UseAdminAuthResult {
-  // قراءة البيانات مباشرة في الـ Initial State لتجنب استخدام useEffect بشكل خاطئ
-  const [stored, setStored] = useState<StoredAdminAuth | null>(() =>
-    readFromStorage(),
-  );
+  // ابدأ بـ null على الـ server والـ first client render
+  const [stored, setStored] = useState<StoredAdminAuth | null>(null);
+  const [isHydrated, setIsHydrated] = useState(false);
 
+  // ─── قراءة من localStorage بعد mount (client only) ─────────────
+  useEffect(() => {
+    const data = readFromStorage();
+    setStored(data);
+    setIsHydrated(true);
+
+    // مزامنة عبر tabs
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === STORAGE_KEY) {
+        setStored(readFromStorage());
+      }
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
+  }, []);
+
+  // ─── Actions ───────────────────────────────────────────────────
   const setAdminAuth = useCallback(
     (admin: AdminProfile, permissions: AdminPermission[]) => {
       const data: StoredAdminAuth = {
@@ -70,32 +113,48 @@ export function useAdminAuth(): UseAdminAuthResult {
     setStored(null);
   }, []);
 
+  // ─── Permission helpers (memoized) ─────────────────────────────
+  const permissionsArr = stored?.permissions ?? [];
+
   const hasPermission = useCallback(
-    (permission: AdminPermission) =>
-      Boolean(stored?.permissions?.includes(permission)),
-    [stored],
+    (permission: AdminPermission) => permissionsArr.includes(permission),
+    [permissionsArr],
   );
 
   const hasAnyPermission = useCallback(
     (permissions: AdminPermission[]) =>
-      permissions.some((p) => stored?.permissions?.includes(p)),
-    [stored],
+      permissions.some((p) => permissionsArr.includes(p)),
+    [permissionsArr],
   );
 
   const hasAllPermissions = useCallback(
     (permissions: AdminPermission[]) =>
-      permissions.every((p) => stored?.permissions?.includes(p)),
-    [stored],
+      permissions.every((p) => permissionsArr.includes(p)),
+    [permissionsArr],
   );
 
-  return {
-    admin: stored?.admin ?? null,
-    permissions: stored?.permissions ?? [],
-    isAuthenticated: Boolean(stored),
-    hasPermission,
-    hasAnyPermission,
-    hasAllPermissions,
-    setAdminAuth,
-    clearAdminAuth,
-  };
+  // ─── Result (memoized) ──────────
+  return useMemo(
+    () => ({
+      admin: stored?.admin ?? null,
+      permissions: permissionsArr,
+      isAuthenticated: isHydrated && Boolean(stored),
+      isHydrated,
+      hasPermission,
+      hasAnyPermission,
+      hasAllPermissions,
+      setAdminAuth,
+      clearAdminAuth,
+    }),
+    [
+      stored,
+      permissionsArr,
+      isHydrated,
+      hasPermission,
+      hasAnyPermission,
+      hasAllPermissions,
+      setAdminAuth,
+      clearAdminAuth,
+    ],
+  );
 }

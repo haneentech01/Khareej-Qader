@@ -37,20 +37,12 @@ export function AdminSidebar() {
   const isRTL = locale === "ar";
   const { state } = useSidebar();
   const isCollapsed = state === "collapsed";
-  const { hasPermission } = useAdminAuth();
 
-  const [isMounted, setIsMounted] = React.useState(false);
 
-  React.useEffect(() => {
-    setIsMounted(true);
-  }, []);
+  const { hasPermission, isAuthenticated } = useAdminAuth();
 
   const navLinks: NavItem[] = [
-    {
-      title: t("dashboard"),
-      icon: LayoutDashboard,
-      href: "/admin",
-    },
+    { title: t("dashboard"), icon: LayoutDashboard, href: "/admin" },
     {
       title: t("students"),
       icon: GraduationCap,
@@ -71,9 +63,11 @@ export function AdminSidebar() {
     },
   ];
 
-  const visibleLinks = isMounted
-    ? navLinks.filter((link) => !link.permission || hasPermission(link.permission))
-    : navLinks;
+  const visibleLinks = !isAuthenticated
+    ? navLinks
+    : navLinks.filter(
+      (link) => !link.permission || hasPermission(link.permission),
+    );
 
   return (
     <ShadcnSidebar
@@ -83,7 +77,7 @@ export function AdminSidebar() {
     >
       {/* Logo */}
       <SidebarHeader className="p-6">
-        <Link href="/admin">
+        <Link href="/admin" aria-label="admin home">
           <div className="flex items-center gap-2">
             <Image
               src="/images/logo.png"
@@ -101,15 +95,17 @@ export function AdminSidebar() {
 
       <SidebarContent className="space-y-2">
         <SidebarGroup>
-          {visibleLinks.map((link) => (
-            <SidebarItem
-              key={link.href}
-              title={link.title}
-              icon={link.icon}
-              href={link.href}
-              isRTL={isRTL}
-            />
-          ))}
+          <nav aria-label="admin navigation">
+            {visibleLinks.map((link) => (
+              <SidebarItem
+                key={link.href}
+                title={link.title}
+                icon={link.icon}
+                href={link.href}
+                isRTL={isRTL}
+              />
+            ))}
+          </nav>
         </SidebarGroup>
 
         {/* Logout */}

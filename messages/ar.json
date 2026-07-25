@@ -1450,28 +1450,41 @@
       "subtitle": "إدارة حسابات الطلاب",
       "trashed_title": "الطلاب المحذوفين",
       "trashed_subtitle": "الطلاب المحذوفون ناعماً — يمكن استعادتهم",
-
-      "search_placeholder": "ابحث بالاسم أو البريد الإلكتروني",
-
+      "refresh-btn": "تحديث البيانات",
+      "search_placeholder": "ابحث بالاسم أو البريد الإلكتروني...",
+      "join_date": "انضم:",
+      "error": {
+        "toggle_failed": "حدث خطأ أثناء تغيير حالة الحساب"
+      },
+      "stats": {
+        "total": "إجمالي الطلاب",
+        "active": "الحسابات المفعّلة",
+        "disabled": "الحسابات المعطّلة"
+      },
       "view": {
         "all": "الكل",
         "active": "المفعّلة",
         "disabled": "المعطّلة"
       },
-
+      "col": {
+        "entity": "الطالب",
+        "status": "الحالة",
+        "contact": "معلومات التواصل",
+        "actions": "الإجراءات"
+      },
       "account": {
         "active": "مفعّل",
         "disabled": "معطّل",
         "enable": "تفعيل الحساب",
         "disable": "تعطيل الحساب"
       },
-
       "empty": {
         "title": "لا يوجد طلاب مطابقون للبحث"
       },
-
-      "join_date": "انضم:",
-
+      "entity": {
+        "singular": "طالب",
+        "plural": "طلاب"
+      },
       "table": {
         "id": "المعرف",
         "name": "الاسم",
@@ -1483,42 +1496,35 @@
         "created_at": "تاريخ التسجيل",
         "actions": "إجراءات"
       },
-
       "status": {
         "active": "نشط",
         "inactive": "معطّل",
         "trashed": "محذوف"
       },
-
       "enable": {
         "success": "تم تفعيل حساب الطالب"
       },
-
       "disable": {
         "success": "تم تعطيل حساب الطالب"
       },
-
       "delete": {
         "confirm_title": "حذف الطالب",
         "confirm_message": "هل تريد حذف الطالب {name}؟ يمكن استعادته لاحقاً.",
         "confirm_button": "نعم، احذف",
         "success": "تم حذف الطالب بنجاح"
       },
-
       "force_delete": {
         "confirm_title": "حذف نهائي",
         "confirm_message": "هل تريد حذف الطالب {name} نهائياً؟ لا يمكن التراجع.",
         "confirm_button": "نعم، احذف نهائياً",
         "success": "تم الحذف النهائي للطالب"
       },
-
       "restore": {
         "confirm_title": "استعادة الطالب",
         "confirm_message": "هل تريد استعادة الطالب {name}؟",
         "confirm_button": "نعم، استعد",
         "success": "تم استعادة الطالب بنجاح"
       },
-
       "send_email": {
         "title": "إرسال بريد للطالب",
         "subject": "الموضوع",
@@ -1527,7 +1533,6 @@
         "submitting": "جاري الإرسال...",
         "success": "تم إرسال البريد بنجاح"
       },
-
       "send_email_all": {
         "title": "إرسال بريد لكل الطلاب",
         "button": "إرسال بريد جماعي",
@@ -1537,7 +1542,6 @@
         "submitting": "جاري الإرسال...",
         "success": "تم إرسال البريد لكل الطلاب"
       },
-
       "no_data": "لا يوجد طلاب",
       "no_trashed": "لا يوجد طلاب محذوفون"
     },
@@ -1545,6 +1549,41 @@
     "mentors": {
       "title": "إدارة المنتورات",
       "subtitle": "إدارة حسابات المنتورات",
+      "refresh-btn": "تحديث البيانات",
+      "search_placeholder": "ابحث بالاسم أو البريد...",
+      "join_date": "انضم:",
+      "error": {
+        "toggle_failed": "حدث خطأ أثناء تغيير حالة الحساب"
+      },
+      "stats": {
+        "total": "إجمالي المنتورات",
+        "active": "الحسابات المفعّلة",
+        "disabled": "الحسابات المعطّلة"
+      },
+      "view": {
+        "all": "الكل",
+        "active": "المفعّلة",
+        "disabled": "المعطّلة"
+      },
+      "col": {
+        "entity": "المنتور",
+        "status": "الحالة",
+        "contact": "التواصل / المدينة",
+        "actions": "الإجراءات"
+      },
+      "account": {
+        "active": "مفعّل",
+        "disabled": "معطّل",
+        "enable": "تفعيل الحساب",
+        "disable": "تعطيل الحساب"
+      },
+      "empty": {
+        "title": "لا يوجد منتورات مطابقون للبحث"
+      },
+      "entity": {
+        "singular": "منتور",
+        "plural": "منتورات"
+      },
       "table": {
         "id": "المعرف",
         "name": "الاسم",

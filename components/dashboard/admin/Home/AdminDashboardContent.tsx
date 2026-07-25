@@ -1,69 +1,22 @@
-// "use client";
-// import { useAdminDashboard } from "@/hooks/admin/useAdminDashboard";
-// import { ProfilePageLayout } from "../../profile";
-// import { AdminDashboardHeader } from "./AdminDashboardHeader";
-// import DashboardStats from "./DashboardStats";
-// import QuickActions from "./QuickActions";
-// import { PlatformOverview } from "./PlatformOverview";
-// import RecentStudents from "./RecentStudents";
-// import RecentMentors from "./RecentMentors";
-
-
-// export function AdminDashboardContent() {
-//   const {
-//     stats,
-//     recentStudents,
-//     recentMentors,
-//     loading,
-//     error,
-//     refetch,
-//   } = useAdminDashboard();
-
-//   return (
-//     <ProfilePageLayout
-//       loading={loading}
-//       error={error}
-//       onRetry={refetch}
-//     >
-//       <AdminDashboardHeader />
-
-//       <DashboardStats stats={stats} />
-
-//       <QuickActions />
-
-//       <PlatformOverview stats={stats} />
-
-//       <div className="grid lg:grid-cols-2 gap-6">
-//         <RecentStudents students={recentStudents} />
-
-//         <RecentMentors mentors={recentMentors} />
-//       </div>
-//     </ProfilePageLayout>
-//   );
-// }
-
 "use client";
 
+import React, { useMemo, useCallback } from "react";
 import { useTranslations } from "next-intl";
-import { GraduationCap, Users, BookOpen, AlertCircle, Loader2 } from "lucide-react";
+import { Users, Users2, BookOpen } from "lucide-react";
 import { useAdminCounts } from "@/hooks/admin/useAdminCounts";
-import { Button } from "@/components/ui/button";
-import DashboardStats from "./DashboardStats";
-import PlatformOverview from "./PlatformOverview";
+import { useAdminDashboard } from "@/hooks/admin/useAdminDashboard";
 import QuickActions from "./QuickActions";
 import RecentStudents from "./RecentStudents";
 import RecentMentors from "./RecentMentors";
-import { useAdminDashboard } from "@/hooks/admin/useAdminDashboard";
+import { ErrorState } from "../Layout";
+import DashboardStats from "./DashboardStats";
+import AdminDashboardHeader from "./AdminDashboardHeader";
 
-/**
- * AdminDashboardContent — الصفحة الرئيسية للوحة الأدمن.
- *
- * ✅ تعرض نظرة عامة سريعة (counts) + روابط للأقسام.
- * ✅ تستخدم الـ hooks الموجودة (no separate stats endpoint needed).
- */
 export function AdminDashboardContent() {
   const t = useTranslations("Admin.dashboard");
   const tCommon = useTranslations("Admin.common");
+
+  // ─── Data layer ──────────────────────────────────────────────
   const {
     studentsCount,
     mentorsCount,
@@ -81,91 +34,65 @@ export function AdminDashboardContent() {
     refetch: refetchDashboard,
   } = useAdminDashboard();
 
+  // ─── Derived state ───────────────────────────────────────────
   const loading = countsLoading || dashboardLoading;
   const error = countsError || dashboardError;
 
-  const refetch = () => {
+  const refetch = useCallback(() => {
     refetchCounts();
     refetchDashboard();
-  };
+  }, [refetchCounts, refetchDashboard]);
 
-  const statsCards = [
-    {
-      key: "students",
-      label: t("stats.students"),
-      value: studentsCount,
-      icon: Users,
-      color: "emerald",
-      href: "/admin/students",
-    },
-    {
-      key: "mentors",
-      label: t("stats.mentors"),
-      value: mentorsCount,
-      icon: Users,
-      color: "indigo",
-      href: "/admin/mentors",
-    },
-    {
-      key: "courses",
-      label: t("stats.courses"),
-      value: coursesCount,
-      icon: BookOpen,
-      color: "amber",
-      href: "/admin/courses",
-    },
-  ];
+  const statsCards = useMemo(
+    () => [
+      {
+        key: "students",
+        label: t("stats.students"),
+        value: studentsCount,
+        icon: Users,
+        color: "emerald",
+        href: "/admin/students",
+      },
+      {
+        key: "mentors",
+        label: t("stats.mentors"),
+        value: mentorsCount,
+        icon: Users2,
+        color: "indigo",
+        href: "/admin/mentors",
+      },
+      {
+        key: "courses",
+        label: t("stats.courses"),
+        value: coursesCount,
+        icon: BookOpen,
+        color: "amber",
+        href: "/admin/courses",
+      },
+    ],
+    [t, studentsCount, mentorsCount, coursesCount],
+  );
 
-  // ─── Error State ─────────────────────────────────────────────────────────
+  // ─── Error State ─────────────────────────────────────────────
   if (error && !loading) {
-    return (
-      <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
-          <div className="size-16 rounded-3xl bg-red-50 flex items-center justify-center">
-            <AlertCircle className="size-8 text-red-500" />
-          </div>
-          <p className="text-red-500 font-semibold text-center max-w-md">
-            {error}
-          </p>
-          <Button
-            onClick={() => refetch()}
-            variant="outline"
-            className="border-brand-primary text-brand-primary hover:bg-brand-light cursor-pointer"
-          >
-            {tCommon("retry")}
-          </Button>
-        </div>
-      </div>
-    );
+    return <ErrorState message={error} onRetry={refetch} />;
   }
 
   return (
     <div className="max-w-7xl mx-auto space-y-8">
-      {/* Header */}
-      <div>
-        <h1 className="text-3xl font-extrabold text-black mb-2">
-          {t("title")}
-        </h1>
-        <p className="text-brand-muted">{t("subtitle")}</p>
-      </div>
+      {/* ─── Header ─────────────────────────────────────────────── */}
+      <AdminDashboardHeader />
 
-      {/* Stats Cards */}
-      <DashboardStats statsCards={statsCards} loading={countsLoading} />
+      {/* ─── Stats Cards ────────────────────────────────────────── */}
+      <DashboardStats statsCards={[...statsCards]} loading={countsLoading} />
 
-      {/* Quick Actions */}
+      {/* ─── Quick Actions ──────────────────────────────────────── */}
       <QuickActions />
 
-      {/* Recent Students + Recent Mentors */}
+      {/* ─── Recent Students + Recent Mentors ───────────────────── */}
       <div className="grid lg:grid-cols-2 gap-6">
         {dashboardLoading ? (
-          <>
-            <div className="bg-white rounded-3xl border border-slate-100 p-6 h-64 flex items-center justify-center">
-              <Loader2 className="size-8 animate-spin text-slate-300" />
-            </div>
-            <div className="bg-white rounded-3xl border border-slate-100 p-6 h-64 flex items-center justify-center">
-              <Loader2 className="size-8 animate-spin text-slate-300" />
-            </div>
-          </>
+          <RecentListSkeleton />
         ) : (
           <>
             <RecentStudents students={recentStudents} />
@@ -176,4 +103,22 @@ export function AdminDashboardContent() {
     </div>
   );
 }
+
+export default AdminDashboardContent;
+
+// ─── Loading Skeleton ──────────────────────
+const RecentListSkeleton = React.memo(function RecentListSkeleton() {
+  return (
+    <>
+      <div className="bg-white rounded-3xl border border-slate-100 p-6 h-64 flex items-center justify-center animate-pulse">
+        <div className="size-8 rounded-full bg-slate-100" />
+      </div>
+      <div className="bg-white rounded-3xl border border-slate-100 p-6 h-64 flex items-center justify-center animate-pulse">
+        <div className="size-8 rounded-full bg-slate-100" />
+      </div>
+    </>
+  );
+});
+
+RecentListSkeleton.displayName = "RecentListSkeleton";
 

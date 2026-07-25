@@ -1,5 +1,5 @@
 import { getTranslations } from "next-intl/server";
-import { AdminLoginForm } from "@/components/dashboard/admin/Layout/Auth/AdminLoginForm";
+import { AdminLoginForm } from "@/components/dashboard/admin/Auth/AdminLoginForm";
 
 interface AdminLoginPageProps {
   params: Promise<{

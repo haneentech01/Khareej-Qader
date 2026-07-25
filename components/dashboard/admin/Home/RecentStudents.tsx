@@ -1,10 +1,10 @@
 "use client";
 
-import React from "react";
-import Link from "next/link";
+
 import { useTranslations, useLocale } from "next-intl";
 import { Users, ChevronLeft, ChevronRight, GraduationCap } from "lucide-react";
 import type { AdminStudent } from "@/types";
+import { Link } from "@/i18n/routing";
 
 interface Props {
   students: AdminStudent[];

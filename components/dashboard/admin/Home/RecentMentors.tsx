@@ -1,10 +1,9 @@
 "use client";
 
-import React from "react";
-import Link from "next/link";
 import { useTranslations, useLocale } from "next-intl";
 import { Users2, ChevronLeft, ChevronRight, UserCheck } from "lucide-react";
 import type { AdminMentor } from "@/types";
+import { Link } from "@/i18n/routing";
 
 interface Props {
   mentors: AdminMentor[];
@@ -81,12 +80,6 @@ export default function RecentMentors({ mentors }: Props) {
                       <span className="text-[11px] font-semibold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-lg border border-blue-100/60">
                         {t("students_count", { count: mentor.students_count })}
                       </span>
-                    )}
-                    {mentor.account_status && (
-                      <span
-                        className="size-2 rounded-full bg-emerald-500"
-                        title={t("active")}
-                      />
                     )}
                   </div>
                 </div>

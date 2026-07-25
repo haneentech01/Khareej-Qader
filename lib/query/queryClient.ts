@@ -1,20 +1,5 @@
 import { QueryClient } from "@tanstack/react-query";
 
-/**
- * QueryClient instance وحيد لكل التطبيق.
- *
- * يعمل كـ "single source of truth" لكل الـ server state.
- * كل الـ queries و mutations بتمر من هنا، فبنضمن:
- *  - Deduplication: نفس الـ queryKey = نفس الـ request
- *  - Cache invalidation: invalidateQueries يحدّث كل الـ consumers
- *  - Background refetch: تلقائي لما الـ data تصير stale
- *
- * Defaults:
- *  - staleTime: 60 ثانية — الـ data تعتبر fresh لمدة دقيقة
- *  - gcTime: 5 دقائق — نحتفظ بالـ cache بعد unmount
- *  - refetchOnWindowFocus: false — منع refetch مزعج
- *  - retry: 1 — إعادة محاولة واحدة بس لو فشل الـ request
- */
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -27,4 +12,28 @@ export const queryClient = new QueryClient({
       retry: 0,
     },
   },
+});
+
+// ─── staleTime مخصصة للبيانات النادرة التحديث ──────────────────
+export const STALE_TIMES = {
+  frequent: 60_000,
+  rare: 5 * 60_000,
+  static: 60 * 60_000,
+} as const;
+
+// ─── تطبيق الـ staleTimes على الـ queryKeys النادرة ───────────
+queryClient.setQueryDefaults(["admin", "courses-count"], {
+  staleTime: STALE_TIMES.rare,
+});
+queryClient.setQueryDefaults(["admin", "mentors-count"], {
+  staleTime: STALE_TIMES.rare,
+});
+queryClient.setQueryDefaults(["admin", "students-count"], {
+  staleTime: STALE_TIMES.rare,
+});
+queryClient.setQueryDefaults(["admin", "courses"], {
+  staleTime: STALE_TIMES.rare,
+});
+queryClient.setQueryDefaults(["lookup"], {
+  staleTime: STALE_TIMES.static,
 });

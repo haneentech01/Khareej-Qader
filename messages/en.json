@@ -1304,6 +1304,41 @@
       "subtitle": "Manage student accounts",
       "trashed_title": "Trashed Students",
       "trashed_subtitle": "Soft-deleted students — can be restored",
+      "refresh-btn": "Refresh Data",
+      "search_placeholder": "Search by name or email...",
+      "join_date": "Joined:",
+      "error": {
+        "toggle_failed": "Failed to update account status"
+      },
+      "stats": {
+        "total": "Total Students",
+        "active": "Active Accounts",
+        "disabled": "Disabled Accounts"
+      },
+      "view": {
+        "all": "All",
+        "active": "Active",
+        "disabled": "Disabled"
+      },
+      "col": {
+        "entity": "Student",
+        "status": "Status",
+        "contact": "Contact Info",
+        "actions": "Actions"
+      },
+      "account": {
+        "active": "Active",
+        "disabled": "Disabled",
+        "enable": "Enable Account",
+        "disable": "Disable Account"
+      },
+      "empty": {
+        "title": "No students found matching search"
+      },
+      "entity": {
+        "singular": "Student",
+        "plural": "Students"
+      },
       "table": {
         "id": "ID",
         "name": "Name",
@@ -1367,6 +1402,41 @@
     "mentors": {
       "title": "Mentors Management",
       "subtitle": "Manage mentor accounts",
+      "refresh-btn": "Refresh Data",
+      "search_placeholder": "Search by name, email or city...",
+      "join_date": "Joined:",
+      "error": {
+        "toggle_failed": "Failed to update account status"
+      },
+      "stats": {
+        "total": "Total Mentors",
+        "active": "Active Accounts",
+        "disabled": "Disabled Accounts"
+      },
+      "view": {
+        "all": "All",
+        "active": "Active",
+        "disabled": "Disabled"
+      },
+      "col": {
+        "entity": "Mentor",
+        "status": "Status",
+        "contact": "Contact / City",
+        "actions": "Actions"
+      },
+      "account": {
+        "active": "Active",
+        "disabled": "Disabled",
+        "enable": "Enable Account",
+        "disable": "Disable Account"
+      },
+      "empty": {
+        "title": "No mentors found matching search"
+      },
+      "entity": {
+        "singular": "Mentor",
+        "plural": "Mentors"
+      },
       "table": {
         "id": "ID",
         "name": "Name",

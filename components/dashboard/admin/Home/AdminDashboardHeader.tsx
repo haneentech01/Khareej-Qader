@@ -18,11 +18,6 @@ export function AdminDashboardHeader() {
           {t("subtitle")}
         </p>
       </div>
-
-      <Button className="bg-brand-primary hover:bg-brand-primary/90 text-white font-semibold rounded-2xl h-11 px-6 shadow-xs transition-all flex items-center gap-2 shrink-0">
-        <Plus className="size-5" />
-        <span>{t("create_course")}</span>
-      </Button>
     </div>
   );
 }

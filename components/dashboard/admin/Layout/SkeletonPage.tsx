@@ -1,8 +1,6 @@
 "use client";
 
-import React from "react";
-
-export function StudentsSkeleton() {
+export function SkeletonPage() {
   return (
     <div className="space-y-8 animate-pulse">
       {/* Cards Skeleton */}

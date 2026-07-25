@@ -1,98 +1,100 @@
 "use client";
 
-import React from "react";
-import { useTranslations } from "next-intl";
-import { AlertCircle, Users2, RefreshCw } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { useMentorsManagement } from "@/hooks/admin/useMentorsManagement";
-import { MentorsStats } from "./MentorsStats";
-import { MentorsTable } from "./MentorsTable";
-import { MentorsSkeleton } from "./MentorsSkeleton";
+import { Users2, UserCheck, UserX } from "lucide-react";
+import { useTranslations, useLocale } from "next-intl";
+import { useEntityManagement } from "@/hooks/admin/shared";
+import endpoints from "@/lib/api/endpoints";
+import { queryKeys } from "@/lib/query/keys";
+import type { AdminMentor } from "@/types";
+import { EntityManagementView, EntitySkeleton } from "../Layout";
 
 export function MentorsContent() {
   const t = useTranslations("Admin.mentors");
-  const {
-    mentors,
-    totalCount,
-    activeCount,
-    disabledCount,
-    search,
-    setSearch,
-    statusFilter,
-    setStatusFilter,
-    loadingSlug,
-    handleToggleAccount,
-    loading,
-    error,
-    refetch,
-  } = useMentorsManagement();
+  const locale = useLocale();
 
-  if (loading && mentors.length === 0) {
-    return <MentorsSkeleton />;
-  }
-
-  if (error) {
-    return (
-      <div className="max-w-7xl mx-auto py-16">
-        <div className="flex flex-col items-center justify-center min-h-[40vh] gap-4">
-          <div className="size-16 rounded-3xl bg-red-50 flex items-center justify-center">
-            <AlertCircle className="size-8 text-red-500" />
-          </div>
-          <p className="text-red-500 font-semibold text-center max-w-md">
-            حدث خطأ أثناء تحميل البيانات
-          </p>
-          <Button onClick={() => refetch()} variant="outline" className="rounded-xl">
-            إعادة المحاولة
-          </Button>
-        </div>
-      </div>
-    );
-  }
+  const mgmt = useEntityManagement<AdminMentor>({
+    queryKey: queryKeys.admin.mentors,
+    endpoint: endpoints.admin.mentors,
+    enableEndpoint: (slug) => endpoints.admin.enableMentor(slug),
+    disableEndpoint: (slug) => endpoints.admin.disableMentor(slug),
+    invalidateKey: queryKeys.admin.mentors,
+    searchFields: [
+      (m) => m.name,
+      (m) => m.email,
+      (m) => m.city,
+    ],
+    getStatus: (m) => m.account_status,
+    translationNamespace: "Admin.mentors",
+  });
 
   return (
-    <div className="space-y-8 max-w-7xl mx-auto">
-      {/* Page Header */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <div className="space-y-1">
-          <h1 className="text-3xl font-extrabold text-black tracking-tight flex items-center gap-3">
-            <div className="size-10 rounded-2xl bg-blue-50 flex items-center justify-center shrink-0">
-              <Users2 className="size-6 text-blue-600" />
-            </div>
-            {t("title")}
-          </h1>
-          <p className="text-brand-muted text-base">{t("subtitle")}</p>
-        </div>
-
-        <Button
-          onClick={() => refetch()}
-          variant="outline"
-          className="rounded-2xl border-slate-200 text-slate-600 hover:bg-slate-50 gap-2"
-        >
-          <RefreshCw className={`size-4 ${loading ? "animate-spin" : ""}`} />
-          <span>{t("refresh-btn")}</span>
-        </Button>
-      </div>
-
-      {/* Stats Cards */}
-      <MentorsStats
-        totalCount={totalCount}
-        activeCount={activeCount}
-        disabledCount={disabledCount}
-      />
-
-      {/* Mentors Filter + Table */}
-      <MentorsTable
-        mentors={mentors}
-        totalCount={totalCount}
-        activeCount={activeCount}
-        disabledCount={disabledCount}
-        search={search}
-        setSearch={setSearch}
-        statusFilter={statusFilter}
-        setStatusFilter={setStatusFilter}
-        loadingSlug={loadingSlug}
-        handleToggleAccount={handleToggleAccount}
-      />
-    </div>
+    <EntityManagementView<AdminMentor>
+      entities={mgmt.entities}
+      totalCount={mgmt.totalCount}
+      activeCount={mgmt.activeCount}
+      disabledCount={mgmt.disabledCount}
+      search={mgmt.search}
+      onSearchChange={mgmt.setSearch}
+      statusFilter={mgmt.statusFilter}
+      onStatusFilterChange={mgmt.setStatusFilter}
+      loadingSlug={mgmt.loadingSlug}
+      onToggleAccount={mgmt.handleToggleAccount}
+      loading={mgmt.loading}
+      error={mgmt.error}
+      onRetry={mgmt.refetch}
+      // header config
+      header={{
+        title: t("title"),
+        subtitle: t("subtitle"),
+        icon: Users2,
+        iconVariant: "info",
+        showRefreshButton: true,
+        refreshLabel: t("refresh-btn"),
+      }}
+      // stats labels + icons
+      statsLabels={{
+        total: t("stats.total"),
+        active: t("stats.active"),
+        disabled: t("stats.disabled"),
+      }}
+      statsIcons={{
+        total: Users2,
+        active: UserCheck,
+        disabled: UserX,
+      }}
+      // table labels
+      tableLabels={{
+        search: t("search_placeholder"),
+        viewAll: t("view.all"),
+        viewActive: t("view.active"),
+        viewDisabled: t("view.disabled"),
+        joinDate: t("join_date"),
+        colEntity: t("col.entity"),
+        colStatus: t("col.status"),
+        colContact: t("col.contact"),
+        colActions: t("col.actions"),
+        activeLabel: t("account.active"),
+        disabledLabel: t("account.disabled"),
+        disableLabel: t("account.disable"),
+        enableLabel: t("account.enable"),
+        emptyTitle: t("empty.title"),
+      }}
+      entityName={{
+        singular: t("entity.singular"),
+        plural: t("entity.plural"),
+      }}
+      locale={locale}
+      // selectors for AdminMentor
+      getEntityId={(m) => m.slug || String(m.id)}
+      getEntityName={(m) => m.name}
+      getEntityEmail={(m) => m.email}
+      getEntityCreatedAt={(m) => m.created_at}
+      getEntityAvatarVariant={() => "blue"}
+      getExtraContact={(m) => m.city}
+      inactiveVariant="info"
+      skeleton={<EntitySkeleton />}
+    />
   );
 }
+
+export default MentorsContent;
