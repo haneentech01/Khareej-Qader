@@ -81,6 +81,11 @@ export function AdminLoginForm() {
                   <Eye size={20} />
                 )}
               </button>
+              {error && (
+                <p className="text-red-500 text-sm text-center font-medium">
+                  {error}
+                </p>
+              )}
             </div>
 
             <Button

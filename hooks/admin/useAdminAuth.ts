@@ -80,8 +80,10 @@ export function useAdminAuth(): UseAdminAuthResult {
   // ─── قراءة من localStorage بعد mount (client only) ─────────────
   useEffect(() => {
     const data = readFromStorage();
-    setStored(data);
-    setIsHydrated(true);
+    queueMicrotask(() => {
+      setStored(data);
+      setIsHydrated(true);
+    });
 
     // مزامنة عبر tabs
     const handleStorageChange = (e: StorageEvent) => {
@@ -114,7 +116,10 @@ export function useAdminAuth(): UseAdminAuthResult {
   }, []);
 
   // ─── Permission helpers (memoized) ─────────────────────────────
-  const permissionsArr = stored?.permissions ?? [];
+  const permissionsArr = useMemo(
+    () => stored?.permissions ?? [],
+    [stored?.permissions],
+  );
 
   const hasPermission = useCallback(
     (permission: AdminPermission) => permissionsArr.includes(permission),

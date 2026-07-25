@@ -14,7 +14,6 @@ import AdminDashboardHeader from "./AdminDashboardHeader";
 
 export function AdminDashboardContent() {
   const t = useTranslations("Admin.dashboard");
-  const tCommon = useTranslations("Admin.common");
 
   // ─── Data layer ──────────────────────────────────────────────
   const {
