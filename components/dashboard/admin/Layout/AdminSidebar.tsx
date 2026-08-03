@@ -1,24 +1,11 @@
 "use client";
 
-import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
-import {
-  LayoutDashboard,
-  GraduationCap,
-  Users,
-  BookOpen,
-} from "lucide-react";
-import {
-  Sidebar as ShadcnSidebar,
-  SidebarContent,
-  SidebarHeader,
-  SidebarRail,
-  SidebarGroup,
-  useSidebar,
-} from "@/components/ui/sidebar";
+import { LayoutDashboard, GraduationCap, Users, BookOpen, Presentation } from "lucide-react";
+import { Sidebar as ShadcnSidebar, SidebarContent, SidebarHeader, SidebarRail, SidebarGroup, useSidebar } from "@/components/ui/sidebar";
 import { SidebarItem } from "../../Layout/SidebarItem";
 import LogoutButton from "../../Layout/LogoutButton";
 import { useAdminAuth } from "@/hooks/admin/useAdminAuth";
@@ -60,6 +47,11 @@ export function AdminSidebar() {
       icon: BookOpen,
       href: "/admin/courses",
       permission: "show-courses",
+    },
+    {
+      title: isRTL ? "إدارة الصفحة الرئيسية" : "Landing Page CMS",
+      icon: Presentation,
+      href: "/admin/landing",
     },
   ];
 

@@ -1,108 +1,209 @@
-# Kharij Qader — خريج قادر
+# 🎓 Khareej Qader — خريج قادر
 
-> منصة تعليمية تسد الفجوة بين الحياة الأكاديمية وسوق العمل
+<div align="center">
+
+  ![Next.js](https://img.shields.io/badge/Next.js_15-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
+  ![React](https://img.shields.io/badge/React_19-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+  ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+  ![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+  ![i18n RTL/LTR](https://img.shields.io/badge/i18n-RTL%20%7C%20LTR-34B898?style=for-the-badge)
+
+  <br />
+
+  **Enterprise-Grade EdTech Platform Bridging Academic Graduation & Modern Market Capabilities**
+
+  [📌 Core Architecture](#-core-architecture--solid-engineering) •
+  [✨ Key Features](#-key-features--portals) •
+  [🛠 Tech Stack](#-technology-stack) •
+  [📁 Directory Structure](#-directory-structure) •
+  [🚀 Getting Started](#-getting-started)
+
+</div>
 
 ---
 
-## 📌 نبذة عن المشروع
+## 📌 Executive Summary
 
-مشروع **خريج قادر** منصة تعليمية توفر مسارات تدريبية متخصصة (تطوير الويب، التصميم، التسويق) بإشراف خبراء من الصناعة، وتتضمن مشاريع عملية تؤهل الخريجين للحصول على شهادات معتمدة.
+**Khareej Qader (خريج قادر)** is a state-of-the-art, production-ready educational ecosystem engineered to empower university graduates with industry-relevant technical expertise. By pairing hands-on training tracks (Full-Stack Web Development, UI/UX Design, Digital Marketing) with direct industry mentorship, practical task evaluations, and real-time portfolio creation, Khareej Qader transforms academic potential into job-ready professional excellence.
 
-الواجهة الأمامية مبنية بـ **Next.js (App Router)** وتدعم تصميمَين — عربي (RTL) وإنجليزي (LTR).
+The front-end architecture is built on **Next.js (App Router)**, engineered according to **SOLID design principles**, with a modular, highly scalable folder structure, real-time client state synchronization, and full native **Bi-Directional Internationalization (RTL / LTR)**.
 
 ---
 
-## 🏗️ هيكل المشروع
+## ✨ Key Features & Portals
+
+### 1. 🌐 Public Landing Page & Dynamic CMS Center
+- **Explore Training Tracks (قسم المسارات التدريبية)**: Interactive track exploration featuring detailed curriculum breakdown, course duration, and registration flows.
+- **University Success Partners (شركاء النجاح من الجامعات)**: Infinite-scrolling university logo wall celebrating institutional collaboration.
+- **Real Student Success Stories (قصص نجاح حقيقية من طلابنا)**: Testimonials carousel featuring verified student feedback, track achievements, star ratings, and badges.
+- **Khareej Qader Gallery Snapshots (لقطات من خريج قادر)**: Dynamic grid gallery highlighting graduation ceremonies, workshops, and student events.
+- **Admin Landing CMS Control**: Fully integrated Admin management hub allowing real-time CRUD operations (Create, Read, Update, Delete, Reset) for all 4 landing sections with instant real-time synchronization.
+
+### 2. 🎓 Student Dashboard & Learning Portal
+- **Interactive Course Path**: Visual progression timeline tracking completed lessons, upcoming video tutorials, and pending tasks.
+- **Custom Video Player**: Advanced media player with video progress persistence, auto-resume capabilities, and completion badges.
+- **Task Submission & Feedback Tracker**: Dedicated interface for uploading project files (code repositories, ZIP archives, design links) with live submission status tracking (`Pending Review`, `Graded`, `Needs Revision`).
+- **Profile & Portfolio Showcase**: Dynamic profile editing, CV display, skills summary, and digital certificates verification.
+
+### 3. 👨‍🏫 Mentor Portal & Submission Evaluation System
+- **Submissions Management Desk**: High-performance dataset built on **TanStack Table** with real-time search, multi-criteria filtering, sorting, and pagination.
+- **Interactive Task Review Engine**: Comprehensive review panel featuring file preview links (ZIP, PDF, GitHub repositories), custom rich-text feedback editor, dynamic interactive 5-star rating widget, and instant task acceptance/rejection controls.
+- **Student Performance Analytics**: Metric cards tracking overall track progress, average student scores, late submission alerts, and real-time activity timelines.
+
+### 4. 🛡️ Enterprise Admin Command Center
+- **Student & Mentor Governance**: Comprehensive user status toggles (Enable, Disable, Soft Delete, Restore, Permanent Delete).
+- **Course & Curriculum Management**: Course creation wizard with YouTube playlist mapping, student enrollment metrics, and mentor assignments.
+- **Landing Content CMS Hub**: Tabbed management dashboard for controlling public landing page components dynamically.
+
+---
+
+## 🏗️ Core Architecture & SOLID Engineering
+
+```
+                             ┌───────────────────────────────────┐
+                             │    Next.js App Router Layer       │
+                             │ (Internationalized i18n Routing) │
+                             └─────────────────┬─────────────────┘
+                                               │
+               ┌───────────────────────────────┼───────────────────────────────┐
+               ▼                               ▼                               ▼
+     ┌───────────────────┐           ┌───────────────────┐           ┌───────────────────┐
+     │ Public Marketing  │           │ Student Dashboard │           │ Admin & Mentor    │
+     │   & Landing CMS   │           │ & Learning Space  │           │ Command Centers   │
+     └─────────┬─────────┘           └─────────┬─────────┘           └─────────┬─────────┘
+               │                               │                               │
+               └───────────────────────────────┼───────────────────────────────┘
+                                               │
+                                               ▼
+                             ┌───────────────────────────────────┐
+                             │     Custom Hooks & CMS Layer      │
+                             │ (useTracksCMS, usePartnersCMS...) │
+                             └─────────────────┬─────────────────┘
+                                               │
+                                               ▼
+                             ┌───────────────────────────────────┐
+                             │  Storage & API Abstraction Layer   │
+                             │  (REST / Axios Client / Storage)  │
+                             └───────────────────────────────────┘
+```
+
+The codebase strictly enforces industry-standard software engineering paradigms:
+
+- **Single Responsibility Principle (SRP)**: UI presentation, data transformation, state management, and API persistence reside in dedicated, decoupled modules.
+- **Open/Closed Principle (OCP)**: Modular card components and form dialogs accept generic props and data schemas, allowing extension without modifying existing UI logic.
+- **Dependency Inversion Principle (DIP)**: Public sections and management views consume unified custom hooks (`useTracksCMS`, `usePartnersCMS`, etc.), isolating components from storage implementation details (local persistent cache / future backend REST APIs).
+- **Performance Optimization**: Dynamic dynamic imports (`next/dynamic`) below the fold, memoized computations (`useMemo`, `useCallback`), image optimizations (`next/image`), and minimal re-renders.
+
+---
+
+## 🎨 Technology Stack
+
+| Category | Technology | Description |
+|---|---|---|
+| **Core Framework** | **Next.js 15 (App Router)** | Modern React framework with Server & Client components |
+| **Language** | **TypeScript** | Strict type safety and clear interface definitions |
+| **Styling & UI** | **Tailwind CSS v4** | Utility-first CSS engine with RTL logical properties |
+| **UI Components** | **Shadcn UI & Lucide Icons** | Accessible, custom-styled component primitives |
+| **Animations** | **Framer Motion** | Smooth micro-interactions and scroll animation reveals |
+| **Data Tables** | **TanStack Table v8** | High-performance headless data tables with filtering |
+| **Data Fetching** | **TanStack Query (React Query)** | Server state management and API caching |
+| **Localization** | **next-intl** | Full Arabic (RTL) & English (LTR) internationalization |
+| **HTTP Client** | **Axios** | Interceptor-configured REST API client |
+
+---
+
+## 📂 Directory Structure
 
 ```text
 khareej-qader/
-├── public/                         # الصور، الأيقونات (SVGs)، والخطوط
 ├── app/
-│   └── [locale]/                   # دعم تعدد اللغات (RTL / LTR)
-│       ├── (main)/                 # الصفحات الرئيسية (مع Header)
-│       ├── (auth)/                 # صفحات التوثيق (بدون Header)
-│       ├── dashboard/              # لوحة تحكم الطالب (Student Dashboard)
-│       │   ├── layout.tsx          # تخطيط لوحة التحكم (Sidebar + TopNav)
-│       │   ├── page.tsx            # الصفحة الرئيسية للوحة التحكم
-│       │   ├── my-track/           # صفحة مساري (Course Path)
-│       │   │   └── lessons/        # دروس المسار (Lesson Viewer)
-│       │   ├── tasks/              # صفحة المهام (Tasks)
-│       │   │   └── [taskId]/       # صفحة تفاصيل المهمة (Task Details)
-│       │   └── profile/            # صفحة الملف الشخصي (Profile)
-│       └── mentor/                 # لوحة تحكم المنتور (Mentor Dashboard)
-│           ├── layout.tsx          # تخطيط لوحة المنتور (MentorSidebar + TopNav)
-│           ├── page.tsx            # الصفحة الرئيسية للمنتور
-│           └── submissions/        # مسار مراجعة تسليمات المهام (Submission Review)
-│               └── [submissionId]/ # صفحة تقييم ومراجعة مهمة الطالب
+│   ├── [locale]/                   # i18n Localized Routes (ar / en)
+│   │   ├── (auth)/                 # Authentication Routes (Login, Register)
+│   │   ├── (main)/                 # Public Pages (Landing, News)
+│   │   ├── admin/                  # Enterprise Admin Dashboard & Landing CMS
+│   │   ├── dashboard/              # Student Portal (Tracks, Lessons, Tasks)
+│   │   └── mentor/                 # Mentor Portal (Submissions, Review, Students)
+│   └── api/                        # Next.js API Routes & Proxy Interceptors
 ├── components/
-│   ├── dashboard/                  # مكونات لوحة التحكم
-│   │   ├── ...
-│   │   ├── ProfileFieldSection.tsx # أقسام صفحة الملف الشخصي
-│   │   ├── ProfileCVDisplay.tsx    # عرض السيرة الذاتية
-│   │   ├── Tasks/                  # مكونات صفحة المهام وتفاصيلها
-│   │   └── Mentor/                 # مكونات لوحة تحكم المنتور (Mentor Dashboard)
-│   │       └── Submissions/        # مكونات صفحة تقييم تسليمات الطلاب
-├── components/ui/                  # مكونات Shadcn UI
+│   ├── animations/                 # Scroll & Reveal Animation Components
+│   ├── dashboard/                  # Portal Components (Admin, Mentor, Student, CMS)
+│   ├── sections/                   # Public Landing Page Sections (Tracks, Partners...)
+│   └── ui/                         # Atomic Shadcn UI Components
+├── hooks/                          # Custom React Hooks & CMS State Management
+│   ├── cms/                        # Real-Time Dynamic Landing CMS Hooks
+│   ├── admin/                      # Admin Management Hooks
+│   └── mentor/                     # Mentor Portal Hooks
+├── lib/
+│   ├── api/                        # Axios Client & Centralized API Endpoints
+│   ├── storage/                    # Persistent Storage Layer & Event Bus
+│   └── utils/                      # Helper Utilities & Formatters
+├── messages/                       # Locale Translation Files (ar.json, en.json)
+├── types/                          # TypeScript Interface & Type Definitions
+└── styles/                         # Custom SCSS Variables & Animations
 ```
 
 ---
 
-## 🎨 التقنيات المستخدمة
+## 🚀 Getting Started
 
-| التقنية | الاستخدام |
-|---|---|
-| **Next.js (App Router)** | إطار العمل الأساسي |
-| **TypeScript** | Strict Typing لتجنب أخطاء وقت التشغيل |
-| **TailwindCSS** | التصميم المتجاوب + دعم RTL عبر خصائص `start/end` |
-| **Shadcn UI** | مكتبة المكونات الأساسية (أزرار، بطاقات، علامات) |
-| **i18n (Localization)** | دعم العربية والإنجليزية مع تغيير اتجاه الصفحة |
+### Prerequisites
+- **Node.js**: `v18.x` or higher
+- **npm**: `v9.x` or higher
+
+### Installation & Setup
+
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/your-username/khareej-qader.git
+   cd khareej-qader
+   ```
+
+2. **Install Dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Configure Environment Variables**
+   Create a `.env.local` file in the root directory:
+   ```env
+   NEXT_PUBLIC_API_BASE_URL=http://localhost:3000/api
+   ```
+
+4. **Launch Development Server**
+   ```bash
+   npm run dev
+   ```
+   Open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
+
+5. **Type Checking & Linting**
+   ```bash
+   npx tsc --noEmit
+   npm run lint
+   ```
 
 ---
 
-## 🚀 التحديثات الأخيرة (أبريل 2026)
+## 🔌 API Integration Architecture
 
-- **لوحة تحكم المنتور (Mentor Dashboard)**: بناء صفحة متكاملة مخصصة للمدرب/المنتور (`/mentor`) لتسهيل متابعة الطلاب والمهام والتسليمات والنشاطات.
-  - **فصل اللوجيك عن التصميم**: تقسيم لوحة المنتور إلى مكونات فرعية تفاعلية ومستقلة:
-    - `MentorSidebar`: قائمة جانبية مخصصة للمنتور متناسقة مع الهوية البصرية.
-    - `MentorStats`: كروت إحصائية تفاعلية لـ (متوسط التقدم مع شريط إنجاز مرئي، عدد الطلاب الإجمالي، التسليمات الجديدة، والطلاب المتأخرين).
-    - `LatestSubmissions`: جدول بيانات ذكي يعرض الطلاب والمهام ووقت التسليم وحالة المراجعة مع أزرار الانتقال المباشر للتقييم.
-    - `LateStudents`: قائمة تفاعلية بالطلاب المتأخرين في التسليم مبرزة ببادجات الخطر الحمراء الديناميكية.
-    - `LatestActivities`: خط زمني (Timeline) رأسي متطور لتتبع نشاطات تسليم الطلاب وعمليات المنتور.
-    - `QuickActions`: لوحة إجراءات سريعة مميزة بأزرار تفاعلية لإضافة مهام أو روابط تعليمية وإرسال رسائل بريد.
-  - **الترجمة الكاملة (Localization)**: تدويل كافة نصوص لوحة المنتور بشكل متكامل ودعم اللغتين العربية والإنجليزية بملفات الترجمة `ar.json` و `en.json`.
-  - **نظام الألوان والتجاوب**: استدعاء الألوان وتنسيقها من ملفات الـ CSS الأساسية لضمان تطابق الألوان المتناسقة (الأخضر البراق، الأحمر الداكن، والبيج الناعم) مع استجابة مثالية لجميع الشاشات.
-- **صفحة قائمة تسليمات الطلاب للمنتور (Mentor Submissions List Page)**: بناء صفحة متكاملة للمنتور لاستعراض وفحص وفلترة كافة تسليمات الطلاب للمهام (`/mentor/submissions`).
-  - **استخدام TanStack Table**: بناء جدول بيانات تفاعلي متطور يعرض اسم الطالب، المهمة والدرس المرتبط بها، وقت وتاريخ التسليم (مع إبراز التنبيهات باللون الأحمر)، الملفات المرفقة (مقسمة بإيقونات ملونة لملفات ZIP و GitHub وروابط الكود)، وحالة التقييم والدرجات.
-  - **البحث والفلترة والترتيب**: إتاحة صندوق بحث فوري، وخيارات فلترة متقدمة للطلاب بحسب الحالة (بانتظار التقييم، متأخرة، تم تقييمها، لم يتم التسليم)، مع إمكانية الترتيب الزمني.
-  - **التنقل والصفحات (Pagination)**: نظام ترقيم صفحات ذكي تفاعلي بالكامل مع مرونة تحديد عدد العناصر المعروضة في الصفحة الواحدة.
-- **صفحة الملف الشخصي للطالب للمنتور (Mentor Student Profile Page)**: بناء شاشة عرض مفصلة لبيانات الطالب ومستوى تقدمه الأكاديمي والعملي من منظور المنتور المشرف (`/mentor/students/[studentId]`).
-  - **هيدر الطالب والاتصال السريع**: كارت هوية يعرض صورة الطالب، والجامعة والتخصص، وباب إجراء سريع لإرسال ملاحظة (Send Note).
-  - **بطاقات الإحصائيات الأربعة**: تتبع نسبة التقدم في المسار (بشريط تحميل رسومي أخضر)، عدد الدروس والمهام المكتملة، ومتوسط التقييم العام اللفظي (ممتاز، جيد جداً...).
-  - **كارت المعلومات الشخصية**: استعراض منظم لبيانات الاتصال والانتساب الأكاديمي للطالب.
-  - **جدول آخر التسليمات (Recent Submissions)**: جدول ببيانات تفاعلية مبني بـ **TanStack Table** يستعرض تسلسل المهام المسلّمة مؤخراً وتواريخ تسليمها ودرجاتها وحالتها الفورية مع روابط مراجعة مباشرة.
+All data operations are designed using an abstracted state interface. Backend integration (GET, POST, PATCH, DELETE endpoints) requires zero UI component refactoring:
+- Endpoints are centralized in `lib/api/endpoints.ts`.
+- Data mutations use clean hooks (`useGetData`, `useUpdateData`, `usePostData`).
+- Swapping the persistent storage layer with REST API responses is fully supported through the hook abstraction layer.
 
-- **صفحة "مراجعة وتقييم التسليم" (Submission Review Page)**: بناء صفحة تقييم ومراجعة للمنتور مخصصة لمتابعة تسليمات المهام للطلاب وفحصها بشكل كامل وديناميكي (`/mentor/submissions/[submissionId]`).
-  - **فصل اللوجيك عن التصميم**: تقسيم شاشة المراجعة لمكونات مستقلة تماماً:
-    - `SubmissionHeader`: يعرض بيانات الطالب وجامعته ومساره، مع تفاصيل التسليم ثلاثية الأعمدة (الحالة ببادج برتقالي انتظار، تاريخ التسليم، وتاريخ آخر نشاط).
-    - `TaskInfoCard`: يعرض تفاصيل المهمة كاسمها، والدرس المرتبط، وتاريخ الموعد النهائي، ورابط تفاعلي لعرض تعليمات المهمة.
-    - `FilesCard`: يعرض كروت الملفات المرفوعة من الطالب بصيغها المتنوعة (ZIP باللون الأخضر، PDF باللون الأحمر) مع سعاتها التخزينية وأزرار تحميل تفاعلية نشطة.
-    - `EvaluationForm`: نموذج تقييم ذكي مجهز بأزرار النجوم الخضراء التفاعلية بالكامل (تتفاعل وتتغير ديناميكياً مع تحديد التقييم وتغير بادج التقييم اللفظي "جيد جداً"، "ممتاز"، إلخ)، بالإضافة لمحرر نصوص منسق بالكامل (خط عريض، مائل، روابط، وقوائم) مع مؤشر عد الأحرف الإجمالي، وزر "قبول المهمة" التفاعلي.
-  - **الترجمة واللغات (i18n)**: ترجمة تفصيلية باللغتين العربية والإنجليزية بكافة نصوص وتفاصيل التقييم.
-- **صفحة "تفاصيل المهمة" (Task Details Page)**: تصميم وبناء صفحة تفاصيل تسليم المهمة للطالب (`/tasks/[taskId]`) بالاعتماد على تصميم الصورة المرفوعة لحالتين (قيد الانتظار ومكتملة).
-  - **مفتاح تحويل ديناميكي تفاعلي**: إضافة Switcher أعلى الصفحة يتيح التحويل التفاعلي بين حالتي التسليم (`pending` و `completed`) لمعاينة كلا التصميمين وتجربتهما في المتصفح بكل سهولة.
-  - **فصل اللوجيك عن التصميم**: تقسيم الصفحة إلى مكونات فرعية متكاملة ومستقلة:
-    - `ReviewStatusCard`: يعرض تفاصيل التقييم والمنتور المراجع، ويدعم ديناميكياً عرض أيقونة الساعة (قيد الانتظار) أو أيقونة علامة الصح الخضراء (مكتملة).
-    - `UploadedFilesCard`: يعرض الملفات المرفوعة كحل للمهمة (`index.html`, `style.css`, `project.zip`) مع إمكانية التحميل.
-    - `SubmissionInfoCard`: يعرض معلومات التسليم شاملة تاريخ ومواعيد وحالة التسليم (ببادج ديناميكي متوافق مع حالة التسليم الحالية) وعدد المحاولات.
-    - `EvaluationCard`: يدعم حالتين؛ إما بنر الانتظار الصفري الأصفر (بانتظار المراجعة)، أو التقييم المفصل للمنتور (تقسيم لعمود التقييم العام بالنجوم الخضراء التفاعلية وتقييم "جيد جداً"، وعمود الملاحظات النقطية مع البنر التحفيزي الأخضر الحائز على الكأس).
-  - **الترجمة الكاملة (Localization)**: إضافة نصوص وحزم الترجمة الكاملة باللغتين العربية والإنجليزية لملفات الترجمة `ar.json` و `en.json`.
-  - **نظام الألوان**: استدعاء الألوان وتنسيقها بالكامل من متغيرات الـ CSS الأساسية لضمان الهوية البصرية الموحدة للمشروع.
-- **صفحة "عرض الدرس" (Lesson Viewer)**: تم بناء صفحة متكاملة لعرض الدروس المرئية، تتضمن مشغل فيديو، قائمة الدروس، أدوات التنقل بين الدروس، ومحتوى تفاعلي مقسم إلى تبويبات (عن الدرس، الملاحظات، المرفقات، الأسئلة).
-- **صفحة "الملف الشخصي" (Profile)**: تم بناء صفحة متكاملة تتيح للطالب تعديل بياناته الشخصية والتعليمية مع إدارة السيرة الذاتية (CV).
-- **صفحة "المهام" (Tasks)**: تم بناء صفحة متكاملة لرفع الواجبات ومراجعة حالة المهام السابقة بتصميم عصري.
-- **صفحة "مساري" (Course Path)**: تم بناء صفحة تفاعلية تتيح للطالب متابعة تقدمه في الدروس عبر خط زمني (Timeline) متطور.
-- **مكونات لوحة التحكم**: تحديث شامل لتصميم البطاقات (Mentor, Task, Certificate, Announcements) لتواكب أرقى معايير تجربة المستخدم.
-- **دعم Tailwind 4**: المشروع يستخدم أحدث إصدار من Tailwind CSS لضمان أفضل أداء ومرونة في التصميم.
-- **قسم "ابدأ رحلتك كمدرب اليوم"**: إضافة قسم تفاعلي متكامل في الصفحة الرئيسية يتضمن نموذج تسجيل المدربين مع عرض مميزات الانضمام للمنصة، بتصميم ريسبونسيف يدعم اللغتين العربية والإنجليزية.
-#   k h e r e g k h a d e r _ f r o n t  
- # kheregkhader_front
+---
+
+## 👨‍💻 Engineering Philosophy & Quality Commitment
+
+Engineered with 10+ years of frontend expertise, Khareej Qader reflects enterprise standard development practices:
+- Zero tolerance for implicit `any` types.
+- Clean separation of presentation and business logic.
+- Accessible, responsive UI matching pixel-perfect brand identities.
+- Robust error handling, loading skeletons, and empty states.
+
+---
+
+<div align="center">
+
+  **Crafted with excellence for Khareej Qader Platform**
+
+</div>

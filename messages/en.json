@@ -1520,6 +1520,47 @@
       "no_data": "No data available",
       "error_occurred": "An error occurred",
       "retry": "Retry"
+    },
+    "landing": {
+      "title": "Landing Page Content Management",
+      "subtitle": "Directly manage and update interactive landing page sections.",
+      "tabs": {
+        "tracks": "Training Tracks",
+        "partners": "Success Partners",
+        "testimonials": "Success Stories",
+        "gallery": "Gallery Snapshots"
+      },
+      "tracks": {
+        "title": "Manage Training Tracks",
+        "subtitle": "Control tracks displayed in the 'Explore Training Tracks' section.",
+        "add_button": "Add New Track",
+        "search_placeholder": "Search training tracks..."
+      },
+      "partners": {
+        "title": "Manage University Partners",
+        "subtitle": "Control university logos and names in the 'University Partners' section.",
+        "add_button": "Add New Partner",
+        "search_placeholder": "Search university partners..."
+      },
+      "testimonials": {
+        "title": "Manage Student Success Stories",
+        "subtitle": "Control student quotes and testimonials in the 'Real Success Stories' section.",
+        "add_button": "Add Success Story",
+        "search_placeholder": "Search by student name or track..."
+      },
+      "gallery": {
+        "title": "Manage Khareej Qader Gallery",
+        "subtitle": "Control images and events displayed in the 'Khareej Qader Gallery' section.",
+        "add_button": "Add New Snapshot",
+        "search_placeholder": "Search image title..."
+      },
+      "common": {
+        "reset": "Reset Defaults",
+        "cancel": "Cancel",
+        "save": "Save Changes",
+        "edit": "Edit",
+        "delete": "Delete"
+      }
     }
   }
 }

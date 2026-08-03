@@ -118,6 +118,10 @@
     transition: background-color 5000s ease-in-out 0s !important;
     -webkit-text-fill-color: inherit !important;
   }
+
+  input, textarea, select {
+    @apply focus:border focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0;
+  }
 }
 
 /* Video Player Custom Styles */

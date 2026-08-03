@@ -4,24 +4,22 @@ import { useLocale } from "next-intl";
 import { motion } from "framer-motion";
 import { SectionHeader } from "../../ui/SectionHeader";
 import Image from "next/image";
+import { usePartnersCMS } from "@/hooks/cms/usePartnersCMS";
 
 /**
  * PartnersSection component that displays an infinite scrolling list of university logos.
+ * Uses dynamic CMS partners data.
  */
 export function PartnersSection() {
   const locale = useLocale();
   const isRTL = locale === "ar";
+  const { partners } = usePartnersCMS();
 
-  const PARTNERS = [
-    { id: 1, name: "Al-Azhar University", logo: "/images/partners/AUG.png" },
-    { id: 2, name: "Islamic University", logo: "/images/partners/IUG.png" },
-    { id: 3, name: "Palestine University", logo: "/images/partners/UP.png" },
-    { id: 4, name: "Al-Aqsa University", logo: "/images/partners/AAU.png" },
-    { id: 5, name: "Gaza University", logo: "/images/partners/GU.png" },
-    { id: 6, name: "University College of Applied Sciences", logo: "/images/partners/UCAS.png" },
-  ];
+  if (!partners || partners.length === 0) {
+    return null;
+  }
 
-  const duplicatedPartners = [...PARTNERS, ...PARTNERS];
+  const duplicatedPartners = [...partners, ...partners];
 
   return (
     <section
@@ -59,6 +57,7 @@ export function PartnersSection() {
                   fill
                   className="object-contain"
                   sizes="(max-width: 768px) 128px, 192px"
+                  unoptimized={partner.logo?.startsWith("data:")}
                 />
               </div>
             </div>
