@@ -2,7 +2,7 @@
 
 import { Users2, UserCheck, UserX } from "lucide-react";
 import { useTranslations, useLocale } from "next-intl";
-import { useEntityManagement } from "@/hooks/admin/shared";
+import { useEntityManagement, parseAccountStatus } from "@/hooks/admin/shared";
 import endpoints from "@/lib/api/endpoints";
 import { queryKeys } from "@/lib/query/keys";
 import type { AdminMentor } from "@/types";
@@ -18,13 +18,18 @@ export function MentorsContent() {
     enableEndpoint: (slug) => endpoints.admin.enableMentor(slug),
     disableEndpoint: (slug) => endpoints.admin.disableMentor(slug),
     invalidateKey: queryKeys.admin.mentors,
+    // ✅ تحديث counts في الـ dashboard بعد كل toggle
+    additionalInvalidateKeys: [queryKeys.admin.mentorsCount],
     searchFields: [
       (m) => m.name,
       (m) => m.email,
       (m) => m.city,
     ],
-    getStatus: (m) => m.account_status,
+    getStatus: (m) => parseAccountStatus(m),
     translationNamespace: "Admin.mentors",
+    // ✅ تجربة POST أولاً، ثم PATCH كـ fallback
+    primaryMethod: "post",
+    enableFallback: true,
   });
 
   return (
@@ -42,7 +47,6 @@ export function MentorsContent() {
       loading={mgmt.loading}
       error={mgmt.error}
       onRetry={mgmt.refetch}
-      // header config
       header={{
         title: t("title"),
         subtitle: t("subtitle"),
@@ -51,7 +55,6 @@ export function MentorsContent() {
         showRefreshButton: true,
         refreshLabel: t("refresh-btn"),
       }}
-      // stats labels + icons
       statsLabels={{
         total: t("stats.total"),
         active: t("stats.active"),
@@ -62,7 +65,6 @@ export function MentorsContent() {
         active: UserCheck,
         disabled: UserX,
       }}
-      // table labels
       tableLabels={{
         search: t("search_placeholder"),
         viewAll: t("view.all"),
@@ -84,7 +86,6 @@ export function MentorsContent() {
         plural: t("entity.plural"),
       }}
       locale={locale}
-      // selectors for AdminMentor
       getEntityId={(m) => m.slug || String(m.id)}
       getEntityName={(m) => m.name}
       getEntityEmail={(m) => m.email}

@@ -108,7 +108,7 @@ export default function SubmissionsTable({
           const preview =
             answer.length > 50 ? `${answer.slice(0, 50)}...` : answer;
           return (
-            <span className="text-slate-800 text-xs md:text-sm line-clamp-1 max-w-[200px]">
+            <span className="text-slate-800 text-xs md:text-sm line-clamp-1 max-w-50">
               {preview || "—"}
             </span>
           );

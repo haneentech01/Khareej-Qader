@@ -10,12 +10,14 @@ import type { QueryKey } from "@tanstack/react-query";
 /**
  * useEntityManagement
  *
- * Orchestrator hook يربط بين 3 hooks صغيرة كل منها مسؤولة عن شيء واحد:
- *   1. useEntityList          → جلب البيانات (data layer)
- *   2. useFilteredEntities    → الفلترة + البحث + stats (view state)
- *   3. useToggleAccountStatus → الـ mutation (action layer)
- **/
-
+ * Orchestrator hook يربط بين 3 hooks صغيرة.
+ *
+ * ✅ تحسينات في هذا الإصدار:
+ *  - استخدام `||` بدلاً من `??` للـ slug
+ *  - fallback متعدد: slug → id → username → email
+ *  - logging مفصّل لكل entity لتشخيص المشاكل
+ *  - additionalInvalidateKeys لتحديث الـ counts
+ */
 interface UseEntityManagementOptions<T> {
   // ─── Data layer ─────────────────────────────────────────────
   queryKey: QueryKey;
@@ -31,16 +33,19 @@ interface UseEntityManagementOptions<T> {
   enableEndpoint: (slug: string) => string;
   disableEndpoint: (slug: string) => string;
   invalidateKey: QueryKey;
+  /** queryKeys إضافية لـ invalidation (مثل counts) */
+  additionalInvalidateKeys?: QueryKey[];
 
   // ─── i18n ───────────────────────────────────────────────────
   translationNamespace: string;
 
   // ─── Optional ───────────────────────────────────────────────
   initialSearch?: string;
-  method?: "post" | "patch";
+  primaryMethod?: "post" | "patch";
+  enableFallback?: boolean;
 }
 
-export function useEntityManagement<T extends { account_status: boolean }>(
+export function useEntityManagement<T extends { account_status?: boolean }>(
   options: UseEntityManagementOptions<T>,
 ) {
   const {
@@ -53,9 +58,11 @@ export function useEntityManagement<T extends { account_status: boolean }>(
     enableEndpoint,
     disableEndpoint,
     invalidateKey,
+    additionalInvalidateKeys = [],
     translationNamespace,
     initialSearch,
-    method,
+    primaryMethod,
+    enableFallback,
   } = options;
 
   const t = useTranslations(translationNamespace);
@@ -89,7 +96,9 @@ export function useEntityManagement<T extends { account_status: boolean }>(
     enableEndpoint,
     disableEndpoint,
     invalidateKey,
-    method,
+    ...(primaryMethod ? { primaryMethod } : {}),
+    ...(enableFallback !== undefined ? { enableFallback } : {}),
+    additionalInvalidateKeys,
     successMessages: {
       enabled: t("enable.success"),
       disabled: t("disable.success"),
@@ -100,15 +109,58 @@ export function useEntityManagement<T extends { account_status: boolean }>(
   });
 
   // ─── Adapter: يحول (slug, isActive) إلى (entity) ──────────────
+  // ✅ fallback متعدد: slug → id → username → email
   const handleToggleAccount = useCallback(
     async (entity: T) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const entityObj = entity as any;
+
+      // ✅ طباعة الـ entity كاملاً لتشخيص المشاكل
+      console.log(
+        "[useEntityManagement] 📦 Full entity object from backend:",
+        entityObj,
+      );
+      console.log(
+        "[useEntityManagement] 🔑 Available keys:",
+        Object.keys(entityObj),
+      );
+
+      // ✅ fallback chain: slug → id → username → email
+      // (الـ backend أحياناً لا يرجّع slug ولا id، فنستخدم username أو email)
       const slug =
-        (entity as unknown as { slug?: string; id?: number | string }).slug ??
-        String((entity as unknown as { id?: number | string }).id ?? "");
-      if (!slug) return;
-      await toggleAccount(slug, getStatus(entity));
+        (typeof entityObj.slug === "string" && entityObj.slug.trim()) ||
+        (typeof entityObj.id === "number" && String(entityObj.id)) ||
+        (typeof entityObj.id === "string" && entityObj.id.trim()) ||
+        (typeof entityObj.username === "string" && entityObj.username.trim()) ||
+        (typeof entityObj.email === "string" && entityObj.email.trim()) ||
+        "";
+
+      if (!slug) {
+        console.error(
+          "[useEntityManagement] ❌ Entity has no usable identifier!",
+          "Tried: slug, id, username, email",
+          "Available keys:",
+          Object.keys(entityObj),
+          "Full object:",
+          entityObj,
+        );
+        return;
+      }
+
+      const isCurrentlyActive = getStatus(entity);
+
+      console.log("[useEntityManagement] 🚀 Toggling account:", {
+        slug,
+        isCurrentlyActive,
+        action: isCurrentlyActive ? "DISABLE" : "ENABLE",
+        endpoint: isCurrentlyActive
+          ? disableEndpoint(slug)
+          : enableEndpoint(slug),
+      });
+
+      await toggleAccount(slug, isCurrentlyActive);
     },
-    [toggleAccount, getStatus],
+    [toggleAccount, getStatus, enableEndpoint, disableEndpoint],
   );
 
   return {

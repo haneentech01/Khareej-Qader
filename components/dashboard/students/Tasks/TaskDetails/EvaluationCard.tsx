@@ -1,9 +1,7 @@
 "use client";
 
-import React from "react";
 import { Star, Clock, Trophy } from "lucide-react";
 import { useTranslations } from "next-intl";
-
 import { StudentTaskSubmission } from "@/types";
 
 interface EvaluationCardProps {
@@ -70,7 +68,7 @@ export function EvaluationCard({ status, submission }: EvaluationCardProps) {
             </div>
 
             {/* Trophy Banner */}
-            <div className="w-full md:w-[600px] bg-brand-light rounded-xl p-3 flex items-center justify-center gap-3">
+            <div className="w-full md:w-150 bg-brand-light rounded-xl p-3 flex items-center justify-center gap-3">
               <div className="size-10 shadow-xs flex items-center justify-center shrink-0">
                 <Trophy className="size-5 text-brand-primary" />
               </div>
@@ -88,9 +86,9 @@ export function EvaluationCard({ status, submission }: EvaluationCardProps) {
             {/* Stars */}
             <div className="flex items-center gap-1 mb-3">
               {[1, 2, 3, 4, 5].map((num) => (
-                <Star 
-                  key={num} 
-                  className={`size-6 ${num <= starsCount ? 'text-brand-base fill-brand-base' : 'text-gray-300 fill-transparent'}`} 
+                <Star
+                  key={num}
+                  className={`size-6 ${num <= starsCount ? 'text-brand-base fill-brand-base' : 'text-gray-300 fill-transparent'}`}
                 />
               ))}
             </div>
@@ -102,7 +100,7 @@ export function EvaluationCard({ status, submission }: EvaluationCardProps) {
         </div>
       ) : (
         /* Pending Banner */
-        <div className="bg-[#FEFCE8] border border-[#FEF08A] rounded-[16px] p-6 md:p-8 flex flex-col items-center justify-center text-center gap-3">
+        <div className="bg-[#FEFCE8] border border-[#FEF08A] rounded-2xl p-6 md:p-8 flex flex-col items-center justify-center text-center gap-3">
           <div className="size-12 rounded-full bg-[#FEF3C7] flex items-center justify-center">
             <Clock className="size-6 text-brand-orange" />
           </div>

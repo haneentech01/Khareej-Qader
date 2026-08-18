@@ -83,13 +83,14 @@ export interface AdminLoginPayload {
 }
 
 // ─── Students (from GET /students/all-students) ─────────────────────────────
-
 export interface AdminStudent {
   id: number;
   slug: string;
   full_name: string;
   email: string;
-  account_status: boolean;
+  account_status?: boolean;
+  is_active?: boolean;
+  status?: string | number;
   username: string;
   profile_image: string | null;
   courses: string[];
@@ -97,16 +98,14 @@ export interface AdminStudent {
 }
 
 // ─── Mentors (from GET /mentor/all-mentors) ────────────────────────────────
-
-/**
- * AdminMentor — يطابق الـ response الفعلي من /mentor/all-mentors.
- */
 export interface AdminMentor {
   id: number;
   slug: string;
   name: string;
   email: string;
-  account_status: boolean;
+  account_status?: boolean;
+  is_active?: boolean;
+  status?: string | number;
   username: string;
   profile_image: string | null;
   courses: string[];

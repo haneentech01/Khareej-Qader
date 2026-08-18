@@ -32,6 +32,8 @@ export function EntityStats({
     icons,
     className,
 }: EntityStatsProps) {
+    // لو في رقم من الـ API يستخدمه، وإلا يحسبه من القائمة المحلية
+    const displayTotal = totalCount;
     const TotalIcon = icons?.total ?? Users;
     const ActiveIcon = icons?.active ?? UserCheck;
     const DisabledIcon = icons?.disabled ?? UserX;
@@ -46,7 +48,7 @@ export function EntityStats({
         >
             <StatCard
                 label={labels.total}
-                value={totalCount}
+                value={displayTotal}
                 icon={TotalIcon}
                 variant="neutral"
                 formatNumber

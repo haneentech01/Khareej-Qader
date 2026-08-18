@@ -31,7 +31,7 @@ interface SkeletonProps {
     skeleton?: React.ReactNode;
 }
 
-interface EntityManagementViewProps<T extends { account_status: boolean }>
+interface EntityManagementViewProps<T>
     extends SkeletonProps {
     // ─── Data ────────────────────────────────────────────────────
     entities: T[];
@@ -67,6 +67,7 @@ interface EntityManagementViewProps<T extends { account_status: boolean }>
     getEntityName: (entity: T) => string;
     getEntityEmail: (entity: T) => string;
     getEntityCreatedAt?: (entity: T) => string | undefined;
+    getStatus?: (entity: T) => boolean;
     getEntityAvatarVariant?: (entity: T) =>
         | "emerald"
         | "blue"
@@ -81,7 +82,7 @@ interface EntityManagementViewProps<T extends { account_status: boolean }>
     inactiveVariant?: "success" | "info";
 }
 
-export function EntityManagementView<T extends { account_status: boolean }>({
+export function EntityManagementView<T>({
     entities,
     totalCount,
     activeCount,
@@ -105,6 +106,7 @@ export function EntityManagementView<T extends { account_status: boolean }>({
     getEntityName,
     getEntityEmail,
     getEntityCreatedAt,
+    getStatus,
     getEntityAvatarVariant,
     getExtraContact,
     extraColumns,
@@ -182,6 +184,7 @@ export function EntityManagementView<T extends { account_status: boolean }>({
                 getEntityName={getEntityName}
                 getEntityEmail={getEntityEmail}
                 getEntityCreatedAt={getEntityCreatedAt}
+                getStatus={getStatus}
                 locale={locale}
                 getEntityAvatarVariant={getEntityAvatarVariant}
                 getExtraContact={getExtraContact}

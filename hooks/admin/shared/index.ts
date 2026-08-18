@@ -13,3 +13,5 @@ export type { StatusFilter } from "./useFilteredEntities";
 export { useToggleAccountStatus } from "./useToggleAccountStatus";
 
 export { useEntityManagement } from "./useEntityManagement";
+
+export { parseAccountStatus } from "./statusUtils";

@@ -81,14 +81,21 @@ export default async function middleware(request: NextRequest) {
   );
 
   if (isProtected && !hasAuth) {
-    const loginUrl = new URL(`/${locale}/login`, request.url);
-    // احفظ المسار الأصلي عشان نرجّع المستخدم له بعد الـ login
-    loginUrl.searchParams.set("redirect", pathname);
-    // لو المسار محمي بـ role معين، نضيف role= للـ login
     const requiredRole = getRequiredRoleForPath(pathname);
-    if (requiredRole) {
-      loginUrl.searchParams.set("role", requiredRole);
+
+    // الأدمن له صفحة login منفصلة
+    let loginUrl: URL;
+    if (requiredRole === "admin") {
+      loginUrl = new URL(`/${locale}/admin/login`, request.url);
+    } else {
+      loginUrl = new URL(`/${locale}/login`, request.url);
+      // احفظ المسار الأصلي عشان نرجّع المستخدم له بعد الـ login
+      loginUrl.searchParams.set("redirect", pathname);
+      if (requiredRole) {
+        loginUrl.searchParams.set("role", requiredRole);
+      }
     }
+
     return NextResponse.redirect(loginUrl);
   }
 

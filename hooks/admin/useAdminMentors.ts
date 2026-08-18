@@ -9,14 +9,8 @@ interface UseAdminMentorsOptions {
   enabled?: boolean;
 }
 
-/**
- * useAdminMentors — قائمة كل المنتورات.
- *
- * ✅ GET /mentor/all-mentors
- * ✅ يستخدم useGetData بنمطه الجديد (queryKey, url, options)
- *
- * الـ response من الـ backend هو array مباشرة (ليس paginated).
- */
+// useAdminMentors — قائمة كل المنتورات.
+
 export function useAdminMentors({
   enabled = true,
 }: UseAdminMentorsOptions = {}) {

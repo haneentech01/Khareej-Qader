@@ -1,9 +1,7 @@
 "use client";
 
-import React from "react";
 import { Clock, Check } from "lucide-react";
 import { useTranslations, useLocale } from "next-intl";
-import Image from "next/image";
 import { StudentTaskSubmission } from "@/types";
 
 interface ReviewStatusCardProps {

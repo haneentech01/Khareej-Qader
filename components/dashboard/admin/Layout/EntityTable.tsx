@@ -9,6 +9,7 @@ import { AvatarInitial, AvatarVariant } from "./AvatarInitial";
 import { StatusBadge } from "./StatusBadge";
 import { AccountToggleButton } from "./AccountToggleButton";
 import { cn } from "@/lib/utils";
+import { parseAccountStatus } from "@/hooks/admin/shared";
 
 export type StatusFilter = "all" | "active" | "disabled";
 
@@ -55,6 +56,7 @@ interface EntityTableProps<T> {
     getEntityName: (entity: T) => string;
     getEntityEmail: (entity: T) => string;
     getEntityCreatedAt?: (entity: T) => string | undefined;
+    getStatus?: (entity: T) => boolean;
     locale: string;
     getEntityAvatarVariant?: (entity: T) => AvatarVariant;
     getExtraContact?: (entity: T) => string | undefined;
@@ -289,7 +291,7 @@ const FilterBar = React.memo(function FilterBar({
 FilterBar.displayName = "FilterBar";
 
 // ─── الجدول الرئيسي ───────────────────────────────────────────────
-export function EntityTable<T extends { account_status: boolean }>({
+export function EntityTable<T>({
     entities,
     totalCount,
     activeCount,
@@ -306,6 +308,7 @@ export function EntityTable<T extends { account_status: boolean }>({
     getEntityName,
     getEntityEmail,
     getEntityCreatedAt,
+    getStatus,
     locale,
     getEntityAvatarVariant,
     getExtraContact,
@@ -365,15 +368,21 @@ export function EntityTable<T extends { account_status: boolean }>({
                             </TableHeader>
 
                             <TableBody className="divide-y divide-slate-100">
-                                {entities.map((entity) => {
-                                    const id = getEntityId(entity);
-                                    const isToggling = loadingSlug === id;
+                                {entities.map((entity, idx) => {
+                                    const rawId = getEntityId(entity);
+                                    const id = (rawId && rawId !== "undefined" && rawId !== "null")
+                                        ? rawId
+                                        : (entity as any)?.slug || String((entity as any)?.id || (entity as any)?.username || (entity as any)?.email || idx);
+                                    const isToggling = loadingSlug === id || (Boolean(loadingSlug) && loadingSlug === (entity as any)?.slug);
+                                    const isActive = getStatus
+                                        ? getStatus(entity)
+                                        : parseAccountStatus(entity);
 
                                     return (
                                         <EntityRow
                                             key={id}
                                             entity={entity}
-                                            isActive={entity.account_status}
+                                            isActive={isActive}
                                             isToggling={isToggling}
                                             labels={labels}
                                             locale={locale}

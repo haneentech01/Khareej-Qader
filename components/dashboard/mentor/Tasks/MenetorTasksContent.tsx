@@ -9,7 +9,6 @@ import { useMentorTasksList } from "@/hooks/mentor/useMentorTasksList";
 import { NewTaskModal } from "./NewTaskModal";
 import { TasksSkeleton } from "./TasksSkeleton";
 import { Filter } from "../../Layout/Filter";
-import { t } from "media-chrome";
 import { useTranslations } from "next-intl";
 
 const ITEMS_PER_PAGE = 10;

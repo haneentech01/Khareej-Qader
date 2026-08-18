@@ -1,5 +1,3 @@
-import React from "react";
-import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { FileText } from "lucide-react";
 import Link from "next/link";
 import { ReviewStatusCard } from "./ReviewStatusCard";
